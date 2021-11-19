@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>水质</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/map/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/map/popup.css" />
+	<!-- 引入右边导航栏样式 -->
+	<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+	<!-- 底图切换样式 -->
+	<link rel="stylesheet" type="text/css" href="../../css/map/change_base_map/change_base_map.css" />
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+	<style type="text/css">
+		.right {
+			position: absolute;
+			right: 0.2rem;
+		}
+
+		.location {
+			width: 15px;
+			height: 15px;
+			border: 1px solid #088;
+			border-radius: 50%;
+			background-color: #00FFFF;
+			opacity: 0.5;
+			display: none;
+		}
+
+		.location:after {
+			content: " ";
+			background-color: #00FFFF;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			margin-left: -50%;
+			margin-top: -50%;
+			-webkit-animation-name: 'ripple';
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: normal;
+		}
+
+		@keyframes ripple {
+			0% {
+				opacity: 1;
+				width: 15px;
+				height: 15px;
+			}
+
+			50% {
+				opacity: 0.7;
+				width: 30px;
+				height: 30px;
+				margin-left: -15px;
+				margin-top: -15px;
+			}
+
+			100% {
+				opacity: 0.05;
+				width: 60px;
+				height: 60px;
+				margin-left: -30px;
+				margin-top: -30px;
+			}
+		}
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body id="body">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>水质</span>
+			<span class="right" style="font-size: 0.3rem;" onclick="jump_new('../../feedback.html')">意见反馈</span>
+		</header>
+		<div class="section">
+			<div class="mapBox">
+				<div id="map">
+				</div>
+				<!-- 当前选择提示框            开始-->
+				<!-- <div class="tips_wrap">
+				</div> -->
+				<!-- 当前选择提示框            结束-->
+				<div class="top_nav">
+					<ul class="nav_ul_box">
+						<li class="nav_li_item isShow" data-type="managementObjects">管理对象</li>
+						<li class="nav_li_item" onclick="jump_new('four_mess.html')">数据列表</li>
+						<li class="nav_li_item" onclick="jump_new('data_statistics1.html')">统计图表</li>
+					</ul>
+				</div>
+				<div class="list_box" id="managementObjects">
+					<div class="list_obj" style="height: auto;">
+						<ul class="list_ul">
+							<!-- <li class="list_li" data-type="quality" data-qname="rivers_level1">
+									<img class="icon_img" src="../../images/waterQuality/icon_blue.png" >
+									<span>一级河流</span>
+								</li>
+								<li class="list_li" data-type="quality" data-qname="rivers_level2">
+									<img class="icon_img" src="../../images/waterQuality/icon_green.png" >
+									<span>二级河流</span>
+								</li>
+								<li class="list_li" data-type="quality" data-qname="rivers_level3">
+									<img class="icon_img" src="../../images/waterQuality/icon_yellow.png" >
+									<span>三级河流</span>
+								</li> -->
+							<!-- <li id="jczd" class="list_li active" data-type="qdata" data-qname="cityClusters">
+									<img class="icon_img" src="../../images/waterQuality/icon_red.png" >
+									<span>检测站点</span>
+								</li> -->
+							<li id="dxs" class="list_li active" data-qname="dxs" data-id="2">
+								<img class="icon_img" src="../../images/waterQuality/icon_red.png">
+								<span>地下水</span>
+							</li>
+							<li id="hlsz" class="list_li " data-qname="hlsz" data-id="3">
+								<img class="icon_img" src="../../images/waterQuality/icon_red.png">
+								<span>河流水质</span>
+							</li>
+							<li id="sksz" class="list_li" data-qname="sksz" data-id="4">
+								<img class="icon_img" src="../../images/waterQuality/icon_red.png">
+								<span>水库水质</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="rightTabs rightPosi">
+				<ul>
+					<li><a href=""><img src="../../images/ruralWater/right_tabs01.png"></a></li>
+					<li>
+						<a onclick="label_fun(address_obj.coords.longitude,address_obj.coords.latitude)">
+							<img src="../../images/ruralWater/right_tabs_dw.png">
+						</a>
+					</li>
+				</ul>
+			</div> -->
+			<!-- 右侧导航栏信息                  开始 -->
+			<div class="right_bar">
+				<div class="right_bar_top">
+					<img class="img" src="../../images/right_bar/arrow_t.png" alt="">
+				</div>
+				<!-- 中间滚动区域       开始-->
+				<div class="right_bar_center">
+					<ul>
+						<li>
+							<a href="">
+								<img class="icon1 img" src="../../images/right_bar/return.png">
+								<img class="icon2" src="../../images/right_bar/return_act.png">
+								<span class="bar_text">返回全图</span>
+							</a>
+						</li>
+						<li id="dxs" class="list_li active" data-li="tips" data-qname="dxs" data-id="2">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/icon_waterQuality/waterQuality-1-1.png">
+								<img class="icon_img icon2" src="../../images/yc/icon_waterQuality/waterQuality-1-2.png">
+								<span class="counts"></span>
+								<span class="bar_text">地下水</span>
+							</a>
+						</li>
+						<li id="hlsz" class="list_li " data-li="tips" data-qname="hlsz" data-id="3">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/icon_waterQuality/waterQuality-2-1.png">
+								<img class="icon_img icon2" src="../../images/yc/icon_waterQuality/waterQuality-2-2.png">
+								<span class="counts"></span>
+								<span class="bar_text">河流水质</span>
+							</a>
+						</li>
+						<li id="sksz" class="list_li" data-li="tips" data-qname="sksz" data-id="4">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/icon_waterQuality/waterQuality-3-1.png">
+								<img class="icon_img icon2" src="../../images/yc/icon_waterQuality/waterQuality-3-2.png">
+								<span class="counts"></span>
+								<span class="bar_text">水库水质</span>
+							</a>
+						</li>
+						<li class="" id="change_map_mark">
+							<a>
+								<img class="icon1" src="../../images/right_bar/change.png">
+								<img class="icon2" src="../../images/right_bar/change_act.png">
+								<span class="bar_text">切换底图</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- 中间滚动区域       结束-->
+				<div class="right_bar_btm">
+					<img class="img" src="../../images/right_bar/arrow_b.png" alt="">
+				</div>
+			</div>
+			<!-- 右侧导航栏信息                  结束 -->
+			
+			<!-- 右下定位信息     开始-->
+			<div class="right_posi" >
+				<div class="img_box_list">
+					<div class="img_box_item" onclick="zoomInFun()">
+						<img class="img" src="../../images/right_bar/add.png">
+					</div>
+					<div class="img_box_item" onclick="zoomOutFun()">
+						<img class="img" src="../../images/right_bar/reduce.png">
+					</div>
+				</div>
+				<div class="img_box_list">
+					<div class="img_box_item" onclick="label_fun(address_obj.coords.longitude,address_obj.coords.latitude)">
+						<img class="img"  src="../../images/right_bar/position.png">
+					</div>
+				</div>
+			</div>
+			<!-- 右下定位信息     结束-->
+		</div>
+	</div>
+	<!-- 当前手机位置 -->
+	<div id="location" class="location"></div>
+</body>
+<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/baseMap/popup.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/waterQuality/waterQuality.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/get_location/index.js"></script>
+<!-- 右侧选中效果js -->
+<script src="../../js/right_bar/index.js"></script>
+<!-- 底图切换js -->
+<script src="../../js/baseMap/change_base_map.js" type="text/javascript" charset="utf-8"></script>
+</html>

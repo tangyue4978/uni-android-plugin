@@ -1,0 +1,55 @@
+div {
+    box-sizing: border-box;
+}
+.section {
+    .left_btn {
+        left: 5%;
+    }
+    .right_btn {
+        right: 5%;
+    }
+    .left_btn,
+    .right_btn {
+        position: fixed;
+        top: 94%;
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .btn_img {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+        .btn_text {
+            font-size: 0.2rem;
+        }
+    }
+    .return {
+        position: fixed;
+        top: 94%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .return_img {
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+        .return_text {
+            font-size: 0.2rem;
+        }
+    }
+
+    .flipbook {
+        .page {
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+
+            .img {
+            }
+        }
+    }
+}

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.visualization-c ul li{
+				border-left: 1px solid #dcdcdc;
+				box-sizing: border-box;
+				width: 25%;
+				border-right: 1px solid transparent;
+			}
+			.visualization-c ul li:last-child{
+				border-right: 1px solid #dcdcdc;
+			}
+		</style>
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>可视化</p>
+
+				<div class="visualization">
+					<div class="visualization-h">
+						<!--<h5>业务办理统计</h5>-->
+
+						<div class="chart" id="pieChart"></div>
+						<div class="mui-loading" style="position: fixed; margin-top: -3.3rem; left: 46.6%;">
+							<div class="mui-spinner"></div>
+						</div>
+					</div>
+					<div class="visualization-c">
+						<ul>
+							<li>
+								<h1 id="h11">0</h1>
+								<p>机关处室</p>
+							</li>
+							<li>
+								<h1 id="h12">0</h1>
+								<p>直属机构</p>
+							</li>
+							<li>
+								<h1 id="h13">0</h1>
+								<p>单位人员</p>
+							</li>
+							<li>
+								<h1 id="h18">0</h1>
+								<p>累计登陆</p>
+							</li>
+							<li>
+								<h1 id="h14">0</h1>
+								<p>流程审批</p>
+							</li>
+							<li>
+								<h1 id="h15">0</h1>
+								<p>公文收发</p>
+							</li>
+							<li>
+								<h1 id="h16">0</h1>
+								<p>会议安排</p>
+							</li>
+							<li>
+								<h1 id="h17">0</h1>
+								<p>知识文档</p>
+							</li>
+						</ul>
+					</div>
+					<div class="visualization-f" style="overflow: hidden;">
+						<h1>会议情况</h1>
+						<div id="huiyiChart" style="width: 112%;height: 300px;margin-left: -5%;margin-top: -15%;"></div>
+						<h1>会议安排统计</h1>
+						<div id="huiyianpaiChart" style="width: 112%;height: 300px;margin-left: -5%;margin-top: -15%;"></div>
+						<h1>文件检索频率类型分析</h1>
+						<div id="wenjiansousuoChart" style="width: 112%;height: 400px;margin-left: -5%;margin-top: -15%;"></div>
+						<h1>积分情况</h1>
+						<ul class="jfqk">
+							<!--<li>
+								<p id="p11">资料文件<span class="right">90</span></p>
+								<h6 id="h61"><span style="width: 85%;"></span></h6>
+							</li>
+							<li>
+								<p id="p11">工作计划<span class="right">87</span></p>
+								<h6 id="h61"><span style="width: 70%;"></span></h6>
+							</li>
+							<li>
+								<p id="p11">工作日志<span class="right">62</span></p>
+								<h6 id="h61"><span style="width: 60%;"></span></h6>
+							</li>
+							<li>
+								<p id="p11">在线学习<span class="right">50</span></p>
+								<h6 id="h61"><span style="width: 55%;"></span></h6>
+							</li>
+							<li>
+								<p id="p11">考试赋能<span class="right">29</span></p>
+								<h6 id="h61"><span style="width: 30%;"></span></h6>
+							</li>
+							<li>
+								<p id="p11">培训管理<span class="right">7</span></p>
+								<h6 id="h61"><span style="width: 20%;"></span></h6>
+							</li>-->
+						</ul>
+
+						<!--<h1 style="margin-top: 0.5rem;">即时消息</h1>-->
+						<!--<div id="xiaoxiChart" style="width: 100%;height: 300px;margin-left: -2%;margin-top: -10%;"></div>-->
+						<!--<h1>文件资源统计</h1>-->
+						<!--<div class="tongji">
+							<div class="tongji-content">
+								<div class="content1">400</div>
+								<div class="content2"></div>
+								<p>政策法规</p>
+							</div>
+						</div>-->
+						<!--<img src="images/2313.png" width="100%" alt="" />-->
+					</div>
+				</div>
+
+			</div>
+		</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/echarts-all.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var items;
+			list()
+
+			function list() {
+				var _url = root + 'api/visualization/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							$(".mui-loading").css("display", "none")
+							items = data.data;
+							
+							//ul li
+							$("#h11").html(items.office)//机关处室
+							$("#h12").html(items.department)//直属机构
+							$("#h13").html(items.user)//单位人员
+							$("#h14").html(items.check)//流程审批
+							$("#h15").html(items.document)//公文收发
+							$("#h16").html(items.arrange)//会议安排
+							$("#h17").html(items.know)//知识地图
+							$("#h18").html(items.loginCount)//累计登陆
+//							$("#p11").html('政策法规<span class="right">' + items.rule + '</span>')
+//							$("#p12").html('知识地图<span class="right">' + items.know + '</span>')
+//							$("#p13").html('文档中心<span class="right">' + items.know + '</span>')
+//							$("#p14").html('云盘<span class="right">' + items.cloud + '</span>')
+//							$("#p15").html('在线学习<span class="right">' + items.study + '</span>')
+//							$("#p16").html('考试题库（道/次）<span class="right">' + items.question + '</span>')
+							//积分情况
+							var html=	"";
+//							var data_jfqk=	[{
+//												name:"资料文件",
+//												value:90,
+//												width:"85%"
+//											},{
+//												name:"工作计划",
+//												value:87,
+//												width:"70%"
+//											},{
+//												name:"工作日志",
+//												value:62,
+//												width:"60%"
+//											},{
+//												name:"在线学习",
+//												value:50,
+//												width:"55%"
+//											},{
+//												name:"考试赋能",
+//												value:29,
+//												width:"30%"
+//											},{
+//												name:"培训管理",
+//												value:7,
+//												width:"20%"
+//											}]
+							var data_jfqk=	items.integralCondition;
+							for(var i = 0;i<data_jfqk.length;i++){
+								html+=  '<li>'+
+											'<p >'+data_jfqk[i].name+'<span class="right">'+data_jfqk[i].value+'</span></p>'+
+											'<h6 ><span style="width: '+data_jfqk[i].width+';"></span></h6>'+
+										'</li>';
+							}
+							$(".jfqk").append(html);
+
+							//流程审批
+							//更新数据
+						    var option = chart1.getOption();
+						    option.series[0].data = items.procedure;   
+						    chart1.setOption(option);   
+						    
+						    //会议情况
+						    //更新数据
+	    					var data_chart = chart.getOption();
+	    					data_chart.series[0].data = items.meetingSituation.value;   
+	    					data_chart.xAxis[0].data = items.meetingSituation.name;   
+						    chart.setOption(data_chart); 
+						    
+						    
+						    //会议安排统计
+						    //更新数据
+	    					var data_anpai = chart_anpai.getOption();
+	    					data_anpai.series[0].data = items.meetingArrangeStatistics.value;   
+	    					data_anpai.xAxis[0].data = items.meetingArrangeStatistics.name;   
+						    chart_anpai.setOption(data_anpai); 
+						    
+						    
+						    //更新数据
+						    //文件检索频率类型分析
+						    var data_soso = soso_chart.getOption();
+						    data_soso.series[0].data = items.fileSearchingRateTypeAnalysis;   
+						    soso_chart.setOption(data_soso);   
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+
+			}
+
+			pieChart()
+			var chart1;
+			function pieChart() {
+				chart1 = echarts.init(document.getElementById("pieChart"));
+				var _zr = chart1.getZr();
+				//				ShowObjProperty(_zr);
+				_zr.add(new echarts.graphic.Text({
+					style: {
+						x: _zr.getWidth() / 2,
+						y: _zr.getHeight() / 2,
+						color: '#999999',
+						text: '流程审批',
+						textAlign: 'center',
+						textFont: ' 15px verdana',
+
+					}
+				}));
+				option = {
+					
+					series: [{
+						name: '',
+						type: 'pie',
+						center: ['50%', '50%'], //管理图形水平位置的
+						radius: ['40%', '55%'],
+						avoidLabelOverlap: true,
+						color: ['#ffd451', '#ef4e31', '#6cb7fa', '#da86ff', '#40c880'],
+						label: {
+							normal: {
+								formatter: '{b|{b}：}{c}',
+								backgroundColor: '#ffffff',
+								borderColor: '#89c5fb',
+								borderWidth: 1,
+								color:"#666666",
+								borderRadius: 4,
+								// shadowBlur:3,
+								// shadowOffsetX: 2,
+								// shadowOffsetY: 2,
+								// shadowColor: '#999',
+								 padding: [0, 7],
+								rich: {
+									a: {
+										color: '#999',
+										lineHeight: 15,
+										align: 'center'
+									},
+									
+									hr: {
+										borderColor: '#aaa',
+										width: '100%',
+										borderWidth: 0.5,
+										height: 0
+									},
+									b: {
+										fontSize: 12,
+										lineHeight: 25,
+										color:"#666666"
+									},
+									per: {
+										color: '#eee',
+										backgroundColor: '#334455',
+										padding: [],
+										borderRadius: 2
+									}
+								}
+							}
+						},
+						data: [{
+								value: 0,
+								name: '其他'
+							},
+							{
+								value: 0,
+								name: '会议'
+							},
+							{
+								value: 0,
+								name: '请假'
+							},
+							{
+								value: 0,
+								name: '收文'
+							},
+							{
+								value: 0,
+								name: '发文'
+							}]
+					}]
+				};
+
+				// 使用刚指定的配置项和数据显示图表
+				chart1.setOption(option)
+			}
+			//会议情况
+			huiyilist();
+			var chart;
+			
+			
+		    	
+			function huiyilist() {
+				chart = echarts.init(document.getElementById("huiyiChart"));
+				option = {
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: { // 坐标轴指示器，坐标轴触发有效
+							type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+						},
+					},
+					grid: {
+						show: "false",
+						borderWidth: "0",
+					},
+					calculable: true,
+					xAxis: [{
+						type: 'category',
+						data: ['全厅领导干部大会', '厅长办公会议', '专项会议', '处室会议'],
+						boundaryGap: true,
+						splitLine: {
+							show: false
+						}, //去除网格线
+						splitArea: {
+							show: false
+						}, //保留网格区域
+						axisLine: {
+							lineStyle: {
+								type: 'solid',
+								color: '#999999', //左边线的颜色
+								width: '1' //坐标线的宽度
+							}
+						},
+						axisTick: { //y轴刻度线
+							"show": false
+						},
+						axisLabel: {
+							textStyle: {
+								color: '#999999', //坐标值得具体的颜色
+							},
+							show: true,
+							interval: 0,
+							formatter: function(params) {
+								var newParamsName = "";
+								var paramsNameNumber = params.length;
+								var provideNumber = 4; //一行显示几个字
+								var rowNumber = Math.ceil(paramsNameNumber / provideNumber);
+								if(paramsNameNumber > provideNumber) {
+									for(var p = 0; p < rowNumber; p++) {
+										var tempStr = "";
+										var start = p * provideNumber;
+										var end = start + provideNumber;
+										if(p == rowNumber - 1) {
+											tempStr = params.substring(start, paramsNameNumber);
+										} else {
+											tempStr = params.substring(start, end) + "\n";
+										}
+										newParamsName += tempStr;
+									}
+
+								} else {
+									newParamsName = params;
+								}
+								return newParamsName
+							},
+						},
+					}],
+					yAxis: [{
+						type: 'value',
+						splitLine: {
+							show: false
+						}, //去除网格线
+						splitArea: {
+							show: false
+						}, //保留网格区域
+						axisLine: {
+							lineStyle: {
+								type: 'solid',
+								color: '#999999', //左边线的颜色
+								width: '1' //坐标线的宽度
+							}
+						},
+						axisTick: { //y轴刻度线
+							"show": true,
+							lineStyle: {
+								type: 'solid',
+								color: '#999999', //左边线的颜色
+								width: '1' //坐标线的宽度
+							}
+						},
+					}],
+					series: [
+
+						{
+							name: '会议次数',
+							type: 'bar',
+							barWidth: 20,
+							itemStyle: {
+								emphasis: {
+									barBorderRadius: [10, 10, 10, 10]
+								}, //圆角
+								normal: {
+									color: function(params) {
+										// build a color map as your need.
+										var colorList = ['#40c880', '#da86ff', '#6cb7fa', '#ef4e31'];
+										return colorList[params.dataIndex] //柱状图的颜色
+									}
+								},
+							},
+
+							data: [0, 0, 0, 0],
+							markPoint: {
+								symbol: 'pin', //标记类型
+								symbolSize: 0, //图形大小
+
+								itemStyle: {
+									normal: {
+										color: function(params) {
+											// build a color map as your need.
+											var colorList = ['#40c880', '#da86ff', '#6cb7fa', '#ef4e31'];
+											return colorList[params.dataIndex] //柱状图的颜色
+										},
+										borderColor: '#fff',
+										borderWidth: 0, // 标注边线线宽，单位px，默认为1
+										label: {
+											show: false
+										}
+									}
+								}
+							},
+
+						},
+
+					]
+				};
+
+				chart.setOption(option)
+			}
+			//			会议安排统计
+			huiyianpailist()
+			
+			var chart_anpai;
+			function huiyianpailist() {
+				chart_anpai = echarts.init(document.getElementById("huiyianpaiChart"));
+				option = {
+
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: { // 坐标轴指示器，坐标轴触发有效
+							type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+						},
+					},
+					grid: {
+						show: "false",
+						borderWidth: "0",
+					},
+					xAxis: {
+						type: 'category',
+						data: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'],
+						boundaryGap: true,
+						splitLine: {
+							show: false
+						}, //去除网格线
+						splitArea: {
+							show: false
+						}, //保留网格区域
+						axisLine: {
+							lineStyle: {
+								type: 'solid',
+								color: '#999999', //左边线的颜色
+								width: '1' //坐标线的宽度
+							}
+						},
+						axisTick: { //y轴刻度线
+							"show": true,
+							lineStyle: {
+								type: 'solid',
+								color: '#999999', //左边线的颜色
+								width: '1' //坐标线的宽度
+							}
+						},
+					},
+					yAxis: {
+						type: 'value',
+						splitLine: {
+							show: false
+						}, //去除网格线
+						splitArea: {
+							show: false
+						}, //保留网格区域
+						axisLine: {
+							lineStyle: {
+								type: 'solid',
+								color: '#999999', //左边线的颜色
+								width: '1' //坐标线的宽度
+							}
+						},
+						axisTick: { //y轴刻度线
+							"show": true,
+							lineStyle: {
+								type: 'solid',
+								color: '#999999', //左边线的颜色
+								width: '1' //坐标线的宽度
+							}
+						},
+					},
+					series: [{
+							name: '数量',
+							type: 'line',
+							data: [0, 0, 0, 0, 0, 0, 0],
+							symbol: 'circle',
+							symbolSize: 5,
+							itemStyle: {
+								normal: {
+									color: '#6cb7fa',
+									borderColor: '#6cb7fa', //拐点边框颜色
+								}
+							},
+						},
+
+					]
+				};
+				chart_anpai.setOption(option)
+			}
+			//文件搜索
+			wenjiansousuo()
+			var soso_chart;
+			function wenjiansousuo() {
+				soso_chart = echarts.init(document.getElementById("wenjiansousuoChart"));
+				option = {
+
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b} : {c} ({d}%)"
+					},
+					legend: {
+						orient: 'horizontal',
+						bottom: 'bottom',
+						bottom: 20,
+//						data: ['文件/文档', '政策', '管理规定', '技术标准', '解读', '公文', '会议', '通知公告', '档案', '业务单'],
+						formatter: function(name) {
+							return '{a|' + name + '}';
+						},
+						textStyle: {
+							rich: {
+								a: {
+									width: 60
+								}
+							}
+						}
+					},
+					color: ['#40c880', '#da86ff', '#6cb7fa', '#ef4e31', '#ffd451', '#44dcf3', '#ffc0ae', '#c7925e', '#c1c6ca', '#d14d64'],
+					series: [{
+						name: '搜索次数',
+						type: 'pie',
+						radius: '55%',
+						center: ['45%', '40%'],
+						label: {
+							normal: {
+								position: 'inner',
+								show: false,
+							}
+						},
+						data: [{
+								value: 0,
+								name: '文件/文档'
+							},
+							{
+								value: 0,
+								name: '政策'
+							},
+							{
+								value: 0,
+								name: '管理规定'
+							},
+							{
+								value: 0,
+								name: '技术标准'
+							},
+							{
+								value: 0,
+								name: '解读'
+							},
+							{
+								value: 0,
+								name: '公文'
+							},
+							{
+								value: 0,
+								name: '会议'
+							},
+							{
+								value: 0,
+								name: '通知公告'
+							}, {
+								value: 0,
+								name: '通知公告'
+							},
+							{
+								value: 0,
+								name: '业务单'
+							}
+						],
+						itemStyle: {
+							emphasis: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}]
+				};
+
+				soso_chart.setOption(option)
+
+			}
+			//即时消息
+//			xiaoxi()
+
+			function xiaoxi() {
+				var chart = echarts.init(document.getElementById("xiaoxiChart"));
+
+				var data = [
+					[
+						[28604, 77, 17096869, 'Australia', 1990],
+						[31163, 77.4, 27662440, 'Canada', 1990],
+						[1516, 68, 1154605773, 'China', 1990],
+						[13670, 74.7, 10582082, 'Cuba', 1990],
+						[28599, 75, 4986705, 'Finland', 1990],
+						[29476, 77.1, 56943299, 'France', 1990],
+						[31476, 75.4, 78958237, 'Germany', 1990],
+						[28666, 78.1, 254830, 'Iceland', 1990],
+						[1777, 57.7, 870601776, 'India', 1990],
+						[29550, 79.1, 122249285, 'Japan', 1990],
+						[2076, 67.9, 20194354, 'North Korea', 1990],
+						[12087, 72, 42972254, 'South Korea', 1990],
+						[24021, 75.4, 3397534, 'New Zealand', 1990],
+						[43296, 76.8, 4240375, 'Norway', 1990],
+						[10088, 70.8, 38195258, 'Poland', 1990],
+						[19349, 69.6, 147568552, 'Russia', 1990],
+						[10670, 67.3, 53994605, 'Turkey', 1990],
+						[26424, 75.7, 57110117, 'United Kingdom', 1990],
+						[37062, 75.4, 252847810, 'United States', 1990]
+					],
+					[
+						[10, 100, 57110117, '马云', '姓名'],
+						[23, 50, 62223145, '马化腾', '姓名'],
+						[52, 80, 71414545, '刘秀', '姓名'],
+						[30, 65, 30754555, '李彦宏', '姓名'],
+						[50, 40, 50002154, '李鹏程', '姓名'],
+						[10, 35, 45115848, '李春波', '姓名'],
+						[5, 45, 34544848, '王飒飒', '姓名'],
+
+					]
+				];
+
+				option = {
+					//					{a} <br/>{b} : {c} ({d}%)"
+					//					tooltip: {
+					//						trigger: 'item',
+					//						formatter: "数量{c}  "
+					//					},
+					xAxis: {
+						splitLine: {
+							lineStyle: {
+								type: 'dashed'
+							}
+						},
+						name: '时',
+						scale: true,
+					},
+					yAxis: {
+						name: '条数',
+						splitLine: {
+							lineStyle: {
+								type: 'dashed'
+							}
+						},
+						scale: true
+					},
+					series: [{
+						name: '2015',
+						data: data[1],
+						type: 'scatter',
+						symbolSize: function(data) {
+							return Math.sqrt(data[2]) / 5e2;
+						},
+						label: {
+							emphasis: {
+								show: true,
+								formatter: function(param) {
+									return param.data[3];
+								},
+								position: 'top'
+							}
+						},
+						itemStyle: {
+							normal: {
+								shadowBlur: 10,
+								shadowColor: 'rgba(25, 100, 150, 0.5)',
+								shadowOffsetY: 5,
+								color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+									offset: 0,
+									color: 'rgb(129, 227, 238)'
+								}, {
+									offset: 1,
+									color: 'rgb(25, 183, 207)'
+								}])
+							}
+						}
+					}]
+				};
+				chart.setOption(option)
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

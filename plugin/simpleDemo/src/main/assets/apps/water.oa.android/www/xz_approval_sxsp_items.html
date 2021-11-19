@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>事项审批</p>
+				<div class="bumf-nav">
+					<div style="position: fixed;z-index: 9;top: 1.27rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1">
+								待办
+							</a>
+							<a class="mui-control-item" href="#item2">
+								已办
+							</a>
+						</div>
+					</div>
+					<div class="bumf">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="bumf1">
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn1">平急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn2">特急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn3">加急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn4">特提</button></div></li>-->
+							</ul>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner">
+								</div>
+							</div>
+						</div>
+						<div id="item2" class="mui-control-content ">
+							<ul class="bumf1">
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			
+			list(1); //待办
+			list(2); //已办
+			console.log(root + 'api/matter/getmatterconfig');
+			function list(type) {
+				var _url = root + 'api/matter/getmatterconfig';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type": type //1待办 ，2已办
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							// 待办
+							console.log(JSON.stringify(data),type,data.data.length);
+							if(type == 1){
+								if(data.data.length > 0){
+									data.data.forEach(function(item, index) {
+										var name = item.name +"待办";
+										$("#item1 ul").append('<li onclick="jump_list('+item.val+',1,\''+name+'\')"><div class="left"><p>'+item.name+'</p></div><div class="right"><span class="fwdb">'+item.count+'</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+								}else{
+									$("#item1 ul").append('<li style="font-size:0.35rem;text-align:center;">暂无数据</li>')
+								}
+								
+							// 已办
+							}else if(type == 2){
+								if(data.data.length > 0){
+									data.data.forEach(function(item, index) {
+										var name = item.name +"已办";
+										$("#item2 ul").append('<li onclick="jump_list('+item.val+',2,\''+name+'\')"><div class="left"><p>'+item.name+'</p></div><div class="right"><span class="fwdb">'+item.count+'</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+								}else{
+									$("#item2 ul").append('<li style="font-size:0.35rem;text-align:center;">暂无数据</li>')
+								}
+							}
+							
+							$(".mui-loading").hide();
+						}
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+
+			}
+
+			function jump_list(config_id,type,title_name) {
+				console.log(config_id,type,title_name);
+				mui.openWindow({
+					url: 'xz_approval_sxsp_list.html', //通过URL传参
+					id: 'xz_approval_sxsp_list.html', //通过URL传参
+					extras: {
+						config_id: config_id,
+						type: type,
+						title_name: title_name
+					}
+				})
+			};
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

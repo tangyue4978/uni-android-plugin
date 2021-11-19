@@ -1,0 +1,76 @@
+body{
+	background-color: #F6F6F6;
+}
+/* 名称start */
+.content_title{
+	width: 100%;
+	height: 1.21rem;
+	background-color: #3773EF;
+	padding: 0.3rem;
+	position: fixed;
+	top: 1.3rem;
+	z-index: 3;
+	color: #ffffff;
+	font-size: 0.28rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+/* 名称end */
+/* 日期 */
+.content_date{
+	width: 2rem;
+	height: 1;
+	margin-left: 1rem;
+	color: #ffffff;
+	font-size: 0.28rem;
+}
+.date{
+	width: 1.6rem;
+	height: 0.5rem;
+	background: url(../../images/riverChief/arrow_down.png) no-repeat right;
+	background-size: 14px 8px;
+}
+/* 日期 */
+/* 表格start */
+.content_box{
+	width: 94%;
+	height: auto;
+	margin: 0.5rem auto;
+	overflow: hidden;
+	overflow-x: auto;
+}
+.content_boxs{
+	margin-top: 3.01rem;
+}
+.content_box_name{
+	height: 0.5rem;
+	color: #FF8908;
+	font-size: 0.26rem;
+	position: absolute;
+}
+/* 主体部分start */
+.content_table{
+	width: 100%;
+	height: auto;
+	margin-top: 0.5rem;
+}
+.content_table .content_table_full{
+	width: 100%;
+	height: auto;
+	border-right: 1px solid #9A9A9A;
+	border-bottom: 1px solid #9A9A9A;
+}
+.content_table table tr td,th{
+	min-width: 2rem;
+	color: #333333;
+	font-size: 0.28rem;
+	line-height: 0.4rem;
+	font-weight: 400;
+	box-sizing: border-box;
+	padding: 0.1rem 0.2rem;
+	text-align: center;
+	vertical-align:middle;
+}
+/* 主体部分start */
+/* 表格end */

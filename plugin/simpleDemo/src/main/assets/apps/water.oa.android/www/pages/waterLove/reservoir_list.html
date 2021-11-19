@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>水库数据列表</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="../../css/reservoirLevel/four_mess.css"/> -->
+	<link rel="stylesheet" type="text/css" href="../../css/reservoirLevel/list.css" />
+	<!-- 筛选css -->
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+	<!-- 筛选css end -->
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.marker {
+			width: 15px;
+			height: 15px;
+			border: 1px solid #088;
+			border-radius: 50%;
+			background-color: #00FFFF;
+			opacity: 0.5;
+			display: none;
+		}
+
+		.marker:after {
+			content: " ";
+			background-color: #00FFFF;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			margin-left: -50%;
+			margin-top: -50%;
+			-webkit-animation-name: 'ripple';
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: normal;
+		}
+
+		@keyframes ripple {
+			0% {
+				opacity: 1;
+				width: 15px;
+				height: 15px;
+			}
+
+			50% {
+				opacity: 0.7;
+				width: 30px;
+				height: 30px;
+				margin-left: -15px;
+				margin-top: -15px;
+			}
+
+			100% {
+				opacity: 0.05;
+				width: 60px;
+				height: 60px;
+				margin-left: -30px;
+				margin-top: -30px;
+			}
+		}
+
+		/* 自带放大缩小隐藏 */
+		.ol-zoom {
+			display: none;
+		}
+
+		.sort_list2 {
+			margin-left: -0.25rem;
+		}
+
+		.sort_list {
+			border-right: none !important;
+		}
+
+		.sort_list2 {
+			padding-right: 0.3rem;
+		}
+
+		/* 总条数 */
+		.all {
+			width: 100%;
+			height: 0.3rem;
+			font-size: 0.3rem;
+			color: #CCCCCC;
+			padding: 0rem 0 0.2rem 0.3rem;
+			letter-spacing: 0.01rem;
+			z-index: 990;
+		}
+
+		.all_num {
+			color: #6492ff;
+		}
+
+		.list {
+			padding-top: 0.4rem;
+		}
+
+		.header_list>li:nth-of-type(5) {
+			border-right: none;
+		}
+
+		.statics {
+			top: 3rem;
+		}
+
+		.sort_list {
+			padding: 0;
+		}
+
+		.sort_lists {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 90%;
+			background-size: 15px 9px;
+		}
+
+		.img_searchs {
+			width: 15px;
+			height: 9px;
+		}
+
+		.search_box .span_search .img_searchs {
+			display: inline-block;
+			width: 90%;
+			height: 60%;
+		}
+
+		.sort input::-webkit-input-placeholder {
+			color: #333333;
+		}
+
+		.header_list>li.active {
+			color: #fae607;
+		}
+
+		.header_lists>li.active span {
+			/* content: ""; */
+			color: #fae607;
+			border-bottom: 3px solid #fae607;
+			padding-bottom: 0.09rem;
+		}
+
+		.biao {
+			width: 94%;
+			height: auto;
+			/* position: absolute;
+				top: 5rem; */
+			background-color: #ffffff;
+			box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+			border-radius: 0.2rem;
+			margin: 5rem 0.2rem 0.2rem;
+			padding: 0.4rem 0.2rem;
+			/* overflow-x: auto; */
+		}
+
+		.biao_table {
+			width: 100%;
+			margin: 0 auto;
+			border: 1px solid #DBDAD8;
+			font-size: 0.24rem;
+			font-weight: 400;
+		}
+
+		.texr {
+			width: 50%;
+			text-align: center;
+			padding: 0.2rem 0;
+			padding-right: 0.1rem;
+			color: #666666;
+			background-color: #efeeed;
+		}
+
+		.texl {
+			width: 50%;
+			text-align: center;
+			padding: 0.2rem 0;
+			padding-left: 0.1rem;
+			color: #333333;
+		}
+
+		/* 定位块 */
+		.content_head {
+			width: 100%;
+			height: 3.5rem;
+			position: fixed;
+			top: 1.3rem;
+			background-color: #FAF8FD;
+		}
+
+		.sort_list.sort_lista {
+			background: none !important;
+		}
+
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+
+		/* 样式复写 */
+		.sort_list {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+
+		.search_box .span_search {
+			left: calc(100% - 0.5rem);
+		}
+
+		.search_box .sort_input.sort_new {
+			width: 80%;
+		}
+	</style>
+</head>
+
+<body class="content">
+	<div class="mui-content" style="margin-bottom: 0.5rem;">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>数据列表</span>
+		</header>
+		<div class="content_head">
+			<!-- 分类start -->
+			<div class="sort start">
+				<input type="text" name="city" class="sort_list sort_lists" id="city_sort" data-code="" style="border: none;padding-left: 0;" value="" readonly="readonly" placeholder="全部地市"/>
+				<!-- <select name="city" class="sort_list sort_lists" id="city_sort">
+					<option value="">全部地市</option>
+				</select> -->
+				<select name="type" class="sort_list sort_lists" id="type_sort">
+				</select>
+				<select name="onlineType" class="sort_list sort_lists" id="online_sort">
+					<option value="0">全部状态</option>
+					<option value="1">今日已上报</option>
+					<option value="2">今日未上报</option>
+					<!-- <option value="3">未监测</option> -->
+				</select>
+				<div class="sort_list sort_lista search_box hide">
+					<input type="text" id="riverName" placeholder="水库名称" class="sort_input sort_new sort_search" />
+					<span class="span_search" id="searchRiver">
+						<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+					</span>
+				</div>
+				<select name="date" class="sort_list sort_lists hide" id="statics_input1">
+					<option value="">请选择日期</option>
+				</select>
+				<select name="exceedType" class="sort_list sort_lists hide" id="exceedType">
+					<option value="0">水位状态</option>
+					<option value="1">正常水位</option>
+					<option value="2">超汛限水位</option>
+				</select>
+				<div class="more_box"><img class="more_img" src="../../images/ruralWater/bottomInfo_down.png"
+						data-class="waterLsit"></div>
+			</div>
+			<!-- 分类end -->
+			<!-- 统计start -->
+			<div class="statics">
+				<ul class="header_list" id="header_list">
+					<!-- <li></li>
+						<li></li>
+						<li></li>
+						<li class="unborder"></li> -->
+				</ul>
+				<ul class="header_list header_lists" id="header_lists">
+
+				</ul>
+			</div>
+			<!-- 统计end -->
+		</div>
+		<!-- 表格start -->
+		<div class="biao">
+			<table border="1" cellspacing="" cellpadding="" class="biao_table">
+				<!-- 	<tr id="biao_tableth">
+						
+					</tr> -->
+				<!-- <tr id="biao_tableth">
+						<th class="texr">Header</th>
+						<td class="texl">Data</td>
+					</tr> -->
+
+			</table>
+		</div>
+		<!-- 表格end -->
+		<!-- 总条数 -->
+		<div class="all all3">
+			共<span class="all_num">0</span>座水库
+		</div>
+		<div id="mask" class="mask1"></div>
+		<!-- 列表start -->
+		<div id="top-div">
+			<div id="left-div1">
+				<table id="left-table1">
+					<tr>
+						<th>站名</th>
+					</tr>
+				</table>
+			</div>
+			<div id="right-div1">
+				<table id="right-table1" width="64%" cellpadding="0" cellspacing="0" style="table-layout:fixed">
+					<tr>
+						<th>时间</th>
+						<th>水位</th>
+						<th>超汛限</th>
+						<th>蓄水量</th>
+						<th>流域</th>
+						<th>地址</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="bottom-div">
+			<div id="left-div2">
+				<table id="left-table2"></table>
+			</div>
+			<div id="right-div2">
+				<table id="right-table2" width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed">
+				</table>
+			</div>
+			<!-- <div id="right-div2">
+				<table id="right-table2"  width="100%" cellpadding="0" cellspacing="0" style="table-layout:fixed">
+				</table>
+			</div> -->
+		</div>
+
+		<!-- 列表end -->
+	</div>
+</body>
+
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/waterLove/reservoir_list.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js -->
+<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js end -->
+<script src="../../js/reservoirLevel/area.js" type="text/javascript" charset="utf-8"></script>
+</html>

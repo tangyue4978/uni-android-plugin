@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="ToolBarBackTextPadding">16dp</dimen>
+    <dimen name="ToolBarTextPadding">15dp</dimen>
+    <dimen name="ToolBarMainTextSize">17sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="statusBarHeight">63dp</dimen>
+
+</resources>

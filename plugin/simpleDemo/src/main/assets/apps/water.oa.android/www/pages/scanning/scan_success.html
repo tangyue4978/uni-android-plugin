@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/scanning/scan_success.css"/>
+	</head>
+
+	<body style="background: #f5f5f9">
+		<div class="mui-content" style="">
+			<div class="news">
+				<p class="pp"><a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>扫码信息绑定</p>
+			</div>
+		</div>
+		<div class="content_box">
+			<div class="bing_success">
+				<img class="bing_mg"src="../../images/scanning/bind_success.png" >
+				<div class="bing_text">
+					绑定成功
+				</div>
+			</div>
+			<div class="bing_button">
+				<div class="buttons active">关闭</div>
+				<div class="buttons">查看</div>
+			</div>
+			<div class="bing_number">
+				<div class="bing_text">
+					设备绑定编号：<span class="bing_id">22</span>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var code_number;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				// 获取接口地址
+				code_number = self.bar_code;
+				console.log(code_number)
+				$(".bing_id").text(self.ids)
+			})
+			$('.bing_button .buttons').on('click',function(){
+				if($(this).text() == '查看'){
+					console.log(code_number)
+					mui.openWindow({
+						url: 'scan_info.html', //通过URL传参
+						id: 'scan_info.html',
+						createNew:true,
+						extras: {
+						    bar_code: code_number,
+						},
+					})
+				}else if($(this).text() == '关闭'){
+					mui.openWindow({
+						url: '../../my.html', //通过URL传参
+						id: 'my.html', //通过URL传参
+					})
+				}
+			})
+		</script>
+		<script type="text/javascript">
+			var backButtonPress = 0;
+			mui.back = function(event) {
+				backButtonPress++;
+				if(backButtonPress > 1) {
+					// plus.runtime.quit();
+				} else {
+					// plus.nativeUI.toast('再按一次退出应用');
+					mui.openWindow({
+						url: '../../my.html', //通过URL传参
+						id: 'my.html', //通过URL传参
+					})
+				}
+				setTimeout(function() {
+					backButtonPress = 0;
+				}, 1000);
+				return false;
+			};
+		</script>
+	</body>
+
+</html>

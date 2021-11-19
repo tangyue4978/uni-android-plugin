@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_tnj3b8v3rjm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.mui-table-view-cell{touch-action: auto;}
+			.news .news-nav-ss{
+			    line-height: 0.5rem;		
+			}
+			/*消息*/
+			.news .news-content ul li .left2{
+				width: 2.7rem;
+				margin-right: 0rem;
+				overflow: hidden;
+			}
+			.news .news-content ul li .left2 p{
+				line-height: 1rem;
+				margin: 0rem;
+			}
+			.news .news-content ul li .right{
+				width: 1.5rem;
+				text-align: right;
+			}
+			.news .news-nav-ss input{
+				width: 5rem;
+			}
+			.mui-table-cell{
+				display: block;
+			}
+			.news .news-content ul li{
+				padding: 0.36rem 0.25rem;
+				border-bottom: 1px solid #F0F0F0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<i class="mui-action-back iconfont icon-fanhui1 left"></i>行政审批
+				</p>
+				<div class="bumf-nav news-content" style="margin-top: 1.3rem;">
+					<ul id="list">
+						<li class="mui-table-view-cell" onclick="url_jump('xz_approval_sxsp_items.html')">
+							<div class="mui-slider-handle" >
+								<div class="mui-table-cell">
+									<div class="left left1"><img src="images/xz_sxsp.png" /></div>
+									<div class="left left2">
+										<p>事项审批</p>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell" onclick="url_jump('xz_approval_hs_items.html')">
+							<div class="mui-slider-handle" >
+								<div class="mui-table-cell">
+									<div class="left left1"><img src="images/xz_hs.png" /></div>
+									<div class="left left2">
+										<p>会审</p>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell" onclick="url_jump('xz_approval_list.html')">
+							<div class="mui-slider-handle" >
+								<div class="mui-table-cell">
+									<div class="left left1"><img src="images/xz_xzspw.png" /></div>
+									<div class="left left2">
+										<p>行政审批文</p>
+									</div>
+									<!-- <div class="right">
+										<p id="approveshijian"> </p>
+										<span id="approvenum" class="mui-badge mui-badge-danger"></span>
+									</div> -->
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div style="height: 1.26rem;"></div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<!--<script src="js/main.js"></script>-->
+		<script type="text/javascript">
+			window.addEventListener('refresh', function(e) { //执行刷新
+				location.reload();
+			});
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1' //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			console.log(token);
+			
+			function url_jump(_URL){
+				console.log(_URL)
+				mui.openWindow({
+					url: _URL, //通过URL传参
+					id: _URL
+				})
+			}
+			
+		</script>
+		
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

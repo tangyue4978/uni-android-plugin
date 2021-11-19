@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>统计分析</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/main.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<script src="../../js/Highcharts-8.1.2/code/highmaps.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="../../css/ruralWater/static_analysis.css">
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>接入数据分析</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i> -->
+			</header>
+			<div class="section">
+				<div class="sections">
+					<span class="sections_num finishIn"></span>
+					<span>已接入县区数量</span>
+				</div>
+				<div class="sections">
+					<span class="sections_num totalIn"></span>
+					<span>应接入县区数量</span>
+				</div>
+				<div class="sections">
+					<span class="sections_num conductIn"></span>
+					<span>接入中县区数量</span>
+				</div>
+			</div>
+			<!-- 地图 -->
+			<div class="map">
+				<div class="maps">
+					<div class="back_fun" >返回全省</div>
+					<div id="container" class="map_map"></div>
+					<div class="lengends">
+						<div class="lengendsing">
+							<div class="square"></div>
+							<span>已接入</span>
+						</div>
+						<div class="lengendsing">
+							<div class="square squares"></div>
+							<span>未接入</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 地图数据 -->
+			<div class="map_data">
+				<div class="map_listB_text colorG map_listB_texts">
+					<div>
+						<span class="cityNum"></span> <span class="units">个</span>
+					</div>
+					<span class="number">市总数</span>
+				</div>
+				<div class="map_listB_text colorO">
+					<div>
+						<span class="countyNum"></span><span class="units">个</span>
+					</div>
+					<span class="number">县总数</span>
+				</div>
+				<div class="map_listB_text colorB map_listB_texts">
+					<div>
+						<span class="meterNum"></span><span class="units">块</span>
+					</div>
+					<span class="number">水表总数</span>
+				</div>
+				<div class="map_listB_text colorP">
+					<div>
+						<span class="useWater"></span><span class="units">m³</span>
+					</div>
+					<span class="number">总用水量(日)</span>
+				</div>
+			</div>
+		</div>
+		<!-- 表格column -->
+		<div class="column">
+			<select name="cityWater" class="cityWater" id="type">
+				<option value="1">按年</option>
+				<option value="2">按季</option>
+				<option value="3">按月</option>
+				<option value="4">按日</option>
+			</select>
+			<div id="columnContainer" class="chart_column"></div>
+		</div>
+		<!-- 表格pie -->
+		<div class="pie pies">
+			<div class="pie_box">
+				<div id="pieContainer1" class="chart_pie"></div>
+			</div>
+		</div>
+		<div class="pie unborder">
+			<div class="pie_box">
+				<div id="pieContainer2" class="chart_pie"></div>
+			</div>
+		</div>
+		<div class="pie_table">
+			<table class="tables" border="0" cellspacing="0" cellpadding="0">
+				<colgroup width="46%"></colgroup>
+				<tr class="tables_head">
+					<!-- <td></td>
+					<td>占有率</td>
+					<td>上报成功率</td>
+					<td>抄表准确率</td>
+					<td>故障率</td> -->
+				</tr>
+				<!-- <tr>
+					<td class="td_line">
+						<span class="square_i color1"></span>
+						<span>常德仪表</span>
+					</td>
+					<td>42%</td>
+					<td>100%</td>
+					<td>99%</td>
+					<td>0%</td>
+				</tr> --> 
+			</table>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+	<!-- <script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city_change.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/static_analysis.js"></script>
+	<script type="text/javascript">
+		// 表格column
+		//年
+		// var objn = {
+		// 	id:'columnContainer',
+		// 	categories:['吕梁市','运城市','临汾市','太原市','晋城市','大同市','朔州市','晋中市','长治市','忻州市','阳泉市'],
+		// 	data1:[100,100,90,0,0,0,0,0,0,0,0],
+		// 	name1:'上报成功率',
+		// 	data2:[95,100,100,0,0,0,0,0,0,0,0],
+		// 	name2:'秒表准确率',
+		// 	data3:[0,0,0,0,0,0,0,0,0,0,0],
+		// 	name3:'故障率',
+		// 	data4:[7880.95,6256.73,6247.98,6195.30,6092.15,5950.22,5851.07,5510.46,3878.59,3651.92,3170.47],
+		// 	name4:'用水量',
+		// }
+		// charts(objn)
+		// 表格pie
+		// var obj2={
+		// 	id:'pieContainer1',
+		// 	title:'采集方式分析',
+		// 	colors:['#FF9900','#3399CC'],
+		// 	data:[
+		// 		['数据直报',35],
+		// 		['系统对接',65],
+		// 	],
+		// 	dataLabels:true
+		// }
+		// pieChartFirst(obj2);
+		
+		// var obj3={
+		// 	id:'pieContainer2',
+		// 	title:'总水表供应商分析',
+		// 	colors:['#FF9900','#3399CC','#33CC99','#99CC00','#993399','#FF9999','#CC66CC','#00CCFF','#99CC99','#CC3366'],
+		// 	data:[
+		// 		['常德仪表',42],
+		// 		['华水仪表',18],
+		// 		['山东金泉',15],
+		// 		['顺水水表',10],
+		// 		['德能仪表',8],
+		// 		['三川仪表',7],
+		// 		['宁波优静',5],
+		// 		['连云港腾越',3],
+		// 		['慧怡水表',3],
+		// 		['其他',1],
+		// 	],
+		// 	dataLabels:false
+		// }
+		// pieChartFirst(obj3);
+	</script>
+</html>

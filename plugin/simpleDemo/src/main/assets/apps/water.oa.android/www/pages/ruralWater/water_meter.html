@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水表地图</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/map/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/riverChief.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/water_meter.css"/>
+		<!-- 引入右边导航栏样式 -->
+		<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.marker{
+				width: 15px;
+				height: 15px;
+				border: 1px solid #088;
+				border-radius: 50%;
+				background-color: #00FFFF;
+				opacity: 0.5;
+				display: none;
+			}
+			.marker:after {				content: " ";				background-color: #00FFFF;				position: absolute;				left: 50%;				top: 50%;				width: 15px;				height: 15px;				border-radius: 50%;				margin-left: -50%;				margin-top: -50%;				-webkit-animation-name: 'ripple';				-webkit-animation-duration: 1s;				-webkit-animation-timing-function: linear;				-webkit-animation-delay: 0s;				-webkit-animation-iteration-count: infinite;				-webkit-animation-direction: normal;			}			@keyframes ripple {				0% {					opacity: 1;					width: 15px;					height: 15px;				}				50% {					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -15px;
+					margin-top: -15px;				}				100% {					opacity: 0.05;					width: 60px;					height: 60px;					margin-left: -30px;					margin-top: -30px;				}			}
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {display: none;}
+			.nav_ul_box .nav_li_item{
+				width: 100%;
+			}
+			.icon_img06{
+				width: 0.27rem;
+				height: 0.35rem;
+				margin-right: 10px;
+			}
+			.mapBox #map{background-color: #C3E2AE;}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>水表地图</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a href=""><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section">
+				<div class="mapBox">
+					<div id="map"></div>
+					<div class="top_nav">
+						<ul class="nav_ul_box">
+							<li class="nav_li_item isShow" data-type="riverLakeLongSystem">管理对象</li>
+							<li class="nav_li_item" onclick="jump_new('water_meter_data_list.html')">数据列表</li>
+							<!-- <li class="nav_li_item" onclick="jump_new('data_statistics.html')">统计图表</li> -->
+						</ul>
+					</div>
+					<div class="list_box" id="riverLakeLongSystem">
+						<div class="list_obj heightauto" >
+							<ul class="list_ul">
+								<li class="list_li " data-id="1" data-type="quality" data-qname="water_source" data-url="api/v3/licence/getsurfacewatersource">
+									<img class="icon_img03" src="../../images/ruralWater/water_icon/icons_01_03.png" >
+									<span>水源地</span>
+								</li>
+								<!-- <li class="list_li list_lis" data-type="quality" data-qname="shuichang">
+									<img class="icon_img04" src="../../images/ruralWater/water_icon/icons_02_03.png" >
+									<span>水厂</span>
+								</li> -->
+								<li class="list_li list_lis" data-type="qdata" data-qname="guangwang">
+									<img class="icon_imgs" src="../../images/ruralWater/water_icon/icons_03_03.png" >
+									<span>管网</span>
+								</li>
+								<li class="list_li active" data-type="quality" data-qname="zongshuibiao" data-url="http://rural_water.sxjicheng.com/api/v1/meter_statistics/meter_map_manage">
+									<img class="icon_img06" src="../../images/ruralWater/water_icon/icons_04_03.png" >
+									<span>总水表</span>
+								</li>
+								<!-- <li id="jczd" class="list_li" data-type="qdata" data-qname="icon_13" data-id="1">
+									<img class="icon_img02" src="../../images/ruralWater/water_icon/icons_05_03.png" >
+									<span>水库</span>
+								</li> -->
+								<!-- <li class="list_li list_lis active" data-type="quality" data-qname="pwk" data-id="2">
+									<img class="icon_img02" src="../../images/ruralWater/water_icon/icons_06_03.png" >
+									<span>水系</span>
+								</li>
+								<li class="list_li" data-type="quality" data-qname="gsp" data-id="3">
+									<img class="icon_img02" src="../../images/ruralWater/water_icon/icons_07_03.png" >
+									<span>地下水</span>
+								</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="rightTabs rightPosi">
+					<ul>
+						<li><a onclick="jump_new('static_analysis.html')"><img src="../../images/riverChief/icon_01_03.png" ></a></li>
+						<li><a onclick="jump_new('event.html')"><img src="../../images/riverChief/icon_02_03.png" ></a></li>
+						<li><a onclick="jump_new('riverPatrol.html')"><img src="../../images/riverChief/icon_03_03.png" ></a></li>
+						<li><a onclick="jump_new('drainOutlet.html')"><img src="../../images/riverChief/icon_04_03.png" ></a></li>
+						<li><a onclick="jump_new('billboard.html')"><img src="../../images/riverChief/icon_05_03.png" ></a></li>
+						<li><a onclick="jump_new('clear_four_mess.html')"><img src="../../images/riverChief/icon_06_03.png" ></a></li>
+					</ul>
+				</div> -->
+				<div class="rightTabs rightPosi">
+					<ul>
+						<li><a href=""><img src="../../images/riverChief/icon_right01.png" ></a></li>
+						<!-- <li><a onclick="backFun()"><img src="../../images/ruralWater/right_tabs_back.png" ></a></li> -->
+					</ul>
+				</div>
+				<div class="gpsInfo" style="display: none;">
+					<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png" >
+					<div class="gpsInfo_con">
+						<div class="info_dhxx_box">
+							<p class="title">地市：<span id="info_dhxx">晋中市</span></p>
+							<p class="title title_active">区县：<span id="info_dhxx">祁县</span></p>
+							<p class="title title_active">乡镇：<span id="info_dhxx">城赵镇</span></p>
+							<p class="title title_active">自然村：<span id="info_dhxx">原西100表</span></p>
+						</div>
+						<table border="0" cellspacing="0" cellpadding="0" class="info_dhxx_table">
+							<tr>
+								<td class="texl">已接入水表</td>
+								<td>34</td>
+								<td class="texl">应接入水表</td>
+								<td>819</td>
+							</tr>
+							<tr>
+								<td class="texl">完成百分比</td>
+								<td>4.2%</td>
+								<td class="texl">年度总用水量</td>
+								<td>52245.31</td>
+							</tr>
+							<tr>
+								<td class="texl">上报成功率</td>
+								<td>100%</td>
+								<td class="texl">抄表准确率</td>
+								<td>99.9%</td>
+							</tr>
+							<tr>
+								<td class="texl">故障率</td>
+								<td>0%</td>
+								<td class="texl"></td>
+								<td></td>
+							</tr>
+						</table>
+						<table border="0" cellspacing="0" cellpadding="0" class="info_dhxx_table title_active">
+							<tr>
+								<td class="texl">水表</td>
+								<td>03757048号</td>
+								<td class="texl">用水量</td>
+								<td>59308.15</td>
+							</tr>
+							<tr>
+								<td class="texl">前一日使用量</td>
+								<td>364.87</td>
+								<td class="texl">状态</td>
+								<td>正常</td>
+							</tr>
+							<tr>
+								<td class="texl">更新日期</td>
+								<td>2020-12-23</td>
+								<td class="texl">上报成功率</td>
+								<td>100%</td>
+							</tr>
+							<tr>
+								<td class="texl">抄表准确率</td>
+								<td>99.9%</td>
+								<td class="texl">故障率</td>
+								<td>0%</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!-- 右下定位信息     开始-->
+				<div class="right_posi" >
+					<div class="img_box_list">
+						<div class="img_box_item" onclick="zoomInFun()">
+							<img class="img" src="../../images/right_bar/add.png">
+						</div>
+						<div class="img_box_item" onclick="zoomOutFun()">
+							<img class="img" src="../../images/right_bar/reduce.png">
+						</div>
+					</div>
+				</div>
+				<!-- 右下定位信息     结束-->
+			</div>
+		</div>
+		<!-- 当前手机位置 -->
+		<div id="marker" class="marker"></div>
+	</body>
+	<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/water_meter.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/**
+		 * @description 放大
+		 */
+		function zoomInFun() {
+			$(".ol-zoom .ol-zoom-in").click();
+		}
+		/**
+		 * @description 缩小
+		 */
+		function zoomOutFun() {
+			$(".ol-zoom .ol-zoom-out").click();
+		}
+	</script>
+</html>

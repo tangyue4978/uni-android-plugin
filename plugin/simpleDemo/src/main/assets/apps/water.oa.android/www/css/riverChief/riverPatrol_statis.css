@@ -1,0 +1,176 @@
+.main {
+	position: fixed;
+	top: 1.3rem;
+	width: 100vw;
+	height: calc(100vh - 1.3rem);
+	background-color: #f6f6f6;
+}
+
+.main .nav {
+	height: 1.2rem;
+	background-color: #fff;
+	border-bottom: 1px solid #dedede;
+	display: flex;
+	align-items: center;
+}
+
+.main .nav .nav_item {
+	flex: 1;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	text-align: center;
+	border-right: 1px solid #e1e1e1;
+	font-size: 0.36rem;
+	color: #000;
+}
+
+.main .nav .nav_item.active {
+	position: relative;
+	color: #4178f9;
+}
+
+.main .nav .nav_item.active::after {
+	position: absolute;
+	left: 0;
+	bottom: calc(-0.3rem - 1px);
+	content: "";
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #4178f9;
+}
+
+.main .select {
+	height: 1.2rem;
+	padding: 0.2rem;
+	display: flex;
+	justify-content: space-between;
+}
+
+.main .select .select_item {
+	position: relative;
+	width: 32%;
+	padding: 0 0.1rem;
+	border-radius: 0.2rem;
+	background-color: #fff;
+	font-size: 0.28rem;
+	color: #868686;
+	overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.main .select .select_item.select_item_4, .main .select .select_item.select_item_5 {
+	display: none;
+}
+
+.main .select .select_item select {
+	width: 100%;
+	height: 100%;
+}
+
+.main .select .select_item .img {
+	position: absolute;
+	top: 50%;
+	right: 0.1rem;
+	transform: translateY(-50%);
+	width: 0.3rem;
+	height: 0.3rem;
+}
+
+.main .select .select_item .input {
+	width: calc(100% - 0.4rem);
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	border: none;
+	font-size: 0.28rem;
+	color: #000;
+	background: #FFFFFF;
+}
+
+.main .select .select_item .input::-webkit-input-placeholder {
+	font-size: 0.28rem;
+	color: #868686;
+}
+
+.main .table_wrap {
+	height: calc(100% - 2.6rem);
+	background-color: #fff;
+	margin: 0 0.2rem;
+	padding: 0.4rem 0.2rem;
+	border-radius: 0.3rem;
+	overflow-y: scroll;
+}
+
+.main .table_wrap .title {
+	height: 1.2rem;
+	padding-top: 0.1rem;
+	line-height: 1.2rem;
+	text-align: center;
+	font-size: 0.4rem;
+	font-weight: bold;
+	color: #000;
+}
+
+.main .table_wrap .sort_table {
+	display: none;
+}
+
+.main .table_wrap .sort_table.river_sort {
+	display: block;
+}
+
+.main .table_wrap .table {
+	border: 1px solid #d3d3d3;
+	font-size: 0.27rem;
+	color: #424242;
+	overflow: auto;
+}
+
+.main .table_wrap .table .table_head .line_top {
+	background-color: #f6f6f6;
+}
+
+.main .table_wrap .table .line .line_top {
+	border-bottom: 1px solid #d3d3d3;
+	display: flex;
+}
+
+.main .table_wrap .table .line .line_top .item {
+	width: 20%;
+	padding: 0.2rem 0;
+	border-right: 1px solid #d3d3d3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+.main .table_wrap .table .line .line_btm {
+	background-color: #eef7ff;
+	display: none;
+}
+
+.main .table_wrap .table .line .line_btm .line {
+	border-bottom: 1px solid #d3d3d3;
+	padding: 0.2rem 0;
+	display: flex;
+	align-items: center;
+}
+
+.main .table_wrap .table .line .line_btm .line .item {
+	width: 20%;
+	padding: 0 0.1rem;
+	text-align: justify;
+	text-align-last: center;
+    word-break: break-all;
+}
+
+.level_sort .table .line .line_top .item {
+	width: 17.5%;
+}
+
+.level_sort .table .line .line_top .item:first-child {
+	width: 30%;
+}

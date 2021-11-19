@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/map/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/shanxi_water_network/water_network.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>山西大水网</span>
+			</header>
+			<div class="section">
+				<div class="mapBox">
+					<div id="map"></div>
+					<div class="top_nav">
+						<ul class="nav_ul_box">
+							<li class="nav_li_item isShow" data-type="managementObjects">管理对象</li>
+							<li class="nav_li_item" onclick="jump_new('four_mess.html')">数据列表</li>
+							<li class="nav_li_item" onclick="jump_new('list_city.html')">统计图表</li>
+						</ul>
+					</div>
+					<div class="list_box" id="managementObjects">
+						<div class="list_obj">
+							<ul class="list_ul">
+								<li class="list_li">
+									<img class="icon_img" src="../../images/waterQuality/icon_blue.png" >
+									<span>一级河流</span>
+								</li>
+								<li class="list_li">
+									<img class="icon_img" src="../../images/waterQuality/icon_green.png" >
+									<span>二级河流</span>
+								</li>
+								<li class="list_li">
+									<img class="icon_img" src="../../images/waterQuality/icon_yellow.png" >
+									<span>三级河流</span>
+								</li>
+								<li class="list_li">
+									<img class="icon_img" src="../../images/waterQuality/icon_red.png" >
+									<span>检测站点</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="rightTabs leftPosi">
+					<ul>
+						<li><a href=""><img src="../../images/ruralWater/right_tabs01.png" ></a></li>
+						<!-- <li><a onclick="backFun()"><img src="../../images/ruralWater/right_tabs_back.png" ></a></li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<!-- <script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/shanxi_water_network/water_network.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

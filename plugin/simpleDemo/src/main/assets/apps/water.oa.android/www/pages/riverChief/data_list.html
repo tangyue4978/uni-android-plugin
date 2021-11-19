@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>数据列表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/waterLove/four_mess.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<style type="text/css">
+			.lists_data>li{
+				width: 100%;
+				padding: 0.1rem;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.list.repair{
+				padding-top: 0rem!important;
+			}
+		</style>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>数据列表</span>
+			</header>
+			<!-- 分类start -->
+			<!-- <div class="sort">
+				<select name="city" class="sort_list sort_list_img select_shi" id="city_select">
+					<option value="0">山西省</option>
+				</select>
+				<select name="typeId" class="sort_list sort_list_img" id="type_select">
+					<option value="1">全部灌区类型</option>
+					<option value="2">大型灌区</option>
+					<option value="3">中型灌区</option>
+				</select>
+			</div> -->
+			<!-- 分类end -->
+			<!-- 标签start -->
+			<div class="tab">
+				<ul class="tab_box">
+					<li onclick="jump_new('qihe.html')" class="tab_active">七河</li>
+					<li onclick="jump_new('wuhu.html')" >五湖</li>
+				</ul>
+			</div>
+			<!-- 标签end -->
+			
+			<!-- 列表start -->
+			<div class="list repair">
+				<!-- 记录 -->
+				<div class="list_number noPosition">共<span>0</span>条记录</div>
+				<!-- 记录 end -->
+				<ul class="lists listBox">
+					
+					
+				</ul>
+			</div>
+			<!-- 列表end -->
+			
+		</div>
+	</body>
+	
+	<!-- <script src="../../js/map/scroll_top.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/map/getCity.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/riverChief/map_list.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

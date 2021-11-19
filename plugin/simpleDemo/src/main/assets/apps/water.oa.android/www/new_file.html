@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+		<input type="file" name="" id="d" value="" capture='' />
+		<button id="btn" type="button" class="mui-btn mui-btn-blue mui-btn-block" onclick="aa()">按钮</button>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			//上传附件
+			$("#d").change(function() {
+				
+				
+        console.log(this.files[0]);
+        
+//      function getObjectURL(file) {
+//          var url = null;
+//          if (window.createObjcectURL != undefined) {
+//              url = window.createOjcectURL(file);
+//          } else if (window.URL != undefined) {
+//              url = window.URL.createObjectURL(file);
+//          } else if (window.webkitURL != undefined) {
+//              url = window.webkitURL.createObjectURL(file);
+//          }
+//          return url;
+//      }
+//      var objURL = getObjectURL(this.files[0]);
+//      console.log(objURL)
+        
+        
+//				//文件集合s
+//				var files = [];
+//				//服务器地址
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+				var server = root+"/api/upload/";
+//
+				var path = $(this).val();
+				var showfilename = $(this).parent().parent().prev(); //展示文件名称的view
+				showfilename.show(); //显示展示名称
+				showfilename.text(this.files[0].name)
+				var reader = new FileReader();
+				reader.readAsDataURL(this.files[0]);
+
+				//console.log(this.files[0]);
+				var self = plus.webview.currentWebview();
+				nowFileType = self.fileType;
+				console.log("filepath:" + self.filepath)
+
+				reader.onloadend = function(e) {
+					console.log(e.target.result)
+					var task = plus.uploader.createUpload(server, {
+
+						},
+						function(t, status) {
+							// 上传完成
+							console.log(JSON.stringify(t))
+							console.log(JSON.stringify(status))
+
+						} 
+					);
+
+					task.addFile(e.target.result, {
+						key: "file"
+					});
+					task.addData("token", "ZnRna3RWN1l6MTlaYUNvTGtlVmxjZz09");
+					task.addData("type", "file");
+					task.addData("file", e.target.result);
+					task.start();
+
+				}
+
+			})
+
+			//			
+			//				function getObjectURL(file) {
+			//					var url = null;
+			//					if(window.createObjcectURL != undefined) {
+			//						url = window.createOjcectURL(file);
+			//					} else if(window.URL != undefined) {
+			//						url = window.URL.createObjectURL(file);
+			//					} else if(window.webkitURL != undefined) {
+			//						url = window.webkitURL.createObjectURL(file);
+			//					}
+			//					return url;
+			//				}
+			//				var objURL = getObjectURL(this.files[0]); //这里的objURL就是input file的真实路径
+			//				console.log(objURL)
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

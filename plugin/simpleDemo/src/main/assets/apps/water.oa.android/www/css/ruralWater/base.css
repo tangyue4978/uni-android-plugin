@@ -1,0 +1,254 @@
+@charset "utf-8";
+/*CSS Document*/
+html,
+body,
+div,
+section,
+header,
+nav,
+footer,
+label,
+span,
+em,
+i,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+a,
+img,
+form,
+input,
+textarea,
+select,
+button,
+table,
+tbody,
+thead,
+tfoot,
+tr,
+th,
+td,
+small {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    font-family: Helvetica;
+    color: #909090;
+    background: #fff;
+    font-size: 0.28rem;
+    max-width: 750px;
+    min-width: 300px;
+    margin: 0 auto;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-weight: normal;
+}
+li {
+    list-style-type: none;
+}
+img {
+    border: 0;
+    width: 100%;
+    display: block;
+}
+a {
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    color: #343434;
+}
+a:focus {
+    outline: 0;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+em,
+i {
+    font-style: normal;
+}
+button,
+textarea,
+input[type="button"],
+input[type="radio"],
+input[type="date"],
+select {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+input,
+input[type="number"]::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button,
+input[type="checkbox"],
+input[type="range"],
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+}
+body {
+    width: 100%;
+    height: 100%;
+}
+.mui-content {
+    min-height: 100%;
+}
+/* header */
+header {
+    width: 100%;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    padding: 0.2rem;
+    font-size: 0.36rem;
+    color: #fff;
+    text-align: center;
+    background: #3876ef;
+    background: url(../../images/ruralWater/bj.jpg) no-repeat;
+    background-size: 100% 100%;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+}
+header .iconfont {
+    font-size: 20px;
+}
+header i.iconfont{
+	padding-right: 0.5rem;
+}
+header .icon-menu {
+    width: 0.5rem;
+    height: 0.9rem;
+    background: url(../../images/ruralWater/menu.png) no-repeat center 0.48rem / 0.3rem 0.3rem;
+}
+header .menuList {
+    display: none;
+    width: 2.6rem;
+    padding-left: 0.25rem;
+    background: #fff;
+    border: 1px solid #dfdfdf;
+    box-shadow: 0 1px 6px #e2e2e2;
+    position: absolute;
+    top: 1.5rem;
+    right: 0.12rem;
+}
+header .menuList::before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-width: 0.12rem;
+    border-style: solid;
+    border-color: #fff #fff transparent transparent;
+    transform: rotate(-45deg);
+    box-shadow: 2px -2px 2px #e2e2e2;
+    position: absolute;
+    top: -0.1rem;
+    right: 0.25rem;
+}
+.menuList li {
+    line-height: 0.8rem;
+}
+.menuList li a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.menuList li a i {
+    flex: 1;
+    height: 0.37rem;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0.37rem 0.37rem;
+}
+.menuList li a p {
+    flex: 4;
+    border-bottom: 1px solid #d6d5d3;
+    padding-left: 0.15rem;
+    text-align: left;
+    font-size: 0.24rem;
+    color: #666;
+}
+.menuList li:last-child a p {
+    border: 0;
+}
+.menuList li.active a i {
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0.37rem 0.37rem;
+}
+.menuList li.active a p {
+    color: #3672ed;
+}
+.menu_village i {
+    background: url(../../images/ruralWater/menu_village.png);
+}
+.menu_engineering i {
+    background: url(../../images/ruralWater/menu_engineering.png);
+}
+.menu_drinking i {
+    background: url(../../images/ruralWater/menu_drinking.png);
+}
+.menu_irrigation i {
+    background: url(../../images/ruralWater/menu_irrigation.png);
+}
+.menu_village.active i {
+    background: url(../../images/ruralWater/menu_village_active.png);
+}
+.menu_engineering.active i {
+    background: url(../../images/ruralWater/menu_engineering_active.png);
+}
+.menu_drinking.active i {
+    background: url(../../images/ruralWater/menu_drinking_active.png);
+}
+.menu_irrigation.active i {
+    background: url(../../images/ruralWater/menu_irrigation_active.png);
+}
+/* 内容 */
+.section {
+    width: 100%;
+    margin: 1.3rem 0 0;
+}
+/*适配iPhoneX*/
+@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+    .section:after {
+        content: "";
+        display: block;
+    }
+}
+
+/* 顶部标题居中 */
+.header span:first-of-type {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+	white-space: nowrap;
+}

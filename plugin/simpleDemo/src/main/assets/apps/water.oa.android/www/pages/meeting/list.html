@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>会议</p>
+				<div class="meeting-nav">
+					<div style="position: fixed;z-index: 9;top: 1.27rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								未开始
+							</a>
+							<a class="mui-control-item" href="#item2" style="border-right: 1px solid #dcdcdc;">
+								进行中
+							</a>
+							<a class="mui-control-item" href="#item3">
+								已结束
+							</a>
+						</div>
+					</div>
+					<div class="meeting">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="wks">
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p><p>会议人员：尤友林、杨柳乡、苏晓翔、马林</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>-->
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p><p>会议人员：尤友林、杨柳乡、苏晓翔、马林</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>-->
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p><p>会议人员：尤友林、杨柳乡、苏晓翔、马林</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>-->
+							</ul>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul class="jxz">
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p><p>会议人员：尤友林、杨柳乡、苏晓翔、马林</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>-->
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p><p>会议人员：尤友林、杨柳乡、苏晓翔、马林</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>-->
+							</ul>
+						</div>
+						<div id="item3" class="mui-control-content">
+							<ul class="yjs">
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p><p>会议人员：尤友林、杨柳乡、苏晓翔、马林</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>-->
+							</ul>
+						</div>
+					</div>
+					<!--<button onclick="newhy()">新建会议</button>-->
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			function xiangqing(i,type) {
+				mui.openWindow({
+					url: 'meetingDetails.html', //通过URL传参
+					id: 'meetingDetails.html', //通过URL传参
+					extras: {
+						ii: i,
+						type:type
+					}
+				})
+			};
+
+			function newhy() {
+				mui.openWindow({
+					url: 'newMeeting.html', //通过URL传参
+					id: 'newMeeting.html', //通过URL传参
+				})
+			}
+
+			yjslist();
+
+			function yjslist() {
+				var _url = root + 'api/meeting/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page": 1,
+						"type": 3,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							if (data.data!=""&&data.data!=undefined&&data.data!=null) {
+								data.data.forEach(function(v) {
+									$(".yjs").append('<li onclick="xiangqing(' + v.id +','+v.type+ ')"><div class="left"><h2>' + v.name + '</h2><p>会议时间：' + v.startTime + '</p><p>会议地点：' + v.roomName + '</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>')
+								})
+							}else{
+								$(".yjs").append('<li style="text-align: center;font-size: 0.3rem;">暂无数据</li>');
+							}
+						} else {
+							mui.toast("获取失败！")
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+			wkslist();
+
+			function wkslist() {
+				var _url = root + 'api/meeting/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page": 1,
+						"type": 1,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							if (data.data!=""&&data.data!=undefined&&data.data!=null) {
+							data.data.forEach(function(v) {
+								$(".wks").append('<li onclick="xiangqing(' + v.id+','+v.type + ')"><div class="left"><h2>' + v.name + '</h2><p>会议时间：' + v.startTime + '</p><p>会议地点：' + v.roomName + '</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>')
+							})
+							}else{
+								$(".wks").append('<li style="text-align: center;font-size: 0.3rem;">暂无数据</li>');
+							}
+						} else {
+							mui.toast("获取失败！")
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+			jxzlist();
+
+			function jxzlist() {
+				var _url = root + 'api/meeting/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page": 1,
+						"type": 2,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							if (data.data!=""&&data.data!=undefined&&data.data!=null) {
+								data.data.forEach(function(v) {
+									$(".jxz").append('<li onclick="xiangqing(' + v.id+','+v.type + ')"><div class="left"><h2>' + v.name + '</h2><p>会议时间：' + v.startTime + '</p><p>会议地点：' + v.roomName + '</p></div><div class="right"><i class="iconfont icon-youjiantou1"></i></div></li>')
+								})
+							} else{
+									$(".jxz").append('<li style="text-align: center;font-size: 0.3rem;">暂无数据</li>');
+							}
+							
+						} else {
+							mui.toast("获取失败！")
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

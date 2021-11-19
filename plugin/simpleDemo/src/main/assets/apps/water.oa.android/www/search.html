@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_f1vvh8au9b.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.search .time button{
+				/*top: -1.52rem;*/
+				position: absolute;
+				top: -1px;
+				height: 0.7rem;
+				box-sizing: border-box;
+				border: none;
+			}
+			.search .time{
+				position: relative;
+				line-height: 0.33rem;
+				height: 0.7rem;
+				width: 90%;
+				display: block;
+				padding: 0rem; 
+				margin: 0rem auto;
+			}
+			.search .time input{
+				display: inline-block;
+				width: 38%;
+				/*background: red;*/
+				padding: 0rem 0.2rem;
+				margin: 0rem;
+				position: absolute;
+				top: 0.08rem;
+				left: 39%;
+				height:0.5rem;
+				
+			}
+			.search .time input#bj{
+				left: 0%;
+				border-right: 1px solid #4178f9;
+			}
+		</style>
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp search-header">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>检索中心</p>
+
+				<div class="search">
+					<h1></h1>
+					<div class="time">
+						<input type="text"  id="bj" placeholder="标题/内容" />
+						<input type="text"  id="sj" placeholder="选择时间范围" readonly="readonly"/>
+						<!--<textarea clos="10" rows="1" type="text" id="sj" placeholder="请选择时间范围" style="ime-mode:disabled" /></textarea>-->
+						<button onclick="sousuo()">搜索</button>
+					</div>
+
+					<h1 style="margin-top: 0.4rem;">分类搜索</h1>
+
+					<ul>
+						<li><i class="iconfont icon-zhengce licolor"></i>
+							<p class="licolor">政策</p>
+						</li>
+						<li><i class="iconfont icon-guanli"></i>
+							<p>管理规定</p>
+						</li>
+						<li><i class="iconfont icon-jishu"></i>
+							<p>技术标准</p>
+						</li>
+						<li><i class="iconfont icon-gongwen"></i>
+							<p>公文</p>
+						</li>
+						<li><i class="iconfont icon-icon-test"></i>
+							<p>会议</p>
+						</li>
+						<li><i class="iconfont icon-fa-id-badge"></i>
+							<p>人事</p>
+						</li>
+						<li><i class="iconfont icon-rili"></i>
+							<p>日程</p>
+						</li>
+						<li><i class="iconfont icon-rizhi"></i>
+							<p>日志</p>
+						</li>
+						<li><i class="iconfont icon-yunyingpan"></i>
+							<p>云盘</p>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/main.js"></script>-->
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var type = "rule1";
+			var root = localStorage.getItem("str_url");
+//			if(root == "" || root == undefined || root == null) {
+//				mui.openWindow({
+//					url: 'login.html?cid=1', //通过URL传参
+//					id: 'login.html?cid=1', //通过URL传参
+//				})
+//			}
+			var token = localStorage.getItem("token");
+			$("ul li").click(function() {
+				if($(this).children("i").hasClass("licolor")) {
+					$(this).children("i").addClass("licolor");
+					$(this).children("p").addClass("licolor");
+					
+				} else {
+					$(this).children("i").addClass("licolor");
+					$(this).children("p").addClass("licolor");
+					if($(this).children("p").text() == "政策"){
+						type = "rule1";
+					}else if($(this).children("p").text() == "管理规定"){
+						type = "rule2";
+					}else if($(this).children("p").text() == "技术标准"){
+						type = "rule3";
+					}else if($(this).children("p").text() == "公文"){
+						type = "document";
+					}else if($(this).children("p").text() == "会议"){
+						type = "meeting";
+					}else if($(this).children("p").text() == "人事"){
+						type = "person";
+					}else if($(this).children("p").text() == "日程"){
+						type = "schedule";
+					}else if($(this).children("p").text() == "日志"){
+						type = "worklogs";
+					}else if($(this).children("p").text() == "云盘"){
+						type = "cloud";
+					}
+					$(this).siblings().children("i").removeClass("licolor");
+					$(this).siblings().children("p").removeClass("licolor");
+
+				}
+
+			})
+
+			function sousuo() {
+				var time = $('#sj').val();
+				var title = $('#bj').val();
+				console.log(time)
+				console.log(title)
+				console.log(type)
+				mui.openWindow({
+					url: 'searchList.html', //通过URL传参
+					id: 'searchList.html', //通过URL传参
+					extras: {
+						time: time,
+						title: title,
+						type: type
+					}, 
+				})
+			}
+
+			//			选择时间开始
+			var dtpicker = new mui.DtPicker({
+				"type": "date"
+			});
+			var dtpicker2 = new mui.DtPicker({
+				"type": "date"
+			});
+			document.querySelector("#sj").addEventListener("click", function() {
+				dtpicker.show(function(items) {
+					console.log(JSON.stringify(items))
+					dtpicker2.show(function(items1) {
+						$('#sj').val(items.value + ',' + items1.value);
+					});
+				});
+			});
+		</script>
+		<!--<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>降水预报</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/meteorological/precipitation.css" />
+		<!-- 引入右边导航栏样式 -->
+		<link rel="stylesheet" href="../../css/rightBar/right_bar.css?v=1026"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {
+				display: none;
+			}
+
+			.weight {
+				font-size: 0.28rem;
+				color: #333;
+				font-weight: 700;
+			}
+
+			.sort_lists {
+				background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 90%;
+				background-size: 15px 9px;
+			}
+
+			.lists_li {
+				position: relative;
+			}
+
+			.position {
+				text-align: right;
+			}
+
+			.lists_data2>li {
+				width: 100%;
+			}
+		</style>
+		<style>
+		html{height: 100%;}
+		body{
+			padding: 1px;
+			overflow: hidden;
+			box-sizing: border-box;
+		}
+		.map{position: fixed;top: 2.2rem;bottom: 0px;left: 0px;right: 0px;background-color: #CCCCCC;z-index: 9;}
+		.map_info_title{
+			position: fixed;
+			left: 0.2rem;
+			top: 2.5rem;
+			z-index: 10;
+			font-weight: bold;
+			color: #222222;
+			font-size: 0.25rem;
+		}
+		.map_info_img{
+			position: fixed;
+			left: 0.2rem;
+			bottom: 0.5rem;
+			z-index: 10;
+		}
+		.map_info_img .tl_box{
+			
+		}
+		.map_info_ul{list-style: none;background-color: #FFFFFF;padding: 0.2rem;border-radius: 0.15rem;}
+		.map_info_ul .map_info_li{
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			line-height: 0.4rem;
+		}
+		.map_info_ul .map_info_li .legend{
+			display: inline-block;
+			width: 0.25rem;
+			height: 0.25rem;
+			background-color: #CCCCCC;
+			margin-right: 0.1rem;
+		}
+		.map_info_ul .map_info_li .legend_name{
+			display: inline-block;
+			color: #333333;
+			font-size: 0.2rem;
+			font-weight: 400;
+		}
+		</style>
+		<style>
+			
+			.content_box{z-index: 20;}
+			.content_box .tab{height: 1rem;}
+			.tab_box li{
+				position: relative;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.35rem;
+				color: #333333;
+			}
+			.tab_box li.tab_active::after {
+				border-top: 0.1rem solid #3a77f0;
+			}
+			.tab_box li::after{
+				content: "";
+				width: 0px;
+				height: 0px;
+				border-left: 0.1rem solid transparent;
+				border-right: 0.1rem solid transparent;
+				border-top: 0.1rem solid #999999;
+				margin-left: 0.1rem;
+				/* position: absolute;
+				top: -10px;
+				left: 65px; */
+			}
+			.tab_box li.active .boxInfo{display: block;}
+			.boxInfo{
+				display: none;
+				position: absolute;
+				width: calc(100% + 2px);
+				top: 100%;
+				left: -1px;
+				z-index: 99;
+				background-color: #FFFFFF;
+				border: 1px solid #CDCDCD;
+			}
+			.boxInfo .type_item{
+				line-height: 0.6rem;
+				font-size: 0.25rem;
+				color: #999999;
+			}
+			.boxInfo .type_item.active{
+				color: #3a77f0;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>降水预报</span>
+			</header>
+			<div class="content_box">
+				<!-- 标签start -->
+				<div class="tab">
+					<ul class="tab_box">
+						<li class="tab_active" data-rain="0">
+							山西预报图
+							<div class="boxInfo">
+								<!-- <div class="type_item active">24小时</div>
+								<div class="type_item">48小时</div>
+								<div class="type_item">72小时</div> -->
+							</div>
+						</li>
+						<li data-rain="1">
+							全国预报图
+							<div class="boxInfo">
+								<!-- <div class="type_item active">24小时</div>
+								<div class="type_item">48小时</div>
+								<div class="type_item">72小时</div>
+								<div class="type_item">92小时</div>
+								<div class="type_item">120小时</div>
+								<div class="type_item">144小时</div>
+								<div class="type_item">168小时</div> -->
+							</div>
+						</li>
+						<li data-rain="2">
+							欧洲预报图
+							<div class="boxInfo">
+								<!-- <div class="type_item active">24小时</div>
+								<div class="type_item">48小时</div>
+								<div class="type_item">72小时</div>
+								<div class="type_item">92小时</div>
+								<div class="type_item">120小时</div> -->
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!-- 标签end -->
+			</div>
+			
+			<!-- 右侧导航栏信息                  开始 -->
+			<div class="right_bar" style="position: fixed;top:3.8rem;z-index: 10;display: none;">
+				<div class="right_bar_top">
+					<img class="img" src="../../images/right_bar/arrow_t.png" alt="">
+				</div>
+				<!-- 中间滚动区域       开始-->
+				<div class="right_bar_center">
+					<ul>
+						<!-- <li class="list_li active" data-li="tips" data-type="1">
+							<img class="icon_img icon1" src="../../images/yc/clock-1.png">
+							<img class="icon_img icon2" src="../../images/yc/clock-2.png">
+							<span class="bar_text">24小时</span>
+						</li> -->
+					</ul>
+				</div>
+				<!-- 中间滚动区域       结束-->
+				<div class="right_bar_btm">
+					<img class="img" src="../../images/right_bar/arrow_b.png" alt="">
+				</div>
+			</div>
+			<!-- 右侧导航栏信息                  结束 -->
+			<!-- 列表start -->
+			<div class="list">
+				<ul class="lists isShow">
+					<div class="lists_img_box">
+						<!-- <img src="" class="lists_img"> -->
+					</div>
+					<div class="lists_span_box">
+						<div class="lists_span_title"></div>
+						<div class="lists_span">
+							<!-- 降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。
+							降水量是衡量一个地区降水多少的数据。 -->
+						</div>
+					</div>
+				</ul>
+
+			</div>
+			<!-- 列表end -->
+			<!-- 山西天气预报图 -->
+			<div class="map" id="map"></div>
+			<div class="map_info_title"></div>
+			<div class="map_info_img">
+				<!-- <img class="tl_box" src="../../images/meteorological/lengimg.jpeg" > -->
+				<ul class="map_info_ul">
+					<li class="map_info_li">
+						<span class="legend" style="background-color: #A3F392;"></span>
+						<span class="legend_name">小雨</span>
+					</li>
+					<li class="map_info_li">
+						<span class="legend" style="background-color: #38A711;"></span>
+						<span class="legend_name">中雨</span>
+					</li>
+					<li class="map_info_li">
+						<span class="legend" style="background-color: #61B8FF;"></span>
+						<span class="legend_name">大雨</span>
+					</li>
+					<li class="map_info_li">
+						<span class="legend" style="background-color: #0031F9;"></span>
+						<span class="legend_name">暴雨</span>
+					</li>
+					<li class="map_info_li">
+						<span class="legend" style="background-color: #F935FA;"></span>
+						<span class="legend_name">大暴雨</span>
+					</li>
+				</ul>
+			</div>
+			<!-- 山西天气预报图 -->
+			
+
+		</div>
+
+		<!-- 当前手机位置 -->
+		<div id="marker" class="marker"></div>
+
+	</body>
+	<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/meteorological/qixiang_test.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/meteorological/precipitation.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 右侧选中效果js -->
+	<script src="../../js/right_bar/index.js?v=1024"></script>
+</html>

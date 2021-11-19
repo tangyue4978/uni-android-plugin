@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>河湖长制</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess.css" />
+
+	<!-- 筛选css -->
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+	<!-- 筛选css end -->
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/map/getCity.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.sort {
+			top: 2.6rem;
+		}
+
+		.content_box {
+			z-index: 1;
+		}
+
+		.all {
+			top: 3.6rem;
+		}
+
+		.list {
+			margin-top: 4.6rem;
+		}
+
+		.weight {
+			font-size: 0.28rem;
+			color: #333;
+			font-weight: 700;
+		}
+
+		.sort_lists {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 90%;
+			background-size: 15px 9px;
+		}
+
+		.lists_li {
+			position: relative;
+		}
+
+		.position {
+			text-align: right;
+		}
+
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+
+		/* 样式复写 */
+		.sort_list {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+	</style>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>河段列表</span>
+		</header>
+		<div class="content_box">
+			<!-- 切换start -->
+			<div class="tab">
+				<ul class="tab_sort">
+					<li><a href="four_tab4.html">河流</a></li>
+					<li><a href="four_mess.html">湖泊</a></li>
+					<li class="tab_color"><a href="four_tab2.html">河段</a></li>
+					<li class="unborder"><a href="four_tab3.html">河湖长名录</a></li>
+				</ul>
+			</div>
+			<!-- 切换end -->
+			<!-- 分类start -->
+			<div class="sort start height09">
+				<select name="city" class="sort_list width50 sort_lists select_shi" id="city">
+					<option value="">全部地市</option>
+				</select>
+				<div class="sort_list width50 search_box">
+					<input type="text" id="rvName" placeholder="名称搜索" class="sort_input sort_new sort_search" />
+					<span class="span_search" id="search_rvName">
+						<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+					</span>
+				</div>
+			</div>
+			<!-- 分类end -->
+		</div>
+
+		<!-- 总条数 -->
+		<div class="all">
+			共<span class="all_num">0</span>个河段
+		</div>
+		<!-- 列表start -->
+		<div class="list">
+			<ul class="lists">
+				<!-- 河段 -->
+				<!-- <li class="lists_li lists_lis" onclick="jump_new('four_mess_detail2.html')">
+						<ul class="lists_data lists_datas">
+							<li >
+								<span>河段名称：</span>
+								<span>名称</span>
+							</li>
+							
+						</ul>
+					</li> -->
+			</ul>
+		</div>
+		<!-- 列表end -->
+
+	</div>
+</body>
+<script src="../../js/riverChief/four_tab2.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

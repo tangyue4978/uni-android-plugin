@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>七河详情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/keyControlArea/statistics.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+			</header>
+			<!-- 主体start -->
+			<div class="content_box">
+				<!-- 标题start -->
+				<div class="title">
+					<div class="title_left">
+						<span class="line"></span>
+						<span class="title_text">治理面积</span>
+					</div>
+					<!-- <select name="date" class="date" id="date">
+						<option value=""></option>
+					</select> -->
+				</div>
+				<!-- 标题end -->
+				<!-- 总治理面积start -->
+				<div class="totals">
+					<div class="totals_data">
+						2035
+					</div>
+					<div class="totals_name">
+						总治理面积(公顷)
+					</div>
+				</div>
+				<!-- 总治理面积end -->
+				<!-- 分别座数 -->
+				<!-- <div class="sorts">
+					<div class="sortsL">
+						<span class="color1"></span>
+						<span class="color2"></span>
+					</div>
+					<div class="sortsR">
+						<span class="color3"></span>
+						<span class="color4"></span>
+					</div>
+				</div> -->
+				<!-- 治理面积start -->
+				<div class="government">
+					<div id="pieContainer" class="piechart"></div>
+				</div>
+				<!-- 治理面积end -->
+			</div>
+			<!-- 主体end -->
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/keyControlArea/statistics.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var pieData =[{
+					name: '治理面积',
+					colorByPoint: true,
+					data:[{
+						name: '林草地面积',
+						y: 53,
+						color:'#2EC7C9'
+					},
+					{
+						name: '梯田面积',
+						y: 46,
+						color:'#B6A2DE'
+					},
+					{
+						name: '淤地坝、谷坊、拦沙坝面积',
+						y: 69,
+						color:'#FFCC00'
+					},
+					{
+						name: '蓄水塘坝面积',
+						y: 100,
+						color:'#D87A80'
+					}],
+				}]
+		pie('pieContainer',pieData)
+		function pie(id,series){
+			Highcharts.chart(id, {
+				chart: {
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					type: 'pie',
+					margin:[0,0,100,0]
+				},
+				title: {
+					text: null
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.y}公顷</b>'
+				},
+				legend:{
+					enabled:true,
+					itemDistance: 5,
+					itemMarginBottom:5,
+					symbolHeight:13,
+					symbolwidth:13,
+					symbolRadius:0,
+					itemStyle:{
+						fontSize:'10px',
+						color:'#747474'
+					}
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						borderWidth:0,
+						showInLegend: true,
+						dataLabels: {
+							enabled: true,
+							format: '<b style="color:{point.color}">{point.y}公顷</b>',
+							style: {
+								fontSize:"0.24rem",
+							}
+						}
+					}
+				},
+				credits:{
+					enabled:false
+				},
+				series: series
+			});
+		}
+	</script>
+</html>

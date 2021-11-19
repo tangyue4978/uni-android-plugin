@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/statusBarHeight"
+        android:layout_alignTop="@+id/toptop"
+        android:scaleType="centerCrop"
+        android:background="@color/state_blue"
+        android:src="@mipmap/navigation_bar_bg" />
+
+    <LinearLayout
+        android:id="@+id/toptop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/state_blue"
+        android:orientation="horizontal" />
+
+    <TextView
+        android:id="@+id/toolbar_img_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toptop"
+        android:layout_marginTop="27dp"
+        android:layout_centerHorizontal="true"
+        android:paddingHorizontal="50dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="水利视频"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/ToolBarMainTextSize" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="10dp"
+        android:background="@mipmap/back"
+        android:scaleType="centerCrop" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/toolbar_img_title"
+        android:layout_marginBottom="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="     "
+            android:textSize="@dimen/ToolBarMainTextSize" />
+    </android.support.v7.widget.Toolbar>
+</RelativeLayout>

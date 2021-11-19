@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_agtywncb2zc.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="css/leave_list.css" />
+		<style type="text/css">
+			.meetingdetails-c p span {
+				width: 1.7rem;
+			}
+			.meeting_approval{
+				text-align: center;
+			}
+			.meeting_approval button{
+				width: 45%;height: 0.9rem;color: #FFF;border-radius:0.46875rem;margin-top: 0.3125rem;
+			}
+			.leave_details .details_flow .flow_div{
+				border-bottom: 0.01562rem solid #ccc;
+			}
+			ul li{
+				list-style: none;
+			}
+			.select_box {
+				width: 100%;
+				background: #fff;
+			}
+    		.select_box .select_ul {
+				width: 100%;
+				overflow: hidden;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0rem;
+			}
+			.select_box .select_join{
+				width: 100%;
+				overflow: hidden;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0rem;
+			}
+			.next_step {
+				width: 30%;
+				margin: 0.2rem 1.5%;
+				border-radius: 2em;
+				background-color: #F0F0F0;
+				color: #464646;
+				text-align: center;
+				list-style: none;
+				float: left;
+				height: 0.7rem;
+				line-height: 0.7rem;
+				font-size: 0.35rem;
+				text-align: center;
+			}
+			.select_box .select_ul .next_step.active{
+				background-color: #397AEF;
+				color: #FFF;
+			}
+			.select_box .select_join .next_step.active{
+				background-color: #397AEF;
+				color: #FFF;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f8f8f8;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp"><i class="mui-action-back iconfont icon-fanhui1 left"></i>会议详情</p>
+				<div class="meetingdetails-content leave_details">
+					<div class="meetingdetails-c">
+						<p class="zt"><span>会议主题：</span></p>
+						<p class="zcr"><span>会议申请人：</span></p>
+						<p class="hys"><span>会议室：</span></p>
+						<p class="sj"><span>会议时间：</span></p>
+						<p class="hyzt"><span>会议状态：</span></p>
+						<p class="rs"><span>参会人数：</span></p>
+					</div> 
+					<div style="background: #fff;"> 
+						<div class="details_approval">
+							<span class="color_999">审批信息</span>
+						</div>
+						<div class="details_flow">
+							<!--审批流程信息-->
+						</div>
+					</div>
+					<div class="isParticipants" style="display: none;background: #fff;padding-top: 0.3rem;">
+						<h3 id="clr_h3" style="color: #323232;text-align: center;font-size: 0.35rem;">选择参会人员</h3>
+						<div class="select_box">
+							<ul class="select_join">
+								<!--选择参会人员-->
+							</ul>
+						</div>
+					</div>
+					<div class="status_participants" style="display: none;">
+						<p class="tp">参会人员状态</p>
+						<div class="meetingdetails-f">
+							<h1>已接受<span class="yjs">0人</span></h1>
+							<ul class="yjsry">
+								<!--参会人员-->
+							</ul>
+						</div>
+					</div>
+					<div class="isListBox" style="display: none;">
+						<h3 id="clr_h3" style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步审批人</h3>
+						<div class="select_box">
+							<ul class="select_ul">
+								<!--下一步审批人-->
+							</ul>
+						</div>
+					</div>
+					<div class="meeting_approval" style="display: none;background:#fff;">
+						<div class="details_approval" style="text-align: left;">
+							<span class="color_999">审批意见</span>
+						</div>
+						<textarea id="opinion" name="" rows="4" cols="" style="width: 100%;border: none;padding:0.2rem 0.4rem;color: #464646;" placeholder="请输入您的意见"></textarea>
+						<button onclick="btn_agree()" style="background: #3A7CF4;">同意</button>
+						<button onclick="btn_reject()" style="background: red;">驳回</button> 
+					</div>
+					
+					<div class="meeting_feedback" style="display: none;background:#fff;text-align: center;">
+						<button onclick="btn_feedback()" style="background: #3A7CF4;width:60%;height:0.9rem;border-radius:30px ;color: #FFF;margin: 0.8rem 0;">反馈</button>
+					</div>
+					<div class="meetingdetails-button">
+						<!--<button>新建会议</button>-->
+						<!--<button>重新发起</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var lx,zt
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log("id="+self.ii);
+				console.log("------------------------------------------");
+				console.log("类型="+self.type)
+				list(self.ii,self.type)
+			});
+			
+			
+			function list(id,type) {
+				var _type=type;
+				var _url = root + 'api/meeting/show'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": id,
+						"type":type
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					
+					
+					success: function(data) {
+						if(_type==1){
+							notice(data);
+						}else{
+							apply(data);
+							$(".next_step").off("click",device);
+							$(".next_step").on("click",device);
+						}
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+
+			
+//			下一步审批人选中
+			$(".next_step").on("click",device);
+	    	function device(){
+				$(this).addClass("active");
+				$(this).siblings().removeClass("active");
+			}
+//          选择参会人员
+	    	$(".next_step").on("click",attend);
+	    	function attend(){
+	    		if(!$(this).hasClass("active")){
+	    			$(this).addClass("active")
+	    		}else{
+	    			$(this).removeClass("active")
+	    		}
+			}
+//			通知
+			function notice(data){
+				if(data.code == 1) {
+					if(data.data.rel.length == 0){
+						mui.toast("暂无数据！")
+					}else{
+					if(data.data.rel.type == 1){
+						zt = "未开始" 
+					}else if(data.data.rel.type == 2){
+						zt = "进行中"
+					}else if(data.data.rel.type == 3){
+						zt = "已结束"
+					}
+						var trueName=data.data.rel.trueName!=undefined&&data.data.rel.trueName!=null&&data.data.rel.trueName!=""?data.data.rel.trueName:"-";
+						$(".zt").html('<span>会议主题：</span>'+data.data.rel.name);
+						$(".zcr").html('<span>会议申请人：</span>'+trueName);
+						$(".sj").html('<span>会议时间：</span>'+data.data.rel.startTime+'—'+data.data.rel.endTime);
+						$(".rs").html('<span>会议人数：</span>'+data.data.count);
+						$(".hys").html('<span>会议室：</span>'+data.data.rel.roomName)
+						$(".yjs").html(data.data.participant.length+'人');
+						$(".hyzt").html('<span>会议状态：</span>'+zt)
+						
+						data.data.participant.forEach(function(v){
+							if (v.avatar!=""&&v.avatar!=null&&v.avatar!=undefined) {
+								var img_str=root+v.avatar;
+							}else{
+								var img_str="images/user.png";
+							}
+							$(".yjsry").append('<li><img src="'+img_str+'" /><p>'+v.trueName+'</p></li>')
+						})
+						console.log(data.data.approvalList);
+						data.data.approvalList.forEach(function(v){
+							$(".details_flow").append('<div class="flow_div">'+
+													'<img src="'+approver_img_src+'" alt="" class="div_img" />'+
+													'<div style="margin-left: 1.3rem;overflow: hidden;">'+
+														'<div style="overflow: hidden;">'+
+															'<div class="color_333  div_name fl">'+v.name+'</div>'+ 
+															'<div class="color_333  div_opinion fl" style="position: relative;">'+v.department+'  '+v.duty+'</div>'+
+														'</div>'+
+														'<div>'+
+															'<div class="color_999 div_time fl">'+v.description+'</div>'+
+														'</div>'+ 
+														'<div style="clear: both;">'+
+															'<div class="color_999 div_time fl">2018-12-18 15:24</div>'+
+														'</div>'+ 
+													'</div>'+
+												'</div>')
+						})
+					}
+				} else {
+					mui.toast("暂无数据！")
+				}
+			}
+//			申请
+			function apply(data){
+				if(data.code == 1) {
+					if(data.data.rel.length == 0){
+						mui.toast("暂无数据！")
+					}else{
+	//							type 1未开始2进行中3已结束
+					if(data.data.state.type == 1){
+						zt = "未开始"
+					}else if(data.data.state.type == 2){
+						zt = "进行中"
+					}else if(data.data.state.type == 3){
+						zt = "已结束"
+					} 
+						var trueName=data.data.rel.trueName!=undefined&&data.data.rel.trueName!=null&&data.data.rel.trueName!=""?data.data.rel.trueName:"-";
+						$(".zt").html('<span>会议主题：</span>'+data.data.rel.name);
+						$(".zcr").html('<span>会议申请人：</span>'+trueName);
+						$(".sj").html('<span>会议时间：</span>'+data.data.rel.startTime+'—'+data.data.rel.endTime);
+						$(".rs").html('<span>会议人数：</span>'+data.data.count);
+						$(".hys").html('<span>会议室：</span>'+data.data.rel.roomName)
+						$(".yjs").html(data.data.participant.length+'人');
+						$(".hyzt").html('<span>会议状态：</span>'+zt)
+						
+						data.data.approvalList.forEach(function(v){
+							var approver_img_src="";
+							var img_src = v.user[0].avatar
+							if(img_src != null && img_src != undefined && img_src != "") {
+								approver_img_src = root + img_src;
+							} else {
+								approver_img_src = "images/user.png";
+							}
+							$(".details_flow").append('<div class="flow_div">'+
+													'<img src="'+approver_img_src+'" alt="" class="div_img" />'+
+													'<div style="margin-left: 1.3rem;overflow: hidden;">'+
+														'<div style="overflow: hidden;">'+
+															'<div class="color_333  div_name fl">'+v.user[0].trueName+'</div>'+ 
+															'<div class="color_333  div_opinion fl" style="position: relative;">'+v.user[0].duty+'</div>'+
+														'</div>'+
+														'<div>'+
+															'<div class="color_999 div_time fl">'+v.description+'</div>'+
+														'</div>'+ 
+														'<div style="clear: both;">'+
+															'<div class="color_999 div_time fl">'+v.time+'</div>'+
+														'</div>'+ 
+													'</div>'+
+												'</div>')
+						})
+						
+						if(data.data.state.canApproval == 1){
+							$(".meeting_approval").css("display", "block");
+							if(data.data.state.canNextApproval == 1){
+//								alert(122);
+								$(".isListBox").css("display", "block");
+								data.data.approvalPerson.forEach(function(v) {
+										
+									$(".select_ul").append('<li class="next_step" data-id="'+v.id+'" >'+v.name+'</li>');
+								})
+							}
+						}else{
+							$(".status_participants").css("display", "block");
+							data.data.participant.forEach(function(v){
+								if (v.avatar!=""&&v.avatar!=null&&v.avatar!=undefined) {
+									var img_str=root+v.avatar;
+								}else{
+									var img_str="images/user.png";
+								}
+								$(".yjsry").append('<li><img src="'+img_str+'" /><p>'+v.trueName+'</p></li>')
+							})
+						}
+						if(data.data.state.canFeedback == 1){
+							$(".isParticipants").css("display", "block");
+							$(".meeting_feedback").css("display", "block");
+							
+							$(".status_participants").css("display", "none");
+							var _url = root + 'api/meeting/feedbackshow'
+							var datelis = plus.webview.currentWebview();
+							mui.ajax(_url, {
+								data: {
+									"token": token,
+									"id":datelis.ii,
+									"type":"2"
+//									"persons": 
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型 
+								success: function(data) {
+//									alert(JSON.stringify(data.data.departmentPersons))
+									data.data.departmentPersons.forEach(function(v) {
+										$(".select_join").append('<li class="next_step" data-id="'+v.id+'" >'+v.trueName+'</li>');
+										
+									})
+									$(".next_step").off("click",attend);
+									$(".next_step").on("click",attend);
+								},
+								error: function(xhr, type, errorThrown) {}
+							})
+						}
+						
+					}
+				} else {
+					mui.toast("暂无数据！")
+				}
+			}
+
+//			审批驳回
+			function btn_reject() {
+				var root = localStorage.getItem("str_url");
+				
+				var token = localStorage.getItem("token");
+				var _url = root + 'api/meeting/approval';
+				var datelis = plus.webview.currentWebview();
+				var opinion = $("#opinion").val();
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": datelis.ii,
+						"type": "2",
+						"opinion":opinion
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						plus.webview.currentWebview().close();
+						mui.toast(data.msg);
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常");
+					}
+				})
+			}
+			
+			
+//			审批同意
+			function btn_agree() {
+				var root = localStorage.getItem("str_url");
+				var token = localStorage.getItem("token");
+				var _url = root + 'api/meeting/approval';
+				var datelis = plus.webview.currentWebview();
+				var opinion = $("#opinion").val();
+				if($(".select_box .select_ul li.active").attr("data-id") == undefined) {
+					var spr_str_id = "";
+				} else {
+					var spr_obj = $(".select_box .select_ul li.active");
+					var spr_str_id = [];
+					for (var i = 0; i < spr_obj.length; i++) {
+						spr_str_id.push(spr_obj.eq(i).attr("data-id"));
+					}
+				}
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": datelis.ii, 
+						"type": "1" ,
+						"person":String(spr_str_id),
+						"opinion":opinion
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data){
+						plus.webview.currentWebview().close();   
+						mui.toast(data.msg);
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常");
+					}
+				})
+			}
+//			反馈
+			function btn_feedback() {
+				var root = localStorage.getItem("str_url");
+				
+				var token = localStorage.getItem("token");
+				var _url = root + 'api/meeting/feedback';
+				var datelis = plus.webview.currentWebview();
+				
+				if($(".select_box .select_join li.active").attr("data-id") == undefined) {
+					var spr_str_id = "";
+				} else {
+					var spr_obj = $(".select_box .select_join li.active");
+					var spr_str_id = [];
+					for (var i = 0; i < spr_obj.length; i++) {
+						spr_str_id.push(spr_obj.eq(i).attr("data-id"));
+					}
+				}
+				console.log("下一步审批人="+spr_str_id);
+				mui.ajax(_url, {
+					
+					data: {
+						"token": token,
+						"id": datelis.ii, 
+						"type": "2" ,
+						"persons":String(spr_str_id)
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data){
+						console.log(spr_str_id)
+						if(data.code==1){
+							plus.webview.currentWebview().close();   
+						}else{
+							
+						}
+							
+						mui.toast(data.msg);
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常");
+					}
+				})
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

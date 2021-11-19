@@ -1,0 +1,129 @@
+
+
+.top_div {
+	box-sizing: border-box;
+	width: 96vw;
+	height: 1rem;
+	padding: 0 0.1rem;
+	overflow: hidden;
+	text-align: center;
+	margin: 0 auto;
+	background-color: #ffffff;
+}
+
+.top_div #left_div1 {
+	float: left;
+	text-align: center;
+	margin: 0 auto;
+	width: 30%;
+	height: 100%;
+	color: #8c768c;
+	border: 1px solid #dbdbdb;
+	/* border: 1px solid #dbdbdb; */
+	/* border-right: none; */
+	box-sizing: border-box;
+}
+.top_div #left_div1 #left_table1 tr{
+	width: 30%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.top_div #left_div1 #left_table1 tr th {
+	box-sizing: border-box;
+	width: 30%;
+	height: 1rem;
+	text-align: center;
+	line-height: 1rem;
+	color: #909090;
+}
+
+.top_div #right_div1 {
+	border-bottom: 1px solid #dbdbdb;
+	/* display: flex;
+	/* flex-direction: column; */
+	width: 70%;
+	height: 100%;
+	overflow: hidden;
+	overflow-x: auto;
+}
+
+.top_div #right_div1 #right_table1 {
+	/* background-color: red; */
+	width: 100%;
+	height: 100%;
+	overflow-x: auto;
+}
+
+.top_div #right_div1 #right_table1 tr th {
+	margin: 0;
+	padding: 0;
+	width: 3rem;
+	border: 1px solid #dbdbdb;
+	border-bottom: none;
+	border-left: none;
+}
+
+.bottom_div {
+	box-sizing: border-box;
+	height: auto;
+	/* background-color: red; */
+	padding: 0 0.1rem;
+}
+
+.bottom_div #left_div2 {
+	float: left;
+	box-sizing: border-box;
+	width: 30%;
+	height: auto;
+	border-top: none;
+	z-index: -1;
+}
+
+.bottom_div #left_div2 #left_table2 tr {
+	width: 30%;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.bottom_div #left_div2 #left_table2 tr td {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	width: 30%;
+	height: 1rem;
+	line-height: 1rem;
+	text-align: center;
+	border: 1px solid #dbdbdb;
+	border-top:none;
+}
+
+
+.bottom_div #right_div3 {
+	width: 70%;
+	overflow: hidden;
+	overflow-x: auto;
+	/* border-right: 1px solid #dbdbdb; */
+}
+
+.bottom_div #right_table3 {
+	overflow: hidden;
+	overflow-x: auto;
+	width: 70%;
+	height: auto;
+	/* background-color: blue; */
+}
+
+.bottom_div #right_div3 #right_table3 tr {
+	height: 1rem;
+}
+.bottom_div #right_div3 #right_table3 tr td {
+	height: 1rem;
+	line-height: 1rem;
+	width: 3rem;
+	border: 1px solid #dbdbdb;
+	border-top: none;
+	border-left: none;
+	text-align: center;
+}

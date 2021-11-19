@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/summary.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/Highcharts-8.1.2/code/highcharts.js"></script>
+		<script src="../../js/Highcharts-8.1.2/code/highcharts-3d.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style>
+			#tzhz_table{border-right: 1px solid #F0F0F0;border-left: 1px solid #F0F0F0;}
+			#tzhz_table tr td{
+				padding: 0.3rem 0.2rem;
+			}
+			table>tbody>tr>td{
+				text-align: center;
+			}
+			.highcharts-xaxis-grid .highcharts-grid-line {
+				stroke-width: 1px;
+				stroke: #d8d8d8;
+			}
+			.highcharts-xaxis .highcharts-tick {
+				stroke-width: 2px;
+				stroke: #d8d8d8;
+			}
+			.table table td.td_head{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>农村饮水汇总</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking active"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="tabsLabel">
+				<ul>
+					<li class="active">供水工程信息汇总</li>
+					<li>供水工程投资信息汇总</li>
+					<li>农村饮水工程情况汇总</li>
+					<li>农村饮水工程设施情况汇总</li>
+					<li>农村饮水工程管理情况汇总</li>
+					<li>农村饮水工程运行情况汇总</li>
+					<li>农村饮水工程水质情况汇总</li>
+				</ul>
+			</div>
+			<div class="section">
+				<div class="tabsItem" style="display: block;">
+					<div class="tabsItemCon">
+						<div class="investChart">
+							<div id="barChart_first"></div>
+						</div>
+						<!-- <p class="noContent"><img src="../../images/no_content1.gif" alt="">工程</p> -->
+						<div id="tzhz_table" class="table" style="overflow-x: auto;margin-top: 3.2rem;">
+							<table>
+								<colgroup width="50%"></colgroup>
+								<colgroup width="50%"></colgroup>
+								<tbody>
+									<tr id="xxhz">
+										<td class="td_head"></td>
+										<td class="td_head">累计投资（万元）</td>
+									</tr>
+									<!-- <tr id="xxhzs">
+										<td class="td_head">累计投资（万元）</td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="tabsItem">
+					<div class="tabsItemCon">
+						<div class="investChart">
+							<div id="colChart_invest"></div>
+						</div>
+						<!-- <p class="unit" style="text-align: right;padding: 0 0.5rem;">单位：万元</p>
+						<div id="tzhz_table" class="table" style="overflow-x: auto;">
+							<table style="width: 20rem;">
+								<tbody id="tzhz"></tbody>
+							</table>
+						</div> -->
+						<div id="tzhz_table" class="table" style="overflow-x: auto;">
+							<table style="width: 20rem;">
+								<tbody id="tzxxhzs">
+									<tr id="tzxxhz">
+										<td class="td_head"></td>
+									</tr>
+									<!-- <tr >
+										<td>累计投资（万元）</td>
+										<td>累计投资（万元）</td>
+										<td>累计投资（万元）</td>
+										<td>累计投资（万元）</td>
+										<td>累计投资（万元）</td>
+										<td>累计投资（万元）</td>
+										<td>累计投资（万元）</td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- <div class="gpsInfo">
+						<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png" >
+						<div class="gpsInfo_con">
+							<p class="title">条件查询</p>
+							<form class="search_form">
+								<ul>
+									<li>
+										<label class="label">起始年份</label>
+										<div class="field">
+											<select class="input" name="">
+												<option value="01">2006年</option>
+											</select>
+										</div>
+									</li>
+									<li>
+										<label class="label">截止年份</label>
+										<div class="field">
+											<select class="input" name="">
+												<option value="01">2011</option>
+											</select>
+										</div>
+									</li>
+									<li>
+										<label class="label">地市</label>
+										<div class="field">
+											<select class="input" name="">
+												<option value="01">全部</option>
+											</select>
+										</div>
+									</li>
+									<li>
+										<label class="label">县区</label>
+										<div class="field">
+											<select class="input" name="">
+												<option value="01">全部</option>
+											</select>
+										</div>
+									</li>
+									<li>
+										<label class="label">乡镇</label>
+										<div class="field">
+											<select class="input" name="">
+												<option value="01">全部</option>
+											</select>
+										</div>
+									</li>
+									<li>
+										<label class="label">行政村</label>
+										<div class="field">
+											<select class="input" name="">
+												<option value="01">全部</option>
+											</select>
+										</div>
+									</li>
+								</ul>
+								<button onclick="submit_fun()" type="button" class="button">查询</button>
+							</form>
+						</div>
+					</div> -->
+				</div>
+				<div class="tabsItem">
+					<div class="tabsItemCon">
+						<div class="investChart">
+							<div id="dcolChart_invest"></div>
+						</div>
+						<div class="table" style="overflow-x: auto;margin-top: 3.2rem;">
+							<table style="width: 26rem;">
+								<tbody  id="gcqkhz">
+									<tr id="gcqkhz_tt"></tr>
+									<tr id="gcqkhz_th"></tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="tabsItem">
+					<div class="tabsItemCon">
+						<div class="investChart">
+							<div id="barChartT"></div>
+						</div>
+						<div class="table facilitiesTable" style="overflow-x: auto;margin-top: 3rem;">
+							<div class="left">
+								<table></table>
+							</div>
+							<div class="right">
+								<table style="width: 700px;"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabsItem">
+					<div class="tabsItemCon">
+						<div class="investChart" style="height:4rem;display: flex;justify-content: center;">
+							<div id="pieChart" style="width: 80%;height: 100%;"></div>
+						</div>
+						<div class="investChart" style="height:4rem;display: flex;justify-content: center;">
+							<div id="pieCharts" style="width: 80%;height: 100%;"></div>
+						</div>
+						<div class="table manageTable" style="margin-top: 0.2rem;">
+							<div class="left">
+								<table>
+									<colgroup width="50%"></colgroup>
+									<colgroup width="50%"></colgroup>
+								</table>
+							</div>
+							<div class="right">
+								<table style="width: 700px;"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabsItem">
+					<div class="tabsItemCon">
+						<div class="investChart">
+							<div id="lineChart"></div>
+						</div>
+						<div class="table workedTable"  style="overflow-x: auto;margin-top: 3rem;">
+							<div class="left">
+								<table></table>
+							</div>
+							<div class="right">
+								<table style="width: 800px;"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabsItem">
+					<div class="tabsItemCon">
+						<div class="investChart">
+							<div id="barChartC"></div>
+						</div>
+						<div class="table qualityTable" style="overflow-x: auto;margin-top: 3rem;">
+							<div class="left">
+								<table>
+									<colgroup width="40%"></colgroup>
+									<colgroup width="60%"></colgroup>
+								</table>
+							</div>
+							<div class="right">
+								<table style="width: 700px;"></table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/ruralWater/summary_interface.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/ruralWater/summary.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+	<script type="text/javascript">
+		
+		// 各地区饮水工程信息汇总 数据示例
+		// var first_data = {
+		// 	id:"barChart_first",
+		// 	title:"各地区饮水工程信息汇总",
+		// 	y_title:"累计投资(万元)",
+		// 	tooltip:"累计投资: <b>{point.y:.1f} 万元</b>",
+		// 	series:{
+		// 		name:"总人口",
+		// 		data:[
+		// 			['太原市', 24.25],
+		// 			['大同市', 23.50],
+		// 			['阳泉市', 21.51],
+		// 			['长治市', 16.78],
+		// 			['晋城市', 16.06],
+		// 			['朔州市', 15.20],
+		// 			['晋中市', 14.16],
+		// 			['运城市', 13.51],
+		// 			['忻州市', 13.08],
+		// 			['临汾市', 12.44],
+		// 			['吕梁市', 12.19]
+		// 		]
+		// 	}
+		// }
+		var first_data = {}
+		
+		$(function(){
+			//菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+			//tabs切换
+			$(".tabsLabel li").on("click",function(){
+				var $index = $(this).index();
+				$(this).addClass("active").siblings("li").removeClass("active");
+				$(".tabsItem").eq($index).show().siblings(".tabsItem").hide();
+				if($index == 0){
+					barChartFirst(first_data);
+				}else if($index == 1){
+					colChartInvest('colChart_invest',touzihuizongs_data);
+				}else if($index == 2){
+					// console.log(JSON.stringify(situationDetails_data));
+					dcolChartInvest('dcolChart_invest',situationDetails_data);
+				}else if($index == 3){
+					barChartFirstT('barChartT',facilitiesDetails_data);
+				}else if($index == 4){
+					pieChartFirst('pieChart',manageDetails_data);
+					pieChartFirst('pieCharts',manageDetails_data);
+				}else if($index == 5){
+					lineChartFirst('lineChart',workedDetails_data)
+				}else if($index == 6){
+					barChartFirstC('barChartC',qualityDetails_data);
+				}
+			})
+			// 导航信息
+			$(".gpsInfo .icon_arrow").on("click",function(){
+				var $tabItem = $(this).parents(".tabsItem");
+				var $gpsInfo = $(this).parents(".gpsInfo");
+				if($gpsInfo.hasClass("open")){
+					$gpsInfo.removeClass("open").css("height",".48rem");
+				}else{
+					$gpsInfo.addClass("open").css("height","auto");
+				}
+			})
+			
+			
+		})
+		//投资额
+		// var colXData = [ 2006, 2007, 2008, 2009, 2010, 2011 ];
+		// 	// stack 值相同的为同一组
+		// var colYData = [
+		// 	{name: '中央投资',data: [2, 5, 6, 1, 3, 0],stack: 'male'},
+		// 	{name: '省投资',data: [3, 0, 6, 2, 1, 0],stack: 'male'},
+		// 	{name: '市投资',data: [1, 2, 6, 8, 3, 0],stack: 'male'}, 
+		// 	{name: '县投资',data: [3, 0, 4, 4, 3, 0],stack: 'male'},
+		// 	{name: '乡镇自筹',data: [3, 0, 4, 4, 3, 0],stack: 'male'},
+		// 	{name: '社会捐助',data: [2, 5, 6, 2, 1, 6],stack: 'male'}, 
+		// 	{name: '采矿投资',data: [3, 4, 4, 2, 5, 5],stack: 'male'}, 
+		// 	{name: '其他投资',data: [0, 3, 4, 7, 2, 2],stack: 'male'}, 
+		// ];
+		//投资额
+		var colXData = [];
+			// stack 值相同的为同一组
+		var colYData = [];
+	</script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

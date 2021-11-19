@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_w2at8z9smbn.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/leave_list.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.loreDetails-f {
+			    padding: 0rem;
+			    overflow: hidden;
+			}
+			.loreDetails-f .mode{
+			    padding: 0.3rem;
+			    border-bottom: 1px dashed #CCCCCC;
+			} 
+		</style>
+	</head>
+
+	<body style="background: #fff;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a><span class="bt_span_xq">外出报备历史记录</span>
+				</p>
+				<div class="loreDetails leave_details">
+					<div class="loreDetails-f details_info">
+						<!--<div class="info_list">
+							<div class="color_999 fl">外出事由</div>
+							<div class="color_333 info_mar"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">外出离开时间</div>
+							<div class="color_333 info_mar"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">外出返回时间</div>
+							<div class="color_333 info_mar"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">外出地点</div>
+							<div class="color_333 info_mar"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">主持工作负责</div>
+							<div class="color_333 info_mar"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">备注</div>
+							<div class="color_333 info_mar"></div>
+						</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				var root = localStorage.getItem("str_url");
+	//			if(root == "" || root == undefined || root == null) {
+	//				mui.openWindow({
+	//					url: 'login.html?cid=1', //通过URL传参
+	//					id: 'login.html?cid=1', //通过URL传参
+	//				})
+	//			}
+				var self = plus.webview.currentWebview();
+				var uid = self.uid;
+				var token = localStorage.getItem("token");
+				var _url = root + 'api/applyleave/history';
+				var datelis = plus.webview.currentWebview();
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"u_id": uid
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							$(".details_info").html("");
+							data.data.forEach(function(v, index) {
+								var remard="-";
+								v.remark!=""&&v.remark!=null&&v.remark!=undefined?remard=v.remark:remard;
+								var vehicle="-";
+								v.vehicle!=""&&v.vehicle!=null&&v.vehicle!=undefined?vehicle=v.vehicle:vehicle;
+								$(".details_info").append(
+									'<div class="mode" style="width: 100%;background-color: #FFFFFF;">'+
+									'<div class="info_list">'+
+										'<div class="color_999 fl">外出事由</div>'+
+										'<div class="color_333 info_mar" >'+v.reason+'</div>'+
+									'</div>'+
+									'<div class="info_list">'+
+										'<div class="color_999 fl">外出离开时间</div>'+
+										'<div class="color_333 info_mar" >'+v.start_at+'</div>'+
+									'</div>'+
+									'<div class="info_list">'+
+										'<div class="color_999 fl">外出返回时间</div>'+
+										'<div class="color_333 info_mar" >'+v.end_at+'</div>'+
+									'</div>'+
+									'<div class="info_list">'+
+										'<div class="color_999 fl">外出地点</div>'+
+										'<div class="color_333 info_mar" >'+v.place+'</div>'+
+									'</div>'+
+									'<div class="info_list">'+
+										'<div class="color_999 fl">主持工作负责</div>'+
+										'<div class="color_333 info_mar" >'+v.rname+v.rmobile+'</div>'+
+									'</div>'+
+									'<div class="info_list">'+
+										'<div class="color_999 fl">交通工具</div>'+
+										'<div class="color_333 info_mar">'+vehicle+'</div>'+
+									'</div>'+
+									'<div class="info_list">'+
+										'<div class="color_999 fl">备注</div>'+
+										'<div class="color_333 info_mar">'+remard+'</div>'+
+									'</div>'+
+									'</div>'
+								)
+							})
+						} else {
+							mui.toast(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常");
+					}
+				})
+			}, false);
+
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

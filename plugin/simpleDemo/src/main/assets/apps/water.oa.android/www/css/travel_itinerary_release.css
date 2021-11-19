@@ -1,0 +1,16 @@
+.tableTitle{text-align: center;font-size: 0.4rem;color: #333;}
+.tableTime{width: 100%;text-align: right;font-size: 0.25rem;color: #666;padding: 0 5%;}
+.notice form table{width: 90%;margin: 0 auto;border-collapse: collapse;}
+.notice form table td{border: 1px solid #ddd;height: 1rem;padding: 0 0.1rem;}
+.releaseTable tr{text-align: center;font-size: 0.3rem;color: #333;}
+/*选择发送人*/
+.notice .notice-content{width: 90%;border: 1px solid #e5e5e5;border-radius: 0.05rem;background: #fff;margin: 0.25rem auto;}
+.notice .notice-content .fanweiCont{width: 100%;height: 1rem;line-height: 1rem;margin-left: -0.4rem;}
+.notice .notice-content .fanweiCont .left{color: #000;margin: 0;font-size: 0.3rem;display: block;padding: 0;}
+.notice .notice-content .fanwei{width: 100%;/*height: 1.5rem;*/padding: 0.1rem 0.2rem;overflow-x: auto;overflow-y: hidden;}
+.notice .notice-content .fanwei ul{list-style: none;margin: 0;width: 100%;display: table-row;}
+.notice .notice-content .fanwei ul li{text-align: center;float: left;margin: 0 0.165rem;}
+.notice .notice-content .fanwei ul li div{text-align: center;width: 0.9rem;height: 0.9rem;background: #f6f6f6;border-radius: 0.9rem;line-height: 0.9rem;margin: 0 auto;}
+.notice .notice-content .fanwei ul li div img{text-align: center;width: 0.9rem;height: 0.9rem;/*background: #f6f6f6;*/border-radius: 0.9rem;line-height: 0.9rem;margin: 0 auto;}
+.notice .notice-content .fanwei ul li div i{font-size: 0.4rem;color: #bfbfbf;}
+.notice .notice-content .fanwei ul li p{font-size: 0.26rem;padding: 0.1rem 0;line-height: initial;height: auto;}

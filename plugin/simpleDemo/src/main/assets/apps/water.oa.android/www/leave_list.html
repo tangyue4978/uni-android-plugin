@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/leave_list.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.meeting-nav .leave_box{
+				text-align: center;
+				padding-top: 0.2rem;
+				padding-bottom: 0.2rem;
+			}
+			.meeting-nav .leave_box button.mui-btn{
+				position: static;
+				width:50%;
+				left: 25%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>外出报备</p>
+				<div class="meeting-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">我的申请</a>
+							<a class="mui-control-item" href="#item2" style="border-right: 1px solid #dcdcdc;">我办理的</a>
+						</div>
+					</div>
+					<div class="meeting">
+						<div id="item1" class="mui-control-content mui-active">
+							<div class="leave_box">
+								<button type="button" class="mui-btn mui-btn-primary" onclick="addleave()">新增外出报备</button>
+							</div>
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<a href="leaveDetails.html">
+										<div class="left">
+											<h2>请假申请</h2>
+											<p>2018-08-09 15:25</p>
+										</div>
+										<div class="meet_state color_orange">待审批</div>
+									</a>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>请假申请</h2>
+										<p>2018-08-09 15:25</p>
+									</div>
+									<div class="meet_state color_blue">待审批</div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>请假申请</h2>
+										<p>2018-08-09 15:25</p>
+									</div>
+									<div class="meet_state color_green">待审批</div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无外出报备</p>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2>请假申请</h2>
+										<p>2018-08-09 15:25</p>
+									</div>
+									<div class="meet_state color_orange">待审批</div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无待办</p>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			function xiangqing(i) {
+				mui.openWindow({
+					url: 'leaveDetails.html', //通过URL传参
+					id: 'leaveDetails.html', //通过URL传参
+					extras: {
+						i: i,
+					}
+				})
+			};
+			
+			function xiangqing_db(i) {
+				mui.openWindow({
+					url: 'leaveDetails_db.html', //通过URL传参
+					id: 'leaveDetails_db.html', //通过URL传参
+					extras: {
+						i: i,
+					}
+				})
+			};
+			//岗位列表
+			quartersList();
+			departmentList();
+			function quartersList() {
+				var _url = root + 'api/applyleave/'
+				mui.ajax(_url, {
+					data: {
+						"token": token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("------------"+JSON.stringify(data));
+						if(data.code == 1){
+							if(data.data == ""){
+								$("#item1 ul").css("display","none");
+								$("#item1 .tishi").css("display","block");
+							}else{
+								data.data.forEach(function(v){
+//									$("#item1 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									if(v.status==0){
+										var str='<div class="meet_state color_orange">待审批</div>';
+									}else if(v.status==1){
+										var str='<div class="meet_state color_green">已完成</div>';
+									}else if(v.status==2){
+										var str='<div class="meet_state color_red">驳回</div>';
+									}
+									$("#item1 ul").append( '<li onclick="xiangqing('+v.id+')">'+
+																'<div class="left">'+
+																	'<h2>外出报备</h2>'+
+																	'<p>'+v.fill_time+'</p>'+
+																'</div>'+str+
+															'</li>')
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络异常");
+					}
+				})
+			}
+			function departmentList() {
+				var _url = root + 'api/applyleave/todo'
+				mui.ajax(_url, {
+					data: {
+						"token": token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1){
+							if(data.data == ""){
+								$("#item2 ul").css("display","none");
+								$("#item2 .tishi").css("display","block");
+							}else{
+								data.data.forEach(function(v){
+									if(v.status==0){
+										var str='<div class="meet_state color_orange">待审批</div>';
+									}else if(v.status==1){
+										var str='<div class="meet_state color_green">已完成</div>';
+									}else if(v.status==2){
+										var str='<div class="meet_state color_red">驳回</div>';
+									}
+									$("#item2 ul").append( '<li onclick="xiangqing_db('+v.id+')">'+
+																'<div class="left">'+
+																	'<h2>'+v.true_name+'的外出报备</h2>'+
+																	'<p>'+v.fill_time+'</p>'+
+																'</div>'+str+
+															'</li>')
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络异常");
+					}
+				})
+			}
+			
+			/*
+			 * add——leave
+			 */
+			function addleave() {
+				mui.openWindow({
+					url: 'leave.html', //通过URL传参
+					id: 'leave.html' //通过URL传参
+				})
+			};
+			
+			
+			window.addEventListener('refresh', function(e) { //执行刷新
+				location.reload();
+			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

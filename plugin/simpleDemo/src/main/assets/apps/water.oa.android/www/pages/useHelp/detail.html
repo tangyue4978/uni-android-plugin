@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>使用帮助</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+    <link rel="stylesheet" href="../../css/useHelp/detail.css" />
+    <!-- 引入js -->
+    <script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.min.js"></script>
+    <!-- <script src="../../js/turnjs4/turn.js"></script> -->
+    <script src="../../js/turnjs4/turn.min.js"></script>
+    <script src="../../js/turnjs4/modernizr.2.5.3.min.js"></script>
+    <style type="text/css">
+        .right {
+            position: absolute;
+            right: 0.2rem;
+        }
+
+        .so_li_box {
+            /* background-color: #0000FF; */
+            position: relative;
+        }
+    </style>
+    <script>
+        //计算根节点HTML的字体大小
+        function resizeRoot(width) {
+            var deviceWidth = document.documentElement.clientWidth,
+                num = width,
+                num1 = num / 100;
+            if (deviceWidth > num) {
+                deviceWidth = num;
+            }
+            document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+        }
+        //根节点HTML的字体大小初始化
+        resizeRoot(750);
+        window.onresize = function () {
+            resizeRoot(750);
+        };
+    </script>
+</head>
+
+<body>
+    <div class="mui-content">
+        <header class="header pp">
+            <i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+            <span>使用帮助</span>
+        </header>
+        <div class="section">
+            <div class="left_btn">
+                <img class="btn_img" src="../../images/use_help/xiangzuosanjiaoxing.png" alt="" />
+                <span class="btn_text">上一页</span>
+            </div>
+            <div class="return">
+                <img class="return_img" src="../../images/use_help/yuanquanquan.png" alt="" />
+                <span class="return_text">返回目录</span>
+            </div>
+            <div class="right_btn">
+                <img class="btn_img" src="../../images/use_help/xiangyousanjiaoxing.png" alt="" />
+                <span class="btn_text">下一页</span>
+            </div>
+            <div class="flipbook"></div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    //判断手机类型
+    window.onload = function () {
+        //alert($(window).height());
+        var u = navigator.userAgent;
+        if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+            //安卓手机
+        } else if (u.indexOf("iPhone") > -1) {
+            //苹果手机
+            //屏蔽ios下上下弹性
+            $(window)
+                .on("scroll.elasticity", function (e) {
+                    e.preventDefault();
+                })
+                .on("touchmove.elasticity", function (e) {
+                    e.preventDefault();
+                });
+        } else if (u.indexOf("Windows Phone") > -1) {
+            //winphone手机
+        }
+    };
+
+    // 网络请求参数
+    let catalogArray;//目录数组
+    let dom;//dom节点
+    let page//传过来的页面值
+    let root = localStorage.getItem("str_url");//网络请求根地址
+    let token = window.localStorage.getItem("token");//用户token
+    mui.plusReady(function () {
+        plus.nativeUI.showWaiting("加载中...");
+        //获取传过来的页面值 
+        var self = plus.webview.currentWebview();
+        page = self.page
+    });
+    // 发送网络请求
+    $.post(root + "api/appwatermap/", { token: token }, (data) => {
+        if (data.code !== 1) {
+            mui.toast(data.msg, { duration: 'short', type: 'div' })
+        }
+        catalogArray = data.data;
+        imgArray = catalogArray.map((item) => item.url);
+        imgArray.forEach((item, index) => {
+            if (index === 0) {
+                dom = `  
+                    <div class="page">
+                        <img class="img" src="${item}" data-preview-src="" alt="">
+                    </div>
+                `;
+            } else {
+                dom = `  
+                    <div class="page">
+                        <img class="img" src="${item}" data-preview-src="" alt="">
+                    </div>
+                `;
+            }
+            $(".flipbook").append(dom);
+        });
+
+        let header = $(".header").outerHeight();
+        let w = $(window).width();
+        let h = $(window).height() - header;
+        $(".flipboox").width(w).height(h);
+        $(window).resize(function () {
+            header = $(".header").height();
+            w = $(window).width();
+            h = $(window).height() - header;
+            $(".flipboox").width(w).height(h);
+        });
+        $(".flipbook").turn({
+            width: w,
+            height: h,
+            elevation: 50,
+            display: "single",
+            gradients: true,
+            autoCenter: true,
+            when: {
+                turning: function (e, page, view) {
+                    // if (page == 1) {
+                    //     $(".btnImg").css("display", "none");
+                    //     $(".mark").css("display", "block");
+                    // } else {
+                    //     $(".btnImg").css("display", "block");
+                    //     $(".mark").css("display", "none");
+                    // }
+                    // if (page == 41) {
+                    //     $(".nextPage").css("display", "none");
+                    // } else {
+                    //     $(".nextPage").css("display", "block");
+                    // }
+                },
+                turned: function (e, page, view) {
+                    // $(this).turn('peel', 'br'); //右下角卷起来
+                    // var total = $(".flipbook").turn("pages");//总页数
+                    // if (page == 1) {
+                    //     $(".return").css("display", "none");
+                    //     $(".btnImg").css("display", "none");
+                    // } else {
+                    //     $(".return").css("display", "block");
+                    //     $(".btnImg").css("display", "block");
+                    // }
+                    // if (page == 2) {
+                    //     $(".catalog").css("display", "block");
+                    // } else {
+                    //     $(".catalog").css("display", "none");
+                    // }
+                },
+            },
+        });
+        plus.nativeUI.closeWaiting();
+        $(".flipbook").turn("page", page);
+    });
+
+    //上一页
+    $(".left_btn").bind("touchend", function () {
+        var pageCount = $(".flipbook").turn("pages"); //总页数
+        var currentPage = $(".flipbook").turn("page"); //当前页
+        if (currentPage >= 2) {
+            $(".flipbook").turn("page", currentPage - 1);
+        } else {
+            mui.toast('已经是首页了', { duration: 'short', type: 'div' })
+        }
+    });
+    // 下一页
+    $(".right_btn").bind("touchend", function () {
+        var pageCount = $(".flipbook").turn("pages"); //总页数
+        var currentPage = $(".flipbook").turn("page"); //当前页
+        if (currentPage < pageCount) {
+            $(".flipbook").turn("page", currentPage + 1);
+        } else {
+            mui.toast('没有页面了', { duration: 'short', type: 'div' })
+        }
+    });
+    //返回到目录页
+    $(".return").bind("touchend", function () {
+        mui.back()
+    });
+</script>

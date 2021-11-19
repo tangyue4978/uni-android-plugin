@@ -1,0 +1,115 @@
+@charset "utf-8";
+/*CSS Document*/
+.section{width: 100%;height: calc(100% - 1.3rem);position: fixed;left: 0;top: 1.3rem;margin: 0;}
+.gpsInfo{width: 100%;height: .48rem;background: #fff;border-top: 1px solid #cfcfcf;border-radius: .2rem .2rem 0 0;box-shadow: 0 1px 6px #e2e2e2;position: fixed;left: 0;bottom: 0;}
+.gpsInfo .icon_arrow{width: .46rem;height: .14rem;display: block;position: absolute;left: 0;right: 0;margin: auto;top: .14rem;-webkit-transition:transform 0.2s ease-out;transition:transform 0.2s ease-out;}
+.gpsInfo.open .icon_arrow{-webkit-transform: rotateZ(180deg);transform: rotateZ(180deg);}
+.gpsInfo .gpsInfo_con{padding: .4rem .3rem .2rem;}
+.gpsInfo .gpsInfo_con .title{font-size: .28rem;color: #333;}
+.gpsInfo .gpsInfo_con ul{overflow: hidden;margin-top: .2rem;}
+.gpsInfo .gpsInfo_con ul li{width: 50%;float: left;font-size: .24rem;color: #666;line-height: .48rem;}
+.gpsInfo .gpsInfo_con ul li a{color: #6492ff;text-decoration: underline;}
+.mapBox{width: 100%;height: 100%;}
+.mapBox #map{width:100%;height:100%;background-color: #FFFFFF;}
+#map .ol-zoom{top: 83%;left: 2%;}
+/* 侧边导航 */
+.rightTabs{}
+.rightPosi{position: absolute;top: 1.6rem;right: 4%;z-index: 50;}
+.leftPosi{position: absolute;top: 1.6rem;left: 2%;}
+.rightTabs ul li{margin: .06rem 0;}
+.rightTabs li a{display: block;}
+.rightTabs li img{width: 1.2rem;height: 1.2rem;}
+/* 搜索 */
+.searchPanel{z-index: 9999;width: 100%;padding: .3rem 0;background: ;position: absolute;left: 0;top: 0;}
+.searchBox{width: 92%;height: 1.08rem;border-radius: .12rem;background: #dfdfdf;box-shadow: 0 2px 8px #f7f7f7;margin: 0 auto;overflow: hidden;}
+.searchBox .searchparts{width: 96.8%;height: .88rem;background: #fff;display: block;margin: .1rem auto;border: 1px solid #ccc;border-radius: .12rem;}
+.searchparts input{width: 85%;height: 100%;border: 0;float: left;border-radius: .12rem 0 0 .12rem;}
+.searchparts input::-webkit-input-placeholder{font-size: .28rem;color: #c0c0c0;}
+.searchparts button{border: none;border-radius:0 .12rem .12rem 0;width: 15%;height: 100%;background: url(../../images/ruralWater/search_btn.png) no-repeat center / .36rem .35rem;float: right;vertical-align: middle;}
+.searchBox .searchparts_cancel{height: 1.08rem;line-height: 1.08rem;font-size: .26rem;color: #666;text-align: right;display: none;}
+.searchResult{width: 92%;background: #fff;margin: .1rem auto;display: none;}
+.searchResult ul li{line-height: .7rem;}
+.searchResult ul li a{display: block;font-size: .26rem;color: #999;}
+.searchResult ul li img{width: .19rem;height: .23rem;display: inline-block;vertical-align: middle;}
+.searchResult ul li span{margin: 0 .08rem;}
+.searchResult ul li span.text-orange{color: #ff9900;}
+.searchPanel.active{background: #fff;}
+.searchPanel.active .searchBox{background: none;box-shadow: none;}
+.searchPanel.active .searchparts{width: 88%;float: left;}
+.searchPanel.active .searchparts_cancel{display: block;float: right;}
+.searchPanel.active .searchResult{display: block;}
+/* 自带放大缩小隐藏 */
+.ol-zoom {display: none;}
+.top_nav{height: 1.2rem;width: 100%;border-bottom: 1px solid #CCCCCC;position: absolute;left: 0px;top: 0px;z-index: 9;background-color: #FFFFFF;}
+.nav_ul_box{width: 100%;height: 100%;display: flex;justify-content: space-between;align-items: center;}
+.nav_ul_box .nav_li_item{width: 50%;height:0.5rem;line-height: 0.5rem;font-size: 0.35rem;position: relative;text-align: center;background-color: #FFFFFF;color:#333333;}
+.nav_ul_box .nav_li_item.active{color:#3a77f0;}
+.nav_ul_box .nav_li_item:after{content: "";position: absolute;top: 0.05rem;bottom:0.05rem;right: 0px;border-right: 1px solid #E0E0E0;}
+.nav_ul_box .nav_li_item:last-child:after{content: "";position: absolute;top: 0.05rem;bottom:0.05rem;right: 0px;border-right: 0px solid #E0E0E0;}
+/* 管理对象 */
+.list_box{
+	display: none;
+	position: absolute;
+	top: 1.2rem;
+	left: 0rem;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.4);
+	z-index: 99;
+}
+.list_box.active{display:block;}
+.list_obj{
+	width: 100%;
+	height: 9rem;
+	background-color: #FFFFFF;
+	padding: 0rem 0.5rem 0rem;
+	box-sizing: border-box;
+	overflow: hidden;
+	overflow-y: auto;
+}
+.list_obj.heightauto{
+	height: auto;
+	max-height: 9rem;
+}
+.list_obj .list_ul{
+	width: 100%;
+	height: auto;
+}
+.list_obj .list_ul .list_li{
+	height: 1.2rem;
+	border-bottom: 1px solid #E0E0E0;
+	color: #999999;
+	display: flex;
+	align-items: center;
+	font-size: 0.33rem;
+}
+.list_obj .list_ul .list_li .icon_img{
+	width: 0.4rem;
+	height: 0.43rem;
+	margin-right: 10px;
+}
+.list_obj .list_ul .list_li.active{
+	color: #333333;
+	font-weight: 500;
+	background: url(../../images/duigou.png) 95% center no-repeat;
+	background-size: 16px 16px;
+}
+.list_obj .list_ul .list_li2{
+	height: 1.2rem;
+	border-bottom: 1px solid #E0E0E0;
+	color: #999999;
+	display: flex;
+	align-items: center;
+	font-size: 0.33rem;
+}
+.list_obj .list_ul .list_li2 .icon_img{
+	width: 0.4rem;
+	height: 0.43rem;
+	margin-right: 10px;
+}
+.list_obj .list_ul .list_li2.active{
+	color: #333333;
+	font-weight: 500;
+	background: url(../../images/duigou.png) 95% center no-repeat;
+	background-size: 16px 16px;
+}

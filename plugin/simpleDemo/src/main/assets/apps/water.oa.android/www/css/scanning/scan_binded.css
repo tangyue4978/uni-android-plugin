@@ -1,0 +1,91 @@
+body{
+	background-color: #f5f5f9;
+}
+.news .pp {
+	background-size: 100% 100%;
+}
+
+.content_box {
+	width: 100%;
+	height: auto;
+	margin-top: 1.3rem;
+}
+.see_bg{
+	width: 100%;
+}
+
+/* 基本信息 */
+.infos{
+	width: 100%;
+	height: auto;
+	border-top: 1px solid #e5e3eb;
+	border-bottom: 1px solid #e5e3eb;
+	background-color: #ffffff;
+	font-size: 0.28rem;
+	padding-let:0.4rem;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+.infos_bar{
+	width: 95%;
+	height: 1.1rem;
+	padding-right: 0.4rem;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #e5e3eb;
+	font-size: 0.28rem;
+}
+.infos_bar:last-child{
+	border: none;
+}
+.infos_bar .infos_left{
+	color: #666666;
+}
+.infos_bar .infos_right{
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+/* 备注说明 */
+.remarks{
+	width: 100%;
+	height: auto;
+	margin-top: 0.5rem;
+}
+.remarks_title{
+	font-size: 0.26rem;
+	color: #666666;
+	margin-left: 0.4rem;
+}
+.remarks_area{
+	width: 100%;
+	height: auto;
+	border-top: 1px solid #e5e3eb;
+	border-bottom: 1px solid #e5e3eb;
+	background-color: #ffffff;
+	resize: none;
+	margin: 0;
+	margin-top: 0.2rem;
+	font-size: 0.28rem;
+	color: #333333;
+	padding: 0.2rem;
+	text-indent: 2em;
+}
+.return{
+	width: 74%;
+	height: 1rem;
+	line-height: 1rem;
+	text-align: center;
+	border-radius: 0.5rem;
+	background-color: #4178f9;
+	margin: 0.4rem 13% 0.8rem;
+	font-size: 0.3rem;
+	color: #ffffff;
+	box-shadow: 3px 3px 2px #b6caf9;
+}

@@ -1,0 +1,23 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.44344710200005,39.30667080600006]},"properties":{"OBJECTID":1,"name":"朔州市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.73096530700002,38.700304826000036]},"properties":{"OBJECTID":2,"name":"原平市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.56080233300008,37.882365105000076]},"properties":{"OBJECTID":3,"name":"阳泉市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.75773424300007,37.653341983000075]},"properties":{"OBJECTID":4,"name":"榆次市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.53228031300011,37.87427493800004]},"properties":{"OBJECTID":5,"name":"太原市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.13015140300001,37.91044274500007]},"properties":{"OBJECTID":6,"name":"古交市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.11697690700004,37.52378033200006]},"properties":{"OBJECTID":7,"name":"离石市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.75943137800004,37.247762855000076]},"properties":{"OBJECTID":8,"name":"汾阳市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.76181083900008,37.12878980500005]},"properties":{"OBJECTID":9,"name":"孝义市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.88554281100005,37.02171405900003]},"properties":{"OBJECTID":10,"name":"介休市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.27038911700004,36.31739360200004]},"properties":{"OBJECTID":11,"name":"潞城市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.13000091700007,36.18414378500006]},"properties":{"OBJECTID":12,"name":"长治市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.96105918600006,35.770117570000025]},"properties":{"OBJECTID":13,"name":"高平市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.85874236300003,35.479823328000066]},"properties":{"OBJECTID":14,"name":"晋城市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.29305702100004,35.59165799500005]},"properties":{"OBJECTID":15,"name":"侯马市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[110.79337021000003,35.04200250300005]},"properties":{"OBJECTID":16,"name":"运城市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[110.59111602400009,35.63924721500007]},"properties":{"OBJECTID":17,"name":"河津市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[110.25799148300007,34.88495807600003]},"properties":{"OBJECTID":18,"name":"永济市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.46057107600006,36.09895908100003]},"properties":{"OBJECTID":19,"name":"临汾市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.68262237700009,36.577659046000065]},"properties":{"OBJECTID":20,"name":"霍州市"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.29678527100009,40.081431241000075]},"properties":{"OBJECTID":21,"name":"大同市"}}
+]}

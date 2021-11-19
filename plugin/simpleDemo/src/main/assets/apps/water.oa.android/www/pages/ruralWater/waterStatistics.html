@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>用水统计</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/main.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<script src="../../js/Highcharts-8.1.2/code/highcharts.js"></script>
+		<link rel="stylesheet" href="../../css/waterStatistics.css">
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>用水统计</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i> -->
+			</header>
+			<div class="section">
+				<!-- 山西省用水情况统计 -->
+				<div class="Statistics_h3 color_666">
+					<h3 class="h3_title">山西省用水情况统计</h3>
+					<div class="h3_box_right">
+						<span></span>
+						<!-- <span class="color_999">累计</span> -->
+					</div>
+				</div>
+				<div class="qktj_box">
+					<div class="statistics_box">
+						<div class="item_box">
+							<span class="item_num color_green" id="citynum">0</span>
+							<span class="item_text">涵盖地市数</span>
+						</div>
+						<div class="item_box">
+							<span class="item_num color_orange" id="countynum">0</span>
+							<span class="item_text">涵盖区县数</span>
+						</div>
+					</div>
+					<div class="statistics_box">
+						<div class="item_box">
+							<span class="item_num color_blue" id="totalnum">0</span>
+							<span class="item_text">水表数</span>
+						</div>
+						<div class="item_box">
+							<span class="item_num color_pink" id="waternum">0</span>
+							<span class="item_text">用水量</span>
+						</div>
+					</div>
+				</div>
+				<!-- 山西省用水情况统计 end -->
+				<!-- 表格 -->
+				<div class="table_box">
+					<table class="table" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td class="title">地市</td>
+							<td class="title">区县</td>
+							<td class="title">应接总数</td>
+							<td class="title">已接入</td>
+						</tr>
+						<tbody id="waterTable">
+							<!-- <tr>
+								<td>太原市</td>
+								<td>小店区</td>
+								<td>128</td>
+								<td>119</td>
+							</tr> -->
+						</tbody>
+						
+					</table>
+				</div>
+				<!-- 表格 end -->
+				<!-- 计算用水量 -->
+				<div class="Statistics_h3 color_666">
+					<h3 class="h3_title">计算用水量</h3>
+					<div class="h3_box_right">
+						<!-- <input class="input dateWaterQuantity" id="seleDate" readonly="readonly" type="text" placeholder="月份选择"> -->
+					</div>
+				</div>
+				<div class="Statistics_h3 color_666">
+					<div class="h3_box_right text-align">
+						<select class="dateWaterQuantity" id="city">
+							<option value ="">全部</option>
+						</select>
+						<select class="dateWaterQuantity" id="county">
+							<option value ="">全部</option>
+						</select>
+						<input class="input dateWaterQuantity" id="seleDate" readonly="readonly" type="text" placeholder="月份选择">
+					</div>
+				</div>
+				<div class="qktj_box">
+					<div class="statistics_box">
+						<div class="item_box item_box2">
+							<span class="item_num color_blue" id="month">----.--.--</span>
+							<span class="item_text">月份</span>
+						</div>
+						<div class="item_box item_box2">
+							<span class="item_num color_blue" id="changetotalnum">0</span>
+							<span class="item_text">水表数</span>
+						</div>
+						<div class="item_box item_box2">
+							<span class="item_num color_blue" id="changewaternum">0</span>
+							<span class="item_text">用水量</span>
+						</div>
+					</div>
+				</div>
+				<!-- 计算日用水量 end -->
+				<!-- 用水统计图 -->
+				<div id="statistical_chart" class="statistical_chart_water"></div>
+			</div>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+	<!-- <script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city_change.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/waterStatistics.js"></script>
+</html>

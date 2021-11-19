@@ -1,0 +1,133 @@
+body{
+	background-color: #F6F6F6;
+}
+.main{
+	width: 100%;
+	height: calc(100% - 4.12rem);
+}
+/* 地市搜索start */
+.city_search{
+	width: 96%;
+	height: 0.8rem;
+	margin:0 auto;
+	margin-top:1.6rem;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.submit_item{
+	width: 100%;
+	height: 100%;
+	line-height: 0.8rem;
+	padding: 0 0.2rem;
+	border-radius: 0.2rem;
+	border: 0.02rem solid #E0E0E0!important;
+	background: url(../../images/riverChief/arrow_down.png) no-repeat 96% center;
+	background-size: 12px 7px;
+}
+/* 地市搜索end */
+/* 河湖长情况start */
+.river_lake{
+	width: 96%;
+	height: 11rem;
+	margin: 0 auto;
+	margin-top: 1.6rem;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.river_lake_box{
+	width: 100%;
+	height: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	padding-left: 0.2rem;
+}
+.river_lake_title{
+	width: 98%;
+	height: 0.7rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.river_lake_title_l{
+	width: 100%;
+	font-size: 0.26rem;
+	font-family: Myriad Pro;
+	font-weight: 400;
+	color: #333333;
+	display: flex;
+}
+.river_lake_title_r{
+	width: 30%;
+	font-size: 0.28rem;
+	font-family: Myriad Pro;
+	font-weight: 400;
+	color: #868686;
+	padding-top: 0.05rem;
+	padding-left: 0.2rem;
+	/* background: url(../../images/riverChief/arrow_down.png) no-repeat 46px center;
+	background-size: 12px 7px; */
+}
+.text{
+	margin-left: 0.2rem;
+	line-height: 0.32rem;
+}
+.line{
+	width: 0.05rem;
+	height: 0.28rem;
+	background-color: #467FF0;
+}
+.chart{
+	width: 100%;
+	height:5.8rem;
+}
+/* 河湖长情况end */
+/* 巡河计划start */
+.river_patrol{
+	width: 96%;
+	height: 6.5rem;
+	margin: 0 auto;
+	margin-top: 0.25rem;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+}
+.river_patrol_box{
+	height: 100%;
+}
+.river_patrol_r{
+	width: 50%;
+}
+.charts3{
+	width: 100%;
+	height: 5.8rem;
+}
+/* 巡河计划end */
+/* 动态信息start */
+.dynamic_info{
+	width: 96%;
+	height: 6.55rem;
+	margin: 0 auto;
+	margin-top: 0.25rem;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+}
+.dynamic_info_box{
+	height: 90%;
+}
+.river_patrol_rs{
+	width: 24%;
+}
+.chart4{
+	width: 100%;
+	height: 5.44rem;
+}
+/* 动态信息end */

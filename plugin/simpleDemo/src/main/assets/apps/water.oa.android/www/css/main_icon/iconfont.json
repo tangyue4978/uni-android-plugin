@@ -1,0 +1,16 @@
+{
+  "id": "2111090",
+  "name": "水利oa",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "水利oa",
+  "glyphs": [
+    {
+      "icon_id": "6688789",
+      "name": "水利",
+      "font_class": "shuili",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    }
+  ]
+}

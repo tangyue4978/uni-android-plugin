@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">办理</p>
+				<div class="workNews-nav">
+					<div style="position: fixed;z-index: 9;top: 1.27rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								待办
+							</a>
+							<a class="mui-control-item" href="#item2">
+								已办
+							</a>
+						</div>
+					</div>
+					<div style="    margin-top: 2.5rem;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul>
+								<!--<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>请假审批<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下请假审批：</p>
+											<p class="p1">申请人：<span>武锦华</span></p>
+											<p class="p1">所在部门：办公室</p>
+											<p class="p1">请假时间：2019年01月09日 至 2019年01月09日</p>
+											<p class="p1">请假理由：医院就医</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>离职审批<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下离职审批：</p>
+											<p class="p1">申请人：<span>李晓红</span></p>
+											<p class="p1">所在部门：办公室</p>
+											<p class="p1">离职时间：2019年01月09日 至 2019年01月09日</p>
+											<p class="p1">离职理由：医院就医</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>报销审批<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下报销审批：</p>
+											<p class="p1">申请人：<span>史法苗</span></p>
+											<p class="p1">所在部门：办公室</p>
+											<p class="p1">报销金额：100元</p>
+											<p class="p1">报销内容：晚上加班太晚没有公交。打车费需要报销</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>行政人事审批<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下行政人事审批：</p>
+											<p class="p1">申请人：<span>庞博</span></p>
+											<p class="p1">申请部门：办公室</p>
+											<p class="p1">职务：系统管理员</p>
+											<p class="p1">申请内容：岗位调动</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>发文管理<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下发文管理：</p>
+											<p class="p1">拟稿人：<span>李小芳</span></p>
+											<p class="p1">标题：2019年水利文件发文</p>
+											<p class="p1">公文类型：厅函</p>
+											<p class="p1">主送：系统管理员</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>收文管理<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下行收文管理：</p>
+											<p class="p1">来文单位：<span>黄委</span></p>
+											<p class="p1">文件标题：关于黄河征求意见的函</p>
+											<p class="p1">文号：黄水政函[2018]147号</p>
+											<p class="p1">摘要：11月25日前反馈</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>入库审批<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下行入库审批：</p>
+											<p class="p1">资产名称：<span>A4打印纸</span></p>
+											<p class="p1">资产类别：办公及业务用地</p>
+											<p class="p1">金额：168元</p>
+											<p class="p1">使用部门：办公室</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="content">
+										<div class="content-herd">
+											<h1>资产调拨<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">2019年01月08日</p>
+											<p class="title">尊敬的 系统管理员 你收到如下行资产调拨：</p>
+											<p class="p1">资产类别：<span>61000</span></p>
+											<p class="p1">资产名称：投影仪</p>
+											<p class="p1">规格型号：12-4450</p>
+											<p class="p1">调出部门：办公室</p>
+										</div>
+									</div>
+								</li>-->
+								<!--<li>
+									<div class="time">下午 02:00</div>
+									<div class="content">
+										<div class="content-herd">
+											<h1>请假审批<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">9月04日</p>
+											<p class="title">尊敬的 杨霁霞 你收到如下请假审批：</p>
+											<p class="p1">申请人：<span>2这是谁的</span></p>
+											<p class="p1">所在部门：人事部</p>
+											<p class="p1">请假时间：2018年9月10日 至 2018年9月11日</p>
+											<p class="p1">请假理由：医院就医</p>
+										</div>
+										<div class="content-food">
+											<button class="btn2 right">确认</button>
+											<button class="btn1 right">驳回</button>
+										</div>
+									</div>
+								</li>-->
+							</ul>
+							<p id="wu" style="text-align: center;display:none;background: #f8f8f8;margin-top: 2.5rem;color: #8f8f94;">暂无待办信息</p>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul>
+								<li>
+									<!--<div class="time">下午 02:00</div>-->
+									<!--<div class="content">
+										<div class="content-herd">
+											<h1>请假审批<i id="xiangqing" class="iconfont icon-gengduomore10 right"></i></h1>
+											
+										</div>
+										<div class="content-cet">
+											<p class="shijian">9月04日</p>
+											<p class="title">尊敬的 杨霁霞 你收到如下请假审批：</p>
+											<p class="p1">申请人：<span>李彦宏</span></p>
+											<p class="p1">所在部门：会议室</p>
+											<p class="p1">请假时间：关于中秋节放假通知及值班安排</p>
+											<p class="p1">请假理由：人事处全体</p>
+										</div>
+										
+									</div>-->
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+//			var truename = localStorage.getItem("truename")
+//			console.log(truename)
+			//			document.getElementById("xiangqing1").addEventListener('tap', function() {
+			//				mui.openWindow({
+			//					url: 'handleDetails.html', //通过URL传参
+			//					id: 'handleDetails.html', //通过URL传参
+			//				})
+			//			});
+			//			document.getElementById("xiangqing").addEventListener('tap', function() {
+			//				mui.openWindow({
+			//					url: 'handleDetails.html', //通过URL传参
+			//					id: 'handleDetails.html', //通过URL传参
+			//				})
+			//			});
+			list()
+
+			function list() {
+				var _url = root + 'api/approval/handingmatters'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(data)
+						if(data.code == 1) {
+							if(data.data.backlogs.length == 0) {
+								$("#wu").css("display", "block")
+							} else {
+								console.log(JSON.stringify(data.data.backlogs))
+								data.data.backlogs.forEach(function(v, index) {
+//									v.name = truename;
+//									v.type = 1;
+									//待办
+									$("#item1 ul").append(' <li onclick="xiangqing(' + v.flow_id + ',\'' + v.item_id + '\')"> <div class="content"> <div class="content-herd" > <h1>' + v.type + '<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1> </div> <div id="contentcet' + index + '" class="content-cet"><p class="shijian">' + v.date + '</p> <p class="title">' + v.startTitle + '</p> </div> </div> </li>')
+									if(v.content.length != 0) {
+										v.content.forEach(function(v1) {
+											$('#item1 #contentcet' + index + '').append('<p class="p1">' + v1.name + '：' + v1.value + '</p>')
+										})
+									}
+
+								})
+							}
+							if(data.data.finishs.length == 0) {
+								$("#wu1").css("display", "block")
+							} else {
+								data.data.finishs.forEach(function(v, index) {
+//									v.name = truename;
+//									v.type = 2;
+									//已办
+									$("#item2 ul").append(' <li onclick="xiangqing(' + v.flow_id + ',\'' + v.item_id + '\')"> <div class="content"> <div class="content-herd" > <h1>' + v.type + '<i id="xiangqing1" class="iconfont icon-gengduomore10 right"></i></h1> </div> <div id="contentcet' + index + '" class="content-cet"><p class="shijian">' + v.date + '</p> <p class="title">' + v.startTitle + '</p> </div> </div> </li>')
+									if(v.content.length != 0) {
+										v.content.forEach(function(v1) {
+											$('#item2 #contentcet' + index + '').append('<p class="p1">' + v1.name + '：' + v1.value + '</p>')
+										})
+
+									}
+
+								})
+							}
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+						mui.toast("网络异常");
+					}
+				})
+			}
+			//flow_id="类型id"item_id="项目id"
+			function xiangqing(flow_id, item_id) {
+				if(flow_id == 1 || flow_id == 2 ||  flow_id == 6) {
+					mui.openWindow({
+						url: 'bumfDetails.html', //通过URL传参
+						id: 'bumfDetails.html', //通过URL传参
+						extras: {
+							flow_id: item_id,
+							item_id: flow_id
+						}
+					})
+				} else if(flow_id == 3) {
+					mui.openWindow({
+						url: 'leaveDetails_db.html', //通过URL传参
+						id: 'leaveDetails_db.html', //通过URL传参
+						extras: {
+//							flow_id: flow_id,
+							i: item_id
+						}
+					})
+				} else if(flow_id == 5) {
+					mui.openWindow({
+						url: 'meetingDetails.html', //通过URL传参
+						id: 'meetingDetails.html', //通过URL传参
+						extras: {
+//							flow_id: flow_id,
+							ii: item_id,
+							type:2
+						}
+					})
+				}else{
+					mui.toast("暂无数据");
+				}
+
+			}
+
+			function tongyi(id1, id2) {
+				console.log(id1)
+				console.log(id2)
+				var _url = root + 'api/approval/approved'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"flow_id": id1,
+						"item_id": id2,
+						"status": 1,
+						"opinion": "",
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(data)
+						if(data.code == 1) {
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+
+			}
+
+			function bohui(id1, id2) {
+				console.log(id1)
+				console.log(id2)
+			}
+			window.addEventListener('refresh', function(e) {
+				//执行刷新
+				location.reload();
+			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

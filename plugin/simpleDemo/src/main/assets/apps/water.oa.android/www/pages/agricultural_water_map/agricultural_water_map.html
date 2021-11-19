@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农水一张图</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/map/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/riverChief.css"/>
+		<!-- 引入右边导航栏样式 -->
+		<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.icon_img06{
+				width: 0.36rem;
+				height: 0.36rem;
+				margin-right: 10px;
+			}
+			.icon_img07{
+				width: 0.4rem;
+				height: 0.4rem;
+				margin-right: 10px;
+			}
+			.nav_ul_box .nav_li_item{width: 50%;}
+			
+			.mapBox #map{background-color: #C3E2AE;}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>农水一张图</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a href=""><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section">
+				<div class="mapBox">
+					<div id="map"></div>
+					<div class="top_nav">
+						<ul class="nav_ul_box">
+							<li class="nav_li_item isShow" data-type="riverLakeLongSystem">管理对象</li>
+							<li class="nav_li_item isShow" data-type="listLogSystem">列表查看</li>
+						</ul>
+					</div>
+					<div class="list_box" id="riverLakeLongSystem">
+						<div class="list_obj heightauto" >
+							<ul class="list_ul">
+								<li class="list_li" data-type="qdata" data-qname="zhirancun" data-Url="api/rural/map">
+									<img class="icon_img06" src="../../images/ruralWater/marker_blue.png" >
+									<span>自然村</span>
+								</li>
+								<li class="list_li list_lis" data-type="qdata" data-url="api/v3/supply_project_information/index" data-qname="icon_15" data-id="1">
+									<img class="icon_img06" src="../../images/big_water_network/icon-15.png" >
+									<span>千人以上</span>
+								</li>
+								<li class="list_li list_lis" data-type="qdata" data-url="api/v3/supply_project_information/thousands_people_tons" data-qname="icon_16" data-id="2">
+									<img class="icon_img06" src="../../images/big_water_network/icon-16.png" >
+									<span>千吨万人</span>
+								</li>
+								<li class="list_li" data-type="quality" data-qname="shp_irrigation,shp_irrigation2" >
+									<img class="icon_img06" src="../../images/ruralWater/main_icon/5-1.png" >
+									<span>大型灌区</span>
+								</li>
+								<li id="jczd" class="list_li" data-type="quality" data-qname="zxgq" data-id="2" data-url="api/v3/rural_irrigation/mapNew">
+									<img class="icon_img03" src="../../images/big_water_network/icon_zxsk.png" >
+									<span>中型灌区</span>
+								</li>
+								<li class="list_li list_lis" data-type="qdata" data-url="api/v3/hydropower_station/map" data-qname="icon_17" data-id="4">
+									<img class="icon_img07" src="../../images/big_water_network/icon-17.png" >
+									<span>小水电</span>
+								</li>
+								<li class="list_li" data-type="qdata" data-url="api/v4/water_gate_pump/gate" data-qname="icon_24" data-id="5">
+									<img class="icon_img07" src="../../images/big_water_network/icon-24.png" >
+									<span>水闸</span>
+								</li>
+								<li id="jczd" class="list_li" data-type="qdata" data-url="api/v4/water_gate_pump/pump" data-qname="icon_23" data-id="6">
+									<img class="icon_img06" src="../../images/big_water_network/icon-23.png" >
+									<span>泵站</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="list_box" id="listLogSystem">
+						<div class="list_obj heightauto" >
+							<ul class="list_ul">
+								<li class="list_li2" onclick="jump_new('/pages/ruralWater/list_city.html')">
+									<img class="icon_img06" src="../../images/ruralWater/marker_blue.png" >
+									<span>自然村</span>
+								</li>
+								<li class="list_li2" data-type="quality" data-qname="qrys" data-id="1" onclick="jump_new('/pages/ruralWater/thousandPeo_supWater.html')">
+									<img class="icon_img06" src="../../images/big_water_network/icon-15.png" >
+									<span>千人以上</span>
+								</li>
+								<li class="list_li2" data-type="quality" data-qname="qiandunwanren" data-id="2" onclick="jump_new('/pages/ruralWater/thousandPeo_down_supWater.html')">
+									<img class="icon_img06" src="../../images/ruralWater/main_icon/4-3.png" >
+									<span>千人以下</span>
+								</li>
+								<li class="list_li2" data-type="quality" data-qname="qiandunwanren" data-id="2" onclick="jump_new('/pages/ruralWater/kiloton_supWater.html')">
+									<img class="icon_img06" src="../../images/big_water_network/icon-16.png" >
+									<span>千吨万人</span>
+								</li>
+								<li class="list_li2" data-type="quality" data-qname="" onclick="jump_new('/pages/ruralWater/big_irrigated_results.html')">
+									<img class="icon_img06" src="../../images/ruralWater/main_icon/5-1.png" >
+									<span>大型灌区</span>
+								</li>
+								<li id="jczd" class="list_li2" data-type="qdata" data-qname="zxgq" data-id="3" onclick="jump_new('/pages/ruralWater/small_irrigated_results.html')">
+									<img class="icon_img06" src="../../images/ruralWater/main_icon/5-2.png" >
+									<span>中型灌区</span>
+								</li>
+								<li class="list_li2" data-type="quality" data-qname="xsd" data-id="4" onclick="jump_new('/pages/ruralWater/small_hydropower_list.html')">
+									<img class="icon_img07" src="../../images/big_water_network/icon-17.png" >
+									<span>小水电</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="rightTabs rightPosi">
+					
+				</div> -->
+				<div class="rightTabs rightPosi">
+					<ul>
+						<li><a href=""><img src="../../images/riverChief/icon_right01.png" ></a></li>
+					</ul>
+				</div>
+				<!-- 右下定位信息     开始-->
+				<div class="right_posi" >
+					<div class="img_box_list">
+						<div class="img_box_item" onclick="zoomInFun()">
+							<img class="img" src="../../images/right_bar/add.png">
+						</div>
+						<div class="img_box_item" onclick="zoomOutFun()">
+							<img class="img" src="../../images/right_bar/reduce.png">
+						</div>
+					</div>
+				</div>
+				<!-- 右下定位信息     结束-->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/agricultural_water_map/agricultural_water_map.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/**
+		 * @description 放大
+		 */
+		function zoomInFun() {
+			$(".ol-zoom .ol-zoom-in").click();
+		}
+		/**
+		 * @description 缩小
+		 */
+		function zoomOutFun() {
+			$(".ol-zoom .ol-zoom-out").click();
+		}
+	</script>
+</html>

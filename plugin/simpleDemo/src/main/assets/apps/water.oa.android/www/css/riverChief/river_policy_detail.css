@@ -1,0 +1,424 @@
+.main {
+  width: 100%;
+  height: calc(100vh - 4.12rem);
+  background-color: #f6f6f6;
+}
+.main .select {
+  height: 1rem;
+  padding: 0.2rem;
+  color: #686868;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.main .select .select_item {
+  width: 32%;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  text-align: center;
+  background-color: #dbdbdb;
+  border-radius: 0.1rem;
+  margin-right: 1%;
+}
+.main .select .select_item.active {
+  color: #3a77f0;
+  font-weight: bold;
+  background-color: #fff;
+  border: 2px solid #3c79f0;
+}
+.main .content_wrap {
+  height: calc(100% - 1rem);
+}
+.main .content_wrap .base,
+.main .content_wrap .water_quality,
+.main .content_wrap .river_control,
+.main .content_wrap .river_green,
+.main .content_wrap .drain,
+.main .content_wrap .sewage,
+.main .content_wrap .other {
+  height: 100%;
+  padding: 0.2rem;
+  background-color: #fff;
+  border-radius: 0.3rem;
+  display: none;
+}
+.main .content_wrap .base .title,
+.main .content_wrap .water_quality .title,
+.main .content_wrap .river_control .title,
+.main .content_wrap .river_green .title,
+.main .content_wrap .drain .title,
+.main .content_wrap .sewage .title,
+.main .content_wrap .other .title {
+  position: relative;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+}
+.main .content_wrap .base .title .blue,
+.main .content_wrap .water_quality .title .blue,
+.main .content_wrap .river_control .title .blue,
+.main .content_wrap .river_green .title .blue,
+.main .content_wrap .drain .title .blue,
+.main .content_wrap .sewage .title .blue,
+.main .content_wrap .other .title .blue {
+  display: inline-block;
+  width: 0.1rem;
+  height: 50%;
+  background-color: #6492ff;
+}
+.main .content_wrap .base .title .text,
+.main .content_wrap .water_quality .title .text,
+.main .content_wrap .river_control .title .text,
+.main .content_wrap .river_green .title .text,
+.main .content_wrap .drain .title .text,
+.main .content_wrap .sewage .title .text,
+.main .content_wrap .other .title .text {
+  margin-left: 0.1rem;
+  font-size: 0.4rem;
+  color: #000;
+}
+.main .content_wrap .base .title .order_wrap,
+.main .content_wrap .water_quality .title .order_wrap,
+.main .content_wrap .river_control .title .order_wrap,
+.main .content_wrap .river_green .title .order_wrap,
+.main .content_wrap .drain .title .order_wrap,
+.main .content_wrap .sewage .title .order_wrap,
+.main .content_wrap .other .title .order_wrap {
+  position: absolute;
+  right: 2%;
+  width: 2rem;
+  height: 0.6rem;
+  border-radius: 0.3rem;
+  background-color: #efeeed;
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .content_wrap .base .title .order_wrap .order,
+.main .content_wrap .water_quality .title .order_wrap .order,
+.main .content_wrap .river_control .title .order_wrap .order,
+.main .content_wrap .river_green .title .order_wrap .order,
+.main .content_wrap .drain .title .order_wrap .order,
+.main .content_wrap .sewage .title .order_wrap .order,
+.main .content_wrap .other .title .order_wrap .order {
+  display: inline-block;
+  width: 0.92rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  text-align: center;
+  border-radius: 0.25rem;
+  font-size: 0.25rem;
+}
+.main .content_wrap .base .title .order_wrap .order.active,
+.main .content_wrap .water_quality .title .order_wrap .order.active,
+.main .content_wrap .river_control .title .order_wrap .order.active,
+.main .content_wrap .river_green .title .order_wrap .order.active,
+.main .content_wrap .drain .title .order_wrap .order.active,
+.main .content_wrap .sewage .title .order_wrap .order.active,
+.main .content_wrap .other .title .order_wrap .order.active {
+  color: #fff;
+  font-weight: bold;
+  background-color: #6492ff;
+}
+.main .content_wrap .base .wrap,
+.main .content_wrap .water_quality .wrap,
+.main .content_wrap .river_control .wrap,
+.main .content_wrap .river_green .wrap,
+.main .content_wrap .drain .wrap,
+.main .content_wrap .sewage .wrap,
+.main .content_wrap .other .wrap {
+  height: calc(100% - 1rem);
+  overflow: auto;
+}
+.main .content_wrap .base .wrap .list,
+.main .content_wrap .water_quality .wrap .list,
+.main .content_wrap .river_control .wrap .list,
+.main .content_wrap .river_green .wrap .list,
+.main .content_wrap .drain .wrap .list,
+.main .content_wrap .sewage .wrap .list,
+.main .content_wrap .other .wrap .list {
+  border: 1px solid #d8d7d5;
+}
+.main .content_wrap .base .wrap .list .line,
+.main .content_wrap .water_quality .wrap .list .line,
+.main .content_wrap .river_control .wrap .list .line,
+.main .content_wrap .river_green .wrap .list .line,
+.main .content_wrap .drain .wrap .list .line,
+.main .content_wrap .sewage .wrap .list .line,
+.main .content_wrap .other .wrap .list .line {
+  border-bottom: 1px solid #d8d7d5;
+  display: flex;
+}
+.main .content_wrap .base .wrap .list .line:last-child,
+.main .content_wrap .water_quality .wrap .list .line:last-child,
+.main .content_wrap .river_control .wrap .list .line:last-child,
+.main .content_wrap .river_green .wrap .list .line:last-child,
+.main .content_wrap .drain .wrap .list .line:last-child,
+.main .content_wrap .sewage .wrap .list .line:last-child,
+.main .content_wrap .other .wrap .list .line:last-child {
+  border-bottom: none;
+}
+.main .content_wrap .base .wrap .list .line .left,
+.main .content_wrap .water_quality .wrap .list .line .left,
+.main .content_wrap .river_control .wrap .list .line .left,
+.main .content_wrap .river_green .wrap .list .line .left,
+.main .content_wrap .drain .wrap .list .line .left,
+.main .content_wrap .sewage .wrap .list .line .left,
+.main .content_wrap .other .wrap .list .line .left,
+.main .content_wrap .base .wrap .list .line .right,
+.main .content_wrap .water_quality .wrap .list .line .right,
+.main .content_wrap .river_control .wrap .list .line .right,
+.main .content_wrap .river_green .wrap .list .line .right,
+.main .content_wrap .drain .wrap .list .line .right,
+.main .content_wrap .sewage .wrap .list .line .right,
+.main .content_wrap .other .wrap .list .line .right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+}
+.main .content_wrap .base .wrap .list .line .left,
+.main .content_wrap .water_quality .wrap .list .line .left,
+.main .content_wrap .river_control .wrap .list .line .left,
+.main .content_wrap .river_green .wrap .list .line .left,
+.main .content_wrap .drain .wrap .list .line .left,
+.main .content_wrap .sewage .wrap .list .line .left,
+.main .content_wrap .other .wrap .list .line .left {
+  background-color: #efeeed;
+}
+.main .content_wrap .base .wrap .list .lists,
+.main .content_wrap .water_quality .wrap .list .lists,
+.main .content_wrap .river_control .wrap .list .lists,
+.main .content_wrap .river_green .wrap .list .lists,
+.main .content_wrap .drain .wrap .list .lists,
+.main .content_wrap .sewage .wrap .list .lists,
+.main .content_wrap .other .wrap .list .lists {
+  width: 100%;
+  height: 100%;
+}
+.main .content_wrap .base .wrap .list .lists .lists_li,
+.main .content_wrap .water_quality .wrap .list .lists .lists_li,
+.main .content_wrap .river_control .wrap .list .lists .lists_li,
+.main .content_wrap .river_green .wrap .list .lists .lists_li,
+.main .content_wrap .drain .wrap .list .lists .lists_li,
+.main .content_wrap .sewage .wrap .list .lists .lists_li,
+.main .content_wrap .other .wrap .list .lists .lists_li {
+  width: 100%;
+  background-color: #ffffff;
+  margin-bottom: 0.2rem;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+  border-radius: 0.2rem;
+  padding: 0.2rem 0;
+}
+.main .content_wrap .base .wrap .list .lists .lists_li .lists_data,
+.main .content_wrap .water_quality .wrap .list .lists .lists_li .lists_data,
+.main .content_wrap .river_control .wrap .list .lists .lists_li .lists_data,
+.main .content_wrap .river_green .wrap .list .lists .lists_li .lists_data,
+.main .content_wrap .drain .wrap .list .lists .lists_li .lists_data,
+.main .content_wrap .sewage .wrap .list .lists .lists_li .lists_data,
+.main .content_wrap .other .wrap .list .lists .lists_li .lists_data {
+  width: 90%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: space-around;
+}
+.main .content_wrap .base .wrap .list .lists .lists_li .lists_data li,
+.main .content_wrap .water_quality .wrap .list .lists .lists_li .lists_data li,
+.main .content_wrap .river_control .wrap .list .lists .lists_li .lists_data li,
+.main .content_wrap .river_green .wrap .list .lists .lists_li .lists_data li,
+.main .content_wrap .drain .wrap .list .lists .lists_li .lists_data li,
+.main .content_wrap .sewage .wrap .list .lists .lists_li .lists_data li,
+.main .content_wrap .other .wrap .list .lists .lists_li .lists_data li {
+  width: 50%;
+  font-size: 0.24rem;
+  font-family: Myriad Pro;
+  font-weight: 400;
+  color: #999999;
+  line-height: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.1rem 0.1rem;
+  text-overflow: ellipsis;
+}
+.main .content_wrap .base .wrap .list .lists .lists_li .lists_data li.position,
+.main .content_wrap .water_quality .wrap .list .lists .lists_li .lists_data li.position,
+.main .content_wrap .river_control .wrap .list .lists .lists_li .lists_data li.position,
+.main .content_wrap .river_green .wrap .list .lists .lists_li .lists_data li.position,
+.main .content_wrap .drain .wrap .list .lists .lists_li .lists_data li.position,
+.main .content_wrap .sewage .wrap .list .lists .lists_li .lists_data li.position,
+.main .content_wrap .other .wrap .list .lists .lists_li .lists_data li.position {
+  text-align: right;
+}
+.main .content_wrap .base .wrap .list .lists .lists_li .lists_data li.titles,
+.main .content_wrap .water_quality .wrap .list .lists .lists_li .lists_data li.titles,
+.main .content_wrap .river_control .wrap .list .lists .lists_li .lists_data li.titles,
+.main .content_wrap .river_green .wrap .list .lists .lists_li .lists_data li.titles,
+.main .content_wrap .drain .wrap .list .lists .lists_li .lists_data li.titles,
+.main .content_wrap .sewage .wrap .list .lists .lists_li .lists_data li.titles,
+.main .content_wrap .other .wrap .list .lists .lists_li .lists_data li.titles {
+  width: 100%;
+}
+.main .content_wrap .base .wrap .list .lists .lists_li .lists_data li .weight,
+.main .content_wrap .water_quality .wrap .list .lists .lists_li .lists_data li .weight,
+.main .content_wrap .river_control .wrap .list .lists .lists_li .lists_data li .weight,
+.main .content_wrap .river_green .wrap .list .lists .lists_li .lists_data li .weight,
+.main .content_wrap .drain .wrap .list .lists .lists_li .lists_data li .weight,
+.main .content_wrap .sewage .wrap .list .lists .lists_li .lists_data li .weight,
+.main .content_wrap .other .wrap .list .lists .lists_li .lists_data li .weight {
+  font-size: 0.28rem;
+  color: #333;
+  font-weight: 700;
+}
+.main .content_wrap .base .wrap .time,
+.main .content_wrap .water_quality .wrap .time,
+.main .content_wrap .river_control .wrap .time,
+.main .content_wrap .river_green .wrap .time,
+.main .content_wrap .drain .wrap .time,
+.main .content_wrap .sewage .wrap .time,
+.main .content_wrap .other .wrap .time {
+  height: 1rem;
+  display: flex;
+  align-items: center;
+}
+.main .content_wrap .base .wrap .time .circle_wrap,
+.main .content_wrap .water_quality .wrap .time .circle_wrap,
+.main .content_wrap .river_control .wrap .time .circle_wrap,
+.main .content_wrap .river_green .wrap .time .circle_wrap,
+.main .content_wrap .drain .wrap .time .circle_wrap,
+.main .content_wrap .sewage .wrap .time .circle_wrap,
+.main .content_wrap .other .wrap .time .circle_wrap {
+  width: 0.36rem;
+  height: 0.36rem;
+  margin: 0 0.1rem;
+  border-radius: 50%;
+  background-color: #d0deff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .content_wrap .base .wrap .time .circle_wrap .circle,
+.main .content_wrap .water_quality .wrap .time .circle_wrap .circle,
+.main .content_wrap .river_control .wrap .time .circle_wrap .circle,
+.main .content_wrap .river_green .wrap .time .circle_wrap .circle,
+.main .content_wrap .drain .wrap .time .circle_wrap .circle,
+.main .content_wrap .sewage .wrap .time .circle_wrap .circle,
+.main .content_wrap .other .wrap .time .circle_wrap .circle {
+  display: inline-block;
+  width: 0.2rem;
+  height: 0.2rem;
+  border-radius: 50%;
+  background-color: #6492ff;
+}
+.main .content_wrap .base .wrap .time .text,
+.main .content_wrap .water_quality .wrap .time .text,
+.main .content_wrap .river_control .wrap .time .text,
+.main .content_wrap .river_green .wrap .time .text,
+.main .content_wrap .drain .wrap .time .text,
+.main .content_wrap .sewage .wrap .time .text,
+.main .content_wrap .other .wrap .time .text {
+  font-size: 0.32rem;
+  font-weight: bold;
+  color: #6492ff;
+}
+.main .content_wrap .base .wrap .item,
+.main .content_wrap .water_quality .wrap .item,
+.main .content_wrap .river_control .wrap .item,
+.main .content_wrap .river_green .wrap .item,
+.main .content_wrap .drain .wrap .item,
+.main .content_wrap .sewage .wrap .item,
+.main .content_wrap .other .wrap .item {
+  color: #333;
+  display: flex;
+}
+.main .content_wrap .base .wrap .item:first-child,
+.main .content_wrap .water_quality .wrap .item:first-child,
+.main .content_wrap .river_control .wrap .item:first-child,
+.main .content_wrap .river_green .wrap .item:first-child,
+.main .content_wrap .drain .wrap .item:first-child,
+.main .content_wrap .sewage .wrap .item:first-child,
+.main .content_wrap .other .wrap .item:first-child {
+  color: #666;
+  border: 1px solid #dbdad8;
+  background-color: #efeeed;
+}
+.main .content_wrap .base .wrap .item:first-child .right,
+.main .content_wrap .water_quality .wrap .item:first-child .right,
+.main .content_wrap .river_control .wrap .item:first-child .right,
+.main .content_wrap .river_green .wrap .item:first-child .right,
+.main .content_wrap .drain .wrap .item:first-child .right,
+.main .content_wrap .sewage .wrap .item:first-child .right,
+.main .content_wrap .other .wrap .item:first-child .right {
+  text-align: center;
+}
+.main .content_wrap .base .wrap .item:last-child,
+.main .content_wrap .water_quality .wrap .item:last-child,
+.main .content_wrap .river_control .wrap .item:last-child,
+.main .content_wrap .river_green .wrap .item:last-child,
+.main .content_wrap .drain .wrap .item:last-child,
+.main .content_wrap .sewage .wrap .item:last-child,
+.main .content_wrap .other .wrap .item:last-child {
+  border-bottom: 1px solid #dbdad8;
+}
+.main .content_wrap .base .wrap .item:nth-child(odd),
+.main .content_wrap .water_quality .wrap .item:nth-child(odd),
+.main .content_wrap .river_control .wrap .item:nth-child(odd),
+.main .content_wrap .river_green .wrap .item:nth-child(odd),
+.main .content_wrap .drain .wrap .item:nth-child(odd),
+.main .content_wrap .sewage .wrap .item:nth-child(odd),
+.main .content_wrap .other .wrap .item:nth-child(odd) {
+  background-color: #f7f7f7;
+}
+.main .content_wrap .base .wrap .item .left,
+.main .content_wrap .water_quality .wrap .item .left,
+.main .content_wrap .river_control .wrap .item .left,
+.main .content_wrap .river_green .wrap .item .left,
+.main .content_wrap .drain .wrap .item .left,
+.main .content_wrap .sewage .wrap .item .left,
+.main .content_wrap .other .wrap .item .left,
+.main .content_wrap .base .wrap .item .right,
+.main .content_wrap .water_quality .wrap .item .right,
+.main .content_wrap .river_control .wrap .item .right,
+.main .content_wrap .river_green .wrap .item .right,
+.main .content_wrap .drain .wrap .item .right,
+.main .content_wrap .sewage .wrap .item .right,
+.main .content_wrap .other .wrap .item .right {
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .content_wrap .base .wrap .item .left,
+.main .content_wrap .water_quality .wrap .item .left,
+.main .content_wrap .river_control .wrap .item .left,
+.main .content_wrap .river_green .wrap .item .left,
+.main .content_wrap .drain .wrap .item .left,
+.main .content_wrap .sewage .wrap .item .left,
+.main .content_wrap .other .wrap .item .left {
+  flex: 1;
+  border-right: 1px solid #dbdad8;
+}
+.main .content_wrap .base .wrap .item .right,
+.main .content_wrap .water_quality .wrap .item .right,
+.main .content_wrap .river_control .wrap .item .right,
+.main .content_wrap .river_green .wrap .item .right,
+.main .content_wrap .drain .wrap .item .right,
+.main .content_wrap .sewage .wrap .item .right,
+.main .content_wrap .other .wrap .item .right {
+  flex: 3;
+}
+.main .content_wrap .drain .wrap .item .center {
+  padding: 0.16rem;
+  border-right: 1px solid #dbdad8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .content_wrap .drain .wrap .item .left,
+.main .content_wrap .drain .wrap .item .center,
+.main .content_wrap .drain .wrap .item .right {
+  flex: 1;
+}

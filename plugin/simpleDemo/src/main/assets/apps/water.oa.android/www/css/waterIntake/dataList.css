@@ -1,0 +1,146 @@
+.content {
+    background-color: #f6f6f6;
+}
+/* 分类start */
+.sort {
+    width: 100%;
+    height: 0.98rem;
+    position: fixed;
+    top: 1.3rem;
+    left: 0;
+    padding-left: 0.3rem;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.sort_list {
+    width: 100%;
+    height: 100%;
+    background: url(../../images/riverChief/arrow_down.png) no-repeat 100% center;
+    background-size: 15px 9px;
+    color: #333333;
+    font-size: 0.26rem;
+}
+.sort_list_start {
+    background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+    background-size: 15px 9px;
+}
+.sort_input {
+    width: 2rem;
+    height: 100%;
+    margin-top: 0.3rem;
+    margin-right: 0.1rem;
+    font-size: 0.24rem;
+    border: none !important;
+    color: #cccccc;
+    background: #fff url(../../images/waterIntake/icon_search_03.png) no-repeat 90% center;
+    background-size: 0.34rem 0.34rem;
+}
+/* 分类end */
+/* 总条数 */
+.all {
+    width: 100%;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 0.3rem;
+    color: #cccccc;
+    background-color: #f6f6f6;
+    padding-left: 0.3rem;
+    /* letter-spacing: 0.01rem; */
+    position: fixed;
+    top: 2.68rem;
+}
+.all_num {
+    color: #6492ff;
+}
+/* 列表start */
+.list {
+    width: 96%;
+    height: calc(100% - 3.68rem);
+    margin: 0 auto;
+    margin-top: 3.68rem;
+}
+.lists {
+    width: 100%;
+    height: 100%;
+    padding-top: 0.2rem;
+}
+.lists_li {
+    width: 100%;
+    background-color: #ffffff;
+    margin-bottom: 0.2rem;
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+    border-radius: 0.2rem;
+    line-height: 0.5rem;
+}
+.lists_data {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0.3rem 0 0.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.lists_data > li {
+    font-size: 0.24rem;
+    font-family: Myriad Pro;
+    font-weight: 400;
+    color: #999999;
+}
+.lists_data_head {
+    display: flex;
+    justify-content: space-between;
+}
+.lists_data_head_l {
+    font-size: 0.28rem;
+    color: #333333;
+    line-height: 0.28rem;
+}
+.lists_marl {
+    margin-left: 0.4rem;
+}
+.lists_color0 {
+    color: #ff6600;
+}
+.lists_color1 {
+    color: #07b152;
+}
+.lists_color2 {
+    color: #1bb8ef;
+}
+.lists_color3 {
+    color: #3a77f0;
+}
+.lists_color4 {
+    color: #ffcf0f;
+}
+/* 列表end */
+
+/* 修复搜索 */
+.search_box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    height: 100%;
+    padding-right: 0.15rem;
+}
+.search_box .sort_input.sort_new {
+    background: #ffffff;
+    width: calc(100% - 0.5rem);
+    box-sizing: border-box;
+    color: #333333;
+}
+.search_box .span_search {
+    display: inline-block;
+    width: 0.4rem;
+    height: 0.4rem;
+}
+.search_box .span_search .img_search {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}

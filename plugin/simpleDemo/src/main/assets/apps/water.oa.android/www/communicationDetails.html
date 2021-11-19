@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>聊天设置</p>
+				<div class="communicationDetails-nav">
+					<div class="communicationDetails-head">
+						<div class="left">
+							<h1 id="h1"></h1>
+							<p id="p1"></p>
+							<p id="p2"></p>
+							<p id="p3"></p>
+							<p id="p4"></p>
+							<p id="p5"></p>
+							<p id="p6"></p>
+							<!--<h1 id="h1">杨宁愿<span>会议管理员</span></h1>
+							<p  id="p1">所属部门：人事部</p>
+							<p id="p2">电话：18888888888</p>
+							<p id="p3">邮箱：381066494@qq.com</p>-->
+						</div>
+						<div class="right">
+							<!--<img src="images/qwe.png" alt="" />-->
+							<img id="imgId" src="" alt="" />
+						</div>
+					</div>
+					<div class="communicationDetails-cen">
+						<p>消息免打扰</p>
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+						<p style="border-top: 1px solid #eeeeee;">短信提醒</p>
+						<div class="mui-switch mui-switch-mini">
+							<div class="mui-switch-handle"></div>
+						</div>
+						<p id="qingchu" style="border-top: 1px solid #eeeeee;">清空聊天记录</p>
+					</div>
+					<button class="button1" id="telephone">拨打电话</button>
+					<button class="button2" id="liaotian">进入聊天</button>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.i)
+
+				list(self.i)
+			});
+			var phone='';
+			function list(id) {
+				var _url = root + 'api/contacts/detail';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"user_id": id,
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							$("#h1").html(data.data.truename + '<span>' + data.data.duty + '</span>');
+							$("#p1").html('所属部门：' + data.data.department);
+							$("#p2").html('岗位：' + "");
+							$("#p3").html('职务：' + "");
+							$("#p4").html('工作电话：' + "");
+							$("#p5").html('移动电话：' + data.data.phone);
+							$("#p6").html('电子邮箱：' + data.data.email);
+							document.getElementById('imgId').src = data.data.avatar;
+							phone = data.data.phone;
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			document.getElementById("telephone").addEventListener('tap', function() {
+				var btnArray = ['拨打', '取消'];
+				mui.confirm('是否拨打' + phone + '?', '提示', btnArray, function(e) {
+					if(e.index == 0) {
+						plus.device.dial(phone, false);
+					}
+				});
+			});
+			document.getElementById("qingchu").addEventListener('tap', function() {
+				var btnArray = ['是', '否'];
+				mui.confirm('是否清除聊天记录', '提示', btnArray, function(e) {
+					if(e.index == 0) {
+						mui.toast("清除成功")
+					}
+				});
+			});
+			document.getElementById("liaotian").addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'mobile.html', //通过URL传参
+					id: 'mobile.html', //通过URL传参
+				})
+			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

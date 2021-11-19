@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="fonts/font_808468_w2at8z9smbn.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.mui-table-view-cell{touch-action: auto;}
+			.news .news-nav-ss{
+			    line-height: 0.5rem;		
+			}
+			/*消息*/
+			.news .news-content ul li .left2{
+				width: 2.7rem;
+				margin-right: 0rem;
+				overflow: hidden;
+			}
+			.news .news-content ul li .right{
+				width: 1.5rem;
+				text-align: right;
+			}
+			.news .news-nav-ss input{
+				width: 5rem;
+			}
+			.mui-table-cell{
+				display: block;
+			}
+			.news .news-content ul li{
+				padding: 0.36rem 0.25rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">消息
+					<!--<i class="iconfont icon-tianjia right"></i>-->
+				</p>
+				<div class="news-nav" style="margin-top: 1.3rem;">
+					<div class="news-nav-ss">
+						<i class="iconfont icon-sousuo"></i>
+						<input type="text" name="" id="" value="" placeholder="搜索" />
+					</div>
+				</div>
+				<div class="news-content" style="margin: 0 auto;">
+					<ul id="list">
+
+						<li class="mui-table-view-cell " id="notice">
+							<div class="mui-slider-handle" id="gongzuo">
+								<div class="mui-table-cell">
+									<div class="left left1"><img src="images/sdsd.png" /></div>
+									<div class="left left2">
+										<p>工作消息</p>
+										<span id="noticetitle"></span>
+									</div>
+									<div class="right">
+										<p id="noticeshijian"> </p>
+										<span id="noticenum" class="mui-badge mui-badge-danger"></span>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell" id="approve">
+							<div class="mui-slider-handle" id="danwei">
+								<div class="mui-table-cell">
+									<div class="left left1"><img src="images/sas.png" /></div>
+									<div class="left left2">
+										<p>通知公告</p>
+										<span id="approvetitle"></span>
+									</div>
+									<div class="right">
+										<p id="approveshijian"> </p>
+										<span id="approvenum" class="mui-badge mui-badge-danger"></span>
+									</div>
+								</div>
+							</div>
+						</li>
+						<!--<li class="mui-table-view-cell mui-transitioning">
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-grey mui-icon " style="transform: translate(0px, 0px);">
+									<div class="divicon"><i class="icon-zhiding iconfont"></i>置顶</div>
+								</a>
+								<a class="mui-btn mui-btn-red mui-icon" style="transform: translate(-0.72rem, 0px);">
+									<div class="divicon" id="noticedel"><i class="icon-shanchu iconfont"></i>删除</div>
+								</a>
+							</div>
+							<div class="mui-slider-handle" id="xiaoxi" style="transform: translate(0px, 0px);">
+								<div class="mui-table-cell">
+									<div class="left left1"><img src="images/qwe.png" /></div>
+									<div class="left left2"><p>张三</p><span>干嘛呢？</span></div>
+									<div class="right"><p>08:06</p><span class="mui-badge mui-badge-danger">1</span></div>
+								</div>
+							</div>
+						</li>-->
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div style="height: 1.26rem;"></div>
+		<nav class="mui-bar mui-bar-tab " id="nav">
+			<a class="mui-tab-item mui-active" id="defaultTab" href="news.html">
+				<span class="mui-icon iconfont icon-xiaoxi"></span>
+				<span class="mui-tab-label navwenzi">消息</span>
+			</a>
+			<a class="mui-tab-item " id="a2" href="handle.html">
+				<span class="mui-icon iconfont icon-daiban"></span>
+				<span class="mui-tab-label navwenzi">办理</span>
+			</a>
+			<a class="mui-tab-item mui-active" id="a3" href="main.html">
+				<img src="images/322.png" class="" alt="">
+				<!-- <span class="mui-icon iconfont icon-address-book-o"></span> -->
+				<span class="mui-tab-label navwenzi"></span>
+			</a>
+			<!--<a class="mui-tab-item " id="a4" href="communication.html">-->
+			<a class="mui-tab-item " id="a4" href="addressBookone.html">
+				<span class="mui-icon iconfont icon-address-book-o"></span>
+				<span class="mui-tab-label navwenzi">通讯录</span>
+			</a>
+			<a class="mui-tab-item " id="a5" href="my.html">
+				<span class="mui-icon icon-gerenzhongxin iconfont"></span>
+				<span class="mui-tab-label navwenzi">我的</span>
+			</a>
+		</nav>
+		<script src="js/mui.min.js"></script>
+		<script src="js/tab_layout.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/nav.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/app.js"></script>
+		<!--<script src="js/main.js"></script>-->
+		<script type="text/javascript">
+			window.addEventListener('refresh', function(e) { //执行刷新
+				location.reload();
+			});
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1' //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			console.log(token);
+			function mewsList() {
+				var _url = root + 'api/message/';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							var approve = data.data.notice;
+							var notice = data.data.approve;
+							var contacts = data.data.contacts;
+							if(notice.count == 0) {
+								$("#noticenum").css("display", "none");
+								$("#noticetitle").text("暂无未读消息");
+							} else {
+								$("#noticetitle").text(notice.title);
+								$("#noticeshijian").text();
+								$("#noticenum").text(notice.count);
+							}
+							if(approve.count == 0) {
+								$("#approvenum").css("display", "none");
+								$("#approvetitle").text("暂无未读消息");
+							} else {
+								$("#approvetitle").text(approve.title);
+								$("#approveshijian").text();
+								$("#approvenum").text(approve.count);
+							}
+							if(contacts != ""&&contacts != null&&contacts != undefined) {
+								contacts.forEach(function(item,index) {
+									$("#list").append(
+										'<li class="mui-table-view-cell mui-transitioning">'+
+											'<div class="mui-slider-handle chirchat" data-id="'+ item.id +'" style="transform: translate(0px, 0px);">'+
+												'<div class="mui-table-cell">'+
+													'<div class="left left1">'+
+														'<img src="' + root + item.avatar + '"/>'+
+													'</div>'+
+													'<div class="left left2">'+
+														'<p>' + item.username + '</p>'+
+														'<span>'+item.content+'</span>'+
+													'</div>'+
+													'<div class="right">'+
+														'<p>'+item.datetime+'</p>'+
+														'<span class="mui-badge mui-badge-danger">'+item.number+'</span>'+
+													'</div>'+
+												'</div>'+
+											'</div>'+
+										'</li>'
+									)
+								})
+								$(".chirchat").on("click",chirchat);
+							} else {
+//								$("#list").append(
+//								'<li class="mui-table-view-cell mui-transitioning">'+
+//									'<div class="mui-slider-right mui-disabled">'+
+//										'<a class="mui-btn mui-btn-grey mui-icon " style="transform: translate(0px, 0px);">'+
+//											'<div class="divicon"><i class="icon-zhiding iconfont"></i>置顶</div>'+
+//										'</a>'+
+//										'<a class="mui-btn mui-btn-red mui-icon" style="transform: translate(-0.72rem, 0px);">'+
+//											'<div class="divicon" id="noticedel"><i class="icon-shanchu iconfont"></i>删除</div>'+
+//										'</a>'+
+//									'</div>'+
+//									'<div class="mui-slider-handle" id="xiaoxi" style="transform: translate(0px, 0px);">'+
+//										'<div class="mui-table-cell">'+
+//											'<div class="left left1"><img src="images/qwe.png" /></div>'+
+//											'<div class="left left2"><p>张三</p><span>干嘛呢？</span></div>'+
+//											'<div class="right"><p>08:06</p><span class="mui-badge mui-badge-danger">1</span></div>'+
+//										'</div>'+
+//									'</div>'+
+//								'</li>'
+//								)
+							}
+							
+
+							document.getElementById('gongzuo').addEventListener('tap', function() {
+								mui.openWindow({
+									url: 'workNews.html', //通过URL传参
+									id: 'workNews.html'
+								})
+							});
+							document.getElementById('danwei').addEventListener('tap', function() {
+								mui.openWindow({
+									url: 'unitNews.html', //通过URL传参
+									id: 'unitNews.html'
+								})
+							});
+
+						} else {
+							mui.toast("获取数据失败！")
+						}
+						console.log(JSON.stringify(data))
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			mewsList()
+
+			$(".icon-tianjia").click(function(){
+				mui.openWindow({
+					url: 'communication.html', //通过URL传参
+				})
+			})
+
+			$("#noticedel").click(function() {
+				$("#notice").css("display", "none");
+			})
+			$("#approvedel").click(function() {
+				$("#approve").css("display", "none");
+			})
+		</script>
+		<script type="text/javascript">
+			//进入聊天
+			function chirchat(){
+				var _id=$(this).attr("data-id");
+				console.log("_id="+_id);
+				mui.openWindow({
+					url: "instant_messaging.html",
+					id: "instant_messaging.html",
+					extras:{
+						self_id:_id
+					}
+				})
+				$(this).hide();
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

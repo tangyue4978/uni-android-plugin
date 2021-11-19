@@ -1,0 +1,111 @@
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  color: #000;
+  overflow: hidden;
+}
+div {
+  box-sizing: border-box;
+}
+.section {
+  font-size: 0.24rem;
+  height: calc(100vh - 1.3rem);
+  font-family: "楷体";
+  background: linear-gradient(to bottom, #ffffff 0%, #dde1f8 100%);
+}
+.section .start {
+  visibility: hidden;
+  position: fixed;
+  top: 95%;
+  right: 5%;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "";
+}
+.section .start .start_img {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+.section .start .start_text {
+  font-size: 0.2rem;
+}
+.section .title_wrap {
+  position: relative;
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section .title_wrap .title {
+  width: 90%;
+  height: 80%;
+  border-bottom: 1px solid #000;
+  display: flex;
+  align-items: flex-end;
+}
+.section .title_wrap .title .title_block {
+  display: inline-block;
+  margin-left: 0.4rem;
+  margin-top: 0.28rem;
+  width: 0.24rem;
+  height: 0.24rem;
+  background-color: blue;
+}
+.section .title_wrap .title .title_r {
+  margin-left: 0.2rem;
+  line-height: 0.24rem;
+  font-size: 0.3rem;
+}
+.section .title_wrap .title .title_text {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.4rem;
+  font-weight: bold;
+}
+.section .catalog {
+  height: calc(100% - 14vh);
+  padding: 0.2rem 0.3rem 0 0.3rem;
+  overflow: auto;
+}
+.section .catalog .catalog_item {
+  line-height: 4.8vh;
+  /* font-weight: bold; */
+  cursor: pointer;
+}
+.section .catalog .catalog_item .item_num {
+  display: inline-block;
+  font-weight: 600;
+  width: 0.5rem;
+}
+.section .footer_wrap {
+  height: 6vh;
+}
+.section .footer_wrap .footer {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  border-bottom: 0.03rem dashed #ccc;
+}
+.section .footer_wrap .footer .title_block {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: inline-block;
+  width: 0.24rem;
+  height: 0.24rem;
+  background-color: #d4ca8c;
+}
+.section .footer_wrap .footer .title_r {
+  position: absolute;
+  bottom: 0;
+  right: -0.4rem;
+  margin-left: 0.2rem;
+  line-height: 0.24rem;
+  font-size: 0.3rem;
+}

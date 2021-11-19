@@ -1,0 +1,386 @@
+/** layui-v1.0.7 MIT License By http://www.layui.com */
+
+.layim-chat-main,
+.layim-chat-main ul {
+	overflow-x: hidden
+}
+
+html #layuicss-skinlayim-mobilecss {
+	display: none;
+	position: absolute;
+	width: 1989px
+}
+
+.layim-chat,
+.layim-chat-main,
+.layim-chat-title {
+	position: fixed;
+	left: 0;
+	right: 0
+}
+
+.layim-chat {
+	bottom: 0;
+	top: 0;
+	background-color: #eee
+}
+
+.layim-chat-title {
+	top: 0;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #36373C;
+	color: #fff;
+	font-size: 16px
+}
+
+.layim-chat-status {
+	padding-left: 5px;
+	font-size: 14px
+}
+
+.layim-chat-main {
+	width: 100%;
+    bottom: 40px;
+	top: 50px;
+	padding: 15px;
+	overflow-y: auto;
+	-webkit-box-sizing: border-box!important;
+	-moz-box-sizing: border-box!important;
+	box-sizing: border-box!important
+}
+
+.layim-chat-main[nonetitle] {
+	top: 0
+}
+
+.layim-chat-main ul li {
+	position: relative;
+	font-size: 0;
+	margin-bottom: 10px;
+	padding-left: 60px;
+	min-height: 68px
+}
+
+.layim-chat-text,
+.layim-chat-user {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	vertical-align: top;
+	font-size: 14px
+}
+
+.layim-chat-user {
+	position: absolute;
+	left: 3px
+}
+
+.layim-chat-user img {
+	width: 40px;
+	height: 40px;
+	border-radius: 100%
+}
+
+.layim-chat-user cite {
+	position: absolute;
+	left: 60px;
+	top: -2px;
+	width: 500px;
+	line-height: 24px;
+	font-size: 12px;
+	white-space: nowrap;
+	color: #999;
+	text-align: left;
+	font-style: normal
+}
+
+.layim-chat-user cite i {
+	padding-left: 15px;
+	font-style: normal
+}
+
+.layim-chat-text {
+	position: relative;
+	min-height: 22px;
+	line-height: 22px;
+	margin-top: 25px;
+	padding: 8px 15px;
+	background-color: #fff;
+	border-radius: 3px;
+	color: #333;
+	word-break: break-all
+}
+
+.layim-chat-text:after {
+	content: '';
+	position: absolute;
+	left: -10px;
+	top: 13px;
+	width: 0;
+	height: 0;
+	border-style: solid dashed dashed;
+	border-color: #fff transparent transparent;
+	overflow: hidden;
+	border-width: 10px
+}
+
+.layim-chat-text a {
+	color: #33DF83
+}
+
+.layim-chat-text img {
+	max-width: 100%;
+	vertical-align: middle
+}
+
+.layim-chat-text .layui-layim-file,
+.layui-layim-file {
+	display: block;
+	text-align: center
+}
+
+.layim-chat-text .layui-layim-file {
+	color: #333
+}
+
+.layui-layim-file:hover {
+	opacity: .9
+}
+
+.layui-layim-file i {
+	font-size: 80px;
+	line-height: 80px
+}
+
+.layui-layim-file cite {
+	display: block;
+	line-height: 20px;
+	font-size: 14px
+}
+
+.layim-chat-main ul .layim-chat-mine {
+	text-align: right;
+	padding-left: 0;
+	padding-right: 60px
+}
+
+.layim-chat-mine .layim-chat-user {
+	left: auto;
+	right: 3px
+}
+
+.layim-chat-mine .layim-chat-user cite {
+	left: auto;
+	right: 60px;
+	text-align: right
+}
+
+.layim-chat-mine .layim-chat-user cite i {
+	padding-left: 0;
+	padding-right: 15px
+}
+
+.layim-chat-mine .layim-chat-text {
+	margin-left: 0;
+	text-align: left;
+	background-color: #5FB878;
+	color: #fff
+}
+
+.layim-chat-mine .layim-chat-text:after {
+	left: auto;
+	right: -10px;
+	border-top-color: #5FB878
+}
+
+.layim-chat-mine .layim-chat-text a {
+	color: #fff
+}
+
+.layim-chat-main ul .layim-chat-system {
+	min-height: 0;
+	margin: 20px 0 5px;
+	padding: 0
+}
+
+.layim-chat-system {
+	margin: 10px 0;
+	text-align: center
+}
+
+.layim-chat-system span {
+	display: inline-block;
+	line-height: 30px;
+	padding: 0 15px;
+	border-radius: 3px;
+	background-color: #ddd;
+	color: #fff;
+	font-size: 14px
+}
+
+.layim-chat-footer {
+	position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    /*background: #e5e7f4;*/
+}
+
+.layim-chat-send {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	    background: #e5e7f4;
+    padding: 5px;
+}
+.layim-chat-send .icon-tianjia{
+	    font-size: 19px;
+    color: #92b2fd;
+    margin: 6px 10px 0 10px;
+}
+
+.layim-chat-send .icon-yuyin{
+	    position: absolute;
+    font-size: 23px;
+    color: #92b2fd;
+    margin-top: 5px;
+    margin-left: 17px;
+}
+.layim-chat-send .icon-xiangshangjiantouquan{
+	    position: absolute;
+    right: 48px;
+    font-size: 25px;
+    top: 10px;
+    color: #4178f9;
+}
+.layim-chat-send .icon-jiantou8{
+	    font-size: 19px;
+    color: #92b2fd;
+    margin: 6px 10px 0 10px;
+        position: relative;
+    /*right: 5px;*/
+    display: none;
+}
+
+.layim-chat-send input {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+    flex: 1;
+    height: 30px;
+    margin-bottom: 0 !important;
+       padding: 0 33px 0 33px !important;
+    border: 0;
+    background-color: #fff;
+    border-radius: 30px;
+    margin-top: 1px;
+    margin-left: 11px;
+}
+
+.layim-chat-send button {
+	border-radius: 3px;
+	height: 36px;
+	padding: 0 10px;
+	border: 0;
+	margin-left: 10px;
+	background-color: #5FB878;
+	color: #fff
+}
+
+.layim-chat-tool {
+	position: relative;
+	width: 100%;
+	overflow-x: hidden;
+	padding: 0;
+    height: 100px;
+    line-height: 100px;
+	margin-top: 0px;
+	font-size: 0;
+	white-space: nowrap;
+	    background: #f8f8f8;
+	        display: none;
+}
+
+.layim-chat-tool span {
+	    position: relative;
+     margin: 0 0px; 
+    display: inline-block;
+    vertical-align: top;
+    font-size: 24px;
+    cursor: pointer;
+    width: 33.3%;
+    text-align: center;
+    color: #93b0fd;
+}
+.layim-chat-tool span p{
+	    position: absolute;
+    top: 25px;
+    left: 40%;
+    color: #93b0fd;
+    font-size: 12px;
+}
+.icon-tupian1{
+	border-left: 1px solid #e5e7f4;
+	border-right: 1px solid #e5e7f4;
+}
+
+.layim-chat-tool .layim-tool-log {
+	position: absolute;
+	right: 5px;
+	font-size: 14px
+}
+
+.layim-tool-log i {
+	position: relative;
+	top: 2px;
+	margin-right: 5px;
+	font-size: 20px;
+	color: #999
+}
+
+.layim-tool-image input {
+	position: absolute;
+	font-size: 0;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: .01;
+	filter: Alpha(opacity=1);
+	cursor: pointer
+}
+
+.layim-layer {
+	position: fixed;
+    bottom: 140px;
+	left: 10px;
+	right: 10px;
+	margin: 0 auto
+}
+
+.layui-layim-face {
+	position: relative;
+	max-height: 180px;
+	overflow: auto;
+	padding: 10px;
+	font-size: 0
+}
+
+.layui-layim-face li {
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: bottom;
+	padding: 5px 2px;
+	text-align: center;
+	width: 10%;
+	-webkit-box-sizing: border-box!important;
+	-moz-box-sizing: border-box!important;
+	box-sizing: border-box!important
+}
+
+.layui-layim-face li img {
+	width: 22px;
+	height: 22px
+}

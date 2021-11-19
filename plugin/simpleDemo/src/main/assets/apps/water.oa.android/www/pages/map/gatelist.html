@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/villageDetails.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section">
+				<div class="villageName">
+					<img class="decorate_bird" src="../../images/ruralWater/decorate_bird.png" alt="">
+					<h3 class="h3"></h3>
+				</div>
+				<div id="page_info"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			//菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+		})
+		//自然村详情
+		var root = localStorage.getItem("str_url");
+		if(root == "" || root == undefined || root == null){
+				mui.openWindow({
+				url: 'login.html?cid=1', //通过URL传参
+				id: 'login.html?cid=1', //通过URL传参
+			})
+		}
+		var token = localStorage.getItem("token");
+		var obj_data = {};
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			plus.nativeUI.showWaiting("加载中...");
+			
+			obj_data.token = token;
+			obj_data.id = self.item_id;
+			var _url = root + 'api/v3/water_gate_pump/gatedetail';
+			vailageDetail(obj_data,_url);
+			
+			
+			
+		});
+		function vailageDetail(obj_data,search_url) {
+			
+			console.log("请求接口="+search_url);
+			console.log("请求数据="+JSON.stringify(obj_data));
+			mui.ajax(search_url, {
+				data: obj_data,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------"+JSON.stringify(data));
+					if(data.code == 1) {
+						var page_info_html = "";
+						var searchinfo= data.data.basic;
+						var searchname= data.data.show;
+						console.log(searchinfo.length)
+						var item_html = '';
+						var item_data = searchinfo;
+						item_data.forEach(function(item,index){
+							item_html +="<tr><td class='td_head'>"+item.name+"</td>"+"<td>"+item.value+"</td></tr>";
+						})
+						var box = 	`<div class="detailItem">
+										<p class="title">${searchname}</p>
+										<table class="table">
+											<colgroup width="50%"></colgroup>
+											<colgroup width="50%"></colgroup>
+											${item_html}
+										</table>
+									</div>`;
+						page_info_html += box;
+						$("#page_info").html(page_info_html);
+						$(".mui-loading").css("display", "none")
+					}else{
+						plus.nativeUI.toast(data.msg)
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+	</script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

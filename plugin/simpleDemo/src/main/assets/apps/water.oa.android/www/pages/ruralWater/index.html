@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/main.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<style type="text/css">
+			.list_cont_box .cont_item_box{
+				width: 23%;
+				align-items: flex-start;
+			}
+			.list_cont_box .cont_item_box .list_span{
+				color: #666666;
+			}
+			.right {
+				position: absolute;
+				right: 0.2rem;
+			}
+		</style>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>农村水利</span>
+				<span class="right" style="font-size: 0.3rem;" onclick="jump_new('../../feedback.html')">意见反馈</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i> -->
+			</header>
+			<div class="section">
+				<div class="list_box">
+					<ul class="list_ul">
+						<li class="list_li">
+							<div class="list_title">农水一张图</div>
+							<div class="list_cont_box">
+								<a href="javascript:void(0);" onclick="jump_new('../agricultural_water_map/agricultural_water_map.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/1-1.png" >
+										<span class="list_span">农水一张图</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('work_trend.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/1-2.png" >
+										<span class="list_span">工作动态</span>
+									</div>
+								</a>
+								<!-- <a href="javascript:void(0);" onclick="jump_new('farm_file.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/1-3.png" >
+										<span class="list_span">农水档案</span>
+									</div>
+								</a> -->
+							</div>
+						</li>
+						<li class="list_li">
+							<div class="list_title">汇总统计</div>
+							<div class="list_cont_box">
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/basic.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-16.png" >
+										<span class="list_span">山西基本<br/>情况</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box" onclick="jump_new('../waterStatistics/irrigation.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-1.png" >
+										<span class="list_span">灌溉面积</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/electromechanical.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-2.png" >
+										<span class="list_span">机电排灌<br/>面积</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/waterSaving.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-3.png" >
+										<span class="list_span">节水灌溉<br/>面积</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/small.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-4.png" >
+										<span class="list_span">小型水利<br/>灌溉面积</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/smallFacilities.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-5.png" >
+										<span class="list_span">小型水利<br/>灌溉设施</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/well.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-11.png" >
+										<span class="list_span">机电井/塘坝/窖池</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/acres.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-7.png" >
+										<span class="list_span">2000亩以上灌区</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/sluice.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-8.png" >
+										<span class="list_span">水闸</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/pump.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-9.png" >
+										<span class="list_span">泵站</span>
+									</div>
+								</a>
+								<!-- <a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/beware.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-10.png" >
+										<span class="list_span">提防</span>
+									</div>
+								</a> -->
+								
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/channel.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-6.png" >
+										<span class="list_span">渠道防渗</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/waterSupply.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-12.png" >
+										<span class="list_span">城乡供水<br/>工程</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box"  onclick="jump_new('../waterStatistics/cover.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-13.png" >
+										<span class="list_span">城乡供水<br/>工程覆盖<br/>人口</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box" onclick="jump_new('../waterStatistics/design.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-14.png" >
+										<span class="list_span">城乡供水<br/>工程设计<br/>年供水量</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);"  class="cont_item_box" onclick="jump_new('../waterStatistics/volume.html')">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/2-15.png" >
+										<span class="list_span">城乡供水<br/>工程年供<br/>水量</span>
+									</div>
+								</a>
+								
+							</div>
+						</li>
+						<li class="list_li">
+							<div class="list_title">农村水表</div>
+							<div class="list_cont_box">
+								<a href="javascript:void(0);" onclick="jump_new('water_meter.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/3-1.png" >
+										<span class="list_span">水表地图</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('water_query.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/3-2.png" >
+										<span class="list_span">水表数据</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('static_analysis.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/3-3.png" >
+										<span class="list_span">接入数据分析</span>
+									</div>
+								</a>
+							</div>
+						</li>
+						<li class="list_li">
+							<div class="list_title">农村供水工程</div>
+							<div class="list_cont_box">
+								<a href="javascript:void(0);" onclick="jump_new('index_map.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/4-1.png" >
+										<span class="list_span">自然村信息</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('thousandPeo_supWater.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/4-2.png" >
+										<span class="list_span">千人以上</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('thousandPeo_down_supWater.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/4-3.png" >
+										<span class="list_span">千人以下</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('kiloton_supWater.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/4-4.png" >
+										<span class="list_span">千吨万人</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('waterSupply_project.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/4-5.png" >
+										<span class="list_span">供水工程<br/>查询</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('summary.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/4-6.png" >
+										<span class="list_span">农村饮水<br/>汇总</span>
+									</div>
+								</a>
+							</div>
+						</li>
+						
+						<li class="list_li">
+							<div class="list_title">大中型灌区</div>
+							<div class="list_cont_box">
+								<a href="javascript:void(0);" onclick="jump_new('big_irrigated_results_map.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/5-1.png" >
+										<span class="list_span">大型灌区</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('small_irrigated_results.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/5-2.png" >
+										<span class="list_span">中型灌区</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('query_irrigatedArea.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/5-3.png" >
+										<span class="list_span">灌区查询</span>
+									</div>
+								</a>
+							</div>
+						</li>
+						<li class="list_li">
+							<div class="list_title">农村小水电</div>
+							<div class="list_cont_box">
+								<a href="javascript:void(0);" onclick="jump_new('small_hydropower.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/6-1.png" >
+										<span class="list_span">小型水电站</span>
+									</div>
+								</a>
+								<a href="javascript:void(0);" onclick="jump_new('query_hydropower.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/6-2.png" >
+										<span class="list_span">水电查询</span>
+									</div>
+								</a>
+							</div>
+						</li>
+						
+						<!-- <li class="list_li">
+							<div class="list_title">年鉴信息</div>
+							<div class="list_cont_box">
+								<a href="javascript:void(0);" onclick="jump_new('waterSaving_statistics.html')" class="cont_item_box">
+									<div>
+										<img class="list_img" src="../../images/ruralWater/main_icon/icons_05.png" >
+										<span class="list_span">节水统计</span>
+									</div>
+								</a>
+							</div>
+						</li> -->
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 当前手机位置 -->
+		<div id="marker" class="marker"></div>
+	</body>
+	<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

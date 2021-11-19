@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title></title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<!--这个是图标库-->
+	<link rel="stylesheet" type="text/css" href="fonts/font_808468_w2at8z9smbn.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/rem.js?v=1024" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		.my {
+			position: relative;
+		}
+
+		.my .scanning {
+			width: 0.32rem;
+			padding-top: 0.2rem;
+			position: absolute;
+			right: 0.5rem;
+			top: 0.5rem;
+			display: none;
+		}
+
+		.my .my-content {
+			padding: 0 0.4rem;
+		}
+
+		.my .my-content ul li {
+			height: 1.1rem;
+			line-height: 1.1rem;
+		}
+
+		.my .my-nav {
+			width: 100%;
+		}
+
+		.mui-table-view-cell,
+		.mui-transitioning {
+			touch-action: auto;
+		}
+
+		.my .my-nav .left img {
+			border-radius: 2em;
+		}
+
+		.my .my-nav .left {
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+	</style>
+</head>
+
+<body onload="" style="    background-color: #fff;">
+	<div class="mui-content">
+		<div class="my">
+			<p class="p1" style="padding-top: 0.2rem;position: fixed;width: 100%;">
+				我的
+				<img class="scanning" id="scanning" src="./images/scanning/scanning.png" onclick="jump_scann()">
+			</p>
+			<p class="p1" style="padding-top: 0.2rem;"></p>
+			<div class="my-nav">
+				<div class="left">
+					<img id="imgId" width="100%" height="100%" src="images/user.png" />
+				</div>
+				<div class="right" style="line-height: 0.45rem;">
+					<p id="name"></p>
+					<span id="phone"></span>
+				</div>
+			</div>
+			<div class="my-content">
+				<ul>
+					<li>
+						<i class="iconfont icon-bumen"></i>
+						我的部门
+						<span id="duty" class="right"></span>
+					</li>
+					<li id="xiugaiziliao" class="mui-table-view-cell">
+						<i class="iconfont icon-tongzhi"></i>
+						修改资料
+						<i class="iconfont icon-youjiantou1 right"></i>
+					</li>
+					<li id="editPassword" class="">
+						<i class="iconfont icon-xiugaimima"></i>
+						修改密码
+						<i class="iconfont icon-youjiantou1 right"></i>
+					</li>
+					<!--<li>
+							<i class="iconfont icon-yuangongguanli"></i>
+							员工管理
+							<i class="dian right"></i>
+						</li>-->
+					<li id="bzhfk" class="mui-table-view-cell">
+						<i class="mui-icon mui-icon-help"></i>
+						帮助和反馈
+						<i class="iconfont icon-youjiantou1 right"></i>
+					</li>
+					<!--<li>
+							<i class="iconfont icon-ai206"></i>
+							客服电话
+							<sapn class="right" style="color: #377af2">0351-1213556</sapn>
+						</li>-->
+					<li id="system_setup">
+						<i class="iconfont icon-banben"></i>
+						系统设置
+						<i class="iconfont icon-youjiantou1 right"></i>
+						<!--<sapn class="right version" style="color: #377af2"></sapn>-->
+					</li>
+				</ul>
+				<!--<button id="tuichu">退出登录</button>-->
+			</div>
+		</div>
+	</div>
+	<div style="height: 1.26rem;"></div>
+	<nav class="mui-bar mui-bar-tab " id="nav">
+		<a class="mui-tab-item " id="defaultTab" href="news.html">
+			<span class="mui-icon iconfont icon-xiaoxi"></span>
+			<span class="mui-tab-label navwenzi">消息</span>
+		</a>
+		<a class="mui-tab-item " id="a2" href="handle.html">
+			<span class="mui-icon iconfont icon-daiban"></span>
+			<span class="mui-tab-label navwenzi">办理</span>
+		</a>
+		<a class="mui-tab-item mui-active" id="a3" href="main.html">
+			<img src="images/322.png" class="" alt="">
+			<!-- <span class="mui-icon iconfont icon-address-book-o"></span> -->
+			<span class="mui-tab-label navwenzi"></span>
+		</a>
+		<!--<a class="mui-tab-item " id="a4" href="communication.html">-->
+		<a class="mui-tab-item " id="a4" href="addressBookone.html">
+			<span class="mui-icon iconfont icon-address-book-o"></span>
+			<span class="mui-tab-label navwenzi">通讯录</span>
+		</a>
+		<a class="mui-tab-item mui-active" id="a5" href="my.html">
+			<span class="mui-icon icon-gerenzhongxin iconfont"></span>
+			<span class="mui-tab-label navwenzi">我的</span>
+		</a>
+	</nav>
+	<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/tab_layout.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/nav.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/app.js"></script>
+	<script src="js/my.js"></script>
+	<!--<script src="js/header.js" type="text/javascript" charset="utf-8"></script>-->
+	<script type="text/javascript">
+		document.addEventListener("plusready", function () {
+			$(".version").text("V" + plus.runtime.version);
+			//				buidding();
+		}, false);
+	</script>
+	<script type="text/javascript">
+		function buidding() {
+			var xgzl = $("#xiugaiziliao");
+			var top = xgzl.offset().top;
+			var height = xgzl.height();
+			$("body").css("position", "relative");
+			$("body").append(
+				"<div class='ydym' style='position: absolute;top: 0rem;bottom: 0rem;left: 0rem;right: 0rem;z-index:9999999;'>" +
+				"<div style='position: absolute;top: 0rem;left: 0rem;width: 100%;height: " + xgzl.offset().top + "px;background-color:rgba(0,0,0,0.6);'></div>" +
+				"<div style='position: absolute;left: 0rem;width: 100%;top: " + (xgzl.offset().top + xgzl.height()) + "px;bottom:0rem;background-color:rgba(0,0,0,0.6);'>" +
+				"<div>" +
+				"<img src='images/yd_jt.png' style='margin-left: 1.8rem;width: 0.8rem;margin-top: 0.05rem;'/>" +
+				"<div style='margin-left: 2.8rem;color: #FFFFFF;'>" +
+				"<p style='color: #ffcc00;font-weight: bold;margin: 0rem;0.3rem;padding: 0rem;'>当前帐号未绑定手机号，请先绑定。</p>" +
+				"<p style='color: #FFFFFF;margin: 0rem;font-size: 0.32rem;padding: 0rem;'>绑定成功后，可以用手机找回密码，接收待办的消息提醒等。</p>" +
+				"<div style='text-align: left;margin-top: 0.2rem;'>" +
+				"<a onclick='xgzl()' style='border-radius: 0.15rem;font-size: 0.3rem;padding: 0.1rem 0.8rem;margin-right: 0.2rem;color: #000000;background-color: #ffcc00;border: 1px solid #ffcc00;'>去绑定</a>" +
+				"<a onclick='xgzl_hide()' style='border-radius: 0.15rem;font-size: 0.3rem;padding: 0.1rem 0.5rem;border: 1px solid #FFFFFF;color: #FFFFFF;'>跳过</a>" +
+				"</div>" +
+				"</div>" +
+				"</div>" +
+				"</div>" +
+				"</div>"
+			)
+		}
+		function xgzl() {
+			mui.openWindow({
+				url: 'reviseInfo.html', //通过URL传参
+				id: 'reviseInfo.html'
+			})
+		}
+		function xgzl_hide() {
+			$(".ydym").hide();
+		}
+		//			window.onload=function(){
+		//				setTimeout(buidding,2000);
+		//			}
+		//系统设置
+		$("#system_setup").on("click", ststemsetup);
+		function ststemsetup() {
+			mui.openWindow({
+				url: 'page/my/system_setup.html', //通过URL传参
+				id: 'page/my/system_setup.html',
+				createNew: true
+			})
+		}
+	</script>
+	<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function jump_scann() {
+			mui.openWindow({
+				url: 'pages/scanning/scan_index.html', //通过URL传参
+				id: 'pages/scanning/scan_index.html',
+				createNew:true
+			})
+		}
+	</script>
+</body>
+
+</html>

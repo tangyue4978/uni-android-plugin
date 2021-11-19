@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.bumf .daiban{
+				padding-left: 0.5rem;
+				background-color: #FFFFFF;
+			}
+			.bumf .daiban li{
+				margin: 0rem;
+				border-bottom: 1px solid #E0E0E0;
+				padding-left: 0rem;
+			}
+			.bumf .daiban li .left{
+				width: 100%;
+			}
+			.bumf .daiban li .left span.fr{
+				font-size: 0.45rem;
+			}
+			.bumf .daiban li .left span.type{
+				padding: 0.02rem 0.15rem;
+				border:1px solid #16CCB6;
+				border-radius: 0.3rem;
+				color: #16CCB6;
+				margin-right: 0.2rem;
+			}
+			.bumf .daiban li .left h2 .h2_bt{
+				display: inline-block;
+				width: 80%;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+			.item_list{
+				height: 0.8rem;
+				width: 100%;
+				background-color: #FFFFFF;
+				color: #999999;
+				overflow: hidden;
+			}
+			.item_list .item_a{
+				height: 100%;
+				width: 50%;
+				float: left;
+				border-right: 1px solid #CCCCCC;
+				border-bottom: 2px solid #CCCCCC;
+				box-sizing: border-box;
+				font-size: 0.3rem;
+				line-height: 0.8rem;
+				text-align: center;
+				color: #999999;
+			}
+			.item_list .item_a.active{
+				border-bottom: 2px solid #0E5CE8;
+				color: #0E5CE8;
+			}
+			
+			.no-data{
+				width: 100%;
+				text-align: center;
+				display: none;
+			}
+			.no-data img{
+				width: 2rem;
+				margin-top: 2rem;
+			}
+			.no-data p{
+				font-size: 0.3rem;
+				color: #999999;
+				margin: 0;
+				margin-top: -0.4rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<i class="mui-action-back iconfont icon-fanhui1 left"></i>会审
+				</p>
+				<div class="bumf-nav" style="margin-top: 1.3rem;">
+					<div class="item_list">
+						<a class="item_a active" data-id="daiban">待办列表</a>
+						<a class="item_a" data-id="yiban">已办列表</a>
+					</div>
+					<div class="bumf" style="margin: 0;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul id="daiban" class="daiban"></ul>
+							<ul id="yiban" class="daiban"></ul>
+							<ul class="no-data">
+								<img src="images/no_content1.gif" >
+								<p>暂无数据</p>
+							</ul>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null){
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			mui.plusReady(function() {
+				list();
+			});
+			var page = 1,page_done = 1;
+			$(function(){
+				$("body").on("click",".item_list .item_a",function(){
+					$(".item_list .item_a").attr("class","item_a");
+					$(this).addClass("active");
+					$("#item1 #daiban").html("");
+					$("#item1 #yiban").html("");
+					if($(".item_list .item_a.active").attr("data-id") == "daiban"){
+						$("#item1 #daiban").show();
+						$("#item1 #yiban").hide();
+						list();
+					}else{
+						$("#item1 #daiban").hide();
+						$("#item1 #yiban").show();
+						list_done();
+					}
+					$(".mui-loading").hide();
+					
+				})
+			})
+			function list() {
+				var _url = root + 'api/matter/expertreview';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"approve_status":"0",
+						"page":page
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("----------"+JSON.stringify(data));
+						if(data.code == 1) {
+							$("#item1 #daiban").html("");
+							if(data.data.items != "" && data.data.items != null && data.data.items!=undefined){
+								data.data.items.forEach(function(item) {
+									$("#item1 #daiban").append(
+										'<li onclick="xiangqing('+item.id+',0)">'+
+											'<div class="left">'+
+												'<h2><span class="h2_bt">'+item.title+'</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>'+
+												'<p><span class="type">'+item.applyer+'</span>'+item.node+'</p>'+
+												'<p>'+item.applyAt+'</p>'+
+											'</div>'+
+										'</li>'
+									)
+								})
+								$(".no-data").hide();
+							}else{
+								$(".no-data").show();
+								$("#item1 #daiban").hide();
+							}
+							$(".mui-loading").css("display", "none");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+
+			}
+			
+			function list_done() {
+				var _url = root + 'api/matter/expertreview';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"approve_status":"1",
+						"page":page_done
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("----------"+JSON.stringify(data));
+						if(data.code == 1) {
+							$("#item1 #yiban").html("")
+							if(data.data.items != "" && data.data.items != null && data.data.items!=undefined){
+								data.data.items.forEach(function(item) {
+									$("#item1 #yiban").append(
+										'<li onclick="xiangqing('+item.id+',1)">'+
+											'<div class="left">'+
+												'<h2><span class="h2_bt">'+item.title+'</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>'+
+												'<p><span class="type">'+item.applyer+'</span>'+item.node+'</p>'+
+												'<p>'+item.applyAt+'</p>'+
+											'</div>'+
+										'</li>'
+									)
+								})
+								$(".no-data").hide();
+							}else{
+								$(".no-data").show();
+								$("#item1 #yiban").hide();
+							}
+							$(".mui-loading").css("display", "none");
+						}
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+
+			
+
+			function xiangqing(id,is_show) {
+				console.log("id="+id+";is_show="+is_show);
+				mui.openWindow({
+					url: 'xz_approval_hs_details.html', //通过URL传参
+					id: 'xz_approval_hs_details.html', //通过URL传参
+					extras: {
+						is_show: is_show,
+						item_id: id
+					}
+				})
+			};
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0gd1tdmtrr0o.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body style="background: #f8f8f8;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>日程</p>
+				<div class="meeting-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								日程
+							</a>
+							<a class="mui-control-item" href="#item2">
+								便签
+							</a>
+						</div>
+					</div>
+					<div class="schedule">
+						<div id="item1" class="mui-control-content mui-active">
+							<div class="schedule">
+								<div class="schedule-h">
+									<p class="title sj1">2018年11月<i class="iconfont icon-jiantou8"></i></p>
+									<div class="rc" style="width: 100%;overflow-x: auto;">
+										<ul class="xingqi">
+											<!--<li>日</li>
+											<li>一</li>
+											<li>二</li>
+											<li>三</li>
+											<li>四</li>
+											<li>五</li>
+											<li>六</li>
+											<li>六</li>
+											<li>六</li>
+											<li>六</li>
+											<li>六</li>
+											<li>六</li>-->
+										</ul>
+										<ul class="rili">
+											<!--<li class="lihui">31</li>
+											<li class="libj">2
+												<p class="jintian">今天</p>
+											</li>
+											<li>3</li>
+											<li>4</li>
+											<li>5</li>
+											<li>6</li>
+											<li>7</li>-->
+										</ul>
+									</div>
+
+								</div>
+								<div class="schedule-c">
+									<ul class="richeng">
+										<!--<li>
+											<div class="left shijian">
+												<p class="riqi">25:22</p><span class="time">17:30</span></div>
+											<div class="left leftinput">
+												<span class="dian dianl">●</span>
+												<div class="rzcontent">
+													<p class="p1">静安寺坡打破是静安寺坡打破是静安寺坡打破是静安寺坡打破是</p>
+													<span>asdadasd</span>
+
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="left shijian">
+												<p class="riqi">25:22</p><span class="time">17:30</span></div>
+											<div class="left leftinput">
+												<span class="dian dianl">●</span>
+												<div class="rzcontent">
+													<p class="p1">静安寺坡打破是静安寺坡打破是静安寺坡打破是静安寺坡打破是</p>
+													<span>asdadasd</span>
+
+												</div>
+											</div>
+										</li>-->
+									</ul>
+									<!--<p id="wu" style="text-align: center;padding-bottom: 0.8rem;display: none;">暂无日程</p>-->
+								</div>
+							</div>
+
+						</div>
+						<div id="item2" class="mui-control-content">
+							<div class="schedule">
+								<div class="schedule-h">
+									<p class="title sj2">2018年11月<i class="iconfont icon-jiantou8"></i></p>
+									<div class="bq" style="width: 100%;overflow-x: auto;">
+										<ul class="xingqi">
+											<!--<li>日</li>
+											<li>一</li>
+											<li>二</li>
+											<li>三</li>
+											<li>四</li>
+											<li>五</li>
+											<li>六</li>-->
+										</ul>
+										<ul class="rili">
+											<!--<li class="lihui">31</li>
+											<li class="libj">2
+												<p class="jintian">今天</p>
+											</li>
+											<li>3</li>
+											<li>4</li>
+											<li>5</li>
+											<li>6</li>
+											<li>7</li>-->
+										</ul>
+									</div>
+
+								</div>
+								<div class="schedule-c">
+									<ul class="bianqian">
+										<!--<li>
+											<div class="left shijian">
+												<p class="riqi">25:22</p><span class="time">17:30</span></div>
+											<div class="left leftinput">
+												<span class="dian dianl">●</span>
+												<div class="rzcontent">
+													<p class="p1">静安寺坡打破是静安寺坡打破是静安寺坡打破是静安寺坡打破是</p>
+													<span>asdadasd</span>
+
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="left shijian">
+												<p class="riqi">25:22</p><span class="time">17:30</span></div>
+											<div class="left leftinput">
+												<span class="dian dianl">●</span>
+												<div class="rzcontent">
+													<p class="p1">静安寺坡打破是静安寺坡打破是静安寺坡打破是静安寺坡打破是</p>
+													<span>asdadasd</span>
+
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="left shijian">
+												<p class="riqi">25:22</p><span class="time">17:30</span></div>
+											<div class="left leftinput">
+												<span class="dian dianl">●</span>
+												<div class="rzcontent">
+													<p class="p1">静安寺坡打破是静安寺坡打破是静安寺坡打破是静安寺坡打破是</p>
+													<span>asdadasd</span>
+
+												</div>
+											</div>
+										</li>-->
+									</ul>
+									<!--<p id="wu1" style="text-align: center;padding-bottom: 0.8rem;display: none;">暂无便签</p>-->
+								</div>
+							</div>
+
+						</div>
+						<div class="mui-loading" style="padding-top: 2rem;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</div>
+				<img src="images/jia.png" alt="" class="schedulejia" />
+				<div class="schedulebejing">
+					<img class="ima1" src="images/sdasd.png" alt="" />
+					<img class="ima2" src="images/asdzxc.png" alt="" />
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			//			var obj = document.getElementById("aaaa");
+			var root = localStorage.getItem("str_url");
+//			if(root == "" || root == undefined || root == null) {
+//				mui.openWindow({
+//					url: 'login.html?cid=1', //通过URL传参
+//					id: 'login.html?cid=1', //通过URL传参
+//				})
+//			}
+			var token = localStorage.getItem("token");
+			var test, nian, yue
+			document.querySelector(".sj1").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "month"
+				});
+				dtpicker.show(function(items) {
+					console.log(JSON.stringify(items))
+					$(".sj1").html(items.y.text + '年' + items.m.text + '月<i class="iconfont icon-jiantou8"></i>');
+
+					var aa = items.y.text + '' + items.m.text + '01';
+					yue = items.m.text;
+					nian = items.y.text;
+					listricheng(aa, '01')
+					dtpicker.dispose();
+
+				});
+			});
+			document.querySelector(".sj2").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "month"
+				});
+				dtpicker.show(function(items) {
+					console.log(JSON.stringify(items))
+					$(".sj2").html(items.y.text + '年' + items.m.text + '月<i class="iconfont icon-jiantou8"></i>');
+					var aa = items.y.text + '' + items.m.text + '01'
+					yue = items.m.text;
+					nian = items.y.text;
+					listbianqian(aa, '01')
+					dtpicker.dispose();
+
+				});
+			});
+
+			test = (new Date()).getDate();
+			nian = (new Date()).getFullYear();
+			yue = (new Date()).getMonth() + 1;
+			var yue1 = (new Date()).getMonth() + 1;
+			var tian = (new Date()).getDate();
+			console.log(yue)
+			if(yue < 10) {
+				yue = '0' + yue;
+			}
+			if(test < 10) {
+				test = '0' + test;
+			}
+			var jintian = nian + '' + yue + '' + test;
+
+			listricheng(jintian, test)
+
+			function listricheng(i, j) {
+				console.log(i)
+				$(".rc .xingqi").html("");
+				$(".rc .rili").html("");
+				$(".richeng").html("");
+				var _url = root + 'api/logs/';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page": 1,
+						"type": 1,
+						"date": i,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							$(".mui-loading").css("display", "none")
+							$(".sj1").html(data.data.date + '<i class="iconfont icon-jiantou8"></i>');
+
+							data.data.calendar.forEach(function(v1, index) {
+								if(v1.week == 0) {
+									v1.weekd = "日";
+								} else if(v1.week == 1) {
+									v1.weekd = "一";
+								} else if(v1.week == 2) {
+									v1.weekd = "二";
+								} else if(v1.week == 3) {
+									v1.weekd = "三";
+								} else if(v1.week == 4) {
+									v1.weekd = "四";
+								} else if(v1.week == 5) {
+									v1.weekd = "五";
+								} else if(v1.week == 6) {
+									v1.weekd = "六";
+								}
+								$(".rc .xingqi").append('<li>' + v1.weekd + '</li>')
+
+								if(j == tian) {
+									if(j == v1.date) {
+										if(yue1 == yue) {
+											$(".rc .rili").append('<li class="libj" onclick="rcclick(' + v1.date + ')">' + v1.date + '<p class="jintian">今天</p></li>')
+										}
+
+									} else {
+										$(".rc .rili").append('<li onclick="rcclick(' + v1.date + ')">' + v1.date + '</li>')
+									}
+								} else if(j != tian) {
+									if(j == v1.date) {
+										$(".rc .rili").append('<li class="libj" onclick="rcclick(' + v1.date + ')">' + v1.date + '</li>')
+									} else {
+										if(tian == v1.date) {
+											if(yue == yue1) {
+												$(".rc .rili").append('<li onclick="rcclick(' + v1.date + ')">' + v1.date + '<p class="jintian">今天</p></li>')
+											} else {
+												$(".rc .rili").append('<li onclick="rcclick(' + v1.date + ')">' + v1.date + '</li>')
+											}
+
+										} else {
+											$(".rc .rili").append('<li onclick="rcclick(' + v1.date + ')">' + v1.date + '</li>')
+										}
+
+									}
+								}
+
+							})
+							$(".rili li").click(function() {
+								$(this).addClass("libj");
+								$(this).siblings().removeClass("libj");
+							})
+							console.log(data.data.rel)
+							if(data.data.rel != "") {
+								data.data.rel.forEach(function(v) {
+									v.start_time = v.schedule_start_time.slice(10, 16);
+									v.end_time = v.schedule_end_time.slice(10, 16);
+									$(".richeng").append('<li><div class="left shijian"><p class="riqi">' + v.start_time + '</p><span class="time">' + v.end_time + '</span></div><div class="left leftinput"><span class="dian dianl">●</span><div class="rzcontent"><p class="p1">' + v.title + '</p><span>' + v.content + '</span></div></div></li>')
+								})
+							} else {
+																mui.toast("暂无数据")
+//								$("#wu").css("display", "block")
+							}
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			listbianqian(jintian, test)
+
+			function listbianqian(i, j) {
+				$(".bq .xingqi").html("");
+				$(".bq .rili").html("");
+				$(".bianqian").html("");
+				var _url = root + 'api/logs/';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page": 1,
+						"type": 2,
+						"date": i,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						$(".sj2").html(data.data.date + '<i class="iconfont icon-jiantou8"></i>');
+
+						data.data.calendar.forEach(function(v1, index) {
+							if(v1.week == 0) {
+								v1.weekd = "日";
+							} else if(v1.week == 1) {
+								v1.weekd = "一";
+							} else if(v1.week == 2) {
+								v1.weekd = "二";
+							} else if(v1.week == 3) {
+								v1.weekd = "三";
+							} else if(v1.week == 4) {
+								v1.weekd = "四";
+							} else if(v1.week == 5) {
+								v1.weekd = "五";
+							} else if(v1.week == 6) {
+								v1.weekd = "六";
+							}
+							$(".bq .xingqi").append('<li>' + v1.weekd + '</li>')
+
+							if(j == tian) {
+								if(j == v1.date) {
+									if(yue1 == yue) {
+										$(".bq .rili").append('<li class="libj" onclick="bqclick(' + v1.date + ')">' + v1.date + '<p class="jintian">今天</p></li>')
+									}
+
+								} else {
+									$(".bq .rili").append('<li  onclick="bqclick(' + v1.date + ')">' + v1.date + '</li>')
+								}
+							} else if(j != tian) {
+								if(j == v1.date) {
+									$(".bq .rili").append('<li class="libj" onclick="bqclick(' + v1.date + ')">' + v1.date + '</li>')
+								} else {
+									if(tian == v1.date) {
+										if(yue == yue1) {
+											$(".bq .rili").append('<li onclick="bqclick(' + v1.date + ')">' + v1.date + '<p class="jintian">今天</p></li>')
+										} else {
+											$(".bq .rili").append('<li  onclick="bqclick(' + v1.date + ')">' + v1.date + '</li>')
+										}
+
+									} else {
+										$(".bq .rili").append('<li  onclick="bqclick(' + v1.date + ')">' + v1.date + '</li>')
+									}
+
+								}
+							}
+
+						})
+
+						$(".rili li").click(function() {
+							$(this).addClass("libj");
+							$(this).siblings().removeClass("libj");
+						})
+						console.log(data.data.rel)
+						if(data.data.rel != "") {
+							data.data.rel.forEach(function(v) {
+								v.start_time = v.schedule_start_time.slice(10, 16);
+								v.end_time = v.schedule_end_time.slice(10, 16);
+								$(".bianqian").append('<li><div class="left shijian"><p class="riqi">' + v.start_time + '</p><span class="time">' + v.end_time + '</span></div><div class="left leftinput"><span class="dian dianl">●</span><div class="rzcontent"><p class="p1">' + v.title + '</p><span>' + v.content + '</span></div></div></li>')
+							})
+						} else {
+														mui.toast("暂无数据")
+//							$("#wu1").css("display", "block")
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+			$(".schedulejia").click(function() {
+				$(this).css("display", "none")
+				$(".schedulebejing").css("display", "block")
+			})
+			$(".schedulebejing").click(function() {
+				$(this).css("display", "none")
+				$(".schedulejia").css("display", "block")
+			})
+			$(".ima1").click(function() {
+				mui.openWindow({
+					url: 'newSchedule.html', //通过URL传参
+					id: 'newSchedule.html', //通过URL传参
+					extras: {
+						i: 1,
+
+					},
+				})
+			})
+			$(".ima2").click(function() {
+				mui.openWindow({
+					url: 'newSchedule.html', //通过URL传参
+					id: 'newSchedule.html', //通过URL传参
+					extras: {
+						i: 2,
+
+					},
+				})
+			})
+
+			function rcclick(i) {
+				if(i < 10) {
+					i = '0' + i;
+				}
+
+				var aa = nian + '' + yue + '' + i;
+				console.log(i)
+				listricheng(aa, i)
+			}
+
+			function bqclick(i) {
+				if(i < 10) {
+					i = '0' + i;
+				}
+
+				var aa = nian + '' + yue + '' + i;
+				console.log(aa)
+				listbianqian(aa, i)
+			}
+
+			window.addEventListener('refresh', function(e) {
+				//执行刷新
+				location.reload();
+
+			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/leave_list.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.meeting-nav .leave_box{
+				text-align: center;
+				padding-top: 0.2rem;
+				padding-bottom: 0.2rem;
+			}
+			.meeting-nav .leave_box button.mui-btn{
+				position: static;
+				width:50%;
+				left: 25%;
+			}
+			.meeting li .left {
+			    width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>紧急报告<i class="iconfont icon-tianjia right" onclick="dispatches_add()"></i></p>
+				<div class="meeting-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">紧急报告单列表</a>
+						</div>
+					</div>
+					<div class="meeting">
+						<div id="item1" class="mui-control-content mui-active">
+							<!--<div class="leave_box">
+								<button type="button" class="mui-btn mui-btn-primary" onclick="">新增紧急报告</button>
+							</div>-->
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2>紧急报告</h2>
+										<p>当前状态:<span class="color_orange">未补办报告单</span></p>
+										<p>更新时间:2018-08-09 15:25</p>
+									</div>
+								</li>
+								<li onclick="xiangqing()">
+									<a href="leaveDetails.html">
+										<div class="left">
+											<h2>紧急报告</h2>
+											<p>当前状态:<span class="color_blue">报告单补办中</span></p>
+											<p>更新时间:2018-08-09 15:25</p>
+										</div>
+									</a>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>紧急报告</h2>
+										<p>当前状态:<span class="color_green">报备单已完成</span></p>
+										<p>更新时间:2018-08-09 15:25</p>
+									</div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无紧急报告单</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			function xiangqing(id) {
+				mui.openWindow({
+					url: 'urgent_dispatches_supplementary.html', //通过URL传参
+					id: 'urgent_dispatches_supplementary.html', //通过URL传参
+					extras: {
+						item_id: id,
+					}
+				})
+			};
+			function xiangqingDetails(i) {
+				mui.openWindow({
+					url: 'leaveDetails.html', //通过URL传参
+					id: 'leaveDetails.html', //通过URL传参
+					extras: {
+						i: i
+					}
+				})
+			};
+			//岗位列表
+			quartersList(); 
+			function quartersList() {
+				var _url = root + 'api/applyleave/urgentlist'
+				mui.ajax(_url, {
+					data: {
+						"token": token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("------------"+JSON.stringify(data));
+						var urgents = data.data.urgents;
+						if(data.code == 1){
+							if(urgents == ""){
+								$("#item1 ul").css("display","none");
+								$("#item1 .tishi").css("display","block");
+							}else{
+								urgents.forEach(function(v){
+									if(v.status==3){
+										var status = '<li onclick="xiangqing('+v.id+')">';
+									}else{
+										var status = '<li onclick="xiangqingDetails('+v.id+')">';
+									}
+									$("#item1 ul").append(	status+
+																'<div class="left">'+
+																	'<h2>紧急报告</h2>'+
+																	'<p>当前状态:<span class="'+v.color+'">'+v.opinion+'</span></p>'+
+																	'<p>外出事由:'+v.reason+'</p>'+
+																	'<p>更新时间:'+v.update_at+'</p>'+
+																'</div>'+
+															'</li>')
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络异常");
+					}
+				})
+			}
+			/*
+			 * dispatches_add
+			 */
+			function dispatches_add() {
+				mui.openWindow({
+					url: 'urgent_dispatches_add.html', //通过URL传参
+					id: 'urgent_dispatches_add.html' //通过URL传参
+				})
+			};
+			
+			
+			window.addEventListener('refresh', function(e) { //执行刷新
+				location.reload();
+			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,233 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://img.cdn.aliyun.dcloud.net.cn/mui/dist/css/mui.min.css" />
+		<style type="text/css">
+			
+			html,body{width: 100%;height: 100%;overflow: hidden;}
+			body {
+				background-color: #FFFFFF;
+				overflow-y: auto;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#token_span {
+				display: none;
+			}
+
+			.item_box {
+				width: 100%;
+				box-sizing: border-box;
+				padding: 10px 10px;
+				padding-left: 20px;
+			}
+
+			.item_box .item {
+				height: 45px;
+				width: 100%;
+				line-height: 45px;
+				overflow: hidden;
+				font-size: 14px;
+				color: #666666;
+				border-bottom: 1px solid #f0f0f0;
+			}
+			
+			.item_box .item.border {
+				border: none;
+			}
+			.item_box .item.border .right{
+				border-bottom: 1px solid #f0f0f0;
+			}
+			.item_box .item .left {
+				width: 33%;
+				display: inline-block;
+				height: 100%;
+				float: left;
+				color: #333333;
+				font-weight: 400;
+			}
+
+			.item_box .item .right {
+				width: 67%;
+				display: inline-block;
+				height: 100%;
+				float: left;
+			}
+			
+			.item_box .item .input {
+				padding: 0 10px;
+				margin: 0;
+				height: 35px;
+				font-size: 14px;
+				color: #666666;
+				width: 94%;
+				border: none !important;
+				padding-left: 2px;
+			}
+
+			.item_box .item .right .select_input {
+				width: 94%;
+				display: inline-block;
+				padding: 0 10px;
+				margin: 0;
+				height: 35px;
+				font-size: 14px;
+				color: #666666;
+				margin-right: 2%;
+				box-sizing: border-box;
+				border: none !important;
+				padding-left: 2px;
+			}
+
+			.item_box .item .input2 {
+				padding: 0 10px;
+				margin: 0;
+				height: 35px;
+				font-size: 14px;
+				color: #666666;
+				width: 94%;
+				border: none !important;
+				padding-left: 2px;
+			}
+
+			.head_box .img_head {
+				width: 100%;
+			}
+
+			.item_box .item .right font {
+				font-size: 12px;
+			}
+			
+			.qr_box{
+				margin-top: 20px;
+				text-align: center;
+			}
+			
+			.qr_box .btn{
+				background-color: #4169E2;
+				color: #FFFFFF;
+				padding: 10px 30px;
+				border-radius: 2em;
+				border: none;
+				width: 90%;
+				display: inline-block;
+			}
+			.qr_box .btn:hover{
+				background-color: #4856ea;
+			}
+			.text-red{color: red;}
+		</style>
+	</head>
+
+	<body>
+		<div id="token_span"></div>
+		<div class="head_box">
+			<img class="img_head" src="http://wateroa.sxjicheng.com/public/img/fkpcwj2.jpg">
+		</div>
+		<form action="" method="">
+
+
+			<div class="item_box">
+				<div class="item">
+					<span class="left"><font class="text-red">*</font>姓名</span>
+					<span class="right">
+						<input class="input" type="text" placeholder="姓名">
+						<!-- <font>(自动带出)</font> -->
+					</span>
+				</div>
+				<div class="item">
+					<span class="left"><font class="text-red">*</font>手机号</span>
+					<span class="right">
+						<input class="input" type="number" placeholder="手机号">
+						<!-- <font>(自动带出或填写)</font> -->
+					</span>
+				</div>
+				<div class="item border">
+					<span class="left"><font class="text-red">*</font>户籍地</span>
+					<span class="right">
+						<select name="" class="select_input">
+							<option value="">请选择省</option>
+						</select>
+						<!-- <select name="" class="select_input">
+							<option value="">请选择市</option>
+						</select> -->
+					</span>
+				</div>
+				<div class="item">
+					<span class="left"></span>
+					<span class="right">
+						<select name="" class="select_input">
+							<option value="">请选择市</option>
+						</select>
+					</span>
+				</div>
+				<div class="item border">
+					<span class="left"><font class="text-red">*</font>现居住地</span>
+					<span class="right">
+						<select name="" class="select_input">
+							<option value="">请选择省</option>
+						</select>
+						<!-- <select name="" class="select_input">
+							<option value="">请选择市</option>
+						</select> -->
+					</span>
+				</div>
+				<div class="item border">
+					<span class="left"></span>
+					<span class="right">
+						<select name="" class="select_input">
+							<option value="">请选择市</option>
+						</select>
+					</span>
+				</div>
+				<div class="item">
+					<span class="left"></span>
+					<span class="right">
+						<select name="" class="select_input">
+							<option value="">请选择区县</option>
+						</select>
+					</span>
+				</div>
+				<div class="item">
+					<span class="left"><font class="text-red">*</font>详细地址</span>
+					<span class="right">
+						<input type="text" class="select_input" placeholder="填写详细地址">
+					</span>
+				</div>
+				<div class="item">
+					<span class="left"><font class="text-red">*</font>紧急联系人</span>
+					<span class="right">
+						<input type="text" class="input2" placeholder="请输入联系人">
+					</span>
+				</div>
+				<div class="item">
+					<span class="left"><font class="text-red">*</font>紧急联系电话</span>
+					<span class="right">
+						<input type="number" class="input2" placeholder="请输入联系电话">
+					</span>
+				</div>
+				<div class="qr_box">
+					<button class="btn" type="submit">下一步</button>
+				</div>
+			</div>
+		</form>
+
+		<script src="https://img.cdn.aliyun.dcloud.net.cn/mui/dist/js/mui.min.js"></script>
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				$("#token_span").text(plus.storage.getItem("token"));
+			}, false);
+		</script>
+
+	</body>
+
+</html>

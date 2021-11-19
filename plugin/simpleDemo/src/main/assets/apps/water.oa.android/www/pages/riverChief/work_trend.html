@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>河湖长制</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+    <!-- 本页面样式 -->
+    <link rel="stylesheet" href="../../css/riverChief/work_trend.css">
+
+    <script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.min.js"></script>
+    <script>
+        //计算根节点HTML的字体大小
+        function resizeRoot(width) {
+            var deviceWidth = document.documentElement.clientWidth,
+                num = width,
+                num1 = num / 100;
+            if (deviceWidth > num) {
+                deviceWidth = num;
+            }
+            document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+        }
+        //根节点HTML的字体大小初始化
+        resizeRoot(750);
+        window.onresize = function () {
+            resizeRoot(750);
+        };
+    </script>
+	<style>
+		body{
+			max-width: 100%;
+		}
+		.main .list .item .item_left .left_top {
+		    line-height: 0.4rem;
+			font-size: 0.25rem;
+		}
+		
+		.main .list .item {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+		}
+		.main .nav_wrap .nav .nav_item {
+		  display: inline-block;
+		  width: auto;
+		  margin-right: 0.3rem;
+		}
+	</style>
+</head>
+
+<body class="content">
+    <div class="mui-content">
+        <header class="header pp">
+            <i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+            <span>工作动态</span>
+        </header>
+        <main class="main">
+            <div class="nav_wrap">
+                <nav class="nav">
+                    <span class="nav_item active" data-type="">全部</span>
+                </nav>
+                <div class="search">
+                    <input id="lkName" class="input" type="text">
+                    <span class="icon">
+                        <img id="search_lkName" src="../../images/riverChief/new/search.png" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="list">
+				<!-- <div class="item">
+					<div class="item_left">
+						<div class="left_top">
+							水利部批复沅江音河包浍河等6条跨省江河流域水量分配方案
+						</div>
+						<div class="left_btm">
+							<span class="site">大同市水务局</span>
+							<span class="time">2021-02-16 14:00:02</span>
+						</div>
+					</div>
+					<div class="item_right">
+						<img src="../../images/riverChief/new/bg.png" alt="">
+					</div>
+				</div>
+				<div class="item">
+					<div class="item_left">
+						<div class="left_top">
+							水利部批复沅江音河包浍河等6条跨省江河流域水量分配方案
+						</div>
+						<div class="left_btm">
+							<span class="site">大同市水务局</span>
+							<span class="time">2021-02-16 14:00:02</span>
+						</div>
+					</div>
+					<div class="item_right">
+						<img src="../../images/riverChief/new/bg.png" alt="">
+					</div>
+				</div>
+				<div class="item">
+					<div class="item_left">
+						<div class="left_top">
+							水利部批复沅江音河包浍河等6条跨省江河流域水量分配方案
+						</div>
+						<div class="left_btm">
+							<span class="site">大同市水务局</span>
+							<span class="time">2021-02-16 14:00:02</span>
+						</div>
+					</div>
+					<div class="item_right">
+						<img src="../../images/riverChief/new/bg.png" alt="">
+					</div>
+				</div> -->
+            </div>
+        </main>
+    </div>
+</body>
+<!-- <script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/riverChief/work_trend.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+</script>
+</html>

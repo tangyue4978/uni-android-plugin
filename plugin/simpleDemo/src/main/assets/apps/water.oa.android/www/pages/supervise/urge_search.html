@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+		<title>催办搜索</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../../css/mui.dtpicker.css" rel="stylesheet" />
+		<link href="../../css/supervise.css" rel="stylesheet" />		
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="header">
+				<a href="javascript:history.go(-1)" class="mui-icon mui-icon-back"></a>
+				查询
+			</div>
+			<div class="section">
+				<form action="" class="urge_search">
+					<ul>
+						<li>
+							<span>单位名称</span>
+							<input type="text" class="urge_name" placeholder="请输入关键字" />
+						</li>
+						<li>
+							<span>催办事项</span>
+							<input type="text" class="urge_matter" placeholder="请输入关键字" />
+						</li>
+						<li class="arrow">
+							<span>催办时间</span>
+							<input type="text" id="timeframe" class="urge_timeframe" style="text-align: right;" placeholder="请选择日期范围" />
+						</li>
+						<li class="arrow">
+							<span>催办节点</span>
+							<select name="" id="" class="urge_node">
+								<option value ="">请选择...</option>
+								<option value ="a">张三</option>
+								<option value ="b">李四</option>
+							</select>
+						</li>
+						<li class="arrow">
+							<span>交办处室</span>
+							<select name="" id="" class="urge_offices">
+								<option value ="">请选择...</option>
+								<option value ="a">张三</option>
+								<option value ="b">李四</option>
+							</select>
+						</li>
+					</ul>
+					<button type="submit" class="submitBtn">查询</button>
+				</form>
+			</div>
+		</div>			
+	</body>
+	<script>
+		$(function(){
+			//选择日期范围
+			$("#timeframe").on("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "date"
+				});
+				var dtpicker2 = new mui.DtPicker({
+					"type": "date"
+				});
+				dtpicker.show(function(items) {
+					var dateframe = items.text;
+					dtpicker2.show(function(items) {
+						$("#timeframe").val(dateframe+" — "+items.text);
+						dtpicker.dispose();
+					});
+				});			
+			});
+			//验证
+			$(".submitBtn").click(function(){
+				var $name = $(".urge_name").val();
+				var $matter = $(".urge_matter").val();
+				var $timeframe = $(".urge_timeframe").val();
+				var $node = $(".urge_node").val();
+				var $offices = $(".urge_offices").val();
+				if ($.trim($name).length < 1) {
+                	mui.toast("请输入单位名称关键字",{ duration:'long', type:'div' });
+                	return false;
+	            } else if ($.trim($matter).length < 1) {
+	                mui.toast("请输入催办事项关键字",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($timeframe.length < 1) {
+	                mui.toast("请选择日期范围",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($node.length < 1) {
+	                mui.toast("请选择催办节点",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($offices.length < 1) {
+	                mui.toast("请选择交办处室",{ duration:'long', type:'div' });
+	                return false;
+	            } else{
+	            	
+	            }
+			})
+		})
+	</script>
+</html>

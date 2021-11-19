@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_agtywncb2zc.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.meetingdetails-c p span {
+				width: 1.7rem;
+			}
+		</style>
+	</head>
+
+	<body style="    background: #f8f8f8;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp"><i class="mui-action-back iconfont icon-fanhui1 left"></i>会议详情</p>
+
+				<div class="meetingdetails-content">
+
+					<div class="meetingdetails-c">
+						<p class="zt"><span>会议主题：</span></p>
+						<p class="zcr"><span>会议申请人：</span></p>
+						<!--<p class="lx"><span>会议类型：</span></p>-->
+						<p class="hys"><span>会议室：</span></p>
+						<p class="sj"><span>会议时间：</span></p>
+						<p class="hyzt"><span>会议状态：</span></p>
+						<p class="rs"><span>参会人数：</span></p>
+					</div>
+					<p class="tp">参会人员状态</p>
+					<!--<img class="timg" src="images/as.png" alt="" />-->
+					<div class="meetingdetails-f">
+						<h1>已接受<span class="yjs">0人</span></h1>
+						<ul class="yjsry">
+							<!--<li><img src="images/qwe.png" />
+								<p>我</p>
+							</li>
+							<li><img src="images/qwe.png" />
+								<p>萨克索</p>
+							</li>
+							<li><img src="images/qwe.png" />
+								<p>解放军</p>
+							</li>
+							<li><img src="images/qwe.png" />
+								<p>那云</p>
+							</li>
+							<li><img src="images/qwe.png" />
+								<p>那云</p>
+							</li>-->
+						</ul>
+					</div>
+					<!--<div class="meetingdetails-f">
+						<h1>已拒绝<span class="yjj">0人</span></h1>
+						<ul class="yjjry">
+							<li><img src="images/qwe.png" />
+								<p>我</p>
+							</li>
+						</ul>
+					</div>
+					<div class="meetingdetails-f">
+						<h1>未响应<span class="wxy">0人</span></h1>
+						<ul class="wxyry">
+
+						</ul>
+					</div>-->
+					<div class="meetingdetails-button">
+						<!--<button>新建会议</button>-->
+						<!--<button>重新发起</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var lx,zt
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.ii);
+				console.log("------------------------------------------");
+				console.log("类型"+self.type)
+				list(self.ii,self.type)
+			});
+
+			function list(id,type) {
+				var _url = root + 'api/meeting/show'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": id,
+						"type":type
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							if(data.data.rel.length == 0){
+								mui.toast("暂无数据！")
+							}else{
+								if(data.data.rel[0].type == 1){
+								lx = "例会";
+							}else if(data.data.rel[0].type == 2){
+								lx = "部门会议";
+							}else if(data.data.rel[0].type == 3){
+								lx = "工作简会";
+							}else if(data.data.rel[0].type == 4){
+								lx = "专题会议";
+							}else if(data.data.rel[0].type == 5){
+								lx = "总结会议";
+							}else if(data.data.rel[0].type == 6){
+								lx = "外事会议";
+							}else if(data.data.rel[0].type == 7){
+								lx = "其他";
+							}
+//							type 1未开始2进行中3已结束
+							if(data.data.rel[0].type == 1){
+								zt = "未开始"
+							}else if(data.data.rel[0].type == 2){
+									zt = "进行中"
+							}else if(data.data.rel[0].type == 3){
+									zt = "已结束"
+							}
+								var trueName=data.data.rel[0].trueName!=undefined&&data.data.rel[0].trueName!=null&&data.data.rel[0].trueName!=""?data.data.rel[0].trueName:"-";
+								$(".zt").html('<span>会议主题：</span>'+data.data.rel[0].name);
+								$(".zcr").html('<span>会议申请人：</span>'+trueName);
+								$(".sj").html('<span>会议时间：</span>'+data.data.rel[0].startTime+'—'+data.data.rel[0].endTime);
+								$(".rs").html('<span>会议人数：</span>'+data.data.count);
+//								$(".lx").html('<span>会议类型：</span>'+lx)
+								$(".hys").html('<span>会议室：</span>'+data.data.rel[0].roomName)
+								$(".yjs").html(data.data.participant.length+'人');
+								$(".hyzt").html('<span>会议状态：</span>'+zt)
+								
+								data.data.participant.forEach(function(v){
+									if (v.avatar!=""&&v.avatar!=null&&v.avatar!=undefined) {
+										var img_str=root+v.avatar;
+									} else{
+										var img_str="images/user.png";
+									}
+									$(".yjsry").append('<li><img src="'+img_str+'" /><p>'+v.trueName+'</p></li>')
+								})
+							}
+							
+								
+						} else {
+							mui.toast("暂无数据！")
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

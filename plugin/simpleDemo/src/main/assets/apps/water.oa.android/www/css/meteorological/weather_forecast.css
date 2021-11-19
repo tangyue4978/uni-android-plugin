@@ -1,0 +1,307 @@
+.mui-content {
+    height: 100%;
+    position: fixed;
+    width: 100%;
+}
+.mui-content .box {
+    width: 100%;
+    height: 75%;
+    padding-top: 1.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-image: url(../../images/meteorological/weather_forecast.png);
+    background-size: 100% 100%;
+    text-align: center;
+    line-height: initial;
+}
+.innerbox {
+    width: 88%;
+    height: 89%;
+    position: relative;
+}
+.temperature {
+    width: 85%;
+    height: 10%;
+    margin: 0rem auto;
+    padding-right: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+	position: relative;
+	padding-left: 0.5rem;
+}
+.temperature span {
+    color: white;
+}
+.temperature .number {
+    font-size: 1rem;
+}
+.temperature .number2 {
+    font-size: 1rem;
+}
+.temperature .position {
+    margin-left: 0.4rem;
+}
+.information {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+.information .text2 {
+    color: white;
+    padding-left: 0.2rem;
+    font-size: 0.26rem;
+}
+.information .text3 {
+    color: white;
+    padding-left: 0.4rem;
+    font-size: 0.26rem;
+}
+.information .Diagonal_line {
+    position: relative;
+    width: 0.05rem;
+    height: 0.05rem;
+    box-sizing: border-box;
+    padding-right: 0.4rem;
+}
+.Diagonal_line::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.09rem;
+    width: 100%;
+    height: 0.05rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid #8bb5f7;
+    transform-origin: bottom center;
+    transform: rotateZ(120deg) scale(1.414);
+}
+.information .text {
+    width: 100%;
+    margin-left: 0.2rem;
+    font-size: 0.26rem;
+}
+.date {
+    height: 10%;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+	font-size: 0.24rem;
+}
+.radarImage {
+    width: 1.5rem;
+    height: 0.6rem;
+    background-color: #ffffff;
+    border: 0.04rem solid #5e8ff3;
+    border-radius: 0.3rem;
+    position: absolute;
+    top: -0.9rem;
+    left: 0;
+    z-index: 5;
+    font-size: 0.28rem;
+    color: #3b77f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.radarImage .radarImage_img {
+    width: 0.26rem;
+    height: 0.27rem;
+    margin-right: 0.1rem;
+    margin-bottom: 0.05rem;
+}
+/*天气预报选择样式start*/
+.tab {
+    width: 100%;
+    height: 61%;
+    padding-top: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.tab .innerbox {
+    width: 100%;
+    height: 13%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.tab .innerbox .tab-menux {
+    width: 65%;
+    height: 100%;
+}
+.tab-menux ul {
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.tab-menux .change {
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 2px 2px 5px #9b9b9b;
+    border-radius: 0.5rem;
+}
+.tab-menux ul li {
+    height: 87%;
+    width: 48%;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tab .tab-box {
+    width: 100%;
+    height: 78%;
+    overflow-x: auto;
+}
+.tab .tab-box div {
+    display: none;
+}
+.tab-box .prediction {
+    width: auto;
+    height: 100%;
+    display: flex;
+}
+.tab-box .prediction ul {
+    color: white;
+    height: 100%;
+    width: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.tab-box .prediction ul li {
+    width: 100%;
+}
+
+.tab-box .prediction2 {
+    width: auto;
+    height: 100%;
+    display: flex;
+}
+.tab-box .prediction2 ul {
+    color: white;
+    height: 100%;
+    width: 1.2rem;
+    margin-right: 0.3rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.tab-box .prediction2 ul li {
+    width: 100%;
+    height: 0.5rem;
+}
+
+.tab-box .prediction2 .img_box {
+    width: 0.6rem;
+    height: 0.6rem;
+    margin: 0 auto;
+}
+.tab-box .prediction2 .img_box img {
+    width: 100%;
+    height: 100%;
+}
+
+.tab-box .prediction .img_box {
+    width: 0.6rem;
+    height: 0.6rem;
+    margin: 0 auto;
+}
+.tab-box .prediction .img_box img {
+    width: 100%;
+    height: 100%;
+}
+/* 让第一个框显示出来 */
+.tab-box div:first-child {
+    display: flex;
+}
+/* 改变选项卡选中时候的样式 */
+.change {
+}
+
+/*天气预报选择样式end*/
+.classification {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.classification div {
+    width: 33.333333%;
+    height: 85%;
+    border-right: 1px solid #d8d8d8;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.35rem;
+    color: black;
+}
+.classification .last {
+    border: 0px;
+}
+.classification div img {
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+/* 预警部分 */
+.warning{
+	width: 100%;
+	height: 0.5rem;
+	background-image: linear-gradient(to right, transparent , white , transparent);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+}
+.warning_img{
+	width: 0.25rem;
+	height: 0.19rem;
+	margin-left: 0.5rem;
+}
+.warnings{
+	width: auto;
+	height: 0.5rem;
+	margin-left: 0.2rem;
+	font-size: 0.24rem;
+	overflow: hidden;
+}
+.warnings_inner{
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	left: 0;
+	top: 0;
+}
+
+.warning_text{
+	width: 100%;
+	height: 0.5rem;
+	line-height: 0.5rem;
+	color: #ef4e31;
+	cursor: pointer;
+}

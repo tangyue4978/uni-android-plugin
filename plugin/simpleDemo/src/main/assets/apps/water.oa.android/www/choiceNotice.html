@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_f1vvh8au9b.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.chioceNotice {
+			    margin-top: 3rem;
+			}
+			.chioceNotice ul{
+				padding: 0rem;
+			}
+			.chioceNotice ul .fuji{
+				margin: 0rem;
+				border-radius: 0rem;
+				border-right: 0rem;
+				border-left: 0rem;
+			}
+			.mui-table-view-cell.mui-collapse .mui-collapse-content{
+				margin: 0rem;
+				padding: 0rem;
+			}
+			.parent_level .fuji span.right{
+				width: auto;
+				border-left: 0px solid #CCCCCC;
+				/*background-color: #222222;*/
+				text-align: right;
+    			padding-right: 0.7rem;
+			}
+			.chioceNotice ul .fuji .label{
+				float: left;
+				width: auto;
+				height: 100%;
+				overflow: hidden;
+				padding: 0rem;
+				margin: 0rem;
+				padding-left: 0.2rem;
+				line-height: 1rem;
+			}
+			.chioceNotice ul .fuji .label input{
+				float: left;
+				width: auto !important;
+				position: static !important;
+			    height: 100%;
+    			line-height: 1rem;
+    			padding-right: 0.2rem;
+			}
+			#personnel_list .parent_level li{
+				/*background-color: rgba(55, 122, 242, 0.05);*/
+				border: none;
+				border-top: 1px solid #E0E0E0;
+			}
+			#personnel_list .parent_level li.active_li{
+				background-color: rgba(55, 122, 242, 0.05);
+				border: none;
+			}
+			#personnel_list .sub_level{
+				display: none;
+			}
+			#personnel_list .sub_level li{
+				height: 1rem;
+				line-height: 1rem;
+				/*padding-left: 0.8rem;*/
+				background-color: #FFFFFF;
+				overflow: hidden;
+				border: none;
+				border-top: 1px solid #e5e5e5;
+			}
+			#personnel_list .sub_level li.ziji input{
+				position: relative !important;
+				height: 98%;
+				float: left;
+				line-height: 1rem;
+			}
+			#personnel_list .sub_level li.ziji .left img{
+				float: left;
+				top: 0.1rem;
+			}
+			#personnel_list .sub_level li.ziji .left{
+				height: 100%;
+   				line-height: 1rem;
+			}
+		</style>
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>选择通知接收人</p>
+				<div class="chioceNotice-sousuo">
+					<i class="iconfont icon-sousuo"></i><input type="text" name="" id="" value="" placeholder="搜索" />
+				</div>
+				<div class="chioceNotice">
+					<ul class="fold_ul"> 
+				        <li class="fold_li">
+				            <ul class="mui-checkbox parent_level">
+								<li class="fuji mui-navigate-right " style="border-bottom: 0px;">
+									<label class="label all_label">
+										<input type="checkbox" />
+										<span>全选</span>
+									</label>
+									<span class="right">已选：0人</span>
+								</li>
+							</ul>
+				        </li>
+				    </ul>
+				    <ul class="fold_ul"> 
+				        <li class="fold_li" id="personnel_list">
+				            <!--<ul class="mui-checkbox parent_level">
+								<li class="fuji mui-navigate-right">
+									<label class="label">
+										<input type="checkbox" />
+										<span>水利厅</span>
+									</label>
+									<span class="right">已选：0人</span>
+								</li>
+							</ul>
+							<ul class="mui-checkbox sub_level">
+								<li class="ziji"><input name="checkbox1" value="" type="checkbox"><span class="left"><img src="images/qwe.png" alt="" />爱是价</span></li>
+							</ul>-->
+				        </li>
+				    </ul>
+					<div class="tijiao">
+						<span class="left" id="zs">已选：0人</span>
+						<button onclick="queding()">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+//			if(root == "" || root == undefined || root == null) {
+//				mui.openWindow({
+//					url: 'login.html?cid=1', //通过URL传参
+//					id: 'login.html?cid=1', //通过URL传参
+//				})
+//			}
+			var token = localStorage.getItem("token");
+			// 默认为is_all 是否全选0为未全选1位全选----d_ids 发送部门id[]----------u_ids 发送用户id[]
+			var is_all=0, d_ids = [], u_ids = [],viewid;
+			//			获取缓存联系人
+			var allContact = JSON.parse(localStorage.getItem("allContact"));
+			var bumen = JSON.parse(localStorage.getItem("bumen"));
+//			console.log(bumen);
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				viewid = self.viewid;//父页面id
+				is_all=self.is_all;//是否选中
+				d_ids = self.d_ids;//部门id
+				u_ids = self.u_ids;//人员id
+			});
+
+			function xiaji(i, name) {
+				mui.openWindow({
+					url: 'choiceNoticezj.html', //通过URL传参
+					id: 'choiceNoticezj.html', //通过URL传参
+					extras: {
+						i: i,
+						name: name
+					}//
+				})
+			}
+
+			list()
+
+			function list() {
+				var _url = root + 'api/contacts/user';
+				mui.ajax(_url, {
+					data: {
+						"token": token
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+//							console.log(JSON.stringify(data))
+							var item = data.data;
+							var html="";
+							$("#personnel_list").html("");
+							if(item!=""&&item!=undefined&&item!=null){
+								for (i in item) {
+									html+=  '<ul class="mui-checkbox parent_level">'+
+												'<li class="fuji mui-navigate-right">'+
+													'<label class="label">'+
+														'<input type="checkbox" data-id="'+item[i].id+'" />'+
+														'<span>'+item[i].name+'</span>'+
+													'</label>'+
+													'<span class="right">已选：0人</span>'+
+												'</li>'+
+											'</ul>';
+									var user=item[i].user;
+									if (user!=""&&user!=undefined&&user!=null) {
+										html+=  '<ul class="mui-checkbox sub_level">';
+										for (n in user) {
+											var avatar= (user[n].avatar!=""&&user[n].avatar!=undefined&&user[n].avatar!=null)? root+user[n].avatar:'images/user.png';
+												html+=  '<li class="ziji"><input  type="checkbox" data-id="'+user[n].id+'"><span class="left"><img src="'+avatar+'" alt="" />'+user[n].duty+' <span style="color:#377AF2;">'+user[n].trueName+'</span></span></li>';
+										}
+										html+=  '</ul>';
+									} else{
+										html+=  '<ul class="mui-checkbox sub_level">'+
+													'<li class="ziji" style="padding-left:0.5rem;">暂无人员信息</li>'+
+											    '</ul>';
+									}
+									
+								}
+							}else{
+								html+=  '<ul class="mui-checkbox sub_level">'+
+												'<li class="ziji" style="padding-left:0.5rem;">暂无人员信息</li>'+
+										    '</ul>';
+							}
+							$("#personnel_list").html(html);
+							$("#personnel_list .parent_level li").off("click",li_show);
+							$("#personnel_list .parent_level li").on("click",li_show);
+							$("#personnel_list .parent_level li .label").off("click",li_label);
+							$("#personnel_list .parent_level li .label").on("click",li_label);
+							$("#personnel_list .sub_level li input[type=checkbox]").off("click",li_input);
+							$("#personnel_list .sub_level li input[type=checkbox]").on("click",li_input);
+							$(".all_label").off("click",all_input);
+							$(".all_label").on("click",all_input);
+							
+							selection();
+							
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常")
+					}
+				})
+
+			}
+			//确定
+			function queding() {
+				var view = plus.webview.getWebviewById(viewid);
+				mui.fire(view, 'newMeeting', {
+					is_all:is_all,//是否选中
+					d_ids:d_ids,//部门id
+					u_ids:u_ids//人员id
+				});
+				//返回true,继续页面关闭逻辑
+				mui.back();
+			}
+
+			window.addEventListener('refresh', function(e) {
+				//执行刷新
+				//location.reload();
+//				console.log(e.detail.ii)
+				e.detail.ii.forEach(function(v) {
+					user_id.push(v);
+//					console.log(user_id)
+				})
+			});
+		</script>
+		<script type="text/javascript">
+			function li_show(){
+				/*
+				 * data-show----1位显示；其他为不显示
+				 */
+				var show=$(this).attr("data-show");
+				if (show!="1") {
+					$(this).attr("data-show","1");
+					$(this).attr("class","fuji mui-navigate-right active_li");
+					$(this).parents(".parent_level").next(".sub_level").slideDown();
+				} else{
+					$(this).attr("data-show","0");
+					$(this).attr("class","fuji mui-navigate-right");
+					$(this).parents(".parent_level").next(".sub_level").slideUp();
+				}
+			}
+			function li_label(e){
+				e.stopPropagation();
+//				e.preventDefault();
+				var checked=$(this).find("input").prop("checked");
+				
+				if (checked) {
+					$(this).parents(".parent_level").next(".sub_level").find("li input[type=checkbox]").prop("checked",checked);
+				} else{
+					$(this).parents(".parent_level").next(".sub_level").find("li input[type=checkbox]").prop("checked",checked);
+				}
+				var len=$("#personnel_list").find(".parent_level");//总部门
+				var len_select=$("#personnel_list").find(".parent_level input:checked");//选中的部门
+				if (len.length==len_select.length){
+					$(".all_label").find("input").prop("checked",true);
+				}else{
+					$(".all_label").find("input").prop("checked",false);
+				}
+//				var len=$(this).parents(".parent_level").next(".sub_level").find("li input:checked").length;
+//				$(this).next(".right").text("已选："+len+"人");
+				statistics();
+			}
+			function li_input(e){
+				//显示单独的部门选中效果
+				var len_li=$(this).parents(".sub_level").find("li").length;//每个部门下的总人数
+				var len=$(this).parents(".sub_level").find("input:checked").length;//每个部门下的选中人数
+				$(this).parents(".sub_level").prev(".parent_level").find(".right").text("已选："+len+"人");
+				if (len_li==len) {
+					$(this).parents(".sub_level").prev(".parent_level").find("li input[type=checkbox]").prop("checked",true);
+				} else{
+					$(this).parents(".sub_level").prev(".parent_level").find("li input[type=checkbox]").prop("checked",false);
+				}
+				//判断是否全选
+				var len=$("#personnel_list").find(".parent_level");//总部门
+				var len_select=$("#personnel_list").find(".parent_level input:checked");//选中的部门
+				if (len.length==len_select.length){
+					$(".all_label").find("input").prop("checked",true);
+				}else{
+					$(".all_label").find("input").prop("checked",false);
+				}
+				statistics();
+			}
+			//全选
+			function all_input(){
+				var checked=$(this).find("input").prop("checked");
+				var personnel=$("#personnel_list").find("li input[type=checkbox]");
+				personnel.prop("checked",checked);
+				//人数统计
+				var xz_active=$(".all_label").find("input").prop("checked");
+				xz_active?$("#personnel_list").find("li input[type=checkbox]").prop("checked",xz_active):$("#personnel_list").find("li input[type=checkbox]").prop("checked",xz_active);
+				
+				statistics();
+			}
+			//人数统计
+			function statistics(){
+//				mui.toast("0");
+				//总人数
+				var xz_active=$(".all_label").find("input").prop("checked");
+				//111
+				var zhongrenshu=$("#personnel_list .sub_level li input[type=checkbox]").length;
+				var num=$("#personnel_list .sub_level");
+				var total=0;
+				for(var i=0;i<num.length;i++){
+					var z_num_rs=num.eq(i).find("input[type=checkbox]");//部门总人数
+					var z_num=num.eq(i).find("input:checked");//部门选中人数
+					if(z_num!=""&&z_num!=undefined&&z_num!=null){
+						var bm_num=z_num.length;
+					}else{
+						var bm_num=0;
+					}
+//					
+//					if(z_num_rs.length==bm_num){
+//						num.eq(i).prev(".parent_level").find("input[type=checkbox]").prop("checked",true);
+//					}else{
+//						num.eq(i).prev(".parent_level").find("input[type=checkbox]").prop("checked",false);
+//					}
+//					xz_active?$("#personnel_list").find("li input[type=checkbox]").prop("checked",xz_active):$("#personnel_list").find("li input[type=checkbox]").prop("checked",xz_active);
+					
+					num.eq(i).prev(".parent_level").find("span.right").text("已选："+bm_num+"人");
+					total+=bm_num;
+				}
+				//总人数统计
+				$(".all_label").next(".right").text("已选："+total+"人");
+				$("#zs").html("已选：" + total + "人");
+				
+				is_all=0;//是否选中
+				d_ids = [];//部门id
+				u_ids = [];//人员id
+				//统计id
+				if ($(".all_label").find("input").prop("checked")==true) {
+					is_all=1;
+				} else{
+					var len=$("#personnel_list").find(".parent_level input[type=checkbox]");//总部门
+					var renyuan=$("#personnel_list").find(".sub_level");//每个部门人员
+					for (var i=0;i<len.length;i++) {
+						if(len.eq(i).prop("checked")==true){
+							d_ids.push(len.eq(i).attr("data-id"));
+						}else{
+							var ry_num=renyuan.eq(i).find("input[type=checkbox]");
+							for (var x=0;x<ry_num.length;x++) {
+								if(ry_num.eq(x).prop("checked")==true){
+									u_ids.push(ry_num.eq(x).attr("data-id"));
+								}
+							}
+						}
+					}
+				}
+//				console.log("is_all==》"+is_all);
+//				console.log("d_ids==》"+d_ids);
+//				console.log("u_ids==》"+u_ids);
+			}
+			
+			//选中效果
+			function selection(){
+				//is_all=self.is_all;//是否选中
+				//d_ids = self.d_ids;//部门id
+				//u_ids = self.u_ids;//人员id
+				if (is_all=="1") {
+					$("input[type=checkbox]").prop("checked",true);
+				} else{
+					var len=$("#personnel_list").find(".parent_level input[type=checkbox]");//总部门
+					var renyuan=$("#personnel_list").find(".sub_level");//每个部门人员
+					for (var i=0;i<len.length;i++) {
+						if(d_ids.indexOf(len.eq(i).attr("data-id"))!=-1){
+							len.eq(i).prop("checked",true);
+							renyuan.eq(i).find("input[type=checkbox]").prop("checked",true);
+						}else{
+							var ry_num=renyuan.eq(i).find("input[type=checkbox]");
+							for (var x=0;x<ry_num.length;x++) {
+								if(u_ids.indexOf(ry_num.eq(x).attr("data-id"))!=-1){
+									ry_num.eq(x).prop("checked",true);
+								}
+							}
+						}
+					}
+				}
+				//统计人数
+				statistics();
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

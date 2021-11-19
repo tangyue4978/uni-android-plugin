@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水库详细情况</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess_detail.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/reservoirLevel/details.css" />
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<style type="text/css">
+			.infos_top-box1 tr>td img{
+				width:0.3rem;
+				height:0.3rem;
+				margin-left: 0.1rem;
+				display: inline-block;
+				vertical-align: middle;
+				margin-bottom: 0.05rem;
+			}
+			.texr {
+				width: 50%;
+				text-align: center;
+			}
+			.texl {
+				width: 50%;
+				text-align: center;
+			}
+			#kuangs{
+				margin:0 auto;
+			}
+			.head_explain_text {
+			    line-height: 0.6rem;
+			}
+			
+			/**
+			 *  2021年01月13日08:12:56
+				根据赵总要求更改样式，如需恢复删除下面三行代码。
+				另根据赵总要求隐藏水质信息。如需恢复请删除行内display: none !important;
+			 */
+			.deal_photo{width: 94%;}
+			.isShow{
+				display: none;
+			}
+			.base_info{width: 100%;}
+			.base_info_box{width: 100%;}
+			.num_font{
+				color: #007AFF;
+			}
+		</style>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+			</header>
+			<!-- 头部start -->
+			<div class="head">
+
+			</div>
+			<!-- 水库详情说明 -->
+			<div class="head_explain">
+				<span class="head_explain_text">
+					
+				</span>
+				<span class="head_explain_open"></span>
+			</div>
+			<!-- 头部end -->
+			<div class="main">
+				<!-- 监测信息start -->
+				<div class="deal_photo">
+					<div class="base_info_box base_info_boxs base_info_box1">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<div class="baseBox">
+								<span class="base_info_title_text">监测信息</span>
+								<span><a onclick="history_fun()">查看历史监测</a></span>
+							</div>
+						</div>
+						<div class="infos_top">
+							<table class="infos_top-box1 table1" border="0" cellspacing="0" cellpadding="0">
+								<!-- <tr>
+									<th>Header</th>
+								</tr>
+								<tr>
+									<td>
+										Data
+										<span class="unit">m</span>
+									</td>
+								</tr> -->
+							</table>
+							<table class="infos_top-box1 table2" border="0" cellspacing="0" cellpadding="0">
+							</table>
+						</div>
+						<div class="monitoring lineChart">
+							<div id="reservoirL1" class="reservoirL1" style="width: 100%;height: 6rem;"></div>
+						</div>
+					</div>
+				</div>
+				<!-- 监测信息end -->
+				<!-- 示意图start -->
+				<div class="deal_photo">
+					<div class="base_info_box base_info_box1">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<div class="baseBox">
+								<span class="base_info_title_text">示意图</span>
+								<!-- <span><a href="">查看历史监测</a></span> -->
+							</div>
+						</div>
+						<div class="monitoring monitorings">
+							<div class="popups">
+								<div class="popups_box">
+									
+								</div>
+							</div>
+							<img class="hint_water" src="../../images/water.png" >
+							<div class="hint">
+								<div class="text1">坝顶高程</div>
+								<div class="text2">校核洪水位</div>
+								<div class="text3">设计洪水位</div>
+								<div class="text4">防洪高水位</div>
+								<div class="text5">正常蓄水位</div>
+								<div class="text6">防洪限制水位</div>
+								<div class="text7">死水位</div>
+								<div class="text8">
+									<span class="text_column">总库容</span><br />
+									<span id="text8"></span>
+								</div>
+								<div class="text8 text9">
+									<span id="text9"></span><br />
+									<span class="text_column text_columns">调洪库容</span>
+								</div>
+								<div class="text8 text10">
+									<span id="text10"></span><br />
+									<span class="text_column text_columns">防洪库容</span>
+								</div>
+								<div class="text8 text11">
+									<span id="text11"></span><br />
+									<span class="text_column text_columns">兴利库容</span>
+								</div>
+								<div class="text8 text12">
+									<span id="text12"></span><br />
+									<span class="text_column text_columns">死库容</span>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<!-- 示意图end -->
+				<!-- 水质信息start -->
+				<div class="deal_photo" style="display: none !important;">
+					<div class="base_info">
+						<div class="base_info_box">
+							<div class="base_info_title">
+								<div class="base_info_title_line"></div>
+								<div class="baseBox">
+									<span class="base_info_title_text">水质信息</span>
+									<span><a href="javascript:void(0);" id="turn_detail"></a></span>
+								</div>
+							</div>
+							<table id="szxq" class="base_info_table" border="1" cellspacing="0" cellpadding="0">
+
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 水质信息end -->
+				<!-- 实时图像start -->
+				<div class="deal_photo deal_photo_slider">
+					<div class="base_info_box base_info_box1">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<div class="baseBox">
+								<span class="base_info_title_text">水库实景图</span>
+							</div>
+
+						</div>
+						<div class="mui-slider monitoring">
+							<div class="mui-slider-group sliderGroup mui-slider-loop">
+								<!-- <div class="mui-slider-item"><a href="#"><img src="../../images/shishi.png" class="monitoring_img"></a></div> -->
+							</div>
+							<div class="mui-slider-indicator">
+								<!-- <div class="mui-indicator mui-active"></div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 实时图像end -->
+				<!-- 基本信息start -->
+				<div class="deal_photo" id="reservoirOfficer">
+					<div class="base_info">
+						<div class="base_info_box">
+							<div class="base_info_title">
+								<div class="base_info_title_line"></div>
+								<span class="base_info_title_text">
+									安全责任人
+								</span>
+							</div>
+							<table id="aqzrr" class="base_person_table infos_top-box2" border="1" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr class="aq_title">
+									<th>类别</th>
+									<th>姓名</th>
+									<th>单位</th>
+									<th>职务</th>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="deal_photo">
+					<div class="base_info">
+						<div class="base_info_box">
+							<div class="base_info_title">
+								<div class="base_info_title_line"></div>
+								<span class="base_info_title_text">
+									特征水位
+								</span>
+							</div>
+							<table id="tzsw" class="base_info_table" border="1" cellspacing="0" cellpadding="0">
+
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="deal_photo">
+					<div class="base_info">
+						<div class="base_info_box">
+							<div class="base_info_title">
+								<div class="base_info_title_line"></div>
+								<span class="base_info_title_text">
+									库容情况
+								</span>
+							</div>
+							<table id="krqk" class="base_info_table" border="1" cellspacing="0" cellpadding="0">
+
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="deal_photo">
+					<div class="base_info">
+						<div class="base_info_box">
+							<div class="base_info_title">
+								<div class="base_info_title_line"></div>
+								<span class="base_info_title_text">
+									基本信息
+								</span>
+							</div>
+							<table id="jbxx" class="base_info_table" border="1" cellspacing="0" cellpadding="0">
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 基本信息end -->
+				<!-- 处理描述start -->
+				<!-- <div class="deal_with">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								处理描述
+							</span>
+						</div>
+						<div class="deal_with_text">2060010174点，东经111.363120°，北纬39.463910°，
+							寺沟村旧鱼塘，经初步核实为违障设施，处理方案是拆除护
+							栏回填鱼塘，废弃其蓄水养殖功能，现已整改完成。
+						</div>
+					</div>
+				</div> -->
+				<!-- 处理描述end -->
+
+			</div>
+	</body>
+
+
+	<!-- <script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js"></script>
+	<!-- <script src="../../js/riverChief/four_mess_detail.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/reservoirLevel/details.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		var page_status = true;
+		//自然村详情
+		var root = localStorage.getItem("str_url");
+		if (root == "" || root == undefined || root == null) {
+			// mui.openWindow({
+			// 	url: 'login.html?cid=1', //通过URL传参
+			// 	id: 'login.html?cid=1', //通过URL传参
+			// })
+		}
+		var token = localStorage.getItem("token");
+		var obj_data = {};
+		var page = 1;
+		var data_info = {};
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			plus.nativeUI.showWaiting("加载中...");
+			if (self.maptype == "map") {
+				obj_data.token = token;
+				obj_data.id = self.item_id;
+			} else {
+				obj_data.token = token;
+				obj_data.id = self.item_id;
+			}
+
+			vailageDetail(obj_data);
+		});
+		function history_fun(){
+			var self = plus.webview.currentWebview();
+			jump_new("history.html",{'item_id':self.item_id})
+		}
+		function vailageDetail(obj_data) {
+			console.log(JSON.stringify(obj_data));
+			// var _url = root + 'api/rural/townshow';
+			var _url = root + 'api/v4/reservoir/show';
+			console.log(_url);
+			mui.ajax(_url, {
+				data: obj_data,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------" + JSON.stringify(data));
+					if (data.code == 1) {
+						
+						// 水库详情说明
+						let head_text = data.data.head[0].information;
+						if(head_text == ""){
+							$('.head_explain').css('display','none')
+						}else{
+							$('.head_explain_text').text(head_text.slice(0,60));
+							$('.head_explain_open').text('[展开]');
+							$('.head_explain_open').on('click',function(){
+								if($(this).text() == '[关闭]'){
+									$('.head_explain_text').text(head_text.slice(0,60));
+									$(this).text('[展开]')
+								}else{
+									$('.head_explain_text').text(head_text);
+									$(this).text('[关闭]')
+								}
+							})
+						}
+						
+						
+						
+						//水质
+						var water_html = '';
+						var waters = data.data.waterQuality.moreData;
+						var icon = data.data.waterQuality.type;
+						console.log(JSON.stringify(icon))
+						if(data.data.waterQuality.id == 0){
+							$('.base_info_table').css('border','none');
+							item_html2 = '<img src="../../images/unmoment.png" style="width:2.95rem;margin:0.3rem 1.4rem;">'
+						}else{
+							$('#turn_detail').text('查看详情');
+							$("#szxq").append(
+							"<tr><td class='texr'>" + data.data.waterQuality.name + "</td>" + '<td class="texl">'+
+							'<div id="kuangs" class="kuang'+(7 -icon.value)+'">'+icon.name+'</div>'+'</td></tr>')
+							
+							for (var index = 0; index < waters.length; index++) {
+								var item2 = waters[index];
+								item_html2 += "<tr><td class='texr'>" + item2.name + "</td>" + "<td class='texl' >" + item2.value +
+									"</td></tr>";
+							}
+							
+							$('#turn_detail').on('click',function(){
+								console.log(data.data.waterQuality.id)
+								jump_new('/pages/waterQuality/four_mess_detail.html',{'item_id':data.data.waterQuality.id})
+							})
+						}
+						
+						$("#szxq").append(item_html2);
+						
+						// 图片start
+						var slider = data.data.movements.slider;
+						var slider_html = '';
+						var slider_i = '';
+						if(slider.length == 0){
+							$('.deal_photo_slider').css('display','none')
+						}else if(slider.length == 1){
+							if(slider[0] != ''){
+								slider_html += '<div class="mui-slider-item"><a href="#"><img src="' + slider[0] +
+									'" class="monitoring_img"></a></div>'
+							}else{
+								$('.deal_photo_slider').css('display','none')
+							}
+						}else{
+							for (let i = 0; i < slider.length; i++) {
+								if(slider[i] != ''){
+									
+									if(i == 0){
+										slider_i = '<div class="mui-indicator mui-active"></div>'
+									}else{
+										slider_i += '<div class="mui-indicator"></div>'
+									}
+									
+									if(i == 0){
+										slider_html += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="monitoring_img" src="'+ slider[0] +'" /></a></div>';
+									}
+									
+									slider_html += '<div class="mui-slider-item"><a href="#"><img src="' + slider[i] +
+										'" class="monitoring_img"></a></div>'
+									
+									if(i == slider.length - 1){
+										slider_html += '<div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img class="monitoring_img" src="'+ slider[slider.length - 1] +'" /></a></div>';
+									}
+								}else{
+									$('.deal_photo_slider').css('display','none')
+								}
+							}
+						}
+						console.log(slider_html)
+						$('.sliderGroup').append(slider_html);
+						$('.mui-slider-indicator').append(slider_i)
+						
+						//获得slider插件对象
+						setTimeout(function(){
+							var gallery = mui('.mui-slider');
+							gallery.slider({
+								interval: 1000 //自动轮播周期，若为0则不自动播放，默认为0；
+							});
+						},1000)
+						// 图片end
+
+						var item_html = '';
+						var item_html1 = '';
+						var item_html2 = '';
+						var item_html3 ='';
+						var item_data = data.data.data[1].data;
+						var item_data1 = data.data.data[0].data;
+						var item_data2 = data.data.data[2].data;
+						var item_data3 = data.data.reservoirOfficer.body
+						var item_head = data.data.head;
+						//基本信息
+						// 安全责任人
+						if(item_data3.length === 0){
+							$('#reservoirOfficer').addClass('isShow')
+						}else{
+							$('#reservoirOfficer').removeClass('isShow')
+							$('#reservoirOfficer').addClass('deal_photo')
+							for ( let i = 0;i<item_data3.length;i++){
+								let item = item_data3[i];
+								item_html3 += "<tr><td>" + item[0] + "</td>" + "<td>" + item[1] + "</td>" + "<td>"+item[2] +"</td>"+"<td>"+item[3]+"</td></tr>";
+							}
+							$("#aqzrr").append(item_html3);
+						}
+						
+						for (var index = 0; index < item_data.length; index++) {
+							var item2 = item_head[index];
+							if (index < 2) {
+								$('.head').append(
+									'<div class="head_text">' +
+									'<div class="head_textX">' + item2.name + '</div>' +
+									'<div class="">' + item2.value + '</div>' +
+									'</div>'
+								);
+							}
+							var item = item_data[index];
+							item_html += "<tr><td class='texr'>" + item.name + "</td>" + "<td class='texl'>" + item.value + "</td></tr>";
+						}
+						$("#jbxx").html(item_html);
+						//基本信息
+						//特征水位
+						for (var index1 = 0; index1 < item_data1.length; index1++) {
+							var item1 = item_data1[index1];
+							item_html1 += "<tr><td class='texr'>" + item1.name + "</td>" + "<td class='texl'>" + item1.value +
+								"</td></tr>";
+						}
+						$("#tzsw").html(item_html1);
+						//特征水位
+						//库容情况
+						for (var index = 0; index < item_data2.length; index++) {
+							var item2 = item_data2[index];
+							item_html2 += "<tr><td class='texr'>" + item2.name + "</td>" + "<td class='texl' >" + item2.value +
+								"</td></tr>";
+						}
+						$("#krqk").html(item_html2);
+						//库容情况
+						console.log("----------" + JSON.stringify(data.data.movements));
+						
+						//水位监测数据
+						const movementsDatas = data.data.movements.series[0].data;
+						$('.lineChart').css('display','none')
+						for(let i=0;i<movementsDatas.length;i++){
+							if(movementsDatas[i] != 0){
+								$('.lineChart').css('display','block')
+							}
+						}
+						var data1={
+							id:data.data.movements.id,
+							colors:data.data.movements.colors,
+							ytitle:data.data.movements.ytitle,
+							categories:data.data.movements.categories,
+							series:data.data.movements.series,
+							// plotLines:data.data.movements.plotLines,
+							max:data.data.movements.max,
+							min:data.data.movements.min,
+							left:data.data.movements.left
+						};
+						funColumnBz1(data1);
+						console.log(data.data.movements.max,data.data.movements.min)
+						
+						// 监测信息start
+						var supervise = data.data.supervise;
+						var table1 = '';
+						var table2 = '';
+						if(supervise[1].image){
+							table1 = '<tr><th>'+supervise[0].name+'</th><th>'+supervise[1].name+'</th></tr>'+
+							'<tr><td>'+supervise[0].val+'<span class="unit">'+supervise[0].unit+'</span></td><td>'+supervise[1].val+'<span class="unit">'+supervise[1].unit+'</span><img src="'+supervise[1].image+'"/></td></tr>'
+						}else{
+							table1 = '<tr><th>'+supervise[0].name+'</th><th>'+supervise[1].name+'</th></tr>'+
+							'<tr><td>'+supervise[0].val+'<span class="unit">'+supervise[0].unit+'</span></td><td>'+supervise[1].val+'<span class="unit">'+supervise[1].unit+'</span></td></tr>'
+						}
+						$('.table1').html(table1)
+						table2 = '<tr><th>'+supervise[2].name+'</th><th>'+supervise[3].name+'</th><th>'+supervise[4].name+'</th></tr>'+
+						'<tr><td>'+supervise[2].val+'<span class="unit">'+supervise[2].unit+'</span></td><td>'+supervise[3].val+
+						'<span class="unit">'+supervise[3].unit+'</span></td><td>'+supervise[4].val+'<span class="unit">'+supervise[4].unit+'</span></td></tr>'
+						$('.table2').html(table2)
+						
+						// 监测信息end
+						
+						
+						//示意图
+						var syt = data.data.syt;
+						console.log(JSON.stringify(syt))
+						if(syt.bdgc.value == 0){
+							$('.text1').html('<img src="../../images/donw_trigel.png" >'+syt.bdgc.name);
+						}else{
+							$('.text1').html('<img src="../../images/donw_trigel.png" ><span>'+syt.bdgc.name+'</span><span class="num_font">' + syt.bdgc.value + syt.bdgc.unit + '</span>');
+						}
+						if(syt.jhhsw.value == 0){
+							$('.text2').html('<img src="../../images/donw_trigel.png" >'+syt.jhhsw.name);
+						}else{
+							$('.text2').html('<img src="../../images/donw_trigel.png" ><span>' + syt.jhhsw.name + '</span><span class="num_font">' + syt.jhhsw.value + syt.jhhsw.unit + '</span>');
+						}
+						if(syt.sjhsw.value == 0){
+							$('.text3').html('<img src="../../images/donw_trigel.png" >'+syt.sjhsw.name);
+						}else{
+							$('.text3').html('<img src="../../images/donw_trigel.png" ><span>' + syt.sjhsw.name + '</span><span class="num_font">'+ syt.sjhsw.value + syt.sjhsw.unit + '</span>');
+						}
+						if(syt.fhgsw.value == 0){
+							$('.text4').html('<img src="../../images/donw_trigel.png" >'+syt.fhgsw.name);
+						}else{
+							$('.text4').html('<img src="../../images/donw_trigel.png" ><span>' + syt.fhgsw.name + '</span><span class="num_font">' + syt.fhgsw.value + syt.fhgsw.unit + '</span>');
+						}
+						if(syt.zcxsw.value == 0){
+							$('.text5').html('<img src="../../images/donw_trigel.png" >'+syt.zcxsw.name);
+						}else{
+							$('.text5').html('<img src="../../images/donw_trigel.png" ><span>' + syt.zcxsw.name + '</span><span class="num_font">' + syt.zcxsw.value + syt.zcxsw.unit + '</span>');
+						}
+						if(syt.fhxzsw.value == 0){
+							$('.text6').html('<img src="../../images/donw_trigel.png" >'+syt.fhxzsw.name);
+						}else{
+							$('.text6').html('<img src="../../images/donw_trigel.png" ><span>' + syt.fhxzsw.name + '</span><span class="num_font">' + syt.fhxzsw.value + syt.fhxzsw.unit + '</span>');
+						}
+						if(syt.ssw.value == 0){
+							$('.text7').html('<img src="../../images/donw_trigel.png" >'+syt.ssw.name);
+						}else{
+							$('.text7').html('<img src="../../images/donw_trigel.png" ><span>' + syt.ssw.name + '</span><span class="num_font">' + syt.ssw.value + syt.ssw.unit + '</span>');
+						}
+						$('.text8 .text_column').html(syt.zkr.name )
+						if(syt.zkr.value == 0){
+							$('#text8').css('display','none')
+						}else{
+							$('#text8').html('<span class="num_font">' + syt.zkr.value + syt.zkr.unit + '</span>');
+						}
+						
+						$('.text9 .text_column').html(syt.dhkr.name )
+						if(syt.dhkr.value == 0){
+							$('#text9').css('display','none')
+						}else{
+							$('#text9').html('<span class="num_font">' + syt.dhkr.value + syt.dhkr.unit + '</span>');
+						}
+						$('.text10 .text_column').html(syt.fhkr.name )
+						if(syt.fhkr.value == 0){
+							$('#text10').css('display','none')
+						}else{
+							$('#text10').html('<span class="num_font">' + syt.fhkr.value + syt.fhkr.unit + '</span>');
+						}
+						
+						$('.text11 .text_column').html(syt.xlkr.name )
+						if(syt.xlkr.value == 0){
+							$('#text11').css('display','none')
+						}else{
+							$('#text11').html('<span class="num_font">' + syt.xlkr.value + syt.xlkr.unit + '</span>');
+						}
+						$('.text12 .text_column').html(syt.skr.name )
+						if(syt.skr.value == 0){
+							$('#text12').css('display','none')
+						}else{
+							$('#text12').html('<span class="num_font">' + syt.skr.value + syt.skr.unit  + '</span>');
+						}
+						// var datatitle= data.title;
+						// $(".h3").html(datatitle);
+						$(".mui-loading").css("display", "none")
+						// 总高度
+						var imgHeight = 3.15;
+						// 死水位
+						var sswHeight = imgHeight * 0.2 + 0.33
+						$('.text7').css('height',sswHeight + 'rem')
+						// 活水位
+						var percent = syt.sssw.hold / 100;
+						var total = imgHeight * percent + sswHeight
+						if(total >= 3.15){
+							total = 3.15
+						}
+						console.log(percent)
+						console.log(total)
+						$('.hint_water').css('height',total + 'rem')
+						// 点击示意图显示水位高度
+						$('.monitorings').on('click',function(){
+							if(syt.sssw.value == 0){
+								$('.popups_box').css('display','none')
+							}else{
+								$('.popups_box').html(syt.sssw.name + ':' + syt.sssw.value + syt.sssw.unit);
+							}
+							if($('.popups').hasClass('active')){
+								$('.popups').css('visibility','hidden').removeClass('active')
+							}else{
+								var popupsPosition = total + 0.4;
+								$('.popups').css({'visibility':'visible','bottom':popupsPosition+'rem'}).addClass('active')
+							}
+						})
+					} else {
+						plus.nativeUI.toast(data.msg)
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+	</script>
+</html>

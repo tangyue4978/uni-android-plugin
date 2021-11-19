@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://img.cdn.aliyun.dcloud.net.cn/mui/dist/css/mui.min.css" />
+		<style type="text/css">
+			body {
+				background-color: #FFFFFF;
+			}
+			html,body{width: 100%;height: 100%;overflow: hidden;}
+
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			#token_span {
+				display: none;
+			}
+			.mask{height: 100%;width: 100%;background-color: rgba(0,0,0,0.6);}
+			
+		</style>
+	</head>
+
+	<body>
+		<div id="token_span"></div>
+		<div class="mask">
+			
+		</div>
+
+		<script src="https://img.cdn.aliyun.dcloud.net.cn/mui/dist/js/mui.min.js"></script>
+		<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				var token = plus.storage.getItem("token");
+				$("#token_span").text(plus.storage.getItem("token"));
+				plus.nativeUI.showWaiting("加载中...");
+				window.location.href="http://wateroa.sxjicheng.com/admin/auth/epidemic?token="+token;
+			}, false);
+		</script>
+		
+	</body>
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>重点防治区</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/map/index.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<style type="text/css">
+			.right {
+				position: absolute;
+				right: 0.2rem;
+			}
+			.so_li_box{
+				/* background-color: #0000FF; */
+				position: relative;
+			}
+			/* 为点添加动画效果 */
+			.marker{
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				display: none;
+			}
+			.marker:after {
+				content: " ";
+				/* background-color: #00FFFF; */
+				border: 1px solid red;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				margin-left: -11.5px;
+				margin-top: -11px;
+				-webkit-animation-name: 'ripple';
+				-webkit-animation-duration: 1s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-delay: 0s;
+				-webkit-animation-iteration-count: infinite;
+				-webkit-animation-direction: normal;
+			}
+			
+			@keyframes ripple {
+				0% {
+					opacity: 0;
+					width: 20px;
+					height: 20px;
+				}
+				50% {
+					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -16px;
+					margin-top: -16px;
+				}
+				100% {
+					opacity: 0.05;
+					width: 40px;
+					height: 40px;
+					margin-left: -21.5px;
+					margin-top: -22px;
+				}
+			}
+		</style>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>重点防治区</span>
+				<span class="right" style="font-size: 0.3rem;" onclick="jump_new('../../feedback.html')">意见反馈</span>
+			</header>
+			<div class="section">
+				<div class="mapBox">
+					<div id="map"></div>
+					<div class="top_nav">
+						<ul class="nav_ul_box">
+							<li class="nav_li_item isShow active_tow" data-type="keyControlArea">管理对象</li>
+							<li class="nav_li_item" onclick="jump_new('/pages/keyControlArea/list.html')">数据列表</li>
+							<li class="nav_li_item" onclick="jump_new('/pages/keyControlArea/statistics.html')">统计图表</li>
+						</ul>
+					</div>
+					<div class="list_box" id="keyControlArea">
+						<div class="list_obj heightauto">
+							<ul class="list_ul">
+								<li class="list_li">重点防御保护区</li>
+								<li class="list_li">重点监督区</li>
+								<li class="list_li">重点治理区</li>
+								<li class="list_li">侵蚀沟</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="rightTabs leftPosi">
+					<ul>
+						<!-- <li><a onclick="backFun()"><img src="../../images/ruralWater/right_tabs_back.png" ></a></li> -->
+						<li><a href=""><img src="../../images/ruralWater/right_tabs01.png" ></a></li>
+						<!-- <li><a href=""><img src="../../images/ruralWater/xiangxisousuo.png" ></a></li> -->
+					</ul>
+				</div>
+			</div>
+			<!-- 地图点添加的动画 -->
+			<div id="marker" class="marker"></div>
+		</div>
+	</body>
+	<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="../../js/yuDiBa/map.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/map/map_fun.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/map/map.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+		<title>申请完结</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/supervise.css" rel="stylesheet" />		
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="header">
+				<a href="javascript:history.go(-1)" class="mui-icon mui-icon-back"></a>
+				申请完结
+			</div>
+			<div class="section">
+				<form action="" class="applyEnd_box">
+					<p class="applyEnd_box_tit">申请理由</p>
+					<textarea name="" class="reason" placeholder="请输入申请理由..."></textarea>
+					<button class="submitBtn">提交</button>
+				</form>
+			</div>
+		</div>			
+	</body>
+	<script>
+		$(function(){		
+			$(".submitBtn").click(function(){
+				var $reason = $(".reason").val();
+				if ($reason.length < 1) {
+                	mui.toast("请输入申请理由",{ duration:'long', type:'div' });
+                	return false;
+	            } else{
+	            	
+	            }
+			})
+		})
+	</script>
+</html>

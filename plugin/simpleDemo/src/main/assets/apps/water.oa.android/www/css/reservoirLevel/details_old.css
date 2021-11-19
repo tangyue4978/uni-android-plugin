@@ -1,0 +1,279 @@
+.monitorings{
+	width: 100%;
+	height: 3.9rem;
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.hint{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	bottom: 0;
+	z-index: 3;
+	background: url(../../images/hint_bg.png) no-repeat scroll center;
+	background-size: contain;
+	color: #333;
+	font-size: 0.12rem;
+}
+.hint div img{
+	width: 0.16rem;
+	height: 0.1rem;
+	display: inline-block;
+	margin-right: 0.1rem;
+}
+.hint_water{
+	width: 4.7rem;
+	height: 0.96rem;
+	position: absolute;
+	bottom: 0.33rem;
+	right: 0.1rem;
+	z-index: 0;
+}
+.popups{
+	width: auto;
+	height: auto;
+	position: absolute;
+	bottom: 1.29rem;
+	left: 2rem;
+	z-index: 6;
+	visibility: hidden;
+}
+.popups_box{
+	width: auto;
+	height: auto;
+	box-sizing: border-box;
+	padding: 0.1rem 0.2rem;
+	border: 1px solid #CCCCCC;
+	background-color: #ffffff;
+	border-radius: 0.05rem;
+	position: relative;
+}
+
+.popups_box::before{
+	content: "";
+	position: absolute;
+	top: 101%;
+	left: 50%;
+	margin-left: -9px;
+	border-top:10px solid #333;
+	border-right:10px solid transparent ;
+	border-left:10px solid transparent  ;
+}
+.popups_box::after{
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -9px;
+	border-width: 7px;
+	border-top:10px solid #ffffff;
+	border-right:10px solid transparent;
+	border-left:10px solid transparent;
+}
+.text1{
+	position: absolute;
+	left: 1.3rem;
+	top:0.05rem;
+}
+.text2{
+	position: absolute;
+	left: 2.5rem;
+	top:0.35rem;
+}
+.text3{
+	position: absolute;
+	left: 2.7rem;
+	top:0.6rem;
+}
+.text4{
+	position: absolute;
+	left: 2.9rem;
+	top:0.85rem;
+}
+.text5{
+	position: absolute;
+	left: 3.1rem;
+	top:1.1rem;
+}
+.text6{
+	position: absolute;
+	left: 3.3rem;
+	top:1.35rem;
+}
+.text7{
+	position: absolute;
+	left: 2.8rem;
+	bottom:1.15rem;
+}
+.text8{
+	position: absolute;
+	left: -0.15rem;
+	bottom:1.4rem;
+	line-height: 0.2rem;
+	text-align: center;
+}
+.text_column{
+	display: inline-block;
+	width: 0.12rem;
+}
+.text9{
+	left:0.35rem;
+	top:0.6rem;
+}
+#text9{
+	position: absolute;
+	top: -0.1rem;
+	display: inline-block;
+	width: 0.7rem;
+}
+.text10{
+	left: 0.75rem;
+	top:1rem;
+	line-height: 0.15rem;
+}
+#text10{
+	position: absolute;
+	top: 0;
+	display: inline-block;
+	width: 0.7rem;
+}
+.text11{
+	left: 1.2rem;
+	top:1.55rem;
+}
+#text11{
+	position: absolute;
+	top: 0.5rem;
+	left: -0.6rem;
+}
+.text12{
+	left: 1.2rem;
+	top:2.7rem;
+}
+#text12{
+	position: absolute;
+	top: 0.3rem;
+	left: -0.6rem;
+}
+
+.kuang1{
+	width: 0.85rem;
+	height: 0.38rem;
+	background-color: #999999;
+	color: #FFFFFF;
+	font-size: 0.24rem;
+	text-align: center;
+	line-height: 0.38rem;
+	border-radius: 0.1rem;
+}
+.kuang2{
+	width: 0.85rem;
+	height: 0.38rem;
+	background-color: #c7925e;
+	color: #FFFFFF;
+	font-size: 0.24rem;
+	text-align: center;
+	line-height: 0.38rem;
+	border-radius: 0.1rem;
+}
+.kuang3{
+	width: 0.85rem;
+	height: 0.38rem;
+	background-color: #e5ae2d;
+	color: #FFFFFF;
+	font-size: 0.24rem;
+	text-align: center;
+	line-height: 0.38rem;
+	border-radius: 0.1rem;
+}
+.kuang4{
+	width: 0.85rem;
+	height: 0.38rem;
+	background-color: #ffd452;
+	color: #FFFFFF;
+	font-size: 0.24rem;
+	text-align: center;
+	line-height: 0.38rem;
+	border-radius: 0.1rem;
+}
+.kuang5{
+	width: 0.85rem;
+	height: 0.38rem;
+	background-color: #78d9e9;
+	color: #FFFFFF;
+	font-size: 0.24rem;
+	text-align: center;
+	line-height: 0.38rem;
+	border-radius: 0.1rem;
+}
+.kuang6{
+	width: 0.85rem;
+	height: 0.38rem;
+	background-color: #40c87e;
+	color: #FFFFFF;
+	font-size: 0.24rem;
+	text-align: center;
+	line-height: 0.38rem;
+	border-radius: 0.1rem;
+}
+
+.mui-slider{
+	margin-bottom: 0.3rem;
+}
+
+/* 水库xian详情说明 */
+.head_explain{
+	width: 100%;
+	height: auto;
+	padding: 0.3rem;
+	line-height: 2;
+	background-color: #3A77F0;
+	text-indent: 2em;
+	overflow: hidden;
+}
+.head_explain_text{
+	color: #FFFFFF;
+	font-size: 0.28rem;
+}
+.head_explain_open{
+	width: 100%;
+	height: 0.5rem;
+	color: #4CCFFF;
+	background-color: #3A77F0;
+	margin-left: 0.2rem;
+}
+
+/* 监测信息库容等信息 */
+.infos_top{
+	width: 100%;
+	height: auto;
+	/* background-color: pink; */
+	margin: 0.2rem auto 0.3rem;
+}
+.infos_top-box1{
+	width: 100%;
+	height: 1rem;
+	border: 1px solid #5e7bd5;
+	border-right: none;
+	margin-bottom: 0.2rem;
+}
+.infos_top-box1 tr th{
+	font-size: 0.24rem;
+	color: #ffffff;
+	border-right: 1px solid #5e7bd5;
+	background-color: #9bb4fc;
+}
+.infos_top-box1 tr>td{
+	font-size: 0.22rem;
+	text-align: center;
+	color: #6985dd;
+	border-right: 1px solid #5e7bd5;
+	background-color: #ffffff;
+}
+.infos_top-box1 tr td>.unit{
+	color: #4c4c4c;
+}

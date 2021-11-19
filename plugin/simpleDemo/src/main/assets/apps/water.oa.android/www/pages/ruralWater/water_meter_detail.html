@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水库详细情况</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/previewImage.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess_detail.css" />
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<style type="text/css">
+			.texr {
+				width: 25%;
+				text-align: center;
+				color: #666666;
+			}
+
+			.texl {
+				width: 25%;
+				text-align: center;
+				color: #666666;
+			}
+
+			.texh {
+				background-color: #ffffff;
+				color: #666666;
+				border-bottom: 1px solid #DBDBDB;
+			}
+
+			/**
+			 *  2021年01月13日08:12:56
+				根据赵总要求更改样式，如需恢复删除下面三行代码。
+				另根据赵总要求隐藏水质信息。如需恢复请删除行内display: none !important;
+			 */
+			.deal_photo {
+				width: 94%;
+			}
+
+			.base_info {
+				width: 100%;
+			}
+
+			.base_info_box {
+				width: 100%;
+			}
+
+			.num_font {
+				color: #007AFF;
+			}
+
+			/* 近七日 */
+			.base_info_titles {
+				display: flex;
+				justify-content: center;
+			}
+
+			.water_table {
+				border: none;
+				text-align: left;
+				margin-top: 0.2rem;
+			}
+
+			.texls {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: none;
+			}
+
+			#ysqk td {
+				text-align: left;
+			}
+
+			img {
+				display: inline-block;
+				margin-left: 0.2rem;
+			}
+			/* 用水情况无图片的抄表数样式 */
+			.texl_spans{
+				border:none;
+			}
+			.base_info_table .number_img{
+				padding: 0 0.6rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+		</style>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+			</header>
+			<!-- 头部start -->
+			<div class="head">
+				<div class="head_text head_texts">
+				</div>
+				<div class="head_line"></div>
+				<div class="head_text head_desc">
+				</div>
+			</div>
+			<!-- 头部end -->
+			<div class="main">
+				<!-- 基本信息start -->
+				<div class="deal_photo">
+					<div class="base_info">
+						<div class="base_info_box">
+							<div class="base_info_title">
+								<div class="base_info_title_line"></div>
+								<span class="base_info_title_text">
+									基本信息
+								</span>
+							</div>
+							<table id="jbxx" class="base_info_table" border="1" cellspacing="0" cellpadding="0">
+								<!-- <tr>
+									<td class="texr">1</td>
+									<td class="texl texls">
+										<div class="nomals_img"></div>
+										<span class="nomals_text">正常</span>
+									</td>
+									<td class="texr">1</td>
+									<td class="texl">1</td>
+								</tr> -->
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 基本信息end -->
+				<!-- 近7日使用量变化start -->
+				<div class="deal_photo">
+					<div class="base_info_box base_info_boxs base_info_box1 base_info_box">
+						<div class="base_info_title base_info_titles">
+							<div>
+								<span class="base_info_title_text">近7日使用量变化</span>
+							</div>
+						</div>
+						<div class="monitoring">
+							<div id="meter_statistics" class="meter_statistics" style="width: 100%;height: 4rem;"></div>
+						</div>
+					</div>
+				</div>
+				<!-- 近7日使用量变化end -->
+				<!-- 用水情况start -->
+				<div class="deal_photo">
+					<div class="base_info">
+						<div class="base_info_box">
+							<div class="base_info_title base_info_title_picker">
+								<div class="base_info_title_line"></div>
+								<span class="base_info_title_text">
+									用水情况
+								</span>
+								<div class="base_picker">
+									<input class="date_picker" type="text" name="" readonly="readonly" />
+								</div>
+							</div>
+							<table id="ysqk" class="base_info_table water_table" border="0" cellspacing="0" cellpadding="0">
+								<!-- <colgroup width="60%"></colgroup>
+								<colgroup width="40%"></colgroup>
+								<tr class="texh">
+									<td>抄表日期</td>
+									<td>抄表数</td>
+								</tr> -->
+								<!-- <tr class="texl">
+									<td>1</td>
+									<td>
+										<span class="texl_span">222</span>
+										<img class="texl_img" src="../../images/ruralWater/photo.png" data-preview-src="https://www.dcloud.net.cn/hellomui/images/yuantiao.jpg"
+										 data-preview-group="1">
+									</td>
+									<td>+</td>
+								</tr>
+								<tr class="texr">
+									<td>1</td>
+									<td>
+										<span class="texl_span">222</span>
+										<img class="texl_img" src="../../images/ruralWater/photo.png" data-preview-src="https://www.dcloud.net.cn/hellomui/images/yuantiao.jpg"
+										 data-preview-group="1">
+									</td>
+									<td>+</td>
+								</tr> -->
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 用水情况end -->
+			</div>
+	</body>
+
+
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js"></script>
+	<script src="../../js/ruralWater/water_meter_detail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		var page_status = true;
+		//自然村详情
+		var root = localStorage.getItem("str_url");
+		if (root == "" || root == undefined || root == null) {
+			// mui.openWindow({
+			// 	url: 'login.html?cid=1', //通过URL传参
+			// 	id: 'login.html?cid=1', //通过URL传参
+			// })
+		}
+		var token = localStorage.getItem("token");
+
+		var obj_data = {}; //获取token参数
+		var page = 1;
+		var obj_datas = {} //默认渲染参数
+		var objs = {} //日期筛选参数
+		var page_status = true;
+		mui.plusReady(function() {
+			plus.nativeUI.showWaiting("加载中...");
+			obj_data.token = token;
+			getTkoen(obj_data)
+		});
+
+		function getTkoen(obj_data) {
+			console.log(JSON.stringify(obj_data));
+			var _url = root + 'api/v2/meter_statistics/get_token';
+			mui.ajax(_url, {
+				data: obj_data,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					console.log("--------------------------");
+					console.log(JSON.stringify(data));
+					if (data.code == 1) {
+						obj_datas.token = data.token;
+						var self = plus.webview.currentWebview();
+						obj_datas.id = self.item_id;
+						objs.token = data.token;
+						objs.month = $('.date_picker').val();
+						objs.page = 1;
+						vailageDetail(obj_datas);
+
+
+					} else {
+						plus.nativeUI.toast(data.msg)
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+					console.log(11)
+				}
+			})
+		}
+		//默认渲染
+		function vailageDetail(obj_datas) {
+			console.log(JSON.stringify(obj_datas));
+			var _url = 'http://rural_water.sxjicheng.com/api/v2/meter_statistics/show';
+			console.log(_url);
+			mui.ajax(_url, {
+				data: obj_datas,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					console.log("----------" + JSON.stringify(data));
+					if (data.code == 1) {
+						objs.number = data.data.number;
+						objs.countyCode = data.data.countyCode;
+						datePicker(objs)
+						//标题
+						var titles = data.data.title;
+						$('.head_texts').html(titles.name);
+						$('.head_desc').html(titles.city + titles.county + titles.town)
+
+						//基本 信息
+						// var th_html = ''
+						// th_html = '<tr><td class="texr">水表地址</td><td class="texl" colspan="3">' +
+						// 	titles.city + titles.county + titles.town + '</td></tr>'
+						var tables = data.data.body;
+						var item_html = '';
+						for (var i = 0; i < tables.length; i++) {
+							var item = tables[i];
+							if(item.value == ''){
+								item.value = '-'
+							}
+							if (item.name == '状态' && item.value != ''){
+								item_html += "<tr><td class='texr'>" + item.name + "</td>" +
+									"<td class='texl texls'><div class='nomals_img' style='background:" + item.color +
+									"'></div><span class='nomals_text' style='color:" + item.color + "'>" + item.value + "</span></td></tr>";
+							}else{
+								item_html += "<tr><td class='texr'>" + item.name + "</td>" +
+									"<td class='texl'>" + item.value + "</td></tr>";
+							}
+						}
+						$('#jbxx').append(item_html)
+						// for (var i = 0; i < tables.length; i++) {
+						// 	var item = tables[i];
+						// 	if (item.name == '状态' && item.value != '') {
+						// 		item_html += "<td class='texr'>" + item.name + "</td>" +
+						// 			"<td class='texl texls' colspan='" + item.colspan + "'><div class='nomals_img' style='background:" + item.color +
+						// 			"'></div><span class='nomals_text' style='color:" + item.color + "'>" + item.value + "</span></td>";
+						// 	} else {
+						// 		if (i % 2 == 0) {
+						// 			item_html += "<tr>";
+						// 			item_html += "<td class='texr'>" + item.name + "</td>" + "<td class='texl' colspan='" + item.colspan + "'>" +
+						// 				item.value + "</td>";
+						// 		} else {
+						// 			item_html += "<td class='texr' colspan='" + item.colspan + "'>" + item.name + "</td>" +
+						// 				"<td class='texl' colspan='" + item.colspan + "'>" + item.value + "</td>";
+						// 		}
+						// 		if ((i > 0 && i % 2 == 1) || i == tables.length - 1) {
+						// 			item_html += "</tr>";
+						// 		}
+						// 	}
+
+						// }
+						// console.log(th_html+item_html)
+						// item_html = th_html + item_html
+
+						//近7日使用量变化
+						var obj = {
+							id: data.data.statisticsArr.id,
+							categories: data.data.statisticsArr.categories,
+							series: data.data.statisticsArr.series,
+							colors: data.data.statisticsArr.colors
+						}
+						columns(obj)
+
+
+						//选择日期
+						$('.date_picker').val(data.data.reportMonth);
+
+						plus.nativeUI.closeWaiting();
+					} else {
+						plus.nativeUI.toast(data.msg)
+					}
+
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+
+		//日期筛选
+		function datePicker(obj_data) {
+			var _url = 'http://rural_water.sxjicheng.com/api/v2/meter_statistics/month_report';
+			console.log(_url)
+			console.log(JSON.stringify(obj_data));
+			mui.ajax(_url, {
+				data: obj_data,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					console.log(JSON.stringify(data))
+					plus.nativeUI.closeWaiting();
+					if (data.code == 1) {
+						if (data.data.length > 0) {
+							if (page > 1) {
+								list_this.endPullupToRefresh(false);
+							}
+							if (page == 1) {
+								$("#ysqk").html(""); //清空列表注意检查类名是否正确
+								var reportList_html = '<colgroup width="60%"></colgroup><colgroup width="40%"></colgroup>' +
+									'<tr class="texh"><td>抄表日期</td><td>抄表数</td></tr>'
+							}else{
+								var reportList_html = ''
+							}
+							//用水情况
+							var reportList = data.data;
+							for (let j = 0; j < reportList.length; j++) {
+								if (reportList[j].image_url != '') {
+									if (j % 2 == 0) {
+										reportList_html += '<tr class="texl"><td>' + reportList[j].value_date +
+											'</td><td class="number_img"><span class="texl_span">' +
+											reportList[j].water_value + '</span>' +
+											'<img class="texl_img" src="../../images/ruralWater/photo.png" data-preview-src="' + reportList[j].image_url +
+											'" data-preview-group="1"></td></tr>'
+									} else {
+										reportList_html += '<tr class="texr"><td>' + reportList[j].value_date +
+											'</td><td class="number_img"><span class="texl_span">' + reportList[j].water_value + '</span>' +
+											'<img class="texl_img" src="../../images/ruralWater/photo.png" data-preview-src="' + reportList[j].image_url +
+											'"data-preview-group="1"></td></tr>'
+									}
+								} else {
+									if (j % 2 == 0) {
+										reportList_html += '<tr class="texl"><td>' + reportList[j].value_date +
+											'</td><td><span class="texl_span texl_spans">' +
+											reportList[j].water_value + '</span></td></tr>'
+									} else {
+										reportList_html += '<tr class="texr"><td>' + reportList[j].value_date +
+											'</td><td><span class="texl_span texl_spans">' +
+											reportList[j].water_value + '</span></td></tr>'
+									}
+								}
+							}
+							$('#ysqk').append(reportList_html)
+							// 初始化previewImage
+							mui.previewImage();
+						} else {
+							if (page > 1) {
+								list_this.endPullupToRefresh(true);
+							} else {
+								$('#ysqk').html(
+									'<a style="font-size:0.35rpx;text-align:center;padding:1rem 0rem;width:100%;display:block;background:#ffffff;">暂无数据</a>'
+								)
+							}
+						}
+					} else {
+						if (page > 1) {
+							list_this.endPullupToRefresh(true);
+						}
+						$('#ysqk').html(
+							'<a style="font-size:0.35rpx;text-align:center;padding:1rem 0rem;width:100%;display:block;background:#ffffff;">未找到该月份数据</a>'
+						)
+						plus.nativeUI.toast(data.msg);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+
+
+		// 上拉加载
+		mui.init({
+			pullRefresh: {
+				container: ".mui-content", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+				up: {
+					height: "50px", //可选.默认50.触发上拉加载拖动距离
+					auto: false, //可选,默认false.自动上拉加载一次
+					contentdown: "上拉显示更多",
+					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: up_fun //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				}
+			}
+		});
+
+		function up_fun() {
+			page++;
+			console.log("上拉加载成功");
+			var self = plus.webview.currentWebview();
+			objs.page = page;
+			datePicker(objs);
+			list_this = this;
+		}
+
+		// 上拉加载 end
+
+
+		// 筛选信息
+		function shaixuanFun() {
+			// 重置上拉加载
+			mui('.mui-content').pullRefresh().refresh(true);
+			plus.nativeUI.showWaiting("加载中...");
+			$(document).scrollTop(0) //重置滚动条的top值为0
+			page = 1;
+			objs.page = page;
+			objs.month = $('.date_picker').val();
+			datePicker(objs);
+		}
+		
+	</script>
+</html>

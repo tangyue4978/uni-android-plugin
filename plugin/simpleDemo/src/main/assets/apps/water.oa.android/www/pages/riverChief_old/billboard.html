@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>河湖长制</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess.css" />
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/map/getCity.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.all3 {
+			top: 2.2rem;
+		}
+
+		.list {
+			margin-top: 3.2rem;
+		}
+
+		.weight {
+			font-size: 0.28rem;
+			color: #333;
+			font-weight: 700;
+		}
+
+		.sort_lists {
+			padding-left: 0.3rem;
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+
+		.lists_li {
+			position: relative;
+		}
+
+		.position {
+			text-align: right;
+		}
+
+		.lists_data>.titles {
+			width: 100%;
+		}
+
+		/* 修复搜索 */
+		.sort {
+			padding: 0 0.2rem;
+		}
+
+		.search_box {
+			width: 48%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-sizing: border-box;
+			height: 100%;
+			padding-right: 0.15rem;
+		}
+
+		.search_box .sort_input.sort_new {
+			background: #ffffff;
+			width: calc(100% - 0.5rem);
+			box-sizing: border-box;
+			color: #333333;
+			border: none;
+			font-size: 0.28rem;
+			margin-top: 0.3rem
+		}
+
+		.search_box .span_search {
+			display: inline-block;
+			width: 0.34rem;
+			height: 0.34rem;
+		}
+
+		.search_box .span_search .img_search {
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+		}
+
+		.event_imgs {
+			width: 0.27rem;
+			height: 0.27rem;
+			display: inline;
+		}
+
+		.sort.sorts {
+			padding-left: 0;
+		}
+
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+	</style>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>公示牌信息列表</span>
+		</header>
+		<div class="content_box content_boxs">
+			<div class="sort sorts">
+				<div class="search_box">
+					<select name="city" class="sort_list sort_lists" id="city">
+						<option value="">全部地市</option>
+					</select>
+				</div>
+				<div class="search_box">
+					<input type="text" id="username1" placeholder="所在河湖" class="sort_input sort_new sort_search" />
+					<span class="span_search" id="search1"><img class="img_search"
+							src="../../images/waterIntake/icon_search_03.png"></span>
+				</div>
+			</div>
+			<!-- 分类end -->
+		</div>
+		<!-- 统计start -->
+		<!-- <div class="statics">
+				<ul class="header_list header_list_num">
+					<li>3218</li>
+					<li>9346</li>
+					<li>3307</li>
+					<li>15091</li>
+					<li class="unborder">5022</li>
+				</ul>
+				<ul class="header_list header_lists header_list_title">
+					<li>乱占</li>
+					<li>乱采</li>
+					<li>乱堆</li>
+					<li>乱建</li>
+					<li>其他</li>
+				</ul>
+			</div> -->
+		<!-- 统计end -->
+		<!-- 总条数 -->
+		<div class="all all3">
+			共<span class="all_num">0</span>个公示牌
+		</div>
+		<!-- 列表start -->
+		<div class="list">
+			<ul class="lists">
+				<!-- 湖泊 -->
+				<!-- <li class="lists_li" onclick="jump_new('four_mess_detail.html')">
+						<ul class="lists_data">
+							<li>
+								<span>湖泊名称：</span>
+								<span>名称</span>
+							</li>
+							<li>
+								<span>湖泊姓名：</span>
+								<span>姓名</span>
+							</li>
+							<li>
+								<span>行政地区：</span>
+								<span>偏关县</span>
+							</li>
+							<li>
+								<span>类型：</span>
+								<span>类型</span>
+							</li>
+							<li>
+								<span>水面面积(km²)：</span>
+								<span>22250</span>
+							</li>
+							<li>
+								<span>湖泊容积(m³)：</span>
+								<span>202007</span>
+							</li>
+							<li>
+								<span>平均水深(m)：</span>
+								<span>22250</span>
+							</li>
+							<li>
+								<span>咸淡水属性：</span>
+								<span>咸淡水</span>
+							</li>
+						</ul>
+					</li> -->
+			</ul>
+		</div>
+		<!-- 列表end -->
+
+	</div>
+</body>
+
+<script src="../../js/riverChief/billboard.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 本页面的css -->
+		<link rel="stylesheet" type="text/css" href="../../css/scanning/scan_binding.css" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp"><a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>扫码信息绑定</p>
+			</div>
+		</div>
+		<div class="content_box">
+			<!-- 重新扫描 -->
+			<div class="re_scanning" onclick="jump_scann()">
+				<img class="reImg" src="../../images/scanning/re_scanning.png">
+				<span>重新扫描</span>
+			</div>
+			<!-- 条形编码 -->
+			<div class="bar">
+				<div class="bar_name">
+					设备序列号
+				</div>
+				<input class="bar_code" type="" name="" id="" value="" />
+			</div>
+			<!-- 基本信息 start -->
+			<div class="infos">
+				<div class="infos_bar">
+					<div class="infos_left">
+						使用地点
+					</div>
+					<div class="infos_right">
+						<input class="fillIn usePlace" type="text" name="" id="" value="" placeholder="请填写" />
+					</div>
+				</div>
+				<div class="infos_bar">
+					<div class="infos_left">
+						使用人
+					</div>
+					<div class="infos_right" onclick="department()">
+						<div class="fillIn selects user">选择部门/人员</div>
+					</div>
+				</div>
+				<div class="infos_bar">
+					<div class="infos_left">
+						设备类型
+					</div>
+					<div class="infos_right">
+						<select name="" class="fillIn select deviceType">
+							<option value="" selected>请选择</option>
+						</select>
+					</div>
+				</div>
+				<div class="infos_bar">
+					<div class="infos_left">
+						绑定日期
+					</div>
+					<div class="infos_right">
+						<div id="muiPicker"></div>
+					</div>
+				</div>
+				<div class="infos_bar infos_bars">
+					<div class="infos_bars_box">
+						<div class="infos_left">
+							图片
+						</div>
+						<div class="infos_right">
+							<i id="tupian" class="iconfont icon-tupian "></i>
+						</div>
+					</div>
+					<div class="tupianlist"></div>
+				</div>
+				<div class="fujialist"></div>
+			</div>
+			<!-- 基本信息 end -->
+
+			<!-- 备注说明 -->
+			<div class="remarks">
+				<div class="remarks_title">
+					备注说明
+				</div>
+				<textarea class="remarks_area">选填</textarea>
+			</div>
+			<!-- 提交按钮 -->
+			<div class="submit" type="button" onclick="submitFun()">提交</div>
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<!-- <script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="../../js/scanning/scan_binding.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

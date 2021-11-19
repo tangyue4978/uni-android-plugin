@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>河湖长制-专题地图-统计图表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/map/index.css" />
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+		<style>
+			body {
+				background-color: #F6F6F6;
+			}
+
+			.xinxiBox {
+				padding: 0.3rem 0.1rem;
+			}
+
+			.main {
+				margin-top: 1.3rem;
+			}
+
+			.top_nav {
+				position: static;
+			}
+
+			.nav_ul_box .nav_li_item {
+				width: 100%;
+			}
+
+			.line_box {
+				height: 0.7rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.2rem 0.1rem;
+				font-size: 0.26rem;
+				color: #333333;
+				font-weight: 400;
+			}
+
+			.content_box {
+				border-radius: 0.2rem;
+				background-color: #FFFFFF;
+				margin-bottom: 0.3rem;
+				padding: 0.2rem 0.1rem;
+				display: none;
+			}
+
+			.line_title {
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				line-height: 0.28rem;
+			}
+
+			.line_title .line {
+				width: 0.05rem;
+				height: 0.28rem;
+				background-color: #467FF0;
+				margin-right: 0.1rem;
+			}
+
+			.chart_info.table_box {
+				display: flex;
+				justify-content: flex-start;
+				align-items: flex-start;
+				height: auto;
+			}
+
+			.chart_info.table_box .table_left {
+				width: 2.2rem;
+			}
+
+			.chart_info.table_box .table_right {
+				width: calc(100% - 2.2rem);
+				overflow: hidden;
+				overflow-x: auto;
+			}
+
+			.chart_info.table_box .table_right .table_right_info {
+				width: 230%;
+			}
+
+			.table_right_info {
+				width: 100%;
+			}
+
+			.table_right_info tr td {
+				border-color: #CCCCCC;
+				height: 0.6rem;
+				padding: 0.1rem;
+				font-size: 0.2rem;
+				text-align: center;
+				vertical-align: middle;
+			}
+
+			.table_right_info tr td.fost {
+				height: 1.2rem;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>河长责任专题图</span>
+			</header>
+			<div class="main">
+				<div class="top_nav">
+					<ul class="nav_ul_box">
+						<li class="nav_li_item" data-type="managementObjects" onclick="jump_new('thematic_map.html')">专题图</li>
+						<li class="nav_li_item active">统计图表</li>
+					</ul>
+				</div>
+				<div class="xinxiBox">
+					<!-- 河长情况总揽表start -->
+					<div class="content_box">
+						<div class="line_box">
+							<div class="line_title">
+								<div class="line"></div>
+								<div class="text">河长情况总揽表</div>
+							</div>
+							<!-- <div class="line_right">2020年</div> -->
+						</div>
+						<div class="chart_info table_box" id="table">
+							<div class="table_left">
+								<table id="table_left" class="table_right_info" border="1" cellspacing="0" cellpadding="0">
+								</table>
+							</div>
+							<div class="table_right">
+								<table id="table_right" class="table_right_info" border="1" cellspacing="0" cellpadding="0">
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- 河长情况总揽表end -->
+					<!-- 河长类型分析start -->
+					<div class="content_box">
+						<div class="line_box">
+							<div class="line_title">
+								<div class="line"></div>
+								<div class="text pie_chart_title">河长类型分析</div>
+							</div>
+							<!-- <div class="line_right">2020年</div> -->
+						</div>
+						<div class="chart_info" id="container1"></div>
+					</div>
+					<!-- 河长类型分析end -->
+					<!-- 全省河长类型分析start -->
+					<div class="content_box">
+						<div class="line_box">
+							<div class="line_title">
+								<div class="line"></div>
+								<div class="text bar_chart_title">全省河长数量分析</div>
+							</div>
+							<!-- <div class="line_right">2020年</div> -->
+						</div>
+						<div class="chart_info" id="container2"></div>
+					</div>
+					<!-- 全省河长类型分析end -->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/riverChief/thematic_statistics.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.plusReady(function() {
+			var river=plus.webview.getWebviewById("thematic_map.html");
+			if(river){
+			   console.log(river.getURL());
+			   river.hide();
+			   river.close();
+			}
+		})
+	</script>
+</html>

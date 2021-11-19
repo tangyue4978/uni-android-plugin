@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>数据列表</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/four_mess.css" />
+	<!-- 筛选css -->
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+	<!-- 筛选css end -->
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+	<style type="text/css">
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+
+		.sort_list.sort_list_img {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+
+
+		/* 总数 */
+		.number_total {
+			background-color: #F6F6F6;
+			width: 100%;
+			height: 0.8rem;
+			position: fixed;
+			top: 2.7rem;
+			left: 0;
+			padding-left: 0.3rem;
+			line-height: 0.8rem;
+			box-sizing: border-box;
+		}
+
+		/* 列表样式         start */
+		.list_wrap {
+			width: 100%;
+			position: fixed;
+			top: 3.55rem;
+			bottom: 0;
+			padding-bottom: 1px;
+		}
+
+		.list_title,
+		.list_content {
+			display: flex;
+		}
+
+		.list_content {
+			height: calc(100% - 1rem);
+			overflow: hidden;
+		}
+
+		.list_title .list_l,
+		.list_title .list_r {
+			color: #fff;
+		}
+
+		.list_title .list_r {
+			display: flex;
+		}
+
+		.list_title .row_item {
+			background: linear-gradient(to bottom, #bdcaed, #80b1ef)
+		}
+
+		.list_l,
+		.list_r {
+			overflow: auto;
+		}
+
+		.list_l {
+			width: 33.3%;
+		}
+
+		.list_r {
+			width: calc(100vw - 33.3%);
+		}
+
+		.list_content .row:last-child {
+			margin-bottom: 0.5rem;
+		}
+		.list_content .row_item{
+			width: 33.3%;
+		}
+		.row {
+			display: flex;
+		}
+
+		.list_l .row_item {
+			width: 100%
+		}
+
+		.row_item {
+			flex-shrink: 0;
+			text-align: center;
+			width: 49.9%;
+			height: 1.2rem;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.tips {
+			text-align: center;
+		}
+
+		/* 列表样式         end */
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>数据列表</span>
+		</header>
+		<!-- 分类start -->
+		<div class="sort start">
+			<span class="sort_list2 sort_list_img2" id="type_select" data-id='1' style="display: none;">降雨</span>
+			<select name="city" class="sort_list sort_list_img" id="level_value"></select>
+			<!-- <select name="city" class="sort_list sort_list_img select_shi" id="city_select">
+				<option value="0">山西省</option>
+			</select> -->
+			<input type="text" name="city" class="sort_list sort_list_img select_shi" id="city_select" data-code="" style="border: none;padding-left: 0;" value="" readonly="readonly" placeholder="山西省"/>
+			<select name="status" class="sort_list sort_list_img" id="status_select">
+				<option value="1">1小时</option>
+				<option value="3">3小时</option>
+				<option value="12">12小时</option>
+				<option value="24">24小时</option>
+				<option value="72">72小时</option>
+			</select>
+			<div class="sort_list search_box text_input hide">
+				<input type="text" id="username" placeholder="名称" class="sort_input sort_new sort_search" style="width: 85%;"/>
+				<span class="span_search" id="search" style="left: calc(90% - 0.15rem);">
+					<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+				</span>
+			</div>
+			<div class="more_box">
+				<img class="more_img" src="../../images/ruralWater/bottomInfo_down.png" data-class="waterlove">
+			</div>
+		</div>
+		<div class="number_total">测站总量：<span class="total_span"></span> 个</div>
+		<!-- 分类end -->
+
+		<!-- 列表start -->
+		<div class="list_wrap">
+			<div class="tips" style="display: none;">暂无数据</div>
+			<div class="list_title">
+				<div class="list_l">
+				</div>
+				<div class="list_r">
+				</div>
+			</div>
+			<div class="list_content">
+				<!-- <div class="list_l">
+				</div> -->
+				<div class="list_r" style="width: 100%;">
+				</div>
+			</div>
+		</div>
+		<!-- 列表end -->
+	</div>
+</body>
+
+<script>
+	// 监听左右滚动
+	/* $(".list_wrap .list_title .list_r").on("scroll", function () {
+		let left = $(this).scrollLeft()
+		$('.list_wrap .list_content .list_r').scrollLeft(left)
+	})
+	$(".list_wrap .list_content .list_r").on("scroll", function () {
+		let left = $(this).scrollLeft()
+		$('.list_wrap .list_title .list_r').scrollLeft(left)
+		let top = $(this).scrollTop()
+		$('.list_wrap .list_content .list_l').scrollTop(top)
+	}) */
+	// 监听上下滚动
+	$(".list_wrap .list_content .list_l").on("scroll", function () {
+		let top = $(this).scrollTop()
+		$('.list_wrap .list_content .list_r').scrollTop(top)
+	})
+</script>
+<!-- <script src="../../js/map/scroll_top.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="../../js/map/getCity.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/waterLove/waterLove_list.js"></script>
+<script src="../../js/reservoirLevel/area.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js -->
+<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js end -->
+<script type="text/javascript">
+	
+</script>
+</html>

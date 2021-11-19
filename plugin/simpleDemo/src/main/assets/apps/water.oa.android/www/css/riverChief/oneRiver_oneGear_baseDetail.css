@@ -1,0 +1,119 @@
+.main {
+  width: 100%;
+  height: calc(100vh - 4.12rem);
+  background-color: #f6f6f6;
+}
+.main .select {
+  height: 1rem;
+  padding: 0.2rem;
+  color: #686868;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.main .select .select_item {
+  width: 32%;
+  height: 0.7rem;
+  line-height: 0.7rem;
+  text-align: center;
+  background-color: #dbdbdb;
+  border-radius: 0.1rem;
+  margin-right: 0.1rem;
+}
+.main .select .select_item.active {
+  color: #3a77f0;
+  font-weight: bold;
+  background-color: #fff;
+  border: 2px solid #3c79f0;
+}
+.main .content_wrap {
+  height: calc(100% - 1rem);
+}
+.main .content_wrap .riverInfo {
+  display: none;
+}
+.main .content_wrap .base {
+  height: 100%;
+  padding: 0.2rem;
+  background-color: #fff;
+  border-radius: 0.3rem;
+}
+.main .content_wrap .base .title {
+  position: relative;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+}
+.main .content_wrap .base .title .blue {
+  display: inline-block;
+  width: 0.1rem;
+  height: 50%;
+  background-color: #6492ff;
+}
+.main .content_wrap .base .title .text {
+  margin-left: 0.1rem;
+  font-size: 0.4rem;
+  color: #000;
+}
+.main .content_wrap .base .title .order_wrap {
+  position: absolute;
+  right: 2%;
+  width: 2rem;
+  height: 0.6rem;
+  border-radius: 0.3rem;
+  background-color: #efeeed;
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .content_wrap .base .title .order_wrap .order {
+  display: inline-block;
+  width: 0.92rem;
+  height: 0.5rem;
+  line-height: 0.5rem;
+  text-align: center;
+  border-radius: 0.25rem;
+  font-size: 0.25rem;
+}
+.main .content_wrap .base .title .order_wrap .order.active {
+  color: #fff;
+  font-weight: bold;
+  background-color: #6492ff;
+}
+.main .content_wrap .base .wrap {
+  height: calc(100% - 1rem);
+  overflow: auto;
+}
+.main .content_wrap .base .wrap .list {
+  border: 1px solid #d8d7d5;
+}
+.main .content_wrap .base .wrap .list .line {
+  border-bottom: 1px solid #d8d7d5;
+  display: flex;
+}
+.main .content_wrap .base .wrap .list .line:last-child {
+  border-bottom: none;
+}
+.main .content_wrap .base .wrap .list .line .left,
+.main .content_wrap .base .wrap .list .line .right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem;
+}
+.main .content_wrap .base .wrap .list .line .left {
+  background-color: #efeeed;
+}
+.main .content_wrap .base.riverInfo .wrap .list .line div:first-child {
+  width: 30%;
+  border-right: 1px solid #dbdad8;
+  justify-content: center;
+}
+.main .content_wrap .base.riverInfo .wrap .list .line div:last-child {
+  width: 70%;
+  justify-content: flex-start;
+}
+.main .content_wrap .base.riverInfo .wrap .list .line:first-child div {
+  justify-content: center;
+}

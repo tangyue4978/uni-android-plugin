@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>河湖长制</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess_detail.css" />
+	<!-- 本页样式 -->
+	<link rel="stylesheet" href="../../css/riverChief/oneRiver_oneGear_baseDetail.css">
+
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>详细情况</span>
+		</header>
+		<!-- 头部start -->
+		<div class="head">
+			<div class="head_text head_texts">
+				汾河
+			</div>
+			<div class="head_line"></div>
+			<div class="head_text head_desc">
+				基础信息表
+			</div>
+		</div>
+		<!-- 头部end -->
+		<div class="main">
+			<div class="select">
+				<div class="select_item active">自然属性</div>
+				<div class="select_item">河长信息</div>
+			</div>
+
+			<div class="content_wrap">
+				<!-- 自然属性           开始 -->
+				<div class="base">
+					<div class="title">
+						<span class="blue"></span>
+						<span class="text">自然属性</span>
+					</div>
+					<div class="wrap">
+						<div class="list">
+							<div class="line">
+								<div class="left">河流(段)编码</div>
+								<div class="right">DD000000000L</div>
+							</div>
+							<div class="line">
+								<div class="left">上一级河流名称</div>
+								<div class="right">上一级河流名称</div>
+							</div>
+							<div class="line">
+								<div class="left">上一级河流编码</div>
+								<div class="right">D0000000000S</div>
+							</div>
+							<div class="line">
+								<div class="left">所在水系</div>
+								<div class="right">黄河水系</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)起点位置</div>
+								<div class="right">X112.112833 Y38.979417</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)yi点位置</div>
+								<div class="right">X112.112833 Y38.979417</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)长度(km)</div>
+								<div class="right">716</div>
+							</div>
+							<div class="line">
+								<div class="left">行政区域与河流(段)位置关系</div>
+								<div class="right">穿境19个：忻州市神池县、宁武县、静乐县；太原古交市、娄烦县、太原市尖草坪区、清徐县；晋中市平遥县、介休县、孝义市、灵石县；临汾市霍州市、洪润县、绕都区、襄汾县；运城市新绛县、稷山县、万荣县、河津市；<br/>左岸(7个)：太原市阳曲县、迎泽区、小店区、杏花岭区；晋中市祁县；临汾市曲沃县、侯马市；<br/>右岸(3个)：太原市万柏林区、晋源区；吕梁市文水县</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)流域(汇水)面积(km³)</div>
+								<div class="right">3947</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)多年平均径流量(m³)</div>
+								<div class="right">17.84亿</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)多年平均枯水期流量(m³/s)</div>
+								<div class="right">38.48</div>
+							</div>
+							<div class="line">
+								<div class="left">水文站(个)</div>
+								<div class="right">10</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)左岸支流数量(条)</div>
+								<div class="right">41</div>
+							</div>
+							<div class="line">
+								<div class="left">河流(段)右岸支流数量(条)</div>
+								<div class="right">42</div>
+							</div>
+						</div>				
+						<div class="notes">
+							注:行政区域与河流(段)位置关系：指左岸、右岸、穿境等。
+						</div>
+					</div>
+					
+				</div>
+				<!-- 自然属性           结束 -->
+				
+				<!-- 河长信息			开始 -->
+				<div class="base riverInfo">
+					<div class="title">
+						<span class="blue"></span>
+						<span class="text">河长信息</span>
+					</div>
+					<div class="wrap">
+						<div class="list">
+							<div class="line">
+								<div class="left">姓名</div>
+								<div class="left">职务</div>
+							</div>
+							<div class="line">
+								<div class="right">林武</div>
+								<div class="right">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="left">林武</div>
+								<div class="left">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="right">林武</div>
+								<div class="right">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="left">林武</div>
+								<div class="left">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="right">林武</div>
+								<div class="right">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="left">林武</div>
+								<div class="left">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="right">林武</div>
+								<div class="right">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="left">林武</div>
+								<div class="left">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="right">林武</div>
+								<div class="right">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="left">林武</div>
+								<div class="left">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="right">林武</div>
+								<div class="right">山西省委书记</div>
+							</div>
+							<div class="line">
+								<div class="left">林武</div>
+								<div class="left">山西省委书记</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 河长信息			结束 -->
+
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../js/riverChief/oneRiver_oneGear_baseDetail.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/addressbook.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.news .pp{
+				background-size: 100% 100%;
+			}
+			.content_box{
+				width: 100%;
+				margin-top: 1.3rem;
+				overflow: hidden;
+			}
+			.content_box .gray{
+				height: 0.3rem;
+				background-color: #EEEEEE;
+			}
+			.content_box .list_ul{
+				padding: 0rem;
+				padding-left:0.4rem;
+				list-style: none;
+				background-color: #FFFFFF;
+				margin: 0 auto;
+			}
+			.content_box .list_ul .list_li{
+				padding: 0rem;
+				padding-right:0.4rem;
+				border-bottom: 1px solid #F0F0F0;
+				overflow: hidden;
+				height: 1rem;
+				font-size: 0.3rem;
+				line-height: 1rem;
+			}
+			.content_box .list_ul .list_li .left_title{
+				float: left;
+				width: 35%;
+				height: 100%;
+			}
+			.content_box .list_ul .list_li .right_infor{
+				float: right;
+				width: 60%;
+				height: 100%;
+				text-align: right;
+			}
+			.content_box .list_ul .list_li .right_infor .select_box{
+				float: right;
+				height: 100%;
+				width: 0.75rem;
+				padding: 0rem;
+				margin: 0rem;
+				font-size: 0.3rem;
+			}
+			.color_red{color: #FF0000;}
+		</style>
+	</head>
+
+	<body style="background: #f8f8f8">
+		<div class="mui-content" style="">
+			<div class="news">
+				<p class="pp"><a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>系统设置</p>
+			</div>
+		</div>
+		<div class="content_box">
+			<div class="gray"></div>
+			<ul class="list_ul">
+				<li class="list_li">
+					<div class="left_title">字号设置</div>
+					<div class="right_infor">
+						<select class="select_box" id="select_box">
+							<option value="1">正常</option>
+							<option value="2">中号</option>
+							<option value="3">偏大</option>
+						</select>
+					</div>
+				</li>
+				<li class="list_li" onclick="version_updata()">
+					<div class="left_title">系统版本</div>
+					<div class="right_infor version" style="color: #0062CC;"></div>
+				</li>
+			</ul>
+			<div class="gray"></div>
+			<ul class="list_ul">
+				<li class="list_li">
+					<div id="tuichu" class="mui-text-center color_red">退出登录</div>
+				</li>
+			</ul>
+		</div>
+		<!--<div style="height: 1.26rem;"></div>
+		<nav class="mui-bar mui-bar-tab " id="nav">
+			<a class="mui-tab-item " id="defaultTab" href="news.html">
+				<span class="mui-icon iconfont icon-xiaoxi"></span>
+				<span class="mui-tab-label navwenzi">消息</span>
+			</a>
+			<a class="mui-tab-item " id="a2" href="handle.html">
+				<span class="mui-icon iconfont icon-daiban"></span>
+				<span class="mui-tab-label navwenzi">办理</span>
+			</a>
+			<a class="mui-tab-item mui-active" id="a3" href="main.html">
+				<img src="images/322.png" class="" alt="">
+				<span class="mui-tab-label navwenzi"></span>
+			</a>
+			<a class="mui-tab-item mui-active" id="a4" href="addressBookone.html">
+				<span class="mui-icon iconfont icon-address-book-o"></span>
+				<span class="mui-tab-label navwenzi">通讯录</span>
+			</a>
+			<a class="mui-tab-item " id="a5" href="my.html">
+				<span class="mui-icon icon-gerenzhongxin iconfont"></span>
+				<span class="mui-tab-label navwenzi">我的</span>
+			</a>
+		</nav>-->
+		<script src="../../js/mui.min.js"></script>
+		
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			if(localStorage.getItem("fontsize")!=""&&localStorage.getItem("fontsize")!=undefined&&localStorage.getItem("fontsize")!=null){
+				var fs=localStorage.getItem("fontsize");
+				$("#select_box").val(fs);
+			}
+			var token = localStorage.getItem("token");
+			//版本号
+			document.addEventListener( "plusready", function(){
+				$(".version").text("V"+plus.runtime.version);
+			}, false );
+			//退出登录
+			(function($, doc) {
+				document.getElementById("tuichu").addEventListener('tap', function() {
+					mui.openWindow({
+						url: '../../login.html?cid=1',
+						id: 'login.html?cid=1'
+					});
+					var list=plus.webview.getWebviewById("login.html");
+					mui.fire(list, 'refresh');
+				})
+			}(mui, document));
+		</script>
+		<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//字号大小
+			$("#select_box").on("change",function(){
+				var fontsize = $(this).val();
+				localStorage.setItem("fontsize", fontsize);
+				var list=plus.webview.getWebviewById("login.html");
+				mui.fire(list, 'refresh');
+				//location.reload();
+				mui.openWindow({
+					url: '../../login.html',
+					id: '../../login.html',
+					createNew:true
+				});
+//				closeme()
+			})
+			//关闭窗口
+			function closeme(){
+				var ws=plus.webview.currentWebview();
+				plus.webview.close(ws);
+			}
+			
+			// 版本更新
+			function version_updata(){
+				console.log("版本更新");
+				mui.openWindow({
+					url: 'check_update.html',
+					id: 'check_update.html'
+				});
+			}
+		</script>
+	</body>
+
+</html>

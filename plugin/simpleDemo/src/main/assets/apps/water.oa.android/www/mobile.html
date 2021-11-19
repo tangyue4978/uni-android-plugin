@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>LayIM 移动版 本地演示</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/layer/layui.mobile.css">
+		<link rel="stylesheet" type="text/css" href="css/layer/layim.css" />
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_w2at8z9smbn.css"/>
+
+	</head>
+
+	<body>
+
+		<script src="js/layer/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/layer/mobile.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			layui.use('mobile', function() {
+				var mobile = layui.mobile,
+					layim = mobile.layim,
+					layer = mobile.layer;
+
+				//演示自动回复
+				var autoReplay = [
+					'您好，我现在有事不在，一会再和您联系。',
+					'你没发错吧？face[微笑] ',
+					'洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ',
+					'你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ',
+					'face[威武] face[威武] face[威武] face[威武] ',
+					'<（@￣︶￣@）>',
+					'你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。',
+					'face[黑线]  你慢慢说，别急……',
+					'(*^__^*) face[嘻嘻] ，是贤心吗？'
+				];
+
+				layim.config({
+					//上传图片接口
+					uploadImage: {
+						url: '/upload/image' //（返回的数据格式见下文）
+							,
+						type: '' //默认post
+					}
+
+					//上传文件接口
+					,
+					uploadFile: {
+						url: '/upload/file' //（返回的数据格式见下文）
+							,
+						type: '' //默认post
+					}
+
+					,
+					init: {
+						mine: {
+							"username": "佟丽娅" //我的昵称
+								,
+							"id": 123 //我的ID
+								,
+							"avatar": "http://tp4.sinaimg.cn/1345566427/180/5730976522/0" //我的头像
+						}
+					}
+				});
+
+				//创建一个会话
+				layim.chat({
+					id: 111111,
+					name: '许闲心',
+					type: 'kefu' //friend、group等字符，如果是group，则创建的是群聊
+						,
+					avatar: 'http://tp1.sinaimg.cn/1571889140/180/40030060651/1',
+					chatLog: layui.cache.dir + 'chatlog.html'
+				});
+				// js/layer/css/modules/layim/mobile/layim.css
+
+				//监听发送消息
+				layim.on('sendMessage', function(data) {
+					var To = data.to;
+					console.log(layui.cache.dir);
+
+					//演示自动回复
+					setTimeout(function() {
+						var obj = {};
+						if(To.type === 'group') {
+							obj = {
+								username: '模拟群员' + (Math.random() * 100 | 0),
+								avatar: layui.cache.dir + 'images/face/' + (Math.random() * 72 | 0) + '.gif',
+								id: To.id,
+								type: To.type,
+								content: autoReplay[Math.random() * 9 | 0]
+							}
+						} else {
+							obj = {
+								username: To.name,
+								avatar: To.avatar,
+								id: To.id,
+								type: To.type,
+								content: autoReplay[Math.random() * 9 | 0]
+							}
+						}
+						layim.getMessage(obj);
+					}, 1000);
+				});
+
+				//监听查看更多记录
+				//				layim.on('chatlog', function(data, ul) {
+				//					console.log(data); //得到当前会话对象的基本信息
+				//					console.log(ul); //得到当前聊天列表所在的ul容器，比如可以借助他来实现往上插入更多记录
+				//
+				//					//弹出一个更多聊天记录面板
+				//					layim.panel({
+				//						title: '与 ' + data.username + ' 的聊天记录' //标题
+				//							,
+				//						tpl: '这里是模版，{{d.data.test}}' //模版
+				//							,
+				//						data: { //数据
+				//							test: 'Hello'
+				//						}
+				//					});
+				//				});
+				//监听查看更多记录
+				layim.on('chatlog', function(data) {
+					console.log(data);
+//					layer.msg('暂无更多记录');	
+					mui.toast("暂无更多记录")
+				});
+			});
+		</script>
+		<!--<script src="js/mui.min.js"></script>-->
+		<script type="text/javascript">
+//			mui.init({
+//				beforeback: function() {　　　　 //获得父页面的webview
+//					//						var list = plus.webview.getWebviewById("portrait.html");　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+//					var list = plus.webview.currentWebview().opener();
+//					mui.fire(list, 'refresh');
+//					//返回true,继续页面关闭逻辑
+//					return true;
+//				}
+//			});
+			$(".micon").click(function(){
+				$(this).css("display","none");
+				$(".icon-jiantou8").css("display","block");
+				$(".layim-chat-tool").css("display","block");
+				$(".layim-chat-main").css("bottom","130px");
+				
+			})
+			$(".icon-jiantou8").click(function(){
+				$(this).css("display","none");
+				$(".micon").css("display","block");
+				$(".layim-chat-tool").css("display","none");
+				$(".layim-chat-main").css("bottom","40px");
+				
+			})
+			
+			
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

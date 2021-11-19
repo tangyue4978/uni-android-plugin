@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/villageDetails.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i> -->
+				<!-- <div class="menuList">
+					<ul>
+						<li class="menu_village"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation active"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section" id="data_html">
+				<!-- <div class="detailItem">
+					<p class="title">基本信息</p>
+					<table class="table">
+						<colgroup width="36%"></colgroup>
+						<tr>
+							<td class="td_head">所属行政区</td>
+							<td>山西省</td>
+						</tr>
+						<tr>
+							<td class="td_head">自然村总数</td>
+							<td>5656</td>
+						</tr>
+						<tr>
+							<td class="td_head">总人口(万人)</td>
+							<td>5636.36</td>
+						</tr>
+						<tr>
+							<td class="td_head">总户(万户)</td>
+							<td>695.36</td>
+						</tr>
+						<tr>
+							<td class="td_head">农业人口(万人)</td>
+							<td>2556.32</td>
+						</tr>
+						<tr>
+							<td class="td_head">耕地面积(万亩)</td>
+							<td>2556.32</td>
+						</tr>
+					</table>
+				</div>
+				<div class="detailItem">
+					<p class="title">机井灌溉</p>
+					<table class="table">
+						<colgroup width="36%"></colgroup>
+						<tr>
+							<td class="td_head">机井眼数(眼)</td>
+							<td>56684</td>
+						</tr>
+						<tr>
+							<td class="td_head">涉及村庄总数</td>
+							<td>16354</td>
+						</tr>
+						<tr>
+							<td class="td_head">有效灌溉面积(万亩)</td>
+							<td>1522.32</td>
+						</tr>
+						<tr>
+							<td class="td_head">人均有效灌溉面积<br/>(亩/人)</td>
+							<td>0.68</td>
+						</tr>
+						<tr>
+							<td class="td_head">有效灌溉面积比例</td>
+							<td>62%</td>
+						</tr>
+					</table>
+				</div>
+				<div class="detailItem">
+					<p class="title">小型自流灌区</p>
+					<table class="table">
+						<colgroup width="36%"></colgroup>
+						<tr>
+							<td class="td_head">工程个数</td>
+							<td>2311</td>
+						</tr>
+						<tr>
+							<td class="td_head">涉及村庄总数</td>
+							<td>2658</td>
+						</tr>
+						<tr>
+							<td class="td_head">有效灌溉面积(万亩)</td>
+							<td>1522.32</td>
+						</tr>
+						<tr>
+							<td class="td_head">人均有效灌溉面积<br/>(亩/人)</td>
+							<td>0.68</td>
+						</tr>
+						<tr>
+							<td class="td_head">有效灌溉面积比例</td>
+							<td>62%</td>
+						</tr>
+					</table>
+				</div> -->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// 获取基础信息
+		var root = localStorage.getItem("str_url");
+		var token = localStorage.getItem("token");
+		if (root == "" || root == undefined || root == null) {
+			mui.openWindow({
+				url: 'login.html?cid=1', //通过URL传参
+				id: 'login.html?cid=1', //通过URL传参
+			})
+		}
+		
+		/**
+		 * @description 基础数据信息获取 
+		 */
+		function base_data_fun() {
+			var _url = root + 'api/rural/irrigationsummary';
+			mui.ajax(_url, {
+				data: {
+					"token": token
+				},
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(res) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------" + JSON.stringify(res));
+					var base_data = res.data;
+					var html = "";
+					for (var i = 0; i < base_data.length; i++) {
+						var item_data = base_data[i];
+						var item_html="";
+						for (var j = 0; j < item_data.data.length; j++) {
+							item_html += `<tr>
+											<td class="td_head">${item_data.data[j].name}</td>
+											<td>${item_data.data[j].val}</td>
+										</tr>`;
+						}
+						html += `<div class="detailItem">
+									<p class="title">${item_data.name}</p>
+									<table class="table">
+										<colgroup width="36%"></colgroup>
+										${item_html}
+									</table>
+								</div>`
+					}
+					$("#data_html").html(html);
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+					plus.nativeUI.toast("数据加载异常");
+				}
+			})
+		}
+		
+		
+		$(function(){
+			//菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+			
+			
+			// 获取基础信息
+				mui.plusReady(function() {
+					plus.nativeUI.showWaiting("数据加载中...");
+					base_data_fun();
+				});
+			// 基础数据 end
+		})
+		
+	</script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

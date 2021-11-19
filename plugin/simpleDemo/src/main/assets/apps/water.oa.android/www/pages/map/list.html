@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>数据列表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/map/list.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			/* html,.mui-content{
+				height: 100%;
+			}
+			.search_frame{
+				height: 100% !important;
+			} */
+			.search_frame_inner_zwf {
+				position: fixed;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>数据列表</span>
+			</header>
+			<div class="search_frame">
+				<div class="search_header_box">
+					<!-- <div class="search_arrow">
+						<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png">
+					</div> -->
+					<div class="li_div">
+						<input type="text" class="li_input" placeholder="请输入关键字" oninput="myFunction()">
+						<img class="li_img" src="../../images/ruralWater/search_btn.png" onclick="searchFun()">
+					</div>
+					<!-- 搜索类型 -->
+					<div class="map_type_box">
+						<div class="item_type">所属流域</div>
+						<div class="item_type">行政区划</div>
+						<div class="item_type">所属类型</div>
+						<div class="position">
+							<div class="position_item">
+								<div class="transverse">
+									<ul class="position_ul" id="liuyu">
+										<!-- <li class="active">黄河流域</li>
+										<li>海河流域</li> -->
+									</ul>
+								</div>
+							</div>
+							<div class="position_item">
+								<div class="transverse">
+									<ul class="position_ul" id="xzqh_shi">
+										
+									</ul>
+								</div>
+								<div class="transverse">
+									<ul class="position_ul" id="xzqh_xian">
+										
+									</ul>
+								</div>
+							</div>
+							<div class="position_item">
+								<div class="transverse">
+									<ul class="position_ul" id="sstype">
+									
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="totals_box">
+						共<span class="totals"></span>数据
+					</div>
+				</div>
+				<!-- <div class="search_frame_olBox"> -->
+					<!-- <ol class="search_frame_ol"> -->
+						<!-- <li>
+							<img src="../../js/layer/images/face/9.gif" >
+							<span>水库</span>
+						</li> -->
+					<!-- </ol> -->
+				<!-- </div> -->
+				
+				<div class="search_frame_inner">
+					<ul class="search_frame_list">
+						<!-- <li data_lng="2" data_lat="4" data_icon="6" data_name="8" data_type_id="10" data_id="11">
+							<span><img src="../../js/layer/images/face/9.gif" >水库名称</span>
+							<span>水库名称</span>
+							<span>水库名称</span>
+							<span>水库名称</span>
+						</li> -->
+					</ul>
+				</div>
+				<div class="search_frame_inner_zwf">
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="../../js/map/map_list.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/map/map_list.js" type="text/javascript" charset="utf-8"></script>
+</html>

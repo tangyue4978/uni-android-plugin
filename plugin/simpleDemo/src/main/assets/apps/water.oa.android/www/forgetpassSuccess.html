@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<!--图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_rpo2kq59ywm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/mui.enterfocus.js"></script>-->
+	</head>
+
+	<body>
+		<div class="mui-content" style="    background: #fff;">
+			<img src="images/wjmm.png" width="100%" />
+			<div class="mmcg">
+				<img src="images/sads.png" alt="" />
+				<p><span id="time">3</span> 秒后返回登录，如无跳转请手动点击按钮返回登录</p>
+			</div>
+
+			<div class="mui-content-padded">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary fanhui">返回登录</button>
+			</div>
+			<!--<p class="fhdl mui-action-back">返回登录</p>-->
+		</div>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/mui.enterfocus.js"></script>-->
+		<!--<script src="js/app.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/login.js"></script>-->
+		<script type="text/javascript">
+			var time = document.getElementById("time"),
+				d = time.innerText,
+				a = "0",
+				t = null;
+			timer = window.setInterval("ontime()", 1000);
+
+			function ontime() {
+				d -= 1
+				if(d < 0) {
+					d = 0
+				}
+				if(d == a) {
+					clearInterval(timer);
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+
+					})
+				}
+				time.innerText = d;
+			}
+
+			//			setTimeout(function() {
+			//				mui.openWindow({
+			//					url: 'login.html?cid=1', //通过URL传参
+			//					id: 'login.html?cid=1', //通过URL传参
+			//				})
+			//			}, 3000)
+			$(".fanhui").click(function() {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+
+				})
+			})
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

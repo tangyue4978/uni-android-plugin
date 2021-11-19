@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>河湖长制</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess_detail.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.marker{
+				width: 15px;
+				height: 15px;
+				border: 1px solid #088;
+				border-radius: 50%;
+				background-color: #00FFFF;
+				opacity: 0.5;
+				display: none;
+			}
+			.marker:after {				content: " ";				background-color: #00FFFF;				position: absolute;				left: 50%;				top: 50%;				width: 15px;				height: 15px;				border-radius: 50%;				margin-left: -50%;				margin-top: -50%;				-webkit-animation-name: 'ripple';				-webkit-animation-duration: 1s;				-webkit-animation-timing-function: linear;				-webkit-animation-delay: 0s;				-webkit-animation-iteration-count: infinite;				-webkit-animation-direction: normal;			}			@keyframes ripple {				0% {					opacity: 1;					width: 15px;					height: 15px;				}				50% {					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -15px;
+					margin-top: -15px;				}				100% {					opacity: 0.05;					width: 60px;					height: 60px;					margin-left: -30px;					margin-top: -30px;				}			}
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {display: none;}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+			</header>
+			<!-- 头部start -->
+			<div class="head">
+				<div class="head_text head_texts">
+					太原市小店区  
+				</div>
+				<div class="head_text head_text_top">
+					雨量站
+				</div>
+			</div>
+			<!-- 头部end -->
+			<div class="main">
+				<!-- 雨情信息start -->
+				<div class="base_info">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								雨情信息
+							</span>
+							<div class="water_info_look">
+								查看历史监测
+							</div>
+						</div>
+						<table class="base_info_table" border="1" cellspacing="0" cellpadding="0">
+							<tr>
+								<td class="texr">地市</td>
+								<td class="texl">太原市</td>
+								<td class="texr">县区</td>
+								<td class="texl">小店区</td>
+							</tr>
+							<tr>
+								<td class="texr">监测时间</td>
+								<td class="texl">2020-12</td>
+								<td class="texr">雨量</td>
+								<td class="texl"> 8.5 mm</td>
+							</tr>
+							<tr>
+								<td class="texr">雨量站</td>
+								<td class="texl" colspan="4">太原市小店区北格镇牛毛乡东</td>
+							</tr>
+							<tr>
+								<td class="texr">站点编号</td>
+								<td class="texl">01270823</td>
+								<td class="texr">年度均值</td>
+								<td class="texl">5.1 mm</td>
+							</tr>
+							<tr>
+								<td class="texr">同比</td>
+								<td class="texl">+ 0.8%</td>
+								<td class="texr">环比</td>
+								<td class="texl">+ 0.64%</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!-- 雨情信息end -->
+			</div>
+		</div>
+		<!-- 当前手机位置 -->
+		<div id="marker" class="marker"></div>
+	</body>
+	
+	<script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/waterLove/waterLove_detail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

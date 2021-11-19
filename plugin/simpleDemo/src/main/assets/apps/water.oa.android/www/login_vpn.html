@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="./css/mui.css" rel="stylesheet" />
+		<link href="./css/vpn/vpn.css" rel="stylesheet" />
+		<link href="./css/vpn/loading.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<script src="./js/jquery-1.11.1.min.js"></script>
+		<script src="./js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/vpn/bridge.js"></script>
+		<script src="./js/vpn/common.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="layer_box">
+				<div class="loading_box">
+					<div class="loadingio-spinner-radio-vnuhyjn9p68">
+						<div class="ldio-bezbgkmo0hd">
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+					<p>网络环境检测中...</p>
+				</div>
+			</div>
+
+			<div class="header_box">
+				<img src="./images/vpn/logo.png">
+
+				<h4>VPN登录</span>
+			</div>
+
+			<div class="form_box">
+				<div class="input_box">
+					<input type="text" class="input_admin" placeholder="用户名">
+				</div>
+				<div class="input_box">
+					<input type="password" class="input_password" placeholder="密码">
+				</div>
+
+				<div class="remeber_box" onclick="changeRemeber()">
+					<img class="check_icon" src="./images/vpn/selected.png">
+					<span>记住密码</span>
+				</div>
+
+				<a class="mui-btn mui-btn-yellow" href="#" onclick="userLoginVpn()">登录</a>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			document.addEventListener("plusready", function() {
+				toInitVpn() // 初始化 vpn
+			})
+		</script>
+
+		<script type="text/javascript">
+			var _water_vpn_admin = localStorage.getItem('_water_vpn_admin') || JSON.stringify({
+				isRemeber: true
+			}); // 本地是否存储 vpn 数据
+			var _vpnInfo = JSON.parse(_water_vpn_admin)
+			var isRemeberPassword = !!_vpnInfo.isRemeber // 是否记住密码
+			
+			$('.check_icon').attr('src', './images/vpn/' + (isRemeberPassword ? '' : 'un') + 'selected.png');
+			
+			if (_vpnInfo.account) { // 如果本地有存储，赋值
+				$('.input_admin')[0].value = _vpnInfo.account;
+				$('.input_password')[0].value = _vpnInfo.password;
+			}
+
+			// 切换记住密码
+			function changeRemeber() {
+				$('.check_icon').attr('src', './images/vpn/' + (isRemeberPassword ? 'un' : '') + 'selected.png');
+
+				isRemeberPassword = !isRemeberPassword;
+			}
+
+			// 用户登录 vpn
+			function userLoginVpn() {
+				// var _admin = 'test_001'; // 用户名
+				// var _password = 'xfj_admin@123'; // 密码
+				var _admin = $('.input_admin')[0].value; // 用户名
+				var _password = $('.input_password')[0].value; // 密码
+
+				if (!_admin) {
+					mui.toast('用户名不能为空')
+
+					return
+				} else if (!_password) {
+					mui.toast('密码不能为空')
+
+					return
+				}
+
+				var _loading = plus.nativeUI.showWaiting("正在登录..."); // 开启 loading
+
+				// 登录 vpn
+				plus.plugintest.loginVpn({
+					account: _admin,
+					password: _password
+				}, (loginRet) => {
+					let _loginResult = JSON.parse(loginRet[0]);
+
+					if (_loginResult.code == 0 || _loginResult.code == 18) { // 登录成功或已登录成功
+
+						// 开启 vpn
+						plus.plugintest.startVpn(null, (ret) => {
+							_loading.close(); // 关闭 loading
+
+							let _result = JSON.parse(ret[0]);
+
+							if (_result.code == 0 || _result.code == 8) { // 登录成功
+								isStoreAdmin(_admin, _password);
+								// 页面跳转
+								mui.openWindow({
+									url: 'login.html',
+									id: 'login.html',
+									show: {
+										autoShow: true,
+										aniShow: "fade-in",
+										duration: "300"
+									},
+									createNew: true
+								});
+							}
+
+							mui.toast(_result.msg);
+						}, (err) => {
+							_loading.close(); // 关闭 loading
+
+							mui.toast(err || "vpn开启失败");
+						})
+					} else {
+						_loading.close();
+
+						mui.toast(_loginResult.msg);
+					}
+				})
+			}
+
+			// 是否存储 vpn 账户
+			function isStoreAdmin(_admin, _password) {
+				if (isRemeberPassword) {
+					localStorage.setItem('_water_vpn_admin', JSON.stringify({
+						isRemeber: true,
+						account: _admin,
+						password: _password
+					}));
+				} else {
+					localStorage.setItem('_water_vpn_admin', JSON.stringify({
+						isRemeber: false
+					}));
+				}
+			}
+		</script>
+	</body>
+</html>

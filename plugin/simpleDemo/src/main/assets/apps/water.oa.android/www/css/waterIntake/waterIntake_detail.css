@@ -1,0 +1,241 @@
+body{
+	background-color: #F6F6F6;
+}
+/* 头部start */
+.head{
+	width: 100%;
+	height: 2.82rem;
+	margin-top:1.3rem;
+	background: #3A77F0 url(../../images/riverChief/head_bg.png) no-repeat right 10px;
+	background-size: contain;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.head_text{
+	font-size: 0.38rem;
+	font-family: Myriad Pro;
+	font-weight: 400;
+	color: #FFFFFF;
+	line-height: 0.38rem;
+	margin-left: 0.43rem;
+	margin-bottom: 0.2rem;
+}
+.head_texts{
+	margin-bottom: 0;
+}
+.head_line{
+	width: 0.35rem;
+	height: 0.04rem;
+	background-color: #ffffff;
+	opacity: 0.5;
+	margin:0.24rem 0.43rem;
+}
+/* 头部end */
+.main{
+	width: 100%;
+	height: calc(100% - 4.12rem);
+}
+/* 基本信息start */
+.base_info{
+	width: 96%;
+	/* height: 8.3rem; */
+	margin:0.2rem auto;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+	padding-bottom:  0.33rem;
+}
+.base_info_box{
+	width: 90%;
+	height: 100%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+.base_info_title{
+	height: 0.94rem;
+	display: flex;
+	padding-top: 0.33rem;
+}
+.base_info_title_line{
+	width: 0.07rem;
+	height: 0.33rem;
+	background-color: #6492FF;
+}
+.base_info_title_text{
+	font-size: 0.3rem;
+	font-family: Myriad Pro;
+	font-weight: 400;
+	color: #333333;
+	line-height: 0.4rem;
+	margin-left: 0.3rem;
+}
+.base_info_table{
+	width: 100%;
+	/* height: 6.32rem; */
+	border:1px solid #DBDAD8;
+	font-size: 0.24rem;
+	font-family: Myriad Pro;
+	font-weight: 400;
+}
+.texl{
+	text-align: center;
+	padding:0.1rem 0;
+	padding-left: 0.1rem;
+	color: #333333;
+}
+.texr{
+	text-align: center;
+	padding:0.1rem 0;
+	padding-right: 0.1rem;
+	color: #666666;
+	background-color: #efeeed;
+}
+/* 基本信息end */
+/* 取水信息start */
+.deal_with{
+	width: 96%;
+	height: 4.6rem;
+	margin:0 auto;
+	margin-top: 0.2rem;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+}
+.waterUse{
+	width: 100%;
+	height: auto;
+	border: 1px solid #DBDAD8;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.waterUse_top{
+	font-size: 0.36rem;
+	padding-top: 0.2rem;
+	font-family: Myriad Pro;
+	font-weight: 700;
+	color: #3a77f0;
+	text-align: center;
+}
+.waterUse_bot{
+	font-size: 0.22rem;
+	line-height: 0.55rem;
+	font-family: Myriad Pro;
+	color: #666666;
+	text-align: center;
+	background-color: #efeeed;
+}
+.inner{
+	font-size: 0.24rem;
+	line-height: 0.55rem;
+	font-family: Myriad Pro;
+	color: #666666;
+	text-align: center;
+}
+.waterUse_table{
+	border-color: #DBDAD8;
+	text-align: center;
+	margin-bottom: 0.2rem;
+	width: 100%;
+}
+.waterUse_th{
+	width: 100%;
+	height: 0.8rem;
+	font-size: 0.36rem;
+	line-height: 0.8rem;
+	font-family: Myriad Pro;
+	font-weight: 700;
+	color: #3a77f0;
+}
+.waterUse_td{
+	width: 100%;
+	height: 0.46rem;
+	font-size: 0.22rem;
+	line-height: 0.46rem;
+	font-family: Myriad Pro;
+	color: #666666;
+	background-color: #efeeed;
+}
+/* 取水信息end */
+
+/* 检查点 */
+.monitoring_point{
+	margin-bottom: 0.2rem;
+}
+.monitoring_point.active{
+	display: none;
+}
+.monitoring_point_title{
+	font-size: 0.26rem;
+	color: #333;
+}
+.showLineImg{
+	display: inline-block;
+	width: 0.25rem;
+	vertical-align: middle;
+}
+.monitoring_point_table{
+	width: 100%;
+	border: 1px solid #ccc;
+}
+.monitoring_point_table tr td{
+	text-align: center;
+	height: 0.6rem;
+	color: #666666;
+}
+.monitoring_point_table tr:first-child td{
+	background-color: #efeeed;
+	color: #333;
+}
+/* 监测点弹框 */
+.chart_popup_wrap{
+	position: fixed;
+	top: 0;
+	left: 0;	
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 999;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+.chart_popup_wrap .chart_popup{
+	width: 90%;
+	height: 320px;
+	margin: 40% auto 0;
+	background-color: #fff;
+	border-radius: 0.1rem;
+	overflow: hidden;
+}
+.chart_popup_wrap .chart_popup .line{
+	width: 100%;
+	height: 100%;
+}
+.chart_popup_wrap .close{
+	width: 100%;
+}
+.chart_popup_wrap .close .img {
+    margin: 0.6rem auto;
+    width: 0.5rem;
+    height: 0.5rem;
+}
+.monitoring_isShow{
+	width: 100%;
+	height: 0.3rem;
+}
+.monitoring_isShow .icon_arrow{
+	width: 0.46rem;
+	height: 0.16rem;
+	margin: 0 auto;
+	cursor: pointer;
+	transform: rotate(180deg);
+}
+.monitoring_isShow .icon_arrow.active{
+	transform: rotate(360deg);
+}

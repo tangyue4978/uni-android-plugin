@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/mui.ttf"/>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.bumf .daiban{
+				padding-left: 0.5rem;
+				background-color: #FFFFFF;
+			}
+			.bumf .daiban li{
+				margin: 0rem;
+				border-bottom: 1px solid #E0E0E0;
+				padding-left: 0rem;
+			}
+			.bumf .daiban li .left{
+				width: 100%;
+			}
+			.bumf .daiban li .left span.fr{
+				font-size: 0.45rem;
+			}
+			.bumf .daiban li .left span.type{
+				padding: 0.02rem 0.15rem;
+				border:1px solid #16CCB6;
+				border-radius: 0.3rem;
+				color: #16CCB6;
+				margin-right: 0.2rem;
+			}
+			.bumf .daiban li .left h2 .h2_bt{
+				display: inline-block;
+				width: 80%;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp"><i class="mui-action-back iconfont icon-fanhui1 left"></i>通知<i class="iconfont icon-tianjia right" onclick="notice_add()"></i></p>
+				<div class="bumf-nav" style="margin-top: 1.3rem;">
+					<div class="bumf" style="margin: 0;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="daiban">
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2><span class="h2_bt">有关项目进展的会议有关项目进展的会议有关项目进展的会议</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>
+										<p><span class="type">厅函</span>会议时间：09/15   08：36-10:50</p>
+										<p>王建国　办公室科员</p>
+									</div>
+								</li>-->
+								<!--<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn2">特急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn3">加急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn4">特提</button></div></li>-->
+							</ul>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null){
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var page=0;
+			page++;
+			var notice_list_status=false;
+			var notice_this="";
+			function list(page) {
+				var pages = page;
+				
+				var _url = root + 'api/message/list';
+				console.log(_url); 
+				console.log(token);
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page":pages
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("----------"+JSON.stringify(data));
+						if(data.code == 1) {
+							if(data.data==""||data.data==null||data.data==undefined){
+								if(pages>1){
+									notice_this.endPullupToRefresh(true);
+								}else{
+									$("#item1 .daiban").append(
+										'<li style="text-align: center;font-size: 0.4rem;">'+'暂无通知信息'+'</li>'
+									)
+								}
+								
+							}else{
+								if(pages>1){
+									notice_this.endPullupToRefresh(false);
+								}
+								data.data.forEach(function(v) {
+									$("#item1 .daiban").append(
+										'<li onclick="xiangqing('+v.id+')">'+
+											'<div class="left">'+
+												'<h2><span class="h2_bt">'+v.title+'</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>'+
+												'<p><span class="type">'+v.msg_type+'</span></p>'+
+												'<p>发布人:'+v.creator+'　发布时间:'+v.create_at+'</p>'+
+	//											'<p>'+v.name+'　'+v.duty+'</p>'+
+											'</div>'+
+										'</li>'
+									)
+								})
+							}
+							
+						}else if(data.code > 1&&data.code < 100){
+							mui.openWindow({
+								url: 'login.html?cid=1', //通过URL传参
+								id: 'login.html?cid=1', //通过URL传参
+							})
+						}else{
+							mui.toast(data.msg);
+						}
+						$(".mui-loading").css("display", "none");
+					},
+					error: function(xhr, type, errorThrown) {
+						
+					}
+				})
+			}
+			list(page);
+			
+
+			function xiangqing(i) {
+				console.log("id="+i);
+				var id = i;
+				mui.openWindow({
+					url: 'noticeDetails.html', //通过URL传参
+					id: 'noticeDetails.html', //通过URL传参
+					extras: {
+						type_id: id
+					}
+				})
+			};
+			function notice_add() {
+				mui.openWindow({
+					url: 'notice.html', //通过URL传参
+					id: 'notice.html'
+				})
+			};
+		</script>
+		<script type="text/javascript">
+			mui.init({
+				pullRefresh: {
+					container: ".mui-content", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+					up: {
+						height: "50px", //可选.默认50.触发上拉加载拖动距离
+						auto: false, //可选,默认false.自动上拉加载一次
+						contentdown: "上拉显示更多",
+						contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+						contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+						callback: up_fun //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					}
+				}
+			});
+		function up_fun(){
+			page++;
+			console.log("上拉加载成功");
+			list(page);
+			notice_this=this;
+		}
+
+
+
+
+
+			
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

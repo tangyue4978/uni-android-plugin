@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <!-- 引入样式 -->
+    <link href="../../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+    <link rel="stylesheet" href="../../css/scanning/scan_info.css">
+    <!-- 引入js -->
+    <script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.min.js"></script>
+    <script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+    <script src="../../js/Highcharts-8.1.2/code/highcharts.js"></script>
+</head>
+
+<body>
+    <div class="mui-content">
+        <header class="header">
+            <i class="mui-action-back iconfont icon-fanhui1 fl" onclick="mui.back()"></i>
+            <span>扫码信息查看</span>
+        </header>
+        <div class="content">
+            <div class="bg">
+                <div class="nav_bar">
+                    <div class="nav_item active" data-name="base_info">基础信息</div>
+                    <div class="nav_item" data-name="extend_info">扩展信息</div>
+                    <div class="nav_item" data-name="process_info">进程情况</div>
+                    <div class="nav_item" data-name="startup_info">开机信息</div>
+                </div>
+            </div>
+            <!-- 基础信息             start -->
+            <div class="base_info info_box">
+                <div class="list">
+                    <div class="lists">
+                        <div class="line">
+                            <div class="left">设备序列号</div>
+                            <div class="right serial_number"></div>
+                        </div>
+                        <div class="line">
+                            <div class="left">设备绑定编号</div>
+                            <div class="right serial_id"></div>
+                        </div>
+                        <div class="line">
+                            <div class="left">主机型号</div>
+                            <div class="right host_model"></div>
+                        </div>
+                        <div class="line">
+                            <div class="left">使用地点</div>
+                            <div class="right use_site"></div>
+                        </div>
+                        <div class="line">
+                            <div class="left">使用方式</div>
+                            <div class="right usage_mode"></div>
+                        </div>
+                        <div class="line">
+                            <div class="left">使用人</div>
+                            <div class="right user"></div>
+                        </div>
+                        <div class="line">
+                            <div class="left">绑定日期</div>
+                            <div class="right binding_date"></div>
+                        </div>
+                        <div class="line lines">
+							<div class="left">图片</div>
+							<div class="imgList"></div>
+						</div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 基础信息             end -->
+
+            <!-- 扩展信息             start -->
+            <div class="extend_info info_box">
+                <div class="info">
+                    <div class="info_line">
+                        <span>CPU</span>
+                        <span class="cpuName"></span>
+                    </div>
+                    <div class="info_line">
+                        <span>Mac地址</span>
+                        <span class="macName"></span>
+                    </div>
+                </div>
+                <div class="title">
+                    <span class="text">磁盘使用情况</span>
+                </div>
+                <div class="chart_wrap">
+                    <div class="chart_top">
+                        <img class="img" src="../../images/scanning/disk.png" alt="">
+                        <span class="text"></span>
+                    </div>
+                    <div class="chart_bottopm">
+                        <div id="pie" class="pie"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 扩展信息             end -->
+
+            <!-- 进程情况             start -->
+            <div class="process_info info_box">
+                <!-- <div class="select">
+                    <div class="select_item">
+                        <select name="" id="">
+                            <option value="" disabled selected hidden>按名称排序</option>
+                            <option value="">递增</option>
+                            <option value="">递减</option>
+                        </select>
+                    </div>
+                    <div class="select_item">
+                        <select name="" id="">
+                            <option value="" disabled selected hidden>所有磁盘</option>
+                            <option value="">C盘</option>
+                            <option value="">D盘</option>
+                            <option value="">E盘</option>
+                            <option value="">F盘</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="title">
+                    <span class="text">找到<span></span>个应用</span>
+                </div>
+                <div class="list process_list" id="process_list">
+                    <div class="lists">
+                        <!-- <div class="line">
+						    <img class="img" src="../../images/scanning/360.png" alt="">
+						    <div class="name">360安全卫士</div>
+						    <div class="detail">
+						        <div class="text_t">192 MB</div>
+						        <div class="text_b">2021/4/3</div>
+						    </div>
+						</div> -->
+                    </div>
+
+                </div>
+            </div>
+            <!-- 进程情况             end -->
+
+            <!-- 开机信息             start -->
+            <div class="startup_info info_box">
+                <div class="select">
+                    <div class="select_item">
+                        <!-- <select name="" id="">
+                            <option value="" disabled selected hidden>时间筛选</option>
+                            <option value="">2021/7</option>
+                            <option value="">2021/8</option>
+                        </select> -->
+                        <div id="muiPicker" class="muiPicker">时间筛选</div>
+                    </div>
+                    <div class="select_item">
+                        <select name="" id="status">
+                            <option value="">全部状态</option>
+                            <option value="0">开机</option>
+                            <option value="1">关机</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="title">
+                    <span class="text">找到<span></span>条记录</span>
+                </div>
+                <div class="list startup_list" id="startup_list">
+                    <div class="lists">
+                        <div class="line">
+                            <img class="img" src="../../images/scanning/on.png" alt="">
+                            <div class="date">2021/5/9</div>
+                            <div class="time">07:24:38</div>
+                            <div class="state">开机</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 开机信息             end -->
+    </div>
+    </div>
+</body>
+
+<script src="../../js/scanning/scan_info.js"></script>
+<script type="text/javascript">
+    var backButtonPress = 0;
+    mui.back = function(event) {
+        backButtonPress++;
+        if (backButtonPress > 1) {
+            // plus.runtime.quit();
+        } else {
+            // plus.nativeUI.toast('再按一次退出应用');
+            mui.openWindow({
+                url: '../../my.html', //通过URL传参
+                id: 'my.html', //通过URL传参
+            })
+        }
+        setTimeout(function() {
+            backButtonPress = 0;
+        }, 1000);
+        return false;
+    };
+    // function back(){
+    // 	mui.openWindow({
+    // 		url: '../../my.html', //通过URL传参
+    // 		id: 'my.html', //通过URL传参
+    // 	})
+    // }
+</script>
+
+</html>

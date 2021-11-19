@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_tnj3b8v3rjm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>云盘</p>
+				<div class="workNews-nav">
+					<div style="position: fixed;z-index: 9;top: 1.27rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								我的
+							</a>
+							<a class="mui-control-item" href="#item2">
+								共享
+							</a>
+						</div>
+					</div>
+					<div class="cloudDisk">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul id="itemul1">
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<i class="iconfont icon-wenjian"></i>
+									</div>
+									<div class="left">
+										<p>关于公文写作的知识</p>
+										<span>1200.26kb</span>
+									</div>
+									<div class="right">
+										<div>
+											<p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div>
+										<div style="border-left:1px solid #dcdcdc;">
+											<p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div>
+									</div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<i class="iconfont icon-wenjian"></i>
+									</div>
+									<div class="left">
+										<p>关于公文写作的知识</p>
+										<span>1200.26kb</span>
+									</div>
+									<div class="right">
+										<div>
+											<p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div>
+										<div style="border-left:1px solid #dcdcdc;">
+											<p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div>
+									</div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<i class="iconfont icon-wenjian"></i>
+									</div>
+									<div class="left">
+										<p>关于公文写作的知识</p>
+										<span>1200.26kb</span>
+									</div>
+									<div class="right">
+										<div>
+											<p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div>
+										<div style="border-left:1px solid #dcdcdc;">
+											<p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div>
+									</div>
+								</li>-->
+
+							</ul>
+							<p id="wu" style="text-align: center;display:none;background: #f8f8f8;margin-top: 0.5rem;color: #8f8f94;">暂无文件</p>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul id="itemul2">
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<i class="iconfont icon-wenjian"></i>
+									</div>
+									<div class="left">
+										<p>关于公文写作的知识</p>
+										<span>1200.26kb</span>
+									</div>
+									<div class="right">
+										<div>
+											<p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div>
+										<div style="border-left:1px solid #dcdcdc;">
+											<p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div>
+									</div>
+								</li>-->
+
+							</ul>
+							<p id="wu1" style="text-align: center;display:none;background: #f8f8f8;margin-top: 0.5rem;color: #8f8f94;">暂无文件</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			function xiangqing(i, name) {
+				mui.openWindow({
+					url: 'cloudDiskDetails.html', //通过URL传参
+					id: 'cloudDiskDetails.html', //通过URL传参
+					extras: {
+						i: i,
+						name: name,
+					}, //
+				})
+			}
+			list()
+
+			function list() {
+				var _url = root + 'api/cloud/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							//							mui.toast('下载成功');
+							if(data.data.cloud.length == 0) {
+								$("#wu").css("display", "block")
+							} else {
+								data.data.cloud.forEach(function(v) {
+									if(v.type == 0) {
+										$("#itemul1").append('<li onclick="xiangqing(' + v.id + ',\'' + v.fileName + '\')"><div class="left"> <i class="iconfont icon-wenjian"></i> </div> <div class="left"> <p>' + v.fileName + '</p> <span>' + v.size + 'kb</span> </div> <div class="right"> <div onclick="xiazai(\'' + v.url + '\')"> <p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div> <div style="border-left:1px solid #dcdcdc;" onclick="zhuanfa(' + v.id + ')"> <p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div> </div></li>')
+
+									} else {
+										$("#itemul1").append('<li ><div class="left"> <i class="iconfont icon-wenjian"></i> </div> <div class="left"> <p>' + v.fileName + '</p> <span>' + v.size + 'kb</span> </div> <div class="right"> <div onclick="xiazai(\'' + v.url + '\')"> <p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div> <div style="border-left:1px solid #dcdcdc;" onclick="zhuanfa(' + v.id + ')"> <p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div> </div></li>')
+
+									}
+
+								})
+							}
+							if(data.data.share.length == 0) {
+								$("#wu1").css("display", "block")
+							} else {
+								data.data.share.forEach(function(v) {
+									if(v.type == 0) {
+										$("#itemul2").append('<li onclick="xiangqing(' + v.id + ',\'' + v.fileName + '\')"><div class="left"> <i class="iconfont icon-wenjian"></i> </div> <div class="left"> <p>' + v.fileName + '</p> <span>' + v.size + 'kb</span> </div> <div class="right"> <div onclick="xiazai(\'' + v.url + '\')"> <p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div> <div style="border-left:1px solid #dcdcdc;" onclick="zhuanfa(' + v.id + ')"> <p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div> </div></li>')
+
+									} else {
+										$("#itemul2").append('<li><div class="left"> <i class="iconfont icon-wenjian"></i> </div> <div class="left"> <p>' + v.fileName + '</p> <span>' + v.size + 'kb</span> </div> <div class="right"> <div onclick="xiazai(\'' + v.url + '\')"> <p><i class="iconfont icon-xiazai"></i></p><span>下载</span></div> <div style="border-left:1px solid #dcdcdc;" onclick="zhuanfa(' + v.id + ')"> <p><i class="iconfont icon-zhuanfa"></i></p><span>转发</span></div> </div></li>')
+
+									}
+								})
+							}
+						} else {
+							mui.toast(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+			function xiazai(url) {
+				console.log(url)
+			}
+			function zhuanfa(url) {
+				console.log(url)
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

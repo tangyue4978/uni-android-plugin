@@ -1,0 +1,78 @@
+.waterbox{
+	width: 100%;
+	height: 100%;
+	padding: 0.5rem 0.4rem;
+	box-sizing: border-box;
+	/* background-color: pink; */
+}
+.waterName{
+	width: 6.6rem;
+	height: 1.14rem;
+	margin-bottom: 0.38rem;
+	font-size: 0.26rem;
+	color: #000000;
+}
+/* .waterName::after{
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 0;
+	height: 0;
+	border: 0.5rem solid transparent;
+	border-top-color: #000;
+} */
+.waterName input{
+	font-size: 0.26rem;
+	padding-left: 0.2rem;
+	color: #999999;
+}
+.waterName select{
+	font-size: 0.26rem;
+	padding-left: 0.2rem;
+	color: #999999;
+	background: url(../images/xia.png) no-repeat 95% center;
+	background-size: 0.2rem 0.1rem;
+}
+.name_input{
+	width: 100%;
+	height: 0.73rem;
+	border: 0.02rem solid #CCCCCC;
+	border-radius: 0.05rem;
+}
+.waterName .name_select{
+	width: 100%;
+	height: 0.73rem;
+	border: 0.02rem solid #CCCCCC!important;
+	border-radius: 0.05rem;
+}
+.watername1 .form-group1{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.form-group1 .form-group{
+	width: 49%;
+	background-color: #FFFFFF;
+	/* border: 0.01rem solid #CCCCCC; */
+}
+.form-group1 .form-group .field{
+	width: 100%;
+	display: block;
+}
+.form-group1 .form-group .field .input{
+	display: block;
+	width: 100%;
+	background-color: transparent;
+	font-size: 0.26rem;
+	padding-left: 0.2rem;
+	color: #999999;
+	background: url(../images/xia.png) no-repeat 91% center;
+	background-size: 0.2rem 0.1rem;
+}
+.tabsItem .form-group {
+    margin: 0!important;
+}
+.tabsItem .form-group .field {
+    margin-left: 0rem!important;
+}

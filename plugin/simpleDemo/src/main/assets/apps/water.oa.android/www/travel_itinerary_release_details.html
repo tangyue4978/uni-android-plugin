@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/travel_itinerary_release.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--弹出层-->
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<style type="text/css">
+			.leave_add .notice {
+				width: 100%;
+				padding: 0rem;
+				padding-top: 1.5rem;
+				background-color: #F6F6FA;
+				text-align: center;
+			}
+			
+			.notice #tijiao {
+				width: 92%;
+			}
+			
+			.notice .gray {
+				background-color: #F5F5F9;
+				height: 0.4rem;
+				overflow: hidden;
+				text-align: left;
+			}
+			
+			.notice .gray.zi {
+				height: 0.9rem;
+				line-height: 1.2rem;
+				padding: 0rem 0.3rem;
+				font-size: 0.3rem;
+				color: #959595;
+			}
+			
+			.notice .leave_ul {
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				padding-left: 0.3rem;
+				list-style: none;
+				background-color: #FFFFFF;
+				border-top: 1px solid #CCCCCC;
+				border-bottom: 1px solid #CCCCCC;
+			}
+			
+			.notice .leave_ul .leave_li {
+				border-bottom: 1px solid #CCCCCC;
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				height: 1rem;
+				line-height: 1rem;
+				font-size: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li:last-child {
+				border: none;
+			}
+			
+			.notice .leave_ul .leave_li .left {
+				float: left;
+				width: 28%;
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input {
+				display: block;
+				margin-left: 28%;
+				padding: 0rem;
+				margin: 0rem;
+				width: 70%;
+				border: none;
+				outline: none;
+				height: 98%;
+				font-size: 0.3rem;
+				color: #262626;
+				padding-right: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_l {
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_r {
+				text-align: right;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_c {
+				text-align: center;
+			}
+			
+			.notice .leave_ul .leave_li .select {
+				padding-right: 0.6rem;
+				background: url(images/jian.png) no-repeat 93% 0.285rem;
+				background-size: 0.22rem 0.38rem;
+			}
+			.tableTitle{text-align: center;font-size: 0.4rem;color: #333;}
+			.tableTime{width: 100%;text-align: right;font-size: 0.25rem;color: #666;padding: 0 5%;}
+			.notice table{width: 90%;margin: 0 auto;border-collapse: collapse;}
+			.notice table td{border: 1px solid #ddd;height: 1rem;padding: 0 0.1rem;}
+			.releaseTable tr{text-align: center;font-size: 0.3rem;color: #333;}
+		</style>
+	</head>
+	<body style="background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news leave_add">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>工作动态详情
+				</p>
+				
+				<div class="notice"> 
+					<h3 class="tableTitle">厅领导今日工作动态</h3>
+					<p class="tableTime"></p>
+					<table class="releaseTable">
+						<colgroup width="20%"></colgroup>
+						<colgroup width="40%"></colgroup>
+						<colgroup width="40%"></colgroup>
+						<tr>
+							<td>姓名</td>
+							<td>上午</td>
+							<td>下午</td>
+						</tr>
+						<tbody id="datas">
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		
+		<script type="text/javascript">
+			document.addEventListener( "plusready", function(){
+				var time_page = plus.webview.currentWebview();
+				getDetail(time_page.item_id);
+			}, false );
+			var root = localStorage.getItem("str_url");
+			var token = localStorage.getItem("token");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1' //通过URL传参
+				})
+			}
+			
+			
+			function getDetail(itemid) {
+				var itemid = itemid;
+				console.group(itemid);
+				var _url = root + "api/logs/leadertripshow";
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"release_id": itemid
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							var infor= data.data;
+							$(".tableTime").text(infor.date);
+							
+						    for (var i = 0; i < infor.trips.length; i++) {
+						        var tbBody = "";
+								tbBody += "<tr><td class=\"leaderName\">"+infor.trips[i].trueName+"</td><td class=\"leaderMorning\">"+infor.trips[i].morningTrip+"</td><td class=\"leaderAfternoon\">"+infor.trips[i].afternoonTrip+"</td></tr>";
+            					$("#datas").append(tbBody); 
+						    }
+						}else if(2<=data.code&&data.code<99){
+							mui.openWindow({
+								url: 'login.html?cid=1', //通过URL传参
+								id: 'login.html?cid=1' //通过URL传参
+							})
+						}else{
+							mui.toast(data.msg)
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {}
+				})
+			}
+			
+			</script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

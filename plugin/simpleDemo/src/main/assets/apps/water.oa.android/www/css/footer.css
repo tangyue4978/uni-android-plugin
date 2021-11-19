@@ -1,0 +1,51 @@
+#footer.footer{
+	height: 1.3rem;
+	line-height: 1.3rem;
+	font-size: 0.3rem;
+	text-align: center;
+	background-color: transparent;
+	background-size: 100% 100%;
+	color: #666666;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	padding-top: 0.3rem;
+}
+#footer .nav{
+	height: 1rem;
+	background-color: #FFFFFF;
+}
+#footer .nav .nav_a{
+	display: block;
+	width: 20%;
+	height: 100%;
+	float: left;
+    line-height: 0.35rem;
+    box-sizing: border-box;
+    padding-top: 0.2rem;
+}
+#footer .nav .nav_a span{
+	text-align: center;
+	font-size: 0.3rem;
+	color: #666666;
+}
+#footer .nav .nav_a .navwenzi{
+	display: block;
+	font-size: 0.25rem;
+}
+#footer .nav .nav_a.mui-active span{
+	color: #007aff;
+}
+#footer .nav .nav_a .nav_img{
+	position: relative;
+	top: -0.4rem;
+    width: 1rem;
+}
+.footer{
+	height: 1.3rem;
+	line-height: 1.3rem;
+	box-sizing: border-box;
+}
+

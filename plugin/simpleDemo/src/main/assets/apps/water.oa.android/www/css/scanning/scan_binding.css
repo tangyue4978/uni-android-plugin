@@ -1,0 +1,271 @@
+body{
+	background-color: #f5f5f9;
+}
+.news .pp {
+	background-size: 100% 100%;
+}
+
+.content_box {
+	width: 100%;
+	height: auto;
+	margin-top: 1.3rem;
+}
+/* 重新扫描 */
+.re_scanning{
+	width: 3.97rem;
+	height: 1rem;
+	border-radius: 0.5rem;
+	border: 1px solid #5888f9;
+	margin: 1.74rem auto 0.44rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.re_scanning span{
+	font-size: 0.3rem;
+	color: #5888f9;
+}
+.re_scanning .reImg{
+	width: 0.44rem;
+	margin-right: 0.2rem;
+}
+/* 条形编码 */
+.bar{
+	width: 100%;
+	height: 1.1rem;
+	border-top: 1px solid #e5e3eb;
+	border-bottom: 1px solid #e5e3eb;
+	background-color: #ffffff;
+	font-size: 0.28rem;
+	padding: 0 0.4rem;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.29rem;
+}
+.bar .bar_name{
+	color: #666666;
+}
+.bar .bar_code{
+	text-align: right;
+	font-size: 0.28rem;
+	border: none;
+	color: #333333;
+}
+/* 基本信息 */
+.infos{
+	width: 100%;
+	height: auto;
+	border-top: 1px solid #e5e3eb;
+	border-bottom: 1px solid #e5e3eb;
+	background-color: #ffffff;
+	font-size: 0.28rem;
+	padding-let:0.4rem;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+.infos_bar{
+	width: 95%;
+	height: 1.1rem;
+	padding-right: 0.4rem;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #e5e3eb;
+	font-size: 0.28rem;
+	position: relative;
+}
+.infos_bar:last-child{
+	border: none;
+}
+.infos_bar .infos_left{
+	color: #666666;
+}
+.infos_bar .infos_right{
+	height: auto;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.infos_bar .infos_right .fillIn{
+	height: 1rem;
+	line-height: 0.5rem;
+	font-size: 0.28rem;
+	border: none;
+	margin: 0;
+	padding-right: 0;
+	text-align: right;
+}
+.infos_bar .infos_right .fillIn::-webkit-input-placeholder{
+	color: #cdcdcd;
+	font-size: 0.28rem;
+}
+.infos_bar .infos_right form{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.infos_bar .infos_right label{
+	width: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #333333;
+	font-size: 0.28rem;
+	margin-left: 0.5rem;
+}
+.infos_bar .infos_right label span{
+	margin-left: 0.1rem;
+}
+.infos_bar .infos_right label input{
+	-webkit-appearance: none;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 1px solid #a5a5a5;
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	background-color: #fff;
+	outline: none;
+}
+
+.infos_bar .infos_right label input:checked{
+    background: url('../../images/scanning/input_select.png') no-repeat center center;
+	background-size: 60% 60%;
+}
+.infos_bar .infos_right .selects{
+	line-height: 1rem;
+	padding-right: 0.5rem;
+	background: url(../../images/scanning/to_right_arrow.png) no-repeat 100% center;
+	background-size: 0.14rem 0.26rem;
+}
+.infos_bar .infos_right .select{
+	text-align: right;
+	padding-right: 0.5rem;
+	background: url(../../images/scanning/to_right_arrow.png) no-repeat 100% center;
+	background-size: 0.14rem 0.26rem;
+}
+/* 备注说明 */
+.remarks{
+	width: 100%;
+	height: auto;
+	margin-top: 0.5rem;
+}
+.remarks_title{
+	font-size: 0.26rem;
+	color: #666666;
+	margin-left: 0.4rem;
+}
+.remarks_area{
+	width: 100%;
+	height: 2.8rem;
+	resize: none;
+	margin: 0;
+	margin-top: 0.2rem;
+	font-size: 0.28rem;
+	color: #cacaca;
+	padding: 0.2rem;
+	text-indent: 2em;
+}
+/* 提交 */
+.submit{
+	width: 74%;
+	height: 1rem;
+	line-height: 1rem;
+	text-align: center;
+	border-radius: 0.5rem;
+	background-color: #4178f9;
+	margin: 0.4rem 13% 0.8rem;
+	font-size: 0.3rem;
+	color: #ffffff;
+	box-shadow: 3px 3px 2px #b6caf9;
+}
+
+.infos_bars{
+	height: auto;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.infos_bars_box{
+	width: 100%;
+	height: 1.1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+/* 图片上传的类型 */
+.tupianlist {
+	width: 100%;
+	height: auto;
+	padding-left: 0.2rem;
+	overflow: hidden;
+	height: auto;
+}
+
+.tupianlist span {
+	float: left;
+	margin: 0.2rem 0.15rem;
+}
+
+.tupianlist img {
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 1px solid #ddd;
+}
+
+.tupianlist i {
+	position: relative;
+	left: -0.15rem;
+	color: #000;
+	top: -1.4rem;
+	z-index: 66;
+}
+
+.fujialist {
+	width: 100%;
+	/*padding: 0.1rem 0.4rem;*/
+	overflow: hidden;
+	height: auto;
+}
+
+.fujialist span {
+	width: 100%;
+	height: 0.5rem;
+	line-height: 0.5rem;
+	color: #000;
+	font-size: 0.26rem;
+	display: block;
+}
+
+.fujialist span i {
+	position: relative;
+	/*top: 0.1rem;*/
+}
+
+.fujialist span a {
+	width: 64%;
+	float: left;
+	color: #000;
+	display: block;
+	overflow: hidden;
+	/*自动隐藏文字*/
+	text-overflow: ellipsis;
+	/*文字隐藏后添加省略号*/
+	white-space: nowrap;
+	/*强制不换行*/
+	font-size: 0.26rem;
+}
+
+.fujialist span .icon-wendang1 {
+	font-size: 0.4rem;
+	color: #397cf3;
+	margin-right: 0.2rem;
+	float: left;
+}

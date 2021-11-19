@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_9m6zubjaugm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.newSchedule-h .time div {
+			    width: 41%;
+			}
+			.newSchedule-h .time i {
+			    position: relative;
+			    color: #d2d2d2;
+			    font-size: 0.7rem;
+			    top: 0.4rem;
+			     left: auto; 
+			    width: 5%;
+			    float: left;
+			    display: block;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f8f8f8;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>新建</p>
+				<div class="newSchedule">
+					<p class="biaoti"><span class="left" style="width: 1rem;">标题</span><span class="right" style="width: 80%;float: left;"><input type="text" value="" id="tiele" name="title" style="text-align: left;width: 100%;" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+
+					<div class="newSchedule-h">
+
+						<textarea name="" rows="" cols="" id="content" placeholder="请输入详细内容"></textarea>
+						<div class="time">
+							<div class="left" id="kstime">
+								<p>开始</p>
+								<p id="ksriqi">----年--月--日</p>
+								<span id="kssj">--:--</span>
+							</div>
+							<i class="iconfont icon-jiantou1"></i>
+							<div class="right" id="jstime">
+								<p>结束</p>
+								<p id="jsriqi">----年--月--日</p>
+								<span id="jssj">--:--</span>
+							</div>
+						</div>
+					</div>
+					<div class="newSchedule-c">
+						<p id="tixings">提醒<i class="iconfont icon-jiantou8 right"></i><span class="right" id="tixingsj"></span></p>
+					</div>
+					<div class="newSchedule-c">
+						<p id="tixingf">提醒方式<i class="iconfont icon-jiantou8 right"></i><span class="right" id="tixingfs"></span></p>
+					</div>
+					<div class="newSchedule-c">
+						<p id="jingj">紧急程度<i class="iconfont icon-jiantou8 right"></i><span class="right" id="jingji"></span></p>
+					</div>
+					<!--<div class="newSchedule-f">
+						<textarea name="" rows="" cols="" id="beizhu" placeholder="添加备注"></textarea>
+					</div>-->
+					<button id="tijiao">提交</button>
+
+				</div>
+
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+//			if(root == "" || root == undefined || root == null) {
+//				mui.openWindow({
+//					url: 'login.html?cid=1', //通过URL传参
+//					id: 'login.html?cid=1', //通过URL传参
+//				})
+//			}
+			var token = localStorage.getItem("token");
+			var reming_time, remind_type, urgent, start_time, end_time, schedule_type;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.i)
+				schedule_type = self.i;
+
+			});
+			//选择提醒时间
+			document.querySelector('#tixings').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				aa = [{
+					text: "日程开始时",
+					value: "0,0",
+				}, {
+					text: "提前5分钟",
+					value: "0,5",
+				}, {
+					text: "提前15分钟",
+					value: "0,15",
+				}, {
+					text: "提前30分钟",
+					value: "0,30",
+				}, {
+					text: "提前1小时",
+					value: "1,0",
+				}, {
+					text: "提前1天",
+					value: "24,0",
+				}]
+				roadPick.setData(aa);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('#tixingsj').html(itemCallback[0].text);
+					reming_time = itemCallback[0].value;
+
+				});
+			});
+
+			//选择紧急
+			document.querySelector('#tixingf').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				aa = [{
+					text: "不提醒",
+					value: 1,
+				}, {
+					text: "系统提醒",
+					value: 2,
+				}, {
+					text: "短信提醒",
+					value: 3,
+				}]
+				roadPick.setData(aa);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('#tixingfs').html(itemCallback[0].text);
+					urgent = itemCallback[0].value;
+
+				});
+			});
+
+			//选择提醒方式
+			document.querySelector('#jingj').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				aa = [{
+					text: "一般",
+					value: 1,
+				}, {
+					text: "重要",
+					value: 2,
+				}, {
+					text: "紧急",
+					value: 3,
+				}]
+				roadPick.setData(aa);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('#jingji').html(itemCallback[0].text);
+					remind_type = itemCallback[0].value;
+
+				});
+			});
+
+			//			选择时间开始
+			var date_statr="";
+			var date_end="";
+			document.querySelector("#kstime").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+//					console.log(JSON.stringify(items))
+					$("#ksriqi").html(items.y.text + "年" + items.m.text + "月" + items.d.text + "日");
+					$("#kssj").html(items.h.text + ":" + items.i.text);
+					date_statr=items.y.text+"-"+items.m.text+"-"+items.d.text+" "+items.h.text+":"+items.i.text; 
+					start_time = items.text; 
+					date_bj();
+					dtpicker.dispose();
+				});
+			});
+			
+			//  选择时间结束
+			document.querySelector("#jstime").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+//					console.log(items)
+					$("#jsriqi").html(items.y.text + "年" + items.m.text + "月" + items.d.text + "日");
+					$("#jssj").html(items.h.text + ":" + items.i.text);
+					date_end=items.y.text+"-"+items.m.text+"-"+items.d.text+" "+items.h.text+":"+items.i.text;
+					end_time = items.text;
+					date_bj();
+					dtpicker.dispose();
+
+				});
+			});
+			function date_bj(){
+				var str_ks= new Date(date_statr).getTime();
+				var str_js= new Date(date_end).getTime();
+				if (date_statr!=""&&date_end!="") {
+					if(str_ks>=str_js){
+						mui.toast("开始日期不能大于结束日期");
+						$("#ksriqi").html("----年--月--日");
+						$("#kssj").html("--:--");
+						$("#jsriqi").html("----年--月--日");
+						$("#jssj").html("--:--");
+						date_statr="";
+						date_end="";
+						start_time="";
+						end_time="";
+						return false;
+					}
+				}
+			}
+
+			$("#tijiao").click(function() {
+				var _url = root + 'api/logs/new';
+				if($("#tiele").val() == '') {
+					mui.toast("请输入标题")
+					return
+				}
+				if($("#content").val() == "") {
+					mui.toast("请输入内容")
+					return
+				}
+				if(start_time == "") {
+					mui.toast("请输入开始时间")
+					return
+				}
+				if(end_time == "") {
+					mui.toast("请输入结束时间")
+					return
+				}
+//				if($("#beizhu").val() == "") {
+//					mui.toast("请输入备注")
+//					return
+//				}
+				var str_str="token="+ token+"schedule_type="+ schedule_type+"title="+ $("#tiele").val()+"content="+ $("#content").val()+"start_time="+ start_time+"end_time="+ end_time+"remind_type="+ remind_type+"reming_time="+ reming_time+"urgent="+urgent+"remark="+ $("#beizhu").val()
+				console.log("上传数据："+str_str);
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"schedule_type": schedule_type,
+						"title": $("#tiele").val(),
+						"content": $("#content").val(),
+						"start_time": start_time,
+						"end_time": end_time,
+						"remind_type": remind_type,
+						"reming_time": reming_time,
+						"urgent": urgent,
+						"remark": " "
+//						"remark": $("#beizhu").val()
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast("新建成功")
+							var view = plus.webview.getWebviewById("schedule.html");　
+							//					console.log(JSON.stringify(list))
+							mui.fire(view, 'refresh');
+							//返回true,继续页面关闭逻辑
+							mui.back()
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+						mui.toast("网络异常！");
+					}
+				})
+			})
+		</script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

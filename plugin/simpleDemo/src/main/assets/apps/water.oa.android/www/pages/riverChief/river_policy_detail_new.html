@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>河湖长制-一河一策</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/waterSaving_statistics.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.river_lake{
+				display: none;
+			}
+			.river_lake_title{
+				width: 100%;
+				margin-top: 1rem;
+			}
+			.river_lake_title_l{
+				justify-content: center;
+				font-size: 0.32rem;
+			}
+			.river_lake_head {
+			    width: auto;
+			}
+			.river_lake_content .river_lake_table {
+			    width: 400%;
+			}
+			.river_lake_content .river_lake_table td,th{
+				white-space:normal;
+				border-left: none;
+			}
+			.river_lake_content .river_lake_table th{
+				border-left: none;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+			</header>
+			<div class="main">
+				<!-- 表格1:问题清单start -->
+				<div class="river_lake">
+					<div class="river_lake_title">
+						<div class="river_lake_title_l">
+							<div id="text1"></div>
+						</div>
+					</div>
+					<div class="river_lake2">
+						<div class="river_lake_head">
+							<table id="tabhead" class="river_lake_table" border="0" cellspacing="0" cellpadding="0">
+								
+							</table>
+						</div>	
+						<div class="river_lake_content">
+							<table id="tabcontent" class="river_lake_table" border="0" cellspacing="0" cellpadding="0">
+								
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 表格end -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/ruralWater/waterSaving_statistics.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/riverChief/river_policy_detail_new.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

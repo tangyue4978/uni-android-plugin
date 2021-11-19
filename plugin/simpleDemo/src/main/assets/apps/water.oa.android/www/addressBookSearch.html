@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_f1vvh8au9b.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.search-header input{
+				background: url(images/soso1.png) no-repeat 0.2rem 0.15rem #F0F0F0;
+    			background-size: 0.3rem 0.3rem;
+    			width: 78%; 
+			}
+			.search-header .span{
+				font-size: 0.3rem;
+				padding-left: 0.2rem;
+				position: relative;
+			    right: -0.3rem;
+			    top: 0rem;
+			}
+			/*联系人*/
+			.photo {
+				padding: 0rem 0.3rem;
+				padding-right: 0rem;
+				height: auto;
+				border-top: 1px solid #f0f0f0;
+				border-bottom: 1px solid #f0f0f0;
+				background-color: #FFFFFF !important;
+				margin-top: 1.3rem;
+			}
+			
+			.photo .mt-125 {
+				display: block;
+				height: 1.3rem;
+				border-bottom: 1px solid #CCCCCC;
+				margin: 0rem;
+				/*background-color: red;*/
+				width: 100%;
+				padding: 0.15rem 0rem;
+			}
+			
+			.photo .mt-125:last-child {
+				border-bottom: 0px solid #CCCCCC;
+			}
+			
+			.photo .mt-125 .mt-left {
+				display: block;
+				width: 1rem;
+				height: 100%;
+				float: left;
+				padding-top: 0.1rem;
+				text-align: left;
+			}
+			
+			.photo .mt-125 .mt-left .mt-img {
+				width: 0.8rem;
+				height: 0.8rem;
+				border-radius: 50%;
+			}
+			
+			.photo .mt-125 .mt-right {
+				display: block;
+				margin-left: 1rem;
+				position: relative;
+			}
+			
+			.photo .mt-125 .mt-right .mt-h4 {
+				padding: 0rem;
+				margin: 0rem;
+				padding-right: 0.8rem;
+				overflow: hidden;
+				font-size: 0.33rem;
+				height: 0.5rem;
+				line-height: 0.6rem;
+				color: #333333;
+			}
+			
+			.photo .mt-125 .mt-right .mt-p {
+				padding: 0rem;
+				margin: 0rem;
+				padding-right: 0.8rem;
+				overflow: hidden;
+				font-size: 0.27rem;
+				height: 0.5rem;
+				line-height: 0.5rem;
+				color: #999999;
+			}
+			.photo .mt-125 .mt-right .mt-p .mt-span{margin-right: 0.3rem;}
+			
+			.photo .mt-125 .mt-right .mt-jt {
+				padding: 0rem;
+				margin: 0rem;
+				display: inline-block;
+				position: absolute;
+				right: 0.3rem;
+				width: 0.5rem;
+				text-align: center;
+				height: 100%;
+				color: #959595;
+				top: 0rem;
+				line-height: 1rem;
+			}
+			.lxr_btn{
+				display: none;
+				color: #0062CC;
+				font-size: 0.24rem;
+				text-align: center;
+			    height: 0.8rem;
+			    line-height: 0.9rem;
+			    background-color: #FFFFFF;
+			}
+		</style>
+	</head>
+		
+	<body style="background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news" style="overflow: hidden;">
+				<p class="pp search-header">
+					<input type="text" name="" id="search_input" value="" placeholder="搜索姓名/电话"/><span class="span" id="span_btn">取消</span>
+				</p>
+			</div>
+			<!--联系人-->
+			<div class="photo">
+				<!--<div class="mt-125">
+					<div class="mt-left">
+						<img class="mt-img" src="images/258.png"/>
+					</div>
+					<div class="mt-right">
+						<h4 class="mt-h4">赵立冬</h4>
+						<p class="mt-p"><span class="mt-span">职务</span></p>
+						<i class="mt-jt mui-icon mui-icon-arrowright "></i>
+					</div>
+				</div>
+				<div class="mt-125">
+					<div class="mt-left">
+						<img class="mt-img" src="images/258.png"/>
+					</div>
+					<div class="mt-right">
+						<h4 class="mt-h4">赵立冬</h4>
+						<p class="mt-p"><span class="mt-span">职务</span></p>
+						<i class="mt-jt mui-icon mui-icon-arrowright "></i>
+					</div>
+				</div>-->
+			</div>
+			<div class="lxr_btn">查看更多联系人</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/main.js"></script>-->
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var type = "rule1";
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+		$("#search_input").on("input",soso);
+		var data_lxr="";
+		
+		function lxr_all(){
+			for(var i=5; i<data_lxr.length;i++) {
+				var str =data_lxr[i].avatar!=undefined&&data_lxr[i].avatar!=""&&data_lxr[i].avatar!=null? root + data_lxr[i].avatar:'images/tu-hui.png';
+				$(".photo").append(
+					'<div class="mt-125" onclick="personnel_details(' + data_lxr[i].id + ')">' +
+					'<div class="mt-left">' +
+					'<img class="mt-img" src="'+ str + '"/>' +
+					'</div>' +
+					'<div class="mt-right">' +
+					'<h4 class="mt-h4">' + data_lxr[i].true_name + '</h4>' +
+					'<p class="mt-p"><span class="mt-span">' + data_lxr[i].dname + '</span><span class="mt-span">' + data_lxr[i].duty + '</span></p>' +
+					'</div>' +
+					'</div>'
+				)
+			}
+			$(".lxr_btn").hide();
+		}
+		$(".lxr_btn").on("click",lxr_all)
+		function soso(){
+			$(".lxr_btn").hide();
+			
+			var token = localStorage.getItem("token");
+			var search = $("#search_input").val();
+			var _url = root + 'api/contacts/search';
+			mui.ajax(_url, {
+				data: {
+					"token": token,
+					"search":search
+				},
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					if(data.code == 1) {
+						$(".photo").html("");
+						data_lxr = data.data;
+						if(data_lxr != "" && data_lxr != null && data_lxr != undefined) {
+							for(var i=0; i<data_lxr.length;i++) {
+								if (i<5) {
+									var str =data_lxr[i].avatar!=undefined&&data_lxr[i].avatar!=""&&data_lxr[i].avatar!=null? root + data_lxr[i].avatar:'images/tu-hui.png';
+									$(".photo").append(
+										'<div class="mt-125" onclick="personnel_details(' + data_lxr[i].id + ')">' +
+										'<div class="mt-left">' +
+										'<img class="mt-img" src="'+ str + '"/>' +
+										'</div>' +
+										'<div class="mt-right">' +
+										'<h4 class="mt-h4">' + data_lxr[i].true_name + '</h4>' +
+										'<p class="mt-p">'+
+											'<span class="mt-span">' + data_lxr[i].dname + '</span>'+
+											'<span class="mt-span">' + data_lxr[i].duty + '</span>'+
+										'</p>' +
+										'</div>' +
+										'</div>'
+									)
+								}else{
+									$(".lxr_btn").show();
+									$(".lxr_btn").off("click",lxr_all);
+									$(".lxr_btn").on("click",lxr_all);
+								}
+							}
+						} else {
+							$(".photo").append('<div class="mt-125" style="text-align: center;line-height: 1rem;color: #666666;padding-right: 0.5rem;font-size: 0.3rem;">未找到联系人</div>')
+//							$(".photo").hide();
+//							$(".attn").hide();
+						}
+					} else if(data.code > 2 && data.code < 100) {
+						mui.toast(data.msg);
+						mui.openWindow({
+							url: 'login.html?cid=1', //通过URL传参
+							id: 'login.html?cid=1' //通过URL传参
+						})
+					} else {
+						mui.toast(data.msg);
+					}
+					$(".mui-loading").hide();
+
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.toast("网络异常！")
+				}
+			})
+		}	
+			//跳转人员详情
+			function personnel_details(id) {
+				var id = id;
+				mui.openWindow({
+					url: 'addressBookthree.html', //通过URL传参
+					id: 'addressBookthree.html', //通过URL传参
+					extras: {
+						user_id: id
+					}
+				})
+			}
+		</script>
+		<script type="text/javascript">
+			$("#span_btn").on("click",function(){
+				var ws=plus.webview.currentWebview();
+				plus.webview.close(ws);
+			})
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

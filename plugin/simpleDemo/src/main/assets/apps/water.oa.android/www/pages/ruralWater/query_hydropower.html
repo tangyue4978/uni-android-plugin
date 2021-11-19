@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/query.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<style>
+		.section {height: calc(100% - 1.3rem);top: 1.3rem;}
+	</style>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>水电查询</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section">
+				<div class="tabsItem" style="display: block;">
+					<form>
+						<div class="form-group_box"></div>
+						<!-- <div class="form-moreInfo">
+							<p>展开全部搜索条件</p>
+							<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_down.png" >
+						</div> -->
+						<div class="form-button">
+							<button type="button" onclick="submit_fun()">查询</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			//右上角菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+			//供水信息查询-搜索条件展开or收起
+			$(".form-moreInfo .icon_arrow").on("click",function(){
+				var $formMoreInfo = $(this).parents(".form-moreInfo");
+				if($formMoreInfo.hasClass("open")){
+					$formMoreInfo.removeClass("open").find("p").html("展开全部搜索条件");
+					$('body form').animate({scrollTop: 0}, 200); //回到顶端
+					$(this).parents("form").css("overflow-y","hidden");
+				}else{
+					$formMoreInfo.addClass("open").find("p").html("收起部分搜索条件");;
+					$(this).parents("form").css("overflow-y","auto");
+				}
+			})
+		})
+		
+		//水电查询
+		var root = localStorage.getItem("str_url");
+		if(root == "" || root == undefined || root == null){
+			mui.openWindow({
+				url: 'login.html?cid=1', //通过URL传参
+				id: 'login.html?cid=1', //通过URL传参
+			})
+		}
+		var token = localStorage.getItem("token");
+		mui.plusReady(function() {
+			plus.nativeUI.showWaiting("加载中...");
+			list();
+		});
+		
+		function list() {
+			var _url = root + 'api/v2/hydropower_station/search';
+			mui.ajax(_url, {
+				data: {
+					"token": token
+				},
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------"+JSON.stringify(data));
+					var html = "";
+					data.data.forEach(function(item,index){
+						if(item.input.length == 1){
+							html += '<div class="form-group">'+
+										'<label class="label">'+ item.name +'</label>'+
+										'<div class="field">';
+							html += '<input class="input submit_item" name="'+item.key+'" type="text" value="">';
+							html +=	'</div>'+'</div>';
+						}else{
+							var input0 = item.input[0];
+							var input1 = item.input[1];
+							var option = item.option;
+							var code = item.code;
+							var unit = item.unit;
+							var name = item.name;
+							var key_new = item.key;
+							if(input0 == "select"){
+								var item_selfct = "";
+								item_selfct +='<select class="input submit_item" name="'+key_new+'_op">';
+								for (let key in option) {
+									item_selfct +='<option value="'+option[key]+'">'+key+'</option>';
+								}
+								item_selfct +='</select>';
+							}else{
+								console.log("未知类型："+input0);
+							}
+							switch (input1){
+								case "select":
+									var item_code = "";
+									item_code +='<select class="input submit_item" name="'+key_new+'" style="width:100%;">';
+									item_code +='<option value="">请选择</option>';
+									for (let key in code) {
+										item_code +='<option value="'+code[key]+'">'+key+'</option>';
+									}
+									item_code +='</select>';
+									break;
+								case "text":
+									var item_code = "";
+									item_code += '<div class="inputBox width-100">';
+										if(unit!=undefined && unit!="" && unit!=null){
+											item_code += '<input class="input submit_item" type="text" name='+key_new+'>'
+											item_code += unit;
+										}else{
+											item_code += '<input class="input" style="width: 100%;border: none!important;margin: 0;" type="text" name='+key_new+'>'
+										}
+									item_code += '</div>';
+									break;
+								default:
+									console.log("未知类型："+input1);
+									break;
+							}
+							var item_html = `<div class="form-group">
+								<label class="label">${name}</label>
+								<div class="field">
+									${item_code}
+								</div>
+							</div>`;
+							// ${item_selfct}
+							html +=item_html;
+						}
+					})
+					$(".form-group_box").html(html);
+					
+					var label_html = 	`<div class = "form-group" >
+											<label class = "label" > 地市 </label>
+											<div class = "field" >
+												<select class = "input submit_item" id="city" name="city_code" style = "width:100%;" > 
+													<option value="">全部</option>
+												</select>
+											</div>
+										</div>
+										<div class = "form-group" >
+											<label class = "label" > 县区 </label>
+											<div class = "field" >
+												<select class = "input submit_item" id="county" name="county_code" style = "width:100%;" > 
+													<option value="">全部</option>
+												</select>
+											</div>
+										</div>`
+							
+							// <div class = "form-group" >
+							// 	<label class = "label" > 乡镇 </label>
+							// 	<div class = "field" >
+							// 		<select class = "input submit_item" id="town" name="town" style = "width:100%;" > 
+							// 			<option value="">全部</option>
+							// 		</select>
+							// 	</div>
+							// </div>
+							// <div class = "form-group" >
+							// 	<label class = "label" > 行政村 </label>
+							// 	<div class = "field" >
+							// 		<select class = "input submit_item" id="village" name="village" style = "width:100%;" > 
+							// 			<option value="">全部</option>
+							// 		</select>
+							// 	</div>
+							// </div>
+					$(".form-group_box").prepend(label_html)
+					getInfoData("",1)
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+		
+		function submit_fun(){
+			var obj = {}
+			$(".submit_item").each(function(index,item){
+				obj[$(item).attr("name")] = $(item).val();
+			})
+			obj.pageType = "query_hydropower";
+			mui.openWindow({
+				url: 'query_results.html', //通过URL传参
+				id: 'query_results.html', //通过URL传参
+				extras: {
+					data_info: obj
+				}
+			})
+			console.log(JSON.stringify(obj));
+		}
+		
+		//条件查询
+		/**
+		 * @param {Object} city 地市
+		 * @param {Object} county 县区
+		 * @param {Object} town 村
+		 */
+		function getInfoData(code,level){
+			console.log(code,level);
+			var _url = root + 'api/rural/citiestowns';
+			mui.ajax(_url, {
+				data: {
+					"token": token,
+					"code": code,
+					"level": level
+				},
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------"+JSON.stringify(data));
+					var city = "";
+					var county = "";
+					var town = "";
+					var village = "";
+					if(data.code == 1) {
+						switch (level){
+							case 1:
+								city += "<option value=''>全部</option>";
+								for (let key in data.data) {
+									// console.log(JSON.stringify(data.data[key]));
+									city += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								
+								county = "<option value=''>全部</option>";
+								town = "<option value=''>全部</option>";
+								village = "<option value=''>全部</option>";
+								$("#city").html(city);
+								$("#county").html(county);
+								// $("#town").html(town);
+								// $("#village").html(village);
+								getInfoData($("#city").val(),2);
+								break;
+							case 2:
+								county += "<option value=''>全部</option>";
+								for (let key in data.data) {
+									console.log(JSON.stringify(data.data[key]));
+									county += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								
+								town = "<option value=''>全部</option>";
+								village = "<option value=''>全部</option>";
+								$("#county").html(county);
+								// $("#town").html(town);
+								// $("#village").html(village);
+								// getInfoData($("#county").val(),3);
+								break;
+							// case 3:
+							// 	for (let key in data.data) {
+							// 		console.log(JSON.stringify(data.data[key]));
+							// 		town += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+							// 	}
+							// 	town += "<option value=''>全部</option>";
+							// 	village = "<option value=''>全部</option>";
+							// 	$("#town").html(town);
+							// 	$("#village").html(village);
+							// 	getInfoData($("#town").val(),4);
+							// 	break;
+							// case 4:
+							// 	for (let key in data.data) {
+							// 		console.log(JSON.stringify(data.data[key]));
+							// 		village += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+							// 	}
+							// 	village += "<option value=''>全部</option>";
+							// 	$("#village").html(village);
+							// 	break;
+							default:
+								for (let key in data.data) {
+									console.log(JSON.stringify(data.data[key]));
+									city += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								county = "<option value=''>全部</option>";
+								town = "<option value=''>全部</option>";
+								village = "<option value=''>全部</option>";
+								$("#city").html(city);
+								$("#county").html(county);
+								// $("#town").html(town);
+								// $("#village").html(village);
+								break;
+						}
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+		
+		//查询
+		var $cityType = "";
+		//查询选择联动-地市
+		$("body").on("change","#city",function(){
+			$cityType = 2;
+			var $cityVal = $("#city").val();
+			if($cityVal == ""){
+				getInfoData("",1);
+			}else{
+				getInfoData($cityVal,$cityType);
+			}
+			
+		})
+	</script>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>气象</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/map/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/meteorological/meteorological.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/map/popup.css" />
+	<!-- 引入右边导航栏样式 -->
+	<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+	<!-- 底图切换样式 -->
+	<link rel="stylesheet" type="text/css" href="../../css/map/change_base_map/change_base_map.css" />
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+	<style type="text/css">
+		.rightTabs .tab_type li {
+			margin: .06rem 0;
+		}
+
+		.right {
+			position: absolute;
+			right: 0.2rem;
+		}
+
+		.so_li_box {
+			/* background-color: #0000FF; */
+			position: relative;
+		}
+
+		.Timebox .span.hide {
+			display: none;
+		}
+
+		/* 底部按钮 */
+		.search_frame {
+			padding-bottom: 0rem;
+			z-index: 999999;
+		}
+
+		.bottom {
+			height: auto;
+			margin-top: 0.2rem;
+		}
+
+		.bottom .nav_li_item {
+			padding-top: 0rem;
+			height: 1rem;
+			line-height: 1rem;
+		}
+
+		.rightPosi {
+			top: 1.3rem;
+		}
+
+		.rightPosi2 {
+			position: absolute;
+			top: 2.55rem;
+			right: 4%;
+		}
+
+		.location {
+			width: 15px;
+			height: 15px;
+			border: 1px solid #088;
+			border-radius: 50%;
+			background-color: #00FFFF;
+			opacity: 0.5;
+			display: none;
+		}
+
+		.location:after {
+			content: " ";
+			background-color: #00FFFF;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			margin-left: -50%;
+			margin-top: -50%;
+			-webkit-animation-name: 'ripple';
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: normal;
+		}
+
+		@keyframes ripple {
+			0% {
+				opacity: 1;
+				width: 15px;
+				height: 15px;
+			}
+
+			50% {
+				opacity: 0.7;
+				width: 30px;
+				height: 30px;
+				margin-left: -15px;
+				margin-top: -15px;
+			}
+
+			100% {
+				opacity: 0.05;
+				width: 60px;
+				height: 60px;
+				margin-left: -30px;
+				margin-top: -30px;
+			}
+		}
+		.right_bar .right_bar_center ul li img{
+			margin-bottom: 0.1rem;
+		}
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body id="body">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>气象</span>
+			<span class="right" style="font-size: 0.3rem;" onclick="jump_new('../../feedback.html')">意见反馈</span>
+		</header>
+		<div class="section">
+			<div class="mapBox">
+				<div id="map">
+					<!-- <div class="baseFrame">
+						<div class="baseFrame_box1">
+							<div class="baseFrame_box1s">
+								<div class="baseFrame_text">当前<br />选择</div>
+								<div class="baseFrame_img">
+									<img class="leftArrow" src="../../images/leftDArrow.png">
+								</div>
+							</div>
+						</div>
+						<div class="baseFrame_box2">
+							当前选择：<span class="baseFrame_box2_text"></span>
+							<span class="wrong">×</span>
+						</div>
+					</div> -->
+				</div>
+				<!-- 当前选择提示框            开始-->
+				<!-- <div class="tips_wrap">
+				</div> -->
+				<!-- 当前选择提示框            结束-->
+				<div class="top_nav">
+
+					<ul class="nav_ul_box list_ul" id='managementObjects'>
+						<!-- <li class="list_li active nav_li_item" data-type="quality" data-id="1" data-qname="jiangshui">
+								<img class="icon_img" src="../../images/waterQuality/underground.png" >
+								<span>降水</span>
+							</li> -->
+						<li class="list_li active nav_li_item" data-type="quality" data-id="2" data-qname="qiwen">
+							<!-- <img class="icon_img" src="../../images/waterQuality/river.png" > -->
+							<span>温度</span>
+						</li>
+						<li class="list_li nav_li_item" data-type="quality" data-id="3" data-qname="fengxiangfengsu">
+							<!-- <img class="icon_img" src="../../images/waterQuality/regimen.png" > -->
+							<span>风速</span>
+						</li>
+						<li id="jczd " class="list_li nav_li_item" data-type="qdata" data-id="4" data-qname="shidu">
+							<!-- <img class="icon_img" src="../../images/waterQuality/regimen2.png" > -->
+							<span>湿度</span>
+						</li>
+					</ul>
+
+
+				</div>
+
+				<div class="list_box" id="bigwaternetwork">
+					<div class="list_obj heightauto">
+						<ul class="list_ul"></ul>
+					</div>
+				</div>
+				<div class="list_box" id="fanghongimportant">
+					<div class="list_obj heightauto">
+						<ul class="list_ul"></ul>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="rightTabs rightPosi">
+				<ul>
+					<li><a href=""><img src="../../images/ruralWater/right_tabs01.png"></a></li>
+				</ul>
+			</div> -->
+			<!-- <div class="rightTabs rightPosi2">
+				<ul class="tab_type">
+					<li class='point'>
+						<span class="span" data-status="1">1小时</span>
+					</li>
+					<li><span class="span " data-status="3">3小时</span></li>
+					<li><span class="span " data-status="12">12小时</span></li>
+					<li><span class="span active" data-status="24">24小时</span></li>
+					<li><span class="span " data-status="72">72小时</span></li>
+					<li>
+						<a onclick="label_fun(address_obj.coords.longitude,address_obj.coords.latitude)">
+							<img src="../../images/ruralWater/right_tabs_dw.png">
+						</a>
+					</li>
+				</ul>
+			</div> -->
+			<!-- 右侧导航栏信息                  开始 -->
+			<div class="right_bar">
+				<div class="right_bar_top">
+					<img class="img" src="../../images/right_bar/arrow_t.png" alt="">
+				</div>
+				<!-- 中间滚动区域       开始-->
+				<div class="right_bar_center">
+					<ul class="tab_type">
+						<li>
+							<a href="">
+								<img class="icon1 img" src="../../images/right_bar/return.png">
+								<img class="icon2" src="../../images/right_bar/return_act.png">
+								<span class="bar_text">返回全图</span>
+							</a>
+						</li>
+						<li data-qname="list">
+							<a id="details">
+								<img class="icon_img icon1" src="../../images/right_bar/icon_sjlb.png">
+								<img class="icon_img icon2" src="../../images/right_bar/icon_sjlb_active.png">
+								<span class="bar_text js_total"></span>
+								<span class="bar_text">数据列表</span>
+							</a>
+						</li>
+						<li class="span active" data-status="1">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/clock-1.png">
+								<img class="icon_img icon2" src="../../images/yc/clock-2.png">
+								<span class="bar_text">1小时</span>
+							</a>
+						</li>
+						<li class="span " data-status="3">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/clock-1.png">
+								<img class="icon_img icon2" src="../../images/yc/clock-2.png">
+								<span class="bar_text">3小时</span>
+							</a>
+						</li>
+						<li class="span " data-status="12">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/clock-1.png">
+								<img class="icon_img icon2" src="../../images/yc/clock-2.png">
+								<span class="bar_text">12小时</span>
+							</a>
+						</li>
+						<li class="span " data-status="24">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/clock-1.png">
+								<img class="icon_img icon2" src="../../images/yc/clock-2.png">
+								<span class="bar_text active">24小时</span></span>
+							</a>
+						</li>
+						<li class="span " data-status="72">
+							<a>
+								<img class="icon_img icon1" src="../../images/yc/clock-1.png">
+								<img class="icon_img icon2" src="../../images/yc/clock-2.png">
+								<span class="bar_text">72小时</span>
+							</a>
+						</li>
+						<li>
+							<a onclick="jump_new('/pages/meteorological/statistics.html')">
+								<img class="icon_img icon1" src="../../images/right_bar/icon_tjtb.png">
+								<img class="icon_img icon2" src="../../images/right_bar/icon_tjtb_active.png">
+								<span class="bar_text">统计图表</span>
+							</a>
+						</li>
+						<!-- <li class="" id="change_map_mark">
+							<a>
+								<img src="../../images/right_bar/change.png">
+								<span class="bar_text">切换底图</span>
+							</a>
+						</li> -->
+					</ul>
+				</div>
+				<!-- 中间滚动区域       结束-->
+				<div class="right_bar_btm">
+					<img class="img" src="../../images/right_bar/arrow_b.png" alt="">
+				</div>
+			</div>
+			<!-- 右侧导航栏信息                  结束 -->
+			
+			<!-- 右下定位信息     开始-->
+			<div class="right_posi" >
+				<div class="img_box_list">
+					<div class="img_box_item" onclick="zoomInFun()">
+						<img class="img" src="../../images/right_bar/add.png">
+					</div>
+					<div class="img_box_item" onclick="zoomOutFun()">
+						<img class="img" src="../../images/right_bar/reduce.png">
+					</div>
+				</div>
+			</div>
+			<!-- 右下定位信息     结束-->
+			<!-- 信息展示 -->
+			<div class="search_frame">
+				<div class="search_header_box">
+					<div class="search_arrow">
+						<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png">
+					</div>
+					<div class="search_title"></div>
+					<div class="search_table_box">
+						<table class="mui-table" border="0" cellspacing="0" cellpadding="0">
+							<tr class='head'>
+								<!-- 	
+									<th>降水级别</th>
+									<th>具体市县</th>
+									<th>站点数量</th> -->
+							</tr>
+						</table>
+						<div class="cont_table_box">
+							<table class="mui-table" border="0" cellspacing="0" cellpadding="0">
+								<colgroup width="33%"></colgroup>
+								<colgroup width="33%"></colgroup>
+								<colgroup width="33%"></colgroup>
+								<tbody id="jsInfo">
+									<!-- <tr>
+											<td>1-10mm</td>
+											<td>吕梁,长治,太原,临汾,朔州,忻州,大同,晋中, 阳泉,晋城,运城</td>
+											<td>0</td>
+										</tr> -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!-- <div class="nav_ul_box bottom">
+						<li class="nav_li_item nav2" id='details'>数据列表</li>
+						<li class="nav_li_item nav2" onclick="jump_new('/pages/meteorological/statistics.html')">
+							统计图表</li>
+					</div> -->
+				</div>
+			</div>
+			<!-- 模糊搜索框 -->
+			<!-- 地图图例start -->
+			<div class="map_legend">
+				<img class="turn_img" src="../../images/ruralWater/water_icon/icon_07_03.png">
+				<img class="map_legend_img" src="">
+				<span class="turn_text isHide">图例</span>
+			</div>
+			<!-- 地图图例end -->
+		</div>
+	</div>
+	<!-- 当前手机位置 -->
+	<div id="location" class="location"></div>
+</body>
+<!-- <script src="../../js/map/header.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/baseMap/popup.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/meteorological/meteorological_new.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/get_location/index.js"></script>
+<!-- 右侧选中效果js -->
+<script src="../../js/right_bar/index.js"></script>
+<script type="text/javascript">
+	// 复写del_tips方法，移除图层
+	function del_tips(that){
+		
+		let liName = $(that).parent(".tips_item").attr("data-status");
+		console.log(liName)
+		$(that).parent(".tips_item").remove();
+		$(".right_bar_center .tab_type .span[data-status='"+liName+"']").removeClass("active");
+		
+		var list_item = $("#managementObjects .list_li.active");
+		var id = list_item.attr("data-id");
+		var itemQname = list_item.attr("data-qname");
+		try {
+			waterQualitylayers[itemQname].getSource().clear();
+			map.removeLayer(waterQualitylayers[itemQname]);
+			map.removeLayer(waterQualitylayers[itemQname + "_1"]);
+		} catch (e) {
+			//TODO handle the exception
+		}
+	}
+</script>
+<!-- 底图切换js -->
+<script src="../../js/baseMap/change_base_map.js" type="text/javascript" charset="utf-8"></script>
+</html>

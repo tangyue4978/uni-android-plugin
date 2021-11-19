@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_f1vvh8au9b.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>选择审批人</p>
+				<div class="chioceNotice-sousuo">
+					<i class="iconfont icon-sousuo"></i><input type="text" name="" id="" value="" placeholder="搜索" />
+				</div>
+				<div class="chioceNotice ">
+					<ul class="mui-checkbox" id="department">
+						
+						<!--<li class="fuji"><input name="checkbox2" value="Item 2" type="checkbox" checked><span class="left">办公室部门</span><span onclick="xiaji()" class="right"><i class="iconfont icon-zuzhi"></i>下级</span></li>-->
+					</ul>
+					<!--<ul class="mui-checkbox" id="chang">-->
+					<!--<li class="ziji"><input name="checkbox1" value="Item 1" type="checkbox" checked><span class="left"><img src="images/qwe.png" alt="" />爱是价</span></li>-->
+					<!--<li class="ziji"><input name="checkbox2" value="Item 2" type="checkbox" checked><span class="left"><img src="images/qwe.png" alt="" />办公室</span></li>-->
+					<!--</ul>-->
+					<div class="tijiao">
+						
+						<button onclick="queding()">确定</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var chk, items, user_id = [],
+				viewid;
+			//			获取缓存联系人
+			var allContact = JSON.parse(localStorage.getItem("allContact"));
+			var bumen = JSON.parse(localStorage.getItem("bumen"));
+			console.log(bumen)
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.i)
+				viewid = self.i;
+			});
+
+			function xiaji(i, name) {
+				mui.openWindow({
+					url: 'choiceNoticezj.html', //通过URL传参
+					id: 'choiceNoticezj.html', //通过URL传参
+					extras: {
+						i: i,
+						name: name,
+					}, //
+				})
+			}
+
+			list()
+
+			function list() {
+				var _url = root + 'api/contacts/';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							console.log(JSON.stringify(data))
+							items = data.data.department;
+							data.data.department.forEach(function(v, index) {
+								$("#department").append('<li class="fuji"><input name="checkbox2" class="xianze" onclick="xianze(' + v.id + ')" value="' + v.id + '" type="checkbox"><span class="left">' + v.name + '</span><span onclick="xiaji(' + v.id + ',\'' + v.name + '\')" class="right"><i class="iconfont icon-zuzhi"></i>下级</span></li>')
+							})
+
+							//							data.data.contacts.forEach(function(v) {
+							//								$("#chang").append('<li class="ziji"><input name="checkbox3" value="Item 1" type="checkbox"><span class="left"><img src="' + v.avatar + '" alt="" />' + v.truename + '</span></li>')
+							//							})
+							$("input[type='checkbox']").each(function() {　　　　
+								this.checked = false;
+							})
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+
+			}
+
+			$("#quanxuan").click(function() {
+				console.log(this.checked)
+				if(this.checked) {　　
+					$("input[type='checkbox']").each(function() {　　　　
+						this.checked = true;
+						
+
+					})
+					allContact.forEach(function(v) {
+							user_id.push(v.id)
+						})
+						$("#zs").html("已选：" + allContact.length + "人")
+				} else {　　　
+					$("input[type='checkbox']").each(function() {　　　
+						user_id = [];
+						$("#zs").html("已选：0人")
+						this.checked = false;　
+
+					})　　　　
+				}
+			})
+
+			function xianze(id) {
+				$("input[name='checkbox2']").each(function(index, v) {　　　
+					if(v.value == id) {
+						console.log(v.checked)
+						if(v.checked == true) {
+							$("input[name='checkbox2']").eq(index).attr('checked', 'false');
+							bumen.forEach(function(v1) {
+								if(id == v1.id && v1.user != []) {
+									v1.user.forEach(function(v2) {
+										user_id.push(v2.id);
+										console.log(user_id)
+										$("#zs").html("已选：" + user_id.length + "人")
+									})
+								}
+							})
+							//							user_id.push(id);
+							//							console.log(user_id)
+						} else {
+							$("input[name='checkbox2']").eq(index).attr('checked', 'true');
+							bumen.forEach(function(v1) {
+								if(id == v1.id&& v1.user != []) {
+									v1.user.forEach(function(v2) {
+										user_id.forEach(function(v3,inxex1) {
+											if(v3 == v2.id) {
+												user_id.splice(inxex1,1);
+												console.log(user_id)
+												$("#zs").html("已选：" + user_id.length + "人")
+											}
+										})
+
+									})
+								}
+							})
+
+						}
+					}
+
+				})
+
+			}
+
+			function queding() {
+//				contact()
+//				setTimeout(function() {
+	console.log(user_id)
+					var view = plus.webview.getWebviewById(viewid);　
+					//					console.log(JSON.stringify(list))
+					mui.fire(view, 'newMeeting', {
+						user: user_id
+					});
+					//返回true,继续页面关闭逻辑
+					mui.back()
+					
+					
+//				}, 3000)
+			}
+
+//			function contact() {
+//				$("input[name='checkbox2']").each(function(index, v) {　　　
+//					if(v.checked == true) {
+//						var _url = root + 'api/contacts/list';
+//						mui.ajax(_url, {
+//							data: {
+//								"token": token,
+//								"department_id": v.value,
+//							},
+//							datatype: 'json', //服务器返回json格式数据
+//							type: 'post', //HTTP请求类型
+//							success: function(data) {
+//								if(data.code == 1) {
+//									console.log(JSON.stringify(data.data));
+//									if(data.data != []) {
+//										data.data.forEach(function(v1) {
+//											user_id.push(v1.id);
+//										})
+//										console.log(user_id)
+//
+//									}
+//								}
+//							},
+//							error: function(xhr, type, errorThrown) {}
+//						})
+//					}
+//
+//				})
+//
+//			}
+
+			window.addEventListener('refresh', function(e) {
+				//执行刷新
+				//				location.reload();
+				console.log(e.detail.ii)
+				e.detail.ii.forEach(function(v) {
+					user_id.push(v);
+					
+					console.log(user_id)
+					
+				})
+			});
+		</script>
+	<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

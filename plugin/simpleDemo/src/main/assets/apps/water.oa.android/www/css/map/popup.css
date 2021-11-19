@@ -1,0 +1,202 @@
+/* 地图弹出框样式start */
+.popup_box {
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+    padding: 0.1rem 0.2rem;
+    border: 1px solid #cccccc;
+    border-radius: 0.15rem;
+    background-color: #ffffff;
+    position: relative;
+    max-width: 4.8rem;
+}
+
+.popup_box::before {
+    content: "";
+    position: absolute;
+    top: 101%;
+    left: 50%;
+    margin-left: -9px;
+    border-top: 10px solid #cccccc;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+}
+
+.popup_box::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -9px;
+    border-width: 7px;
+    border-top: 10px solid #ffffff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+}
+
+.popup_list {
+    width: 100%;
+    white-space: nowrap;
+    /* overflow: hidden; */
+    text-overflow: ellipsis;
+    font-size: 0.24rem;
+    color: #333333;
+	display: flex;
+	align-items: flex-start; 
+	line-height: 0.4rem;
+}
+.popup_list span{
+    white-space: pre-wrap;
+}
+.popup_list .popup_a {
+    font-size: 0.3rem;
+    color: #0000cc;
+    cursor: pointer;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.popup_list img{
+	width:0.3rem;
+	height:0.3rem;
+	margin-left: 0.1rem;
+}
+
+.popup_list.popup_right {
+    text-align: right;
+}
+
+/* 地图弹出框样式end */
+
+/* 为点添加动画效果 */
+.marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.marker:after {
+    content: " ";
+    /* background-color: #00FFFF; */
+    border: 1px solid red;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: -11.5px;
+    margin-top: -11px;
+    -webkit-animation-name: "marker";
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: normal;
+}
+
+@keyframes marker {
+    0% {
+        opacity: 0;
+        width: 20px;
+        height: 20px;
+    }
+
+    50% {
+        opacity: 0.8;
+        width: 30px;
+        height: 30px;
+        margin-left: -16px;
+        margin-top: -16px;
+    }
+
+    100% {
+        opacity: 0.1;
+        width: 40px;
+        height: 40px;
+        margin-left: -21.5px;
+        margin-top: -22px;
+    }
+}
+
+/* 基础框start */
+.baseFrame {
+    width: auto;
+    height: auto;
+    position: absolute;
+    /* right: 0.38rem; */
+    top: 1.3rem;
+    z-index: 6;
+}
+
+.baseFrame_box1 {
+    width: 1.23rem;
+    height: 0.9rem;
+    display: none;
+}
+
+.baseFrame_box1s {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(143, 172, 206, 0.8);
+    border-radius: 0.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.baseFrame .baseFrame_img {
+    width: 0.33rem;
+    height: 100%;
+    background-color: rgba(110, 157, 229, 0.7);
+    border-top-left-radius: 0.1rem;
+    border-bottom-left-radius: 0.1rem;
+    transform: rotateZ(180deg);
+}
+
+.baseFrame .leftArrow {
+    width: 0.3rem;
+    height: 0.3rem;
+    margin-top: 0.3rem;
+}
+
+.baseFrame .baseFrame_text {
+    width: 0.9rem;
+    height: 0.9rem;
+    box-sizing: border-box;
+    background-color: rgba(143, 172, 206, 0.5);
+    border-radius: 0.1rem;
+    color: #feffff;
+    font-size: 0.28rem;
+    line-height: 1.2;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.baseFrame_box2 {
+    width: auto;
+    max-width: 5.7rem;
+    height: auto;
+    padding: 0 0.2rem;
+    border: 1px solid #7898bf;
+    border-radius: 0.1rem;
+    color: #15449e;
+    font-size: 0.28rem;
+    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    top: 0.31rem;
+    background-color: rgba(208, 225, 235, 0.7);
+}
+
+.baseFrame_box2 .wrong {
+    font-size: 0.4rem;
+    display: inline-block;
+    width: 0.5rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* 基础框end */

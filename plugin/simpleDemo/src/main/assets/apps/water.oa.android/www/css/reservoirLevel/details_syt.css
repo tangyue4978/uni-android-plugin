@@ -1,0 +1,495 @@
+.monitorings {
+    width: 100%;
+    height: 3.9rem;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.hint {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    z-index: 3;
+    color: #333;
+    font-size: 0.12rem;
+}
+.hint_img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    z-index: 5;
+}
+.hint div img {
+    width: 0.16rem;
+    height: 0.1rem;
+    display: inline-block;
+    margin-right: 0.1rem;
+}
+/* 活水位 */
+.hint_water {
+    width: 4.7rem;
+    height: 0.634rem;
+    position: absolute;
+    bottom: 0.3rem;
+    right: 0.1rem;
+    z-index: 0;
+}
+.popups {
+    width: auto;
+    height: auto;
+    position: absolute;
+    bottom: 1.29rem;
+    left: 2rem;
+    z-index: 6;
+    visibility: hidden;
+}
+.popups_box {
+    width: auto;
+    height: auto;
+    /* box-sizing: border-box; */
+    padding: 0.1rem 0.2rem;
+    border: 1px solid #006ce0;
+    background-color: #ffffff;
+    box-shadow: 0 0 2px 1px #cccccc;
+    border-radius: 0.05rem;
+    position: relative;
+}
+
+.popups_box::before {
+    content: "";
+    position: absolute;
+    top: 103%;
+    left: 50%;
+    margin-left: -10px;
+    border-top: 10px solid #006ce0;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+}
+.popups_box::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    border-top: 10px solid #ffffff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+}
+.text1 {
+    position: absolute;
+    left: 1.3rem;
+    top: -0.1rem;
+}
+/* 校核洪水位 */
+.text2 {
+    width: 98%;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    border-bottom: 0.01rem solid #333333;
+    position: absolute;
+    left: 0rem;
+    bottom: 3.134rem;
+}
+/* 设计洪水位 */
+.text3 {
+    width: 73%;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    border-bottom: 0.01rem solid #333333;
+    position: absolute;
+    left: 1.6rem;
+    bottom: 2.834rem;
+}
+/* 防洪高水位 */
+.text4 {
+    width: 83%;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    border-bottom: 0.01rem solid #333333;
+    position: absolute;
+    left: 0.9rem;
+    bottom: 2.534rem;
+}
+/* 正常蓄水位 */
+.text5 {
+    width: 77%;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    border-bottom: 0.01rem solid #333333;
+    position: absolute;
+    left: 1.3rem;
+    bottom: 2.234rem;
+}
+/* 防洪限制水位 */
+.text6 {
+    width: 85%;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    border-bottom: 0.01rem solid #333333;
+    position: absolute;
+    left: 0.5rem;
+    bottom: 1.934rem;
+}
+/* 死水位 */
+.text7 {
+    width: 70%;
+    height: 0.3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    border-bottom: 0.01rem solid #333333;
+    position: absolute;
+    left: 1.3rem;
+    bottom: 0.934rem;
+}
+/* 总库容 */
+.text8 {
+    width: 0.4rem;
+    /* height: 3rem; */
+    position: absolute;
+    left: -0.3rem;
+    bottom: 0.15rem;
+    line-height: 0.2rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.text8_texts {
+    width: 0.3rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.text_column {
+    display: inline-block;
+    width: 100%;
+}
+/* 库容范围样式-总库容start */
+.arrows {
+    width: 0.09rem;
+    height: 0.15rem;
+}
+.text8_line {
+    width: 0.1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+.text8_line-lines {
+    position: absolute;
+    top: 0.05rem;
+    left: 0.075rem;
+    width: 1px;
+    /* height: 2.9rem; */
+    background-color: #000000;
+}
+/* 库容范围样式-总库容end */
+/* 调洪库容 */
+.text9 {
+    height: 57px;
+    left: 0.2rem;
+}
+#text9 {
+    position: absolute;
+    top: -0.3rem;
+    display: inline-block;
+    white-space: nowrap;
+}
+/* 防洪库容 */
+.text10 {
+    left: 0.75rem;
+}
+#text10 {
+    position: absolute;
+    top: -0.2rem;
+    left: 0.1rem;
+    display: inline-block;
+    white-space: nowrap;
+}
+/* 兴利库容 */
+.text11 {
+    left: 1rem;
+}
+#text11 {
+    position: absolute;
+    top: 0.65rem;
+    left: -0.6rem;
+    white-space: nowrap;
+}
+/* 死库容 */
+.text12 {
+    left: 1rem;
+}
+#text12 {
+    position: absolute;
+    top: 0.4rem;
+    left: -0.6rem;
+    white-space: nowrap;
+}
+
+.kuang1 {
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #999999;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+.kuang2 {
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #c7925e;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+.kuang3 {
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #e5ae2d;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+.kuang4 {
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #ffd452;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+.kuang5 {
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #78d9e9;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+.kuang6 {
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #40c87e;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+
+.mui-slider {
+    margin-bottom: 0.3rem;
+}
+
+/* 水库xian详情说明 */
+.head_explain {
+    width: 100%;
+    height: auto;
+    padding: 0.3rem;
+    line-height: 2;
+    background-color: #3a77f0;
+    text-indent: 2em;
+    overflow: hidden;
+}
+.head_explain_text {
+    color: #ffffff;
+    font-size: 0.28rem;
+}
+.head_explain_open {
+    width: 100%;
+    height: 0.5rem;
+    color: #4ccfff;
+    background-color: #3a77f0;
+    margin-left: 0.2rem;
+}
+
+/* 监测信息库容等信息 */
+.infos_top {
+    width: 100%;
+    height: auto;
+    /* background-color: pink; */
+    margin: 0.2rem auto 0.3rem;
+}
+.infos_top_times {
+    display: flex;
+    justify-content: space-between;
+}
+.infos_top_times-rigth {
+    width: auto;
+    height: 0.38rem;
+    margin-left: 5px;
+    padding: 0 2px;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+.infos_top-box1 {
+    width: 100%;
+    height: 1rem;
+    border: 1px solid #5e7bd5;
+    border-right: none;
+    margin-bottom: 0.2rem;
+}
+.infos_top-box1 tr th {
+    font-size: 0.24rem;
+    color: #ffffff;
+    border-right: 1px solid #5e7bd5;
+    background-color: #9bb4fc;
+}
+.infos_top-box1 tr > td {
+    font-size: 0.22rem;
+    text-align: center;
+    color: #6985dd;
+    border-right: 1px solid #5e7bd5;
+    background-color: #ffffff;
+}
+.infos_top-box1 tr > td img {
+    width: 0.3rem;
+    height: 0.3rem;
+    margin-left: 0.1rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0.05rem;
+}
+.infos_top-box1 tr td > .unit {
+    color: #4c4c4c;
+}
+
+.infos_top-box2 {
+    width: 100%;
+    height: 4rem;
+    border: 1px solid #549bfd;
+    border-right: none;
+    margin-bottom: 0.2rem;
+}
+.infos_top-box2 tr th {
+    font-size: 0.24rem;
+    line-height: 0.24rem;
+    color: white;
+    font-weight: 400;
+    border-right: 1px solid #5e7bd5;
+    background-color: #9bb4fc;
+}
+.infos_top-box2 tr > td {
+    font-size: 0.22rem;
+    line-height: 0.22rem;
+    min-width: 0.5rem;
+    text-align: center;
+    color: #4d4d4d;
+    border-right: 1px solid #288cfd;
+    background-color: #ffffff;
+}
+
+/* 统计图表入口 */
+.infos_top .chart_enter {
+    height: 0.5rem;
+    margin-bottom: 0.2rem;
+    color: #6492ff;
+    display: flex;
+    align-items: center;
+}
+.infos_top .chart_enter .img {
+    width: 0.2rem;
+    height: 0.2rem;
+    margin-left: 0.08rem;
+}
+/* 统计图表弹窗 */
+.chart_popup_wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.chart_popup_wrap .chart_popup {
+    width: 320px;
+    height: 320px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 0.1rem;
+}
+.chart_popup_wrap .chart_popup .chart_select {
+    height: 16%;
+    padding: 0.1rem 0 0.3rem;
+    border-bottom: 1px solid #779fff;
+    display: flex;
+}
+.chart_popup .chart_select .select_item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chart_popup .chart_select .select_item:first-child {
+    border-right: 2px solid #a5b6d8;
+}
+.chart_popup .chart_select .select_item.active {
+    position: relative;
+    color: #7ba1ff;
+}
+.chart_popup .chart_select .select_item.active::after {
+    position: absolute;
+    bottom: -0.42rem;
+    content: "";
+    display: block;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-color: #fff;
+    border-top: 1px solid #7ba1ff;
+    border-left: 1px solid #7ba1ff;
+    transform: rotate(45deg);
+}
+.chart_popup_wrap .chart_popup .chart_wrap {
+    width: 100%;
+    height: 84%;
+    padding: 0.1rem;
+}
+.chart_popup .chart_wrap .line,
+.chart_popup .chart_wrap .bar {
+    width: 100%;
+    height: 100%;
+}
+.chart_popup .chart_wrap .bar {
+    display: none;
+}
+.chart_popup_wrap .close {
+}
+.chart_popup_wrap .close .img {
+    margin-top: 0.6rem;
+    width: 0.5rem;
+    height: 0.5rem;
+}

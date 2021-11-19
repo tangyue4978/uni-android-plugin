@@ -1,0 +1,229 @@
+.content{
+	background-color: #F6F6F6;
+}
+/* 统计start */
+.statics{
+	width: 90%;
+	height: 1.64rem;
+	position: fixed;
+	top:2.28rem;
+	left: 0.4rem;
+	z-index: 2;
+	border-radius: 0.25rem;
+	background-color: #3A77F0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.header_list{
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.header_list>li{
+	width: 25%;
+	font-size: 0.44rem;
+	color: #ffffff;
+	text-align: center;
+	border-right:1px solid #ddd;
+}
+.header_list>.unborder{
+	border:none;
+}
+.header_lists{
+	margin-top: 0.2rem;
+}
+.header_lists>li{
+	font-size: 0.34rem;
+	color: #ffffff;
+	border:none;
+	opacity: 0.5;
+}
+/* 统计end */
+.content_box{
+	width: 100%;
+	height: 2.3rem;
+	background-color: #F6F6F6;
+	position: fixed;
+	top: 1.3rem;
+	left: 0px;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.content_boxs{
+	height: 1rem;
+	top:1.3rem;
+}
+/* 切换start */
+.tab{
+	width: 100%;
+	height: 1rem;
+	background-color: #ffffff;
+}
+.tab_sort{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	color: #333333;
+	font-size: 0.34rem;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+}
+.tab_sort a{
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+.tab_sort li{
+	line-height: 1rem;
+	text-align: center;
+	width: auto;
+	margin:0 auto;
+}
+.tab_sort .tab_color a{
+	color: #3A77F0;
+}
+/* 切换end */
+/* 分类start */
+.sort{
+	width: 96%;
+	height: 0.9rem;
+	padding-left: 0.8rem;
+	margin:0 auto;
+	background-color: #ffffff;
+	border-radius: 0.2rem;
+	border-bottom: 1px solid #DDDDDD;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-start;
+}
+.sort.sorts{
+	width: 100%;
+	height: 0.98rem;
+	position: fixed;
+	top: 1.3rem;
+	left: 0;
+	padding-left: 0.8rem;
+	background-color: #ffffff;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+.sort_list{
+	width: 100%;
+	height: 100%;
+	background: url(../../images/riverChief/arrow_down.png) no-repeat 60px center;
+	background-size: 15px 9px;
+	color: #333333;
+	font-size: 0.26rem;
+}
+/* 分类end */
+/* 总条数 */
+.all{
+	/* margin-top: 3.61rem; */
+	width: 100%;
+	height: 1rem;
+	line-height: 1rem;
+	font-size: 0.3rem;
+	color:#CCCCCC;
+	padding-left: 0.3rem;
+	letter-spacing: 0.01rem;
+	background-color: #F6F6F6;
+	position: fixed;
+	z-index: 3;
+}
+.all_num{
+	color: #6492ff;
+}
+.alls{
+	margin-top: 3.94rem;
+}
+/* 日期start */
+.statics_input{
+	width: 25%;
+	height: 0.68rem;
+	background-color: #FFFFFF!important;
+	border: none;
+	color: #333333;
+	font-size: 0.26rem;
+	padding-top: 0.2rem;
+	background: url(../../images/riverChief/arrow_down.png) no-repeat 90% 0.35rem;
+	background-size: 15px 9px;
+}
+.sort input::-webkit-input-placeholder{
+	color: #333333;
+}
+/* 日期end */
+/* 列表start */
+.list{
+	width: 96%;
+	height: calc(100% - 4.25rem);
+	margin: 0 auto;
+}
+.lists{
+	width: 100%;
+	height: 100%;
+}
+.lists_li{
+	width: 100%;
+	/* height: 1.8rem; */
+	background-color: #ffffff;
+	margin-bottom: 0.2rem;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+	padding: 0.2rem 0;
+}
+.lists_data{
+	width: 90%;
+	height: 100%;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: space-around;
+	
+}
+.lists_data>li{
+	width: 50%;
+	font-size: 0.24rem;
+	font-family: Myriad Pro;
+	font-weight: 400;
+	color: #999999;
+	line-height: 0.25rem;
+	white-space: nowrap;
+	overflow: hidden;
+	padding: 0.1rem 0.1rem;
+	text-overflow: ellipsis;
+}
+
+/* .lists_data_head{
+	display: flex;
+	justify-content: space-between;
+}
+.lists_data_head_l{
+	font-size: 0.28rem;
+	color: #333333;
+	line-height: 0.28rem;
+}
+.lists_data_head_r{
+	color: #3A77F0;
+
+} */
+/* 列表end */
+
+/* 暂无数据 */
+.un_moment{
+	 width: 96%;
+	 height: 2.4rem;
+	 background-color: #ffffff;
+	 box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	 border-radius: 0.2rem;
+	 font-size:0.3rem;
+	 text-align:center;
+	 line-height: 2.4rem;
+}

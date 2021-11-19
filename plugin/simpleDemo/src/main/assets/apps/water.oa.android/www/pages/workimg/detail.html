@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>工作用图</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+    <link rel="stylesheet" href="../../css/useHelp/detail.css?v=1029" />
+    <!-- 引入js -->
+    <script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.min.js"></script>
+    <!-- <script src="../../js/turnjs4/turn.js"></script> -->
+    <script src="../../js/turnjs4/turn.min.js"></script>
+    <script src="../../js/turnjs4/modernizr.2.5.3.min.js"></script>
+    <script src="../../js/ruralWater/jump_page.js?v=1025"></script>
+    <script src="../../js/rem.js?v=1025" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="mui-content">
+        <header class="header pp">
+           <i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+            <span>工作用图</span>
+        </header>
+        <div class="section">
+            <div class="left_btn">
+                <img class="btn_img" src="../../images/use_help/xiangzuosanjiaoxing.png" alt="" />
+                <span class="btn_text">上一页</span>
+            </div>
+            <div class="return">
+                <img class="return_img" src="../../images/use_help/yuanquanquan.png" alt="" />
+                <span class="return_text">返回目录</span>
+            </div>
+            <div class="right_btn">
+                <img class="btn_img" src="../../images/use_help/xiangyousanjiaoxing.png" alt="" />
+                <span class="btn_text">下一页</span>
+            </div>
+            <div class="flipbook"></div>
+        </div>
+    </div>
+    <div class="z_loading"
+        style="display: none; position: fixed;top: 50%;left: 50%; transform: translate(-50%); z-index: 999;">
+        <img style="width:0.5rem;height:0.5rem" src="../../images/loading/loading.gif" alt="">
+    </div>
+</body>
+
+</html>
+
+<script>
+    function zloading(flag) {
+        flag === true ? $("body").find(".z_loading").show() : $("body").find(".z_loading").hide()
+    }
+</script>
+
+<script>
+    //判断手机类型
+    window.onload = function () {
+        //alert($(window).height());
+        var u = navigator.userAgent;
+        if (u.indexOf("Android") > -1 || u.indexOf("Linux") > -1) {
+            //安卓手机
+        } else if (u.indexOf("iPhone") > -1) {
+            //苹果手机
+            //屏蔽ios下上下弹性
+            $(window)
+                .on("scroll.elasticity", function (e) {
+                    e.preventDefault();
+                })
+                .on("touchmove.elasticity", function (e) {
+                    e.preventDefault();
+                });
+        } else if (u.indexOf("Windows Phone") > -1) {
+            //winphone手机
+        }
+    };
+
+    for (let i = 1; i <= 25; i++) {
+        $(".flipbook").append(`
+                <div class="page">
+                    <img class="img img${i}" alt="">
+                </div>
+        `);
+    }
+
+
+    let header = $(".header").outerHeight();
+    let w = $(window).width();
+    let h = $(window).height() - header;
+    $(".flipboox").width(w).height(h);
+    $(window).resize(function () {
+        header = $(".header").height();
+        w = $(window).width();
+        h = $(window).height() - header;
+        $(".flipboox").width(w).height(h);
+    });
+    $(".flipbook").turn({
+        width: w,
+        height: h,
+        elevation: 50,
+        display: "single",
+        gradients: true,
+        autoCenter: true,
+        when: {
+            turning: function (e, page, view) {
+                // if (page == 1) {
+                //     $(".btnImg").css("display", "none");
+                //     $(".mark").css("display", "block");
+                // } else {
+                //     $(".btnImg").css("display", "block");
+                //     $(".mark").css("display", "none");
+                // }
+                // if (page == 41) {
+                //     $(".nextPage").css("display", "none");
+                // } else {
+                //     $(".nextPage").css("display", "block");
+                // }
+            },
+            turned: function (e, page, view) {
+                // $(this).turn('peel', 'br'); //右下角卷起来
+                // var total = $(".flipbook").turn("pages");//总页数
+                // if (page == 1) {
+                //     $(".return").css("display", "none");
+                //     $(".btnImg").css("display", "none");
+                // } else {
+                //     $(".return").css("display", "block");
+                //     $(".btnImg").css("display", "block");
+                // }
+                // if (page == 2) {
+                //     $(".catalog").css("display", "block");
+                // } else {
+                //     $(".catalog").css("display", "none");
+                // }
+            },
+        },
+    });
+
+    zloading(true)
+	let page
+	mui.plusReady(function() {
+		// isLayers(showMapType[0]);
+		var self = plus.webview.currentWebview();
+		page= self.page
+		console.log(page)
+		$("body").on("click", ".catalog_row", function () {
+		    let page = $(this).attr('hrep')
+		    mui.openWindow({
+		        url: 'https://books.sxjicheng.com/image/small_app/${page}.jpg',
+		        params: {
+		            page,
+		        }
+		    })
+		})
+		
+		$(".flipbook").turn("page", page);
+		$(`.flipbook .page .img${page}`).attr('src', `https://books.sxjicheng.com/image/small_app/${page}.jpg`)
+		$(`.flipbook .page .img${page}`).on('load', function () {
+		    zloading(false)
+		})
+	});
+	
+	
+	
+
+    //上一页
+    $(".left_btn").bind("click", function () {
+        let pageCount = $(".flipbook").turn("pages"); //总页数
+        let currentPage = $(".flipbook").turn("page"); //当前页
+        let prePage = currentPage - 1
+        if (currentPage >= 2) {
+            zloading(true)
+            $(".flipbook").turn("page", prePage);
+            $(`.flipbook .page .img${prePage}`).attr('src', `https://books.sxjicheng.com/image/small_app/${prePage}.jpg`)
+            $(`.flipbook .page .img${prePage}`).on('load', function () {
+                zloading(false)
+            })
+        } else {
+            mui.toast('已经是首页了', { duration: 'short', type: 'div' })
+        }
+    });
+    // 下一页
+    $(".right_btn").bind("click", function () {
+        let pageCount = $(".flipbook").turn("pages"); //总页数
+        let currentPage = $(".flipbook").turn("page"); //当前页
+        let nextPage = currentPage + 1
+        if (currentPage < pageCount) {
+            zloading(true)
+            $(".flipbook").turn("page", nextPage);
+            $(`.flipbook .page .img${nextPage}`).attr('src', `https://books.sxjicheng.com/image/small_app/${nextPage}.jpg`)
+            $(`.flipbook .page .img${nextPage}`).on('load', function () {
+                zloading(false)
+            })
+        } else {
+            mui.toast('没有页面了', { duration: 'short', type: 'div' })
+        }
+    });
+    //返回到目录页
+    $(".return").bind("click", function () {
+        mui.back()
+    });
+</script>

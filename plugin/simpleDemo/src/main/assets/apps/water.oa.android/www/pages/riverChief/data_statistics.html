@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>河湖长制</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/data_statistics.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>统计图表</span>
+			</header>
+			<div class="main">
+				<!-- 地市搜素start -->
+				<!-- <div class="city_search">
+					<select class = "submit_item" id="city" name="city_code"  >
+						<option value="">全部地市</option>
+					</select>
+					<div class="submit_item" id="muiPicker">2020-12</div>
+				</div> -->
+				<!-- 地市搜素end -->
+				<!-- 河湖长情况start -->
+				<div class="river_lake">
+					<div class="river_lake_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">河长情况</div>
+							</div>
+							<select name="city" class="river_lake_title_r">
+								<option value="">山西省</option>
+							</select>
+						</div>
+						<div id="container" class="chart"></div>
+					</div>
+					<div class="river_lake_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">湖长情况</div>
+							</div>
+							<select name="city" class="river_lake_title_r">
+								<option value="">山西省</option>
+							</select>
+						</div>
+						<div id="container2" class="chart"></div>
+					</div>
+				</div>
+				</div>
+				<!-- 河湖长情况end -->
+				<!-- 巡河计划start -->
+				<div class="river_patrol">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">巡河统计</div>
+							</div>
+							<div class="river_patrol_r">
+								2020年第4季度
+							</div>
+						</div>
+						<div id="container3" class="charts3"></div>
+					</div>
+				</div>
+				<!-- 巡河计划end -->
+				<!-- 动态信息start -->
+				<div class="dynamic_info">
+					<div class="river_lake_box dynamic_info_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">动态信息</div>
+							</div>
+							<div class="river_patrol_r river_patrol_rs">
+								2020年
+							</div>
+						</div>
+						<div class="chart4" id="container4"></div>
+					</div>
+				</div>
+				<!-- 动态信息end -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/riverChief/data_statistics.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// var obj1={
+		// 	id:'container',
+		// 	data : [{
+		// 			name: '省级 11人',
+		// 			y: 11,
+		// 			color: '#FFC0AE'
+		// 		},
+		// 		{
+		// 			name: '市级 96人',
+		// 			y: 96,
+		// 			color: '#78D9E9'
+		// 		},
+		// 		{
+		// 			name: '县级 1322人',
+		// 			y: 1322,
+		// 			color: '#FFD44F'
+		// 		},
+		// 		{
+		// 			name: '乡级 5274人',
+		// 			y: 5274,
+		// 			color: '#DA86FF'
+		// 		},
+		// 		{
+		// 			name: '村级 12620人',
+		// 			y: 12620,
+		// 			color: '#84EA1E'
+		// 		},
+		// 		{
+		// 			name: '村巡河员 3527人',
+		// 			y: 3527,
+		// 			color: '#6FB4FF'
+		// 		},],
+		// 		subtitle : 22850,
+		// 		itemDistance : 10
+		// }
+		// pieChartFirst(obj1);
+		
+		// var obj2={
+		// 	id:'container2',
+		// 	data : [{
+		// 			name: '省级 0人',
+		// 			y: 0,
+		// 			color: '#FFC0AE'
+		// 		},
+		// 		{
+		// 			name: '市级 4人',
+		// 			y: 4,
+		// 			color: '#78D9E9'
+		// 		},
+		// 		{
+		// 			name: '县级 7人',
+		// 			y: 7,
+		// 			color: '#FFD44F'
+		// 		},
+		// 		{
+		// 			name: '乡级 17人',
+		// 			y: 17,
+		// 			color: '#DA86FF'
+		// 		},
+		// 		{
+		// 			name: '村级 21人',
+		// 			y: 21,
+		// 			color: '#84EA1E'
+		// 		},],
+		// 		subtitle : 49,
+		// 		itemDistance : 36
+		// }
+		// pieChartFirst(obj2);
+		
+		// var obj3={
+		// 	id:'container3',
+		// 	colors:['#FFC0AE','#78D9E9','#FFD44F','#DA86FF','#84EA1E','#6FB4FF','#FF3366','#FF9900','#FFCCCC','#CCCCCC','#9B9B6A'],
+		// 	data:[
+		// 		['太原市',4015],
+		// 		['大同市',31112],
+		// 		['阳泉市',31112],
+		// 		['长治市',14782],
+		// 		['晋城市',73080],
+		// 		['朔州市',8360],
+		// 		['晋中市',36283],
+		// 		['运城市',10283],
+		// 		['忻州市',6437],
+		// 		['临汾市',12352],
+		// 		['吕梁市',0]
+		// 	]
+		// }
+		// pie(obj3);
+	</script>
+	<!-- <script type="text/javascript">
+		var dtpicker1 = new mui.DtPicker({"type": "month"});
+		document.querySelector("#muiPicker").addEventListener("tap", function() {
+			dtpicker1.show(function(items) {
+				console.log(JSON.stringify(items))
+				$("#muiPicker").html(items.y.text + "-" + items.m.text);
+			});
+		});
+	</script> -->
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>雨雪雷达云图</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css?v=1024" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css?v=1024" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css?v=1025" />
+	<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/meteorological/radarImage.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/waterLove.css" />
+	<!-- 引入右边导航栏样式 -->
+	<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/mui.picker.min.js?v=1024"></script>
+	<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.marker {
+			width: 15px;
+			height: 15px;
+			border: 1px solid #088;
+			border-radius: 50%;
+			background-color: #00FFFF;
+			opacity: 0.5;
+			display: none;
+		}
+
+		.marker:after {
+			content: " ";
+			background-color: #00FFFF;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			margin-left: -50%;
+			margin-top: -50%;
+			-webkit-animation-name: 'ripple';
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: normal;
+		}
+
+		@keyframes ripple {
+			0% {
+				opacity: 1;
+				width: 15px;
+				height: 15px;
+			}
+
+			50% {
+				opacity: 0.7;
+				width: 30px;
+				height: 30px;
+				margin-left: -15px;
+				margin-top: -15px;
+			}
+
+			100% {
+				opacity: 0.05;
+				width: 60px;
+				height: 60px;
+				margin-left: -30px;
+				margin-top: -30px;
+			}
+		}
+
+		/* 自带放大缩小隐藏 */
+		.ol-zoom {
+			display: none;
+		}
+
+		.mapBox #map {
+			background-color: #C3E2AE;
+		}
+	</style>
+	<style>
+		.top_nav{
+			height: 1rem;
+		}
+		.nav_ul_box .nav_li_item{
+			height: 100%;
+		}
+		.nav_ul_box .nav_li_item:after{
+			top: 0;
+			bottom: 0;
+			border-right: 1px solid #CDCDCD;
+		}
+		.nav_ul_box li{
+			position: relative;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.nav_ul_box li.situation::before{
+			content: "";
+			width: 0px;
+			height: 0px;
+			border-left: 0.1rem solid transparent;
+			border-right: 0.1rem solid transparent;
+			border-top: 0.1rem solid #3a77f0;
+			position: absolute;
+			top: 0.4rem;
+			right: 17%;
+		}
+		.nav_ul_box .nav_li_item.situation{
+			color: #3a77f0;
+		}
+		.nav_ul_box .situation.active .boxInfo{
+			display: block;
+		}
+		.boxInfo{
+			display: none;
+			position: absolute;
+			width: calc(100% + 2px);
+			top: 0.99rem;
+			left: -2px;
+			z-index: 99;
+			background-color: #FFFFFF;
+			border: 1px solid #CDCDCD;
+		}
+		.boxInfo .type_item{
+			line-height: 36px;
+			font-size: 13px;
+			color: #999999;
+		}
+		.boxInfo .type_item.active{
+			color: #3a77f0;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>实况图</span>
+			<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a href=""><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+		</header>
+		<div class="section">
+			<div class="mapBox">
+				<div id="map"></div>
+			</div>
+			<div class="top_nav">
+				<ul class="nav_ul_box">
+					<li class="nav_li_item situation" style="padding-right: 0.3rem;box-sizing: border-box;">
+						实况图
+						<div class="boxInfo">
+							<div class="type_item active" data-type="leida" radar_type="1">雨雪雷达图</div>
+							<div class="type_item" data-type="weixing" radar_type="2">卫星云图</div>
+							<div class="type_item" data-type="jiangyu" radar_type="3">降水实况图</div>
+						</div>
+					</li>
+					<li class="nav_li_item" onclick="jump_new('waterLove_map.html',{'type_id':'jiangshui'})" >降水</li>
+					<li class="nav_li_item" onclick="jump_new('waterLove_map.html',{'type_id':'hdsq'})">河道水情</li>
+					<li class="nav_li_item" onclick="jump_new('waterLove_map.html',{'type_id':'sksq'})">水库水情</li>
+				</ul>
+			</div>
+			<!-- 图例start -->
+			<!-- <div class="radarLengend">
+				<div class="radarLengend_title">
+					降水量
+				</div>
+				<div class="radarLengend_show">
+					<span>弱</span>
+					<img class="radarLengend_img" src="../../images/meteorological/radarLengend.jpg" >
+					<span>强</span>
+				</div>
+			</div> -->
+			<div class="radarLengend">
+				<div class="radarLengend_out">
+					<img class="legend_img" src="../../images/ruralWater/water_icon/icon_07_03.png" alt="">
+					<span class="radarLengend_title">图例</span>
+				</div>
+				<div class="radarLengend_inn">
+					<div class="radarLengend_title">
+						<img class="legend_img" src="../../images/ruralWater/water_icon/icon_07_03.png" alt="">
+						<span class="radarLengend_title">降水量</span>
+					</div>
+					<div class="radarLengend_show">
+						<img class="radarLengend_img" src="../../images/meteorological/radarLengend.jpg" >
+						<div class="radarLengend_text">
+							<span>强</span>
+							<span>弱</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 图例end -->
+			<!-- 进度条start -->
+			<div class="scrollBar">
+				<div class="progress_box">
+					<div id="progress1" class="progress1">
+						<div class="progress1_bar"></div>
+					</div>
+					<ul class="sign">
+						<!-- <li>2小时前</li>
+						<li>1小时前</li>
+						<li>现在</li>
+						<li>1小时后</li>
+						<li>2小时后</li> -->
+					</ul>
+				</div>
+				<img src="../../images/meteorological/zanting.png" class="controls">
+			</div>
+			<!-- 进度条end -->
+			<!-- 右侧导航栏信息                  开始 -->
+			<div class="right_bar" style="z-index: 9;display: none;">
+				<!-- 中间滚动区域       开始-->
+				<div class="right_bar_center" style="height: auto;padding-top: 0.2rem;">
+					<ul>
+						<li class="list_li active" data-type="leida" radar_type="1">
+							<img class="icon_img icon1" src="../../images/waterLove/leida.png">
+							<img class="icon_img icon2" src="../../images/waterLove/leida_light.png">
+							<span class="bar_text">雨雪雷达图</span>
+						</li>
+						<li class="list_li" data-type="weixing" radar_type="2">
+							<img class="icon_img icon1" src="../../images/waterLove/weixing.png">
+							<img class="icon_img icon2" src="../../images/waterLove/weixing_light.png">
+							<span class="bar_text">卫星云图</span>
+						</li>
+						<li class="list_li" data-type="jiangyu" radar_type="3">
+							<img class="icon_img icon1" src="../../images/waterLove/jiangshui.png">
+							<img class="icon_img icon2" src="../../images/waterLove/jiangshui_light.png">
+							<span class="bar_text">降水实况图</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- 右侧导航栏信息                  结束 -->
+			<!-- 右下定位信息     开始-->
+			<div class="right_posi" style="bottom: 12%;">
+				<div class="img_box_list">
+					<div class="img_box_item" onclick="zoomInFun()">
+						<img class="img" src="../../images/right_bar/add.png">
+					</div>
+					<div class="img_box_item" onclick="zoomOutFun()">
+						<img class="img" src="../../images/right_bar/reduce.png">
+					</div>
+				</div>
+			</div>
+			<!-- 右下定位信息     结束-->
+			<!-- 卫星云图和降水实况图 -->
+			<div class="randar"></div>
+			<!-- 卫星云图和降水实况图的筛选 -->
+			<div class="screen">
+				<div class="screen_top">
+					<div class="screen_title">
+						历史筛选
+					</div>
+					<div class="screen_reset">
+						回到当前
+					</div>
+				</div>
+				<div class="screen_bot">
+					<div class="screen_bot_left">
+						<div class="screen_item">
+							<div class="screen_item_title">
+								筛选日期
+							</div>
+							<div class="screen_item_list">
+								<input type="text" class="sort_input" id="statics_input1" readonly
+									placeholder="" />
+								<img class="img_search" src="../../images/riverChief/arrow_down.png">
+							</div>
+						</div>
+						<div class="screen_item">
+							<div class="screen_item_title">
+								开始时间
+							</div>
+							<div class="screen_item_list">
+								<input type="text" class="sort_input" id="statics_input2" readonly=""
+									placeholder="" />
+								<img class="img_search" src="../../images/riverChief/arrow_down.png">
+							</div>
+						</div>
+						<div class="screen_item">
+							<div class="screen_item_title">
+								结束时间
+							</div>
+							<div class="screen_item_list">
+								<input type="text" class="sort_input" id="statics_input3" readonly=""
+									placeholder="" />
+								<img class="img_search" src="../../images/riverChief/arrow_down.png">
+							</div>
+						</div>
+					</div>
+					<div class="screen_bot_right">
+						筛选
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 当前手机位置 -->
+	<div id="marker" class="marker"></div>
+</body>
+
+<script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/meteorological/radarImage.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<!-- 右侧选中效果js -->
+<script src="../../js/right_bar/index.js?v=1024"></script>
+<script type="text/javascript">
+		/**
+		 * @description 放大
+		 */
+		function zoomInFun() {
+			$(".ol-zoom .ol-zoom-in").click();
+		}
+		/**
+		 * @description 缩小
+		 */
+		function zoomOutFun() {
+			$(".ol-zoom .ol-zoom-out").click();
+		}
+		
+		mui.plusReady(function () {
+		   setTimeout(function(){
+		    var waterLove=plus.webview.getWebviewById("waterLove_map.html");
+			console.log(waterLove)
+			if(waterLove){
+				console.log(waterLove.getURL());
+				waterLove.hide();
+				waterLove.close();
+			}
+		    
+		   },50)
+		  })
+	</script>
+</html>

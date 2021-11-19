@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/small_hydropower.css"/>
+		<!-- 引入右边导航栏样式 -->
+		<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style>
+			.mapBox #map{background-color: #C3E2AE;}
+			.rightPosi{top: 0.3rem;}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>大型灌区</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i> -->
+			</header>
+			<div class="section">
+				<div class="mapBox">
+					<div id="map"></div>
+					<div class="searchPanel" style="display: none;">
+						<div class="searchBox">
+							<div class="searchparts">
+								<input class="searchInput" type="text" size="20" placeholder="关键字搜索..." />
+								<button id="searchBtn" type="button"></button>
+							</div>
+							<div class="searchparts_cancel">取消</div>
+						</div>
+						<div class="searchResult">
+							<ul id="searchUl">
+								<!-- <li>
+									<a href="">
+										<img src="../../images/ruralWater/gps.png" alt="">
+										<span>晋中市</span><span>榆次区</span><span class="text-orange">郭家堡</span>
+									</a>
+								</li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="rightTabs rightPosi">
+					<ul>
+						<li><a onclick="jump_new('big_irrigated_results.html')"><img src="../../images/ruralWater/sdz_icon_list02.png" ></a></li>
+						<li><a href=""><img src="../../images/ruralWater/right_tabs01.png" ></a></li>
+					</ul>
+				</div>
+				<!-- <div class="rightTabs leftPosi">
+					<ul>
+						<li><a href=""><img src="../../images/ruralWater/right_tabs01.png" ></a></li>
+					</ul>
+				</div> -->
+				<!-- 右下定位信息     开始-->
+				<div class="right_posi" >
+					<div class="img_box_list">
+						<div class="img_box_item" onclick="zoomInFun()">
+							<img class="img" src="../../images/right_bar/add.png">
+						</div>
+						<div class="img_box_item" onclick="zoomOutFun()">
+							<img class="img" src="../../images/right_bar/reduce.png">
+						</div>
+					</div>
+				</div>
+				<!-- 右下定位信息     结束-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var textLabelArr = [
+			// {lat:110.99534240990289,lng:35.640363136215015,value:"禹门口引黄灌区",rotate:1},
+			// {lat:110.85222212954903,lng:35.29165077918948,value:"北赵灌区",rotate:1},
+			{lat:110.66660497946592,lng:35.3269209446898,value:"北赵灌区",rotate:1},
+			{lat:113.94958169124283,lng:39.966487005080505,value:"册田灌区",rotate:1},
+			{lat:110.7090376601135,lng:34.70267136629294,value:"大禹渡灌区",rotate:1},
+			{lat:112.47080650111317,lng:37.95788731642176,value:"汾河灌区",rotate:50},
+			{lat:111.54138128954902,lng:36.20644609560851,value:"汾西灌区",rotate:-50},
+			{lat:112.8654118419493,lng:38.52844514205152,value:"滹沱河灌区",rotate:1},
+			{lat:110.56539439557169,lng:35.08710194763545,value:"夹马口灌区",rotate:1},
+			// {lat:110.65833247404714,lng:35.18467059423232,value:"夹马口灌区节水改扩建工程灌区",rotate:1},
+			{lat:113.03088100712452,lng:39.487343949800206,value:"桑干河灌区",rotate:-30},
+			{lat:112.03229519693161,lng:37.36956585998272,value:"文峪河灌区",rotate:-45},
+			{lat:112.68754009172375,lng:37.62831656205458,value:"潇河灌区",rotate:1},
+			{lat:110.99534240990289,lng:35.640363136215015,value:"禹门口引黄灌区",rotate:1},
+			{lat:110.66773512966533,lng:34.99348100758847,value:"尊村灌区",rotate:1}
+		]
+	</script>
+	<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/big_irrigated_results_map.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/**
+		 * @description 放大
+		 */
+		function zoomInFun() {
+			$(".ol-zoom .ol-zoom-in").click();
+		}
+		/**
+		 * @description 缩小
+		 */
+		function zoomOutFun() {
+			$(".ol-zoom .ol-zoom-out").click();
+		}
+	</script>
+</html>
+

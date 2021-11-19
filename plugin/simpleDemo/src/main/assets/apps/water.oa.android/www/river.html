@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_n5hqayz6dk.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>河长制</p>
+				<div class="workNews-nav river">
+					<div style="position: fixed;z-index: 9;top: 1.27rem;    width: 100%;">
+						<ul>
+							<li onclick="minglu()">
+								<div class="left icon" style="background: #3d9cfa;"><i class="iconfont icon-mingpian"></i></div>
+								<div class="left title">河长名录</div>
+							</li>
+							<li onclick="heduanminglu()">
+								<div class="left icon" style="background: #17bb84;"><i class="iconfont icon-heliu"></i></div>
+								<div class="left title">河段名录</div>
+							</li>
+							<li onclick="fangan()">
+								<div class="left icon" style="line-height:1.1rem;background: #f86d6d;"><i class="iconfont icon-ProjectManagement"></i></div>
+								<div class="left title">工作方案</div>
+							</li>
+							<li onclick="zhidu()">
+								<div class="left icon" style="background: #2bbfe4;"><i class="iconfont icon-guizhangzhidu"></i></div>
+								<div class="left title">工作制度</div>
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			//河长名录列表
+			function minglu() {
+				mui.openWindow({
+					url: 'riverContacts.html', //通过URL传参
+					id: 'riverContacts.html', //通过URL传参
+				})
+			}
+			function heduanminglu() {
+				mui.openWindow({
+					url: 'riverParagraph.html', //通过URL传参
+					id: 'riverParagraph.html', //通过URL传参
+					
+				})
+			}
+			function fangan(){
+				mui.openWindow({
+					url: 'riverSystem.html', //通过URL传参
+					id: 'riverSystem.html', //通过URL传参
+					extras: {
+						i: "f",
+					}, 
+				})
+			}
+			function zhidu(){
+				mui.openWindow({
+					url: 'riverSystem.html', //通过URL传参
+					id: 'riverSystem.html', //通过URL传参
+					extras: {
+						i: "z",
+					}, 
+				})
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

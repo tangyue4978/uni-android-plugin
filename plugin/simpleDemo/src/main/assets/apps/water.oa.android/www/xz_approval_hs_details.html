@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_j11yuu596xl.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/bumfDetails.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/state.css"/>
+		<link rel="stylesheet" type="text/css" href="css/picture_preview.css"/>
+		<style type="text/css">
+			.secret{
+				display: none;
+			}
+			/*//选择节点*/
+			.selectNode{
+				display: none;
+			}
+			/*选择协助节点*/
+			.isAssist{
+				display: none;
+			}
+			/*会签*/
+			.jointly_sign{
+				width: 100%;
+				background-color: #FFFFFF;
+				display: none;
+			}
+			.jointly_sign .jointly_sign_box{
+				width: 100%;
+			}
+			.jointly_sign .jointly_sign_box .jointly_sign_ul{
+				width: 100%;
+				overflow: hidden;
+				padding: 0.1rem 0rem;
+			} 
+			.jointly_sign .jointly_sign_box .jointly_sign_ul li{
+				width: 45%;
+				float: left; 
+				margin-left: 3%;
+				background-color: #F0F0F0;
+				color: #333333;
+				height: 0.6rem;
+				line-height: 0.6rem;
+				text-align: center;
+				list-style: none;
+				padding: 0rem;
+				border-radius: 2em;
+				font-size: 0.35rem;
+				margin-bottom: 0.2rem;
+				overflow: hidden;
+			}
+			.jointly_sign .jointly_sign_box .jointly_sign_ul li.active{
+				background-color: #397AEF;;
+				color: #FFFFFF;
+			}
+			/*会签 end*/
+			/*处室分发*/
+			.csff_sign{
+				width: 100%;
+				background-color: #FFFFFF;
+				display: none;
+			}
+			.csff_sign .csff_sign_box{
+				width: 100%;
+			}
+			.csff_sign .csff_sign_box .csff_sign_ul{
+				width: 100%;
+				overflow: hidden;
+				padding: 0.1rem 0rem;
+			} 
+			.csff_sign .csff_sign_box .csff_sign_ul li{
+				width: 45%;
+				float: left; 
+				margin-left: 3%;
+				background-color: #F0F0F0;
+				color: #333333;
+				height: 0.6rem;
+				line-height: 0.6rem;
+				text-align: center;
+				list-style: none;
+				padding: 0rem;
+				border-radius: 2em;
+				font-size: 0.35rem;
+				margin-bottom: 0.2rem;
+				overflow: hidden;
+			}
+			.csff_sign .csff_sign_box .csff_sign_ul li.active{
+				background-color: #397AEF;;
+				color: #FFFFFF;
+			}
+			/*处室分发 end*/
+			.receipt{
+				display: none;
+			}
+			.receipt .back_box{
+				width: 100%;
+				padding: 0.15rem 0rem;
+			}
+			.receipt .back_box .btn_back{
+				width: 100%;
+				height: 0.6rem;
+				line-height: 0.6rem;
+				display: block;
+				margin: 0 auto;
+				background-color: #4176F6;
+				color: #fff;
+				text-align: center;
+				padding: 0rem;
+				border-radius: 5px;
+				font-size: 0.3rem;
+				border: none;
+			}
+			.receipt .back_show{
+				display: block;
+			}
+			.receipt .back_hidden{
+				display: none;
+			}
+			/*查看附件*/
+			.title_enclosure,.ol_box{
+				padding: 0 0.25rem;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			.ol_box{margin: 0.1rem 0rem;}
+			.ol_box .li_list{width: 100%;height:auto;background-color: #F2F2F2;padding: 0.1rem 0rem;border-radius: 0.05rem;font-size: 0.25rem;overflow: hidden;margin-bottom: 0.1rem;}
+			.ol_box .li_list > p{width: 75%;margin-right: 30%;float: left;margin: 0;margin-left: 1%;color: #464646;line-height: 0.4rem;}
+			.ol_box .li_list > .read{float: right;border:1px solid #4178f9;border-radius: 2em;color: #4178f9;padding:0rem 0.1rem;margin-right: 0.1rem;position: relative;z-index: 9;background-color: #FFFFFF;}
+			
+			body #item2 div.img_preview{
+				position: fixed;
+				top: 0px;
+				right: 0px;
+				left: 0px;
+				bottom: 0px;
+				z-index: 9;
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				background-color: rgba(0,0,0,0.8);
+				text-align: center;
+			}
+			.preview_src{
+				position: relative;
+				display: block;
+				margin: auto;
+			}
+			
+			
+			.bumfDetails-conent #item1 ul li{
+				border-top: 1px solid #e5e5e5;
+				height: auto;
+				line-height: 0.4rem;
+				font-size: 0.30rem;
+				padding: 0.2rem;
+				color: #397cf3;
+			}
+			.bumfDetails-conent #item1 ul li span{
+				color: #000;
+				width: 1.8rem;
+				display: block;
+				float: left;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 1rem;
+				padding: 0 0.2rem;
+			}
+			.bumfDetails-conent #item1 ul li .gq_infor{
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				height: 1rem;
+				padding: 0 0.2rem;
+				line-height: 0.4rem;
+			}
+			.scyd_box{
+				padding: 0px 15px;
+				box-sizing: border-box;
+				color: #464646;
+				font-size: 0.28rem;
+				height: 6rem;
+				overflow: hidden;
+				overflow-x: auto;
+				margin: 0;
+				margin-right: 10px;
+				transition: all .2s;
+			}
+			
+			.scyd_box.heightauto{
+				height: auto;
+			}
+			.scyd_box .table_scyd{
+				width: 15rem;
+				box-sizing: border-box;
+				margin: 20px auto;
+			}
+			.scyd_box .table_scyd tr td{
+				border: 1px solid #999999;
+				text-align: center;
+				padding: 10px 0px;
+				box-sizing: content-box;
+			}
+			
+			.cqfs_table{
+				padding: 0px 15px;
+				box-sizing: border-box;
+				color: #464646;
+				font-size: 0.28rem;
+				height: auto;
+				overflow: hidden;
+				overflow-x: auto;
+				margin: 0;
+				margin-right: 10px;
+				transition: all .2s;
+			}
+			.cqfs_table .table_cqfs{
+				width: 15rem;
+				box-sizing: border-box;
+				margin: 20px auto;
+			}
+			.cqfs_table .table_cqfs tr td{
+				border: 1px solid #999999;
+				text-align: center;
+				padding: 10px 0px;
+				box-sizing: content-box;
+			}
+			
+			.icon_box{
+				float: right;
+				position: relative;
+				top: 0.45rem;
+				font-size: 0.4rem;
+				transition: all .2s;
+			}
+			.icon_box.active{
+				transform: rotate(90deg);
+			}
+			/* 初核信息 */
+			.chxx_box{height: auto;}
+			.chxx_box .chxx_ul{padding: 0rem;}
+			.chxx_box .chxx_ul .chxx_li{list-style: none;line-height: 0.8rem;overflow: hidden;border-bottom: 1px solid #CCCCCC;}
+			.chxx_box .chxx_ul .chxx_li .chxx_label{line-height: 0.8rem;overflow: hidden;padding: 0;margin: 0;display: block;position: relative;}
+			.chxx_box .chxx_ul .chxx_li .chxx_label .chxx_input{visibility: hidden;}
+			.chxx_box .chxx_ul .chxx_li .chxx_label .chxx_input+.chxx_span{background: url('./images/checked_false.png') no-repeat #ffffff;background-size: 20px 20px;padding: 5px 0px;background-position: 0px 4px;}
+			.chxx_box .chxx_ul .chxx_li .chxx_label .chxx_input:checked+.chxx_span{background: url('./images/checked_true.png') no-repeat #ffffff;background-size: 20px 20px;padding: 5px 0px;background-position: 0px 4px;}
+			.chxx_box .chxx_ul .chxx_li .chxx_label .chxx_span{padding-left:25px !important;font-size: 0.3rem;background-color: #ffffff;color: #8A8A8A;}
+			.process_ul .process_li .p_h3 {
+				font-size: 0.35rem;
+				overflow: hidden;
+			}
+			
+			.tips_div{padding: 0.3rem 0.5rem;font-size: 0.35rem;color: #FF0000;display: none;}
+			
+			/* radio_box */
+			.item_list_box{
+				border-top: 1px solid #CCCCCC;
+				display: none;
+			}
+			.radio_box{
+				display: flex;
+				justify-content: space-between;
+				padding: 0.4rem 1.3rem;
+			}
+			
+			.radio_box .radio_span{
+				background-color: #F0F0F0;
+				color: #666666;
+				display: inline-block;
+				padding: 0.2rem 0.4rem;
+				font-size: 0.35rem;
+				border-radius: 5px;
+			}
+			.radio_box .radio_span.active{
+				background-color: #007AFF;
+				color: #FFFFFF;
+			}
+			#type_fr{width: 27%;overflow: hidden;}
+			
+			.cqfs_colspan_type{font-size: 0.3rem;width: 7rem;color: #111111;background-color: #F3F7FF;height: 35px;line-height:35px;margin: 0 auto;border: 1px solid #F0F0F0;border-bottom:none;text-align: left;padding-left: 35px;}
+			.border-top{border-top: none;}
+			.cqfs_box_details{overflow-x: scroll;width: 7rem;margin:0 auto;}
+			.cqfs_box_details .cqfs_table{font-size: 0.35rem;width: 15rem;}
+			.cqfs_box_details .cqfs_table .cqfs_colspan{background-color: #F3F7FF;}
+			.cqfs_box_details .cqfs_table tr td{width:3rem;font-size: 0.3rem;text-align:center;vertical-align: center;padding: 0.15rem 0.1rem;margin: 0 auto;box-sizing: border-box;border: 1px solid #F0F0F0;color: #111111;}
+			.cqfs_box_details .cqfs_table tr td span{color:red;}
+			.cqfs_box_details .cqfs_table tr td .input{border: none;height: 25px;padding: 0rem;margin: 0;display: block;color: #111111;}
+					
+			/* .cqfs_div_box .cqfs_box.cqfs{
+				display: flex;
+				justify-content: space-between;
+				padding: 0.4rem 0.3rem;
+			}
+			.cqfs_div_box .cqfs_box .cqfs_span{
+				background-color: #F0F0F0;
+				color: #666666;
+				display: inline-block;
+				padding: 0.2rem 0.4rem;
+				font-size: 0.35rem;
+				border-radius: 5px;
+			}
+			.cqfs_div_box .cqfs_box .cqfs_span.active{
+				background-color: #007AFF;
+				color: #FFFFFF;
+			} */
+			
+			.cqfs_div_box{display: none;}
+			.cqfs_div_box .cqfs_table_box{overflow-x: scroll;border: 1px solid #E0E0E0;width: 7rem;margin:0 auto;}
+			.cqfs_div_box .cqfs_table_box .cqfs_table{font-size: 0.35rem;width: 15rem;}
+			.cqfs_div_box .cqfs_table_box .cqfs_table .cqfs_colspan{background-color: #F3F7FF;}
+			.cqfs_div_box .cqfs_table_box .cqfs_table tr td{width:3rem;font-size: 0.3rem;text-align:center;vertical-align: center;padding: 0.15rem 0.1rem;margin: 0 auto;box-sizing: border-box;border: 1px solid #F0F0F0;color: #111111;}
+			.cqfs_div_box .cqfs_table_box .cqfs_table tr td span{color:red;}
+			.cqfs_div_box .cqfs_table_box .cqfs_table tr td .input{border: none;height: 25px;padding: 0rem;margin: 0;display: block;color: #111111;}
+		
+		</style>
+	</head>
+
+	<body style="background: #fff;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>会审</p>
+				<div class="bumfDetails-nav">
+
+					<!--<div class="left">
+						<h2><span class="h2_bt">有关项目进展的会议有关项目进展的会议有关项目进展的会议</span><span class="fr type">厅函</span></h2>
+						<p>王建国　办公室科员　2018-12-08 20:21</p>
+					</div>-->
+					<div class="left">
+						<h2>
+							<span class="h2_bt"></span>
+							<span class="fr type" id="type_fr"></span>
+						</h2>
+						<p class="information"></p>
+					</div>
+				</div>
+				<div class="bumfDetails-conent">
+					<div>
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a id="a_item1" class="mui-control-item mui-active" href="#item1">事项办理</a>
+							<a id="a_item2" class="mui-control-item" href="#item2">附件信息</a>
+							<!--<a class="mui-control-item" href="#item3">
+								签批单
+							</a>-->
+
+						</div>
+					</div>
+					<div class="">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul>
+								<!--<li><span>发文字号</span>晋发[12]号</li>
+								<li><span>紧急程度</span>平急</li>
+								<li><span>密级</span>机密</li>
+								<li><span>发文日期</span>2018-12-12</li>
+								<li><span>拟文部门</span>办公室</li>
+								<li><span>签收部门</span>水利厅</li>
+								<li><span>签发人</span>2018-12-12</li>
+								<li><span>拟稿人</span>2018-12-12</li>
+								<li class="fujian"><span>附件</span>
+									<div class="left div1"><i class="iconfont icon-wenjian"></i></div>
+									<div class="left div2">
+										<p>测试附件.doc</p><span>未知</span></div>
+								</li>-->
+
+							</ul>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<!--<div class="btn"><button onclick="chakanzhengwen()">查看正文</button></div>-->
+
+							<!--<ul class="hide">
+								<li>
+									<p class="title"><span class="span1">秘书一处副主任</span><span class="span2">同意</span><span class="span2">回退</span><i class="iconfont icon-xiaoxi2"></i></p>
+									<h3>安排了快递</h3>
+									<p class="sj">2018-08-31 16:20</p>
+								</li>
+								<li>
+									<p class="title"><span class="span1">秘书一处副主任</span><span class="span2">同意</span><span class="span2">回退</span><i class="iconfont icon-xiaoxi2"></i></p>
+									<h3>安排了快递</h3>
+									<p class="sj">2018-08-31 16:20</p>
+								</li>
+								<li>
+									<p class="title"><span class="span1">秘书一处副主任</span><span class="span2">同意</span><span class="span2">回退</span><i class="iconfont icon-xiaoxi2"></i></p>
+									<h3>语音</h3>
+									<p class="sj">2018-08-31 16:20</p>
+								</li>
+							</ul>-->
+
+							<!--<div class="bumfDetails-fooder">
+								<div class="left yijian"></div>
+								<div class="right" onclick="chuli()"><i class="iconfont icon-bianji"></i>处理</div>
+							</div>-->
+						</div>
+					</div>
+					<!-- 审批事项详情 -->
+					<div class="gray intitle">审批事项详情 <span class="icon_box mui-icon mui-icon-arrowright active"></span></div>
+					<div class="scyd_box heightauto">
+						<table class="table_scyd" border="0" cellspacing="0" cellpadding="0">
+							<colgroup width="10%"></colgroup>
+							<colgroup width="15%"></colgroup>
+							<colgroup width="35%"></colgroup>
+							<colgroup width="20%"></colgroup>
+							<colgroup width="20%"></colgroup>
+							<tr>
+								<td>报告名称</td>
+								<td>建设单位名称</td>
+								<td>编制单位名称</td>
+								<td>事项类别</td>
+								<td>权责事项名称</td>
+							</tr>
+						</table>
+					</div>
+					<!-- 审批事项详情 end -->
+					
+					<div class="gray intitle">流程信息</div>
+					<div class="process_box">
+						<ul class="process_ul">
+							
+							<!--<li class="process_li">
+								<h3 class="p_h3">
+									<span class="p_s1">王鹏宇</span>
+									<span class="p_s2">水资源处科员</span>
+									<span class="p_s3 text-blue">拟稿</span>
+								</h3>
+								<p class="p_time">文件描述不明确</p>
+								<p class="p_time">2018-12-08 15:24</p>
+							</li>
+							<li class="process_li">
+								<h3 class="p_h3">
+									<span class="p_s1">王鹏宇</span>
+									<span class="p_s2">水资源处科员</span>
+									<span class="p_s3 text-green">同意</span>
+								</h3>
+								<p class="p_time">文件描述不明确</p>
+								<p class="p_time">2018-12-08 15:24</p>
+							</li>
+							<li class="process_li">
+								<h3 class="p_h3">
+									<span class="p_s1">王鹏宇</span>
+									<span class="p_s2">水资源处科员</span>
+									<span class="p_s3 text-red">驳回</span>
+								</h3>
+								<p class="p_time">文件描述不明确</p>
+								<p class="p_time">2018-12-08 15:24</p>
+							</li>-->
+						</ul>
+					</div>
+					
+					<div class="gray"></div>
+					
+					<!-- 抽取方式详情表格 -->
+					<div class="cqfs_colspan_type appoint_box_title">指定抽取</div>
+					<div class="cqfs_box_details">
+						<table class="cqfs_table appoint_box" border="1" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr class="cqfs_colspan">
+									<td>姓名<span>*</span></td>
+									<td>职称</td>
+									<td>专业类型</td>
+									<td>单位名称<span>*</span></td>
+									<td>联系方式</td>
+									<td>备注</td>
+								</tr>
+							</tbody>
+							<tbody id="appoint_html" class="expert_box_input">
+								<!-- <tr>
+									<td>1</td>
+									<td>2</td>
+									<td>3</td>
+									<td>4</td>
+									<td>5</td>
+									<td>6</td>
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+					<div class="cqfs_colspan_type border-top random_box_title">随机抽取</div>
+					<div class="cqfs_box_details">
+						<table class="cqfs_table random_box" border="1" cellspacing="0" cellpadding="0">
+							<tbody>
+								<tr class="cqfs_colspan">
+									<td>姓名<span>*</span></td>
+									<td>职称<span>*</span></td>
+									<td>专业类型<span>*</span></td>
+									<td>单位名称<span>*</span></td>
+									<td>联系方式<span>*</span></td>
+									<td>备注</td>
+								</tr>
+							</tbody>
+							<tbody id="random_html" class="expert_box_input">
+								<!-- <tr>
+									<td>1</td>
+									<td>2</td>
+									<td>3</td>
+									<td>4</td>
+									<td>5</td>
+									<td>6</td>
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+					
+					
+					<div class="approval">
+						
+						<!--下一步节点-->
+						<div class="selectNode" >
+							<h3 style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步节点</h3>
+							<div class="select_node" >
+								<select id="select_node" style="background-color: #0062CC;color:#FFFFFF;font-size: 0.3rem;text-align: center;padding: 0.2rem;border-radius: 0.1rem;">
+									<option value="" >请选择</option>
+								</select>
+							</div>
+						</div>
+						<!--选择协助节点-->
+						<div class="isAssist" >
+							<h3 style="color: #323232;text-align: center;font-size: 0.35rem;">协助审批</h3>
+							<div class="assistFlows" >
+								<select id="assistFlows" style="background-color: #0062CC;color:#FFFFFF;font-size: 0.3rem;text-align: center;padding: 0.2rem;border-radius: 0.1rem;">
+									<option value="" >请选择</option>
+								</select>
+							</div>
+						</div>
+						<!-- 下一步审批人 -->
+						<div class="isListBox" >
+							<h3 id="clr_h3" style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步审批人</h3>
+							<div class="select_box">
+								<!--<p>部门</p>
+								<ul class="select_ul">
+									<li class="">安安生生</li>
+									<li class="">安安生生</li>
+									<li class="">安安生生</li>
+								</ul>-->
+							</div>
+						</div>
+						
+						<!-- 是否选择其他处室 -->
+						<div class="item_list_box" id="otherDepartment">
+							<h3  style="color: #323232;text-align: center;font-size: 0.35rem;">是否选择其他处室</h3>
+							<div class=" radio_box">
+								<span class="radio_span" data-status="1">是</span>
+								<span class="radio_span active" data-status="0">否</span>
+							</div>
+						</div>
+						<!-- 是否会审 -->
+						<div class="item_list_box" id="isJointExamination">
+							<h3  style="color: #323232;text-align: center;font-size: 0.35rem;">是否会审</h3>
+							<div class=" radio_box">
+								<span class="radio_span" data-status="1">是</span>
+								<span class="radio_span active" data-status="0">否</span>
+							</div>
+						</div>
+						<!-- 抽取方式 -->
+						<div class="cqfs_div_box">
+							<!-- <h3  style="color: #323232;text-align: center;font-size: 0.35rem;">抽取方式</h3>
+							<div class=" cqfs_box cqfs">
+								<span class="cqfs_span" data-status="1">指定抽取</span>
+								<span class="cqfs_span" data-status="2">随机抽取</span>
+							</div> -->
+							<div class="cqfs_colspan_type">指定抽取</div>
+							<div class="cqfs_table_box">
+								<table class="cqfs_table">
+									<tbody>
+										<tr class="cqfs_colspan">
+											<td>姓名<span>*</span></td>
+											<td>职称</td>
+											<td>专业类型</td>
+											<td>单位名称<span>*</span></td>
+											<td>联系方式</td>
+											<td>备注</td>
+										</tr>
+									</tbody>
+									<tbody class="expert_box_input">
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>	
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+									
+									</tbody>
+								</table>
+							</div>
+							<div class="cqfs_colspan_type border-top">随机抽取</div>
+							<div class="cqfs_table_box">
+								<table class="cqfs_table">
+									<tbody>
+										<tr class="cqfs_colspan">
+											<td>姓名<span>*</span></td>
+											<td>职称<span>*</span></td>
+											<td>专业类型<span>*</span></td>
+											<td>单位名称<span>*</span></td>
+											<td>联系方式<span>*</span></td>
+											<td>备注</td>
+										</tr>
+									</tbody>
+									<tbody class="expert_box_inputs">
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<input class="input" name="name" type="text">
+											</td>
+											<td>
+												<input class="input" name="duty" type="text">
+											</td>
+											<td>
+												<input class="input" name="major" type="text">
+											</td>
+											<td>
+												<input class="input" name="company" type="text">
+											</td>
+											<td>
+												<input class="input" name="phone" type="text">
+											</td>
+											<td>
+												<input class="input" name="remarks" type="text">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						
+						<!-- 处理意见 -->
+						<div class="clyj_box" style="margin-top: 0.2rem;">
+							<textarea class="textarea" name="" rows="" cols="" placeholder="您的处理意见"></textarea>
+							<div class="audio_box">
+								<div class="text_box">点击录音</div>
+								<div class="img_box" data-status="0"></div>
+								<div class="text_box gray_color">录音时长：00:00</div>
+							</div>
+							<div class="play_list_box">
+								<!--<div class="play_box">
+									<div class="play_left play_recording_start"></div>
+									<div class="play_center play_recording_centent">点击播放</div>
+									
+									<div class="play_right play_recording_end">
+										<span class="second">
+											<span class="play_time">--:--</span>
+											<span class="clear_ly">删除</span>
+										</span>
+									</div>
+								</div>-->
+							</div>
+
+							<div class="btn_box">
+								<span data-status="2" class="reject btn_span">驳回</span>
+								<span data-status="1" class="agree btn_span active">同意</span>
+							</div>
+						</div>
+						
+						
+						<div id="submit">
+							<button class="button" >提交</button>
+						</div>
+					</div>
+					<!-- 提示信息 -->
+					<div id="tips_item" class="tips_div"></div>
+					<div class="gray"></div>
+					<div class="mui-loading" style="padding-top: 3rem;">
+						<div class="mui-spinner"></div>
+					</div>
+				</div>
+
+			</div>
+			<!--<iframe src="pdf/viewer.html" width="100%" height="" ></iframe>-->
+		</div>
+		<script src="js/mui.min.js"></script>
+		
+		<!--<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="js/mui.PopPicker.js"></script>
+		<script src="js/xz_approval_hs_details.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/autio.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.zoom.js"></script>
+		<script src="js/mui.previewimage.js"></script>
+		<script type="text/javascript">
+			$("body").on("click",".icon_box",function(){
+				var status = $(this).hasClass("active");
+				if(status){
+					$(".icon_box").removeClass("active");
+					$(".scyd_box").removeClass("heightauto");
+				}else{
+					$(".icon_box").addClass("active");
+					$(".scyd_box").addClass("heightauto");
+				}
+			})
+			
+			$("body").on("click",".radio_span",function(){
+				var status = $(this).hasClass("active");
+				$(this).parent(".radio_box").find(".radio_span").removeClass("active");
+				$(this).addClass("active");
+				if($("#otherDepartment .radio_span.active").attr("data-status") == 1){
+					$("#isJointExamination").fadeOut(300);
+				}else{
+					$("#isJointExamination").fadeIn(300);
+				}
+			})
+			
+			// $("body").on("click",".cqfs_span",function(){
+			// 	var status = $(this).hasClass("active");
+			// 	$(this).parent(".cqfs_box").find(".cqfs_span").removeClass("active");
+			// 	$(this).addClass("active");
+			// })
+		</script>
+	</body>
+
+</html>

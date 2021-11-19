@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>河湖长制</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess.css" />
+	<!-- 筛选css -->
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+	<!-- 筛选css end -->
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.weight {
+			font-size: 0.28rem;
+			color: #333;
+			font-weight: 700;
+		}
+
+		.statics {
+			top: 3rem;
+		}
+
+		.all {
+			top: 4.7rem;
+		}
+
+		.list {
+			margin-top: 5.7rem;
+		}
+
+		.header_list>li:nth-of-type(5) {
+			border-right: none;
+		}
+
+		.header_list_num>li.actives {
+			color: #fae607 !important;
+		}
+
+		.header_list_title>li.actives span {
+			color: #fae607;
+			border-bottom: 3px solid #fae607;
+			padding-bottom: 0.09rem;
+		}
+
+		.search_box .span_search .img_searchs {
+			display: inline-block;
+			width: 100%;
+			height: 70%;
+		}
+
+		.content_head {
+			width: 100%;
+			height: 3.5rem;
+			position: fixed;
+			top: 1.3rem;
+			background-color: #FAF8FD;
+		}
+
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+
+		/* 样式复写 */
+		.sort_list {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+
+		.sort.start .search_box {
+			padding: 0;
+		}
+
+		.search_box .sort_input.sort_new {
+			width: 80%;
+		}
+
+		.text_input {
+			background: none;
+		}
+
+		.search_box .span_search {
+			left: calc(100% - 0.4rem);
+		}
+	</style>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>清四乱列表</span>
+		</header>
+		<div class="content_head">
+			<div class="content_box content_boxs">
+				<!-- 分类start -->
+				<div class="sort sorts start">
+					<select name="city" class="sort_list sort_list_img" id="city">
+						<option value="0">山西省</option>
+					</select>
+					<!-- 日期start -->
+					<div class="sort_list search_box">
+						<input type="text" class=" sort_input sort_new statics_input1" id="statics_input1" readonly=""
+							placeholder="" />
+						<!-- <span class="span_search">
+							<img class="img_search img_searchs" src="../../images/riverChief/arrow_down.png">
+						</span> -->
+					</div>
+					<div class="sort_list search_box">
+						<input type="text" class=" sort_input sort_new statics_input2" id="statics_input2" readonly=""
+							placeholder="" />
+						<!-- <span class="span_search">
+							<img class="img_search img_searchs" src="../../images/riverChief/arrow_down.png">
+						</span> -->
+					</div>
+					<!-- 日期end -->
+
+
+					<select name="city" class="sort_list sort_lists hide" id="type">
+						<option value="">四乱类型</option>
+					</select>
+					<select name="city" class="sort_list sort_lists hide" id="status">
+						<option value="1">问题状态</option>
+					</select>
+					<div class="sort_list search_box text_input hide">
+						<input type="text" id="riverName" placeholder="河湖名称" class="sort_input sort_new sort_search" />
+						<span class="span_search" id="searchRiver">
+							<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+						</span>
+					</div>
+					<div class="more_box"><img class="more_img" src="../../images/ruralWater/bottomInfo_down.png"
+							data-class="clear_four_mess"></div>
+				</div>
+				<!-- 分类end -->
+			</div>
+			<!-- 统计start -->
+			<div class="statics">
+				<ul class="header_list header_list_num" id="statics_header">
+					<!-- <li>3218</li>
+						<li>9346</li>
+						<li>3307</li>
+						<li>15091</li>
+						<li class="unborder">5022</li> -->
+				</ul>
+				<ul class="header_list header_lists header_list_title" id="statics_bottom">
+					<!-- <li>乱占</li>
+						<li>乱采</li>
+						<li>乱堆</li>
+						<li>乱建</li>
+						<li>其他</li> -->
+				</ul>
+			</div>
+			<!-- 统计end -->
+		</div>
+
+		<!-- 总条数 -->
+		<div class="all">
+			共<span id="all_num" class="all_num">0</span>条清四乱
+		</div>
+		<!-- 列表start -->
+		<div class="list">
+			<ul class="lists">
+			</ul>
+		</div>
+		<!-- 列表end -->
+
+	</div>
+</body>
+
+<script src="../../js/riverChief/clear_four_mess.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js -->
+<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js end -->
+
+</html>

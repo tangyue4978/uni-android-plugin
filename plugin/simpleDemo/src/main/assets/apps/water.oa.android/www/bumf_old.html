@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>公文管理</p>
+				<div class="bumf-nav">
+					<div style="position: fixed;z-index: 9;top: 1.27rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1">
+								全部待办
+							</a>
+							<a class="mui-control-item" href="#item2">
+								发文
+							</a>
+							<a class="mui-control-item" href="#item3">
+								收文
+							</a>
+							<!--<a class="mui-control-item" href="#item4">
+								签报
+							</a>-->
+						</div>
+					</div>
+					<div class="bumf">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="daiban">
+								<!--<li onclick="xiangqing()"><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn1">平急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn2">特急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn3">加急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn4">特提</button></div></li>-->
+							</ul>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner">
+								</div>
+							</div>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul class="bumf1">
+								<!--<li><div class="left"><p>待办</p></div><div class="right"><span class="fwdb">0</span><i class="iconfont icon-youjiantou1"></i></div></li>
+								<li><div class="left"><p>在办</p></div><div class="right"><span class="fwzb">0</span><i class="iconfont icon-youjiantou1"></i></div></li>
+								<li><div class="left"><p>已办</p></div><div class="right"><span class="fwyb">0</span><i class="iconfont icon-youjiantou1"></i></div></li>
+								<li><div class="left"><p>已发</p></div><div class="right"><span class="fwyf">0</span><i class="iconfont icon-youjiantou1"></i></div></li>-->
+							</ul>
+						</div>
+						<div id="item3" class="mui-control-content">
+							<ul class="bumf1">
+								<!--<li><div class="left"><p>待办</p></div><div class="right"><span class="swdb">3</span><i class="iconfont icon-youjiantou1"></i></div></li>
+								<li><div class="left"><p>在办</p></div><div class="right"><span class="swzb">3</span><i class="iconfont icon-youjiantou1"></i></div></li>
+								<li><div class="left"><p>已办</p></div><div class="right"><span class="swyb">3</span><i class="iconfont icon-youjiantou1"></i></div></li>
+								<li><div class="left"><p>已收</p></div><div class="right"><span class="swys">3</span><i class="iconfont icon-youjiantou1"></i></div></li>-->
+							</ul>
+						</div>
+						<!--<div id="item4" class="mui-control-content">
+							<ul class="bumf1">
+								<li><div class="left"><p>待办</p></div><div class="right"><span>3</span><i class="iconfont icon-youjiantou1"></i></div></li>
+								<li><div class="left"><p>在办</p></div><div class="right"><span>3</span><i class="iconfont icon-youjiantou1"></i></div></li>
+							</ul>
+						</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			list()
+
+			function list() {
+				var _url = root + 'api/document/';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							data.data.forEach(function(v) {
+								if(v.state == 0){
+									v.mj = "无密";
+									v.btn = "btn1"
+								}else if(v.state == 1) {
+									v.mj = "无密";
+									v.btn = "btn1"
+								}else if(v.state == 2){
+										v.mj = "秘密";
+									v.btn = "btn2"
+								}else if(v.state == 3){
+										v.mj = "机密";
+									v.btn = "btn3"
+								}else if(v.state == 4){
+										v.mj = "绝密";
+									v.btn = "btn4"
+								}
+								$("#item1 .daiban").append('<li onclick="xiangqing(' + v.id + ',\'' + v.type_id + '\')"><div class="left"><h2>' + v.title + '</h2><p>会议时间：' + v.time + '</p></div><div class="right"><button class="' + v.btn + '">' + v.mj + '</button></div></li>')
+							})
+
+							$(".mui-loading").css("display", "none")
+						}
+						console.log(data)
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+
+			}
+
+			listfawen()
+
+			function listfawen() {
+				var _url = root + 'api/document/count';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type": 1 //发文
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							data.data.forEach(function(v, index) {
+								if(index == 0) {
+									var aa = "待办"
+									$("#item2 ul").append('<li onclick="fwxq(' + v + ',\'' + aa + '\')"><div class="left"><p>待办</p></div><div class="right"><span class="fwdb">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								} else if(index == 1) {
+									var aa = "在办"
+									$("#item2 ul").append('<li onclick="fwxq(' + v + ',\'' + aa + '\')"><div class="left"><p>在办</p></div><div class="right"><span class="fwzb">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								} else if(index == 2) {
+									var aa = "已办"
+									$("#item2 ul").append('<li onclick="fwxq(' + v + ',\'' + aa + '\')"><div class="left"><p>已办</p></div><div class="right"><span class="fwyb">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								} else if(index == 3) {
+									var aa = "已发"
+									$("#item2 ul").append('<li onclick="fwxq(' + v + ',\'' + aa + '\')"><div class="left"><p>已发</p></div><div class="right"><span class="fwyf">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								}
+
+							})
+
+						}
+						console.log(data)
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+
+			}
+
+			listshouwen()
+
+			function listshouwen() {
+				var _url = root + 'api/document/count';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type": 2 //收文
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							data.data.forEach(function(v, index) {
+								if(index == 0) {
+									var aa = "待办"
+									$("#item3 ul").append('<li onclick="swxq(' + v + ',\'' + aa + '\')"><div class="left"><p>待办</p></div><div class="right"><span class="fwdb">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								} else if(index == 1) {
+									var aa = "在办"
+									$("#item3 ul").append('<li onclick="swxq(' + v + ',\'' + aa + '\')"><div class="left"><p>在办</p></div><div class="right"><span class="fwzb">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								} else if(index == 2) {
+									var aa = "已办"
+									$("#item3 ul").append('<li onclick="swxq(' + v + ',\'' + aa + '\')"><div class="left"><p>已办</p></div><div class="right"><span class="fwyb">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								} else if(index == 3) {
+									var aa = "已发"
+									$("#item3 ul").append('<li onclick="swxq(' + v + ',\'' + aa + '\')"><div class="left"><p>已发</p></div><div class="right"><span class="fwyf">' + v + '</span><i class="iconfont icon-youjiantou1"></i></div></li>')
+								}
+
+							})
+						}
+						console.log(data)
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+
+			}
+
+			function xiangqing(i,ii) {
+				mui.openWindow({
+					url: 'bumfDetails.html', //通过URL传参
+					id: 'bumfDetails.html', //通过URL传参
+					extras: {
+						flow_id: ii,
+						item_id: i,
+
+					}, //
+				})
+			};
+
+			function fwxq(i, t) {
+				console.log(i)
+				if(i == 0) {
+					mui.toast("暂无" + t)
+				} else {
+					mui.openWindow({
+					url: 'bumfd.html', //通过URL传参
+					id: 'bumfd.html', //通过URL传参
+					extras: {
+						status: t,
+						type:1,
+					}, //
+				})
+				}
+			}
+
+			function swxq(i, t) {
+				console.log(i)
+				console.log(t)
+				if(i == 0) {
+					mui.toast("暂无" + t)
+				}else {
+					mui.openWindow({
+					url: 'bumfd.html', //通过URL传参
+					id: 'bumfd.html', //通过URL传参
+					extras: {
+						status: t,
+						type:2,
+					}, //
+				})
+				}
+			}
+		</script>
+	</body>
+
+</html>

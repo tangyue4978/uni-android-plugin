@@ -1,0 +1,139 @@
+/* 自带放大缩小隐藏 */
+.ol-zoom {display: none;}
+/* 侧边导航 */
+.rightTabs{}
+.rightPosi{position: absolute;top: 1.6rem;right: 4%;}
+.leftPosi{position: absolute;top: 1.6rem;left: 2%;}
+.rightTabs ul li{margin: .06rem 0;}
+.rightTabs li a{display: block;}
+.rightTabs li img{width: 1.2rem;height: 1.2rem;}
+.rightTabs li .span{padding: 0.2rem 0rem;font-size: 0.23rem;font-weight: bold;line-height: 0.24rem;display:flex;justify-content: center;flex-direction: row;flex-wrap: wrap;align-items: center;width: 1rem;height: 1rem;border-radius: 50%;box-shadow: 0 0 10px -7px #000000;color: #3777F0;background-color: #FFFFFF;border: 1px solid #F0F0F0;text-align: center;}
+.rightTabs li .span .c_gray{color: #333333;}
+.rightTabs li .span.active{color: #FFFFFF;background-color: #3777F0;border-color: #3777F0;}
+.rightTabs li .span.active *{color: #FFFFFF;}
+
+.section{width: 100%;height: calc(100% - 1.3rem);position: fixed;left: 0;top: 1.3rem;margin: 0;}
+.mapBox{width: 100%;height: 100%;}
+#map{width: 100%;height: 100%;background-color: #FFFFFF;}
+/* nav 管理对象，数据筛选，统计图表 */
+.top_nav{height: 1.2rem;width: 100%;border-bottom: 1px solid #CCCCCC;position: absolute;left: 0px;top: 0px;z-index: 9;background-color: #FFFFFF;}
+.nav_ul_box{width: 100%;height: 100%;display: flex;justify-content: space-between;align-items: center;}
+.nav_ul_box .nav_li_item{width: 33%;height:0.5rem;line-height: 0.5rem;font-size: 0.35rem;position: relative;text-align: center;background-color: #FFFFFF;color:#333333;}
+.nav_ul_box .nav_li_item.nav2{width: 50%;}
+.nav_ul_box .nav_li_item.active{color:#3a77f0;}
+.nav_ul_box .nav_li_item:after{content: "";position: absolute;top: 0.05rem;bottom:0.05rem;right: 0px;border-right: 1px solid #E0E0E0;}
+.nav_ul_box .nav_li_item:last-child:after{content: "";position: absolute;top: 0.05rem;bottom:0.05rem;right: 0px;border-right: 0px solid #E0E0E0;}
+/* 管理对象 */
+.list_box{
+	display: none;
+	position: absolute;
+	top: 1.2rem;
+	left: 0rem;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.4);
+	z-index: 99;
+}
+.list_box.active{display:block;}
+.list_obj{
+	width: 100%;
+	height: 9rem;
+	background-color: #FFFFFF;
+	padding: 0rem 0.5rem 0rem;
+	box-sizing: border-box;
+	overflow: hidden;
+	overflow-y: auto;
+}
+.list_obj.heightauto{
+	height: auto;
+	max-height: 9rem;
+}
+.list_obj .list_ul{
+	width: 100%;
+	height: auto;
+}
+.list_obj .list_ul .list_li{
+	height: 1.2rem;
+	border-bottom: 1px solid #E0E0E0;
+	color: #999999;
+	display: flex;
+	align-items: center;
+	font-size: 0.33rem;
+}
+.list_obj .list_ul .list_li .icon_img{
+	width: 0.4rem;
+	height: 0.43rem;
+	margin-right: 10px;
+}
+.list_obj .list_ul .list_li.active{
+	color: #333333;
+	font-weight: 500;
+	background: url(../../images/duigou.png) 95% center no-repeat;
+	background-size: 16px 16px;
+}
+.list_obj .list_ul .list_li2{
+	height: 1.2rem;
+	border-bottom: 1px solid #E0E0E0;
+	color: #999999;
+	display: flex;
+	align-items: center;
+	font-size: 0.33rem;
+}
+.list_obj .list_ul .list_li2 .icon_img{
+	width: 0.4rem;
+	height: 0.43rem;
+	margin-right: 10px;
+}
+.list_obj .list_ul .list_li2.active{
+	color: #333333;
+	font-weight: 500;
+	background: url(../../images/duigou.png) 95% center no-repeat;
+	background-size: 16px 16px;
+}
+
+
+/* 图例 */
+.legend_box{
+	position: absolute;
+	z-index: 20;
+	bottom: 0.5rem;
+	background-color: rgba(255,255,255,0.8);
+	border: 1px solid #CCCCCC;
+	padding: 0.1rem;
+	border-radius: 0.1rem;
+	width: 5rem;
+	bottom: 0.5rem;
+	left: 0.2rem;
+	display: none;
+}
+.legend_box.active{display: block;}
+.legend_box .legend_h6{font-size: 12px;text-align: center;margin-bottom: 5px;font-weight: bold;}
+.legend_box .legend_ul{
+	width: 100%;
+	display:flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	padding: 0;
+	margin: 0;
+}
+.legend_box .legend_ul .legend_li{
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: 48%;
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0 0 5px 0px;
+}
+.legend_box .legend_ul .legend_li .legend_img{
+	height: 15px;
+	width: 15px;
+	margin-right: 5px;
+	line-height: 20px;
+}
+.legend_box .legend_ul .legend_li .legend_span{
+	font-size: 12px;
+	line-height: 15px;
+	width: calc(100% - 15px);
+}

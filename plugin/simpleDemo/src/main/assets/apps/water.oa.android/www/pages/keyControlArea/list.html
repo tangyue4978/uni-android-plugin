@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>於地坝</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/yuDiBa/list.css"/>
+		<!-- 筛选css -->
+		<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css"/>
+		<!-- 筛选css end -->
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.marker{
+				width: 15px;
+				height: 15px;
+				border: 1px solid #088;
+				border-radius: 50%;
+				background-color: #00FFFF;
+				opacity: 0.5;
+				display: none;
+			}
+			.marker:after {				content: " ";				background-color: #00FFFF;				position: absolute;				left: 50%;				top: 50%;				width: 15px;				height: 15px;				border-radius: 50%;				margin-left: -50%;				margin-top: -50%;				-webkit-animation-name: 'ripple';				-webkit-animation-duration: 1s;				-webkit-animation-timing-function: linear;				-webkit-animation-delay: 0s;				-webkit-animation-iteration-count: infinite;				-webkit-animation-direction: normal;			}			@keyframes ripple {				0% {					opacity: 1;					width: 15px;					height: 15px;				}				50% {					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -15px;
+					margin-top: -15px;				}				100% {					opacity: 0.05;					width: 60px;					height: 60px;					margin-left: -30px;					margin-top: -30px;				}			}
+			.sort_lists{
+				background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 70%;
+				background-size: 15px 9px;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>数据列表</span>
+			</header>
+			<div class="content_box">
+				<!-- 条件start -->
+				<div class="sort">
+					<select name="city" class="sort_list sort_lists" id="citys">
+						<option value="0">山西省</option>
+					</select>
+					<select name="type" class="sort_list sort_lists" id="types">
+						<option value="">类型</option>
+						<option value="1">流失强度</option>
+						<option value="2">治理度</option>
+					</select>
+					<!-- <select name="unit" class="sort_list sort_lists" id="unit">
+						<option value="">百万方</option>
+					</select> -->
+				</div>
+				<!-- 条件end -->
+			</div>
+			<!-- 数据总计 -->
+			<!-- <div class="all">
+				共<span class="all_num">0</span>个淤地坝
+			</div> -->
+			<!-- 数据总计 -->
+			<!-- 列表start -->
+			<div class="list">
+				<ul class="lists">
+					<!-- <li class="lists_li">
+						<div class="lists_data">
+							南石沟<span class="lists_data_city">忻州市 河曲县</span>
+						</div>
+						<div class="lists_data lists_data2">
+							中型坝
+						</div>
+						<div class="lists_data">
+							<span>所属流域：安家山流域</span>
+							<span>控制流域面积(km²)：19.5</span>
+						</div>
+						<div class="lists_data">
+							<span>设计总库容(万m³)：133</span>
+							<span>设计拦泥库容(万m³)：100.0</span>
+						</div>
+						<div class="lists_data lists_datas">
+							<span class="lists_data_unit">百万方</span>
+							<span class="lists_data_unit lists_data_year">70年代建设</span>
+						</div>
+					</li> -->
+				</ul>
+			</div>
+			<!-- 列表end -->
+			
+		</div>
+	</body>
+	<script src="../../js/keyControlArea/list.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 筛选js -->
+	<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 筛选js end -->
+</html>

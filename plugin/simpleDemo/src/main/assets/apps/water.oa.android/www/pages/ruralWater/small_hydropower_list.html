@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/list_search.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>小型水电站列表</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			
+			<div class="section">
+					<!-- 回到顶部 -->
+					<div></div>
+					<!-- 回到顶部 end -->
+					<!-- 查询 -->
+					<div class="gpsInfo open">
+						<div class="gpsInfo_con">
+							<p class="title">条件查询</p>
+							<form class="search_form">
+								<ul>
+									<li>
+										<label class="label">地市</label>
+										<div class="field">
+											<select class="input submit_item" id="city" name="city_code">
+												<option value="01">全部</option>
+											</select>
+										</div>
+									</li>
+									<li>
+										<label class="label">县区</label>
+										<div class="field">
+											<select class="input submit_item" id="county" name="county_code">
+												<option value="01">全部</option>
+											</select>
+										</div>
+									</li>
+									<!-- <li>
+										<label class="label">开发方式</label>
+										<div class="field">
+											<select class="input submit_item" id="development" name="development_mode">
+												<option value="">全部</option>
+												<option value="01">引水式</option>
+												<option value="01">坝后式</option>
+												<option value="01">混合式</option>
+											</select>
+										</div>
+									</li>
+									<li>
+										<label class="label" style="width: 1.3rem;position: relative;left: -0.1rem;">水电站名称</label>
+										<div class="field" style="overflow: hidden;position: relative;left: -0.1rem;">
+											<input class="input submit_item" type="text" id="name" name="name" style="width: 100%;"/>
+										</div>
+									</li> -->
+								</ul>
+								<button onclick="submit_fun()" type="button" class="button">查询</button>
+							</form>
+						</div>
+						<div class="icon_arrow_box">
+							<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png" >
+						</div>
+					</div>
+					<!-- 查询 end -->
+					<!-- 记录 -->
+					<div class="list_number">共<span></span>个水电站</div>
+					<!-- 记录 end -->
+					<!-- 列表 -->
+					<div class="listBox">
+						<!-- <a href="villageDetails.html">
+							<dl>
+								<dt>临汾市 尧都区 屯里镇 东漳堡</dt>
+								<dd>供水工程名称：<span>卧虎山集中供水工程</span></dd>
+								<dd>
+									<p>工程类型：<span>提水</span></p>
+									<p>水源类型：<span>裂隙水</span></p>
+								</dd>
+							</dl>
+						</a> -->
+					</div>
+					<!-- 列表 end -->
+				</div>
+			</div>
+	</body>
+	<script src="../../js/ruralWater/list_search.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city_change.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			//菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+		})
+		//二级村列表
+		var root = localStorage.getItem("str_url");
+		if(root == "" || root == undefined || root == null){
+				mui.openWindow({
+				url: 'login.html?cid=1', //通过URL传参
+				id: 'login.html?cid=1', //通过URL传参
+			})
+		}
+		var token = localStorage.getItem("token");
+		var page = 1;
+		var list_this = '';
+		var data_info = {};
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			plus.nativeUI.showWaiting("加载中...");
+			data_info.token=token;
+			data_info.page=page;
+			data_info.search_status = 0;//控制条件查询 0插入条件，否则不插入;
+			list(data_info);
+			getInfoData("",1)
+		});
+		
+		function list(data_info) {
+			console.log(JSON.stringify(data_info));
+			var _url = root + 'api/v2/hydropower_station/';
+			console.log(_url);
+			mui.ajax(_url, {
+				data:data_info,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------"+JSON.stringify(data));
+					if(data.code == 1) {
+						$(".list_number").children("span").html(data.number);
+						if(data.data.length>0){
+							if(page>1){
+								list_this.endPullupToRefresh(false);
+							}
+							if (page == 1) {
+								$(".listBox").html("");
+							}
+							data.data.forEach(function(item,index) {
+								$(".listBox").append(
+									'<a onclick=xiangqing('+item.id+',"'+data_info.pageType+'")>'+
+										'<dl>'+
+											'<dt>'+item.city+' '+item.county+'</dt>'+
+											'<dd>水电站名称：<span>'+item.name+'</span></dd>'+
+											'<dd>'+
+												'<p style="width:100%;">河流：<span>'+item.rivers+'</span></p>'+
+											'</dd>'+
+											'<dd>'+
+												'<p style="width:100%;">电站水库容量：<span>'+item.reservoirCapacity+'</span></p>'+
+											'</dd>'+
+										'</dl>'+
+									'</a>'
+								)
+							})
+						}else{
+							if(page>1){
+								list_this.endPullupToRefresh(true);
+							}else{
+								$(".listBox").html(
+									'<a style="font-size:0.35rpx;text-align:center;margin-top:100px;">暂无数据</a>'
+								)
+							}
+						}
+						// 追加筛选条件
+						if (data_info.search_status == 0 && data_info.page == 1) {
+							newHtmlAdd(".search_form ul",data.listSearchConfig)
+						}
+						// 追加筛选条件 end
+						$(".mui-loading").css("display", "none");
+
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+		function xiangqing(item_id,type) {
+			var self = plus.webview.currentWebview();
+			mui.openWindow({
+				url: 'searchDetails.html', //通过URL传参
+				id: 'searchDetails.html', //通过URL传参
+				extras: {
+					item_id: item_id,
+					type:"hydropower_station_list"
+				}
+			})
+		};
+		
+		
+		function submit_fun(){
+			// 重置上拉加载
+			mui('.mui-content').pullRefresh().refresh(true);
+			plus.nativeUI.showWaiting("加载中...");
+			page = 1;
+			data_info.page=page;
+			data_info.search_status = 1;
+			var item = $(".submit_item");
+			for (var i = 0; i < item.length; i++) {
+				var new_item = item.eq(i);
+				data_info[new_item.attr("name")]=new_item.val();
+			}
+			list(data_info);
+		}
+	</script>
+	<script type="text/javascript">
+		mui.init({
+			pullRefresh: {
+				container: ".mui-content", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+				up: {
+					height: "50px", //可选.默认50.触发上拉加载拖动距离
+					auto: false, //可选,默认false.自动上拉加载一次
+					contentdown: "上拉显示更多",
+					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: up_fun //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				}
+			}
+		});
+		function up_fun(){
+			page++;
+			console.log("上拉加载成功");
+			var self = plus.webview.currentWebview();
+			data_info.page=page;
+			list(data_info);
+			
+			list_this=this;
+		}
+	</script>
+	<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

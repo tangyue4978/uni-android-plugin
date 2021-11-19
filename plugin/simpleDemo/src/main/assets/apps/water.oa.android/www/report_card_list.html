@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/leave_list.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.meeting-nav .leave_box{
+				text-align: center;
+				padding-top: 0.2rem;
+				padding-bottom: 0.2rem;
+			}
+			.meeting-nav .leave_box button.mui-btn{
+				position: static;
+				width:50%;
+				left: 25%;
+			}
+			.meeting li .left{
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>报告卡</p>
+				<div class="meeting-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">我的申请</a>
+							<a class="mui-control-item" href="#item2" style="border-right: 1px solid #dcdcdc;">我的待办</a>
+						</div>
+					</div>
+					<div class="meeting">
+						<div id="item1" class="mui-control-content mui-active">
+							<div class="leave_box">
+								<button type="button" class="mui-btn mui-btn-primary" onclick="addleave()">新增报告卡</button>
+							</div>
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<a href="leaveDetails.html">
+										<div class="left">
+											<h2>请假申请</h2>
+											<p>2018-08-09 15:25</p>
+										</div>
+										<div class="meet_state color_orange">待审批</div>
+									</a>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>请假申请</h2>
+										<p>2018-08-09 15:25</p>
+									</div>
+									<div class="meet_state color_blue">待审批</div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>请假申请</h2>
+										<p>2018-08-09 15:25</p>
+									</div>
+									<div class="meet_state color_green">待审批</div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无报告卡信息</p>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2>请假申请</h2>
+										<p>2018-08-09 15:25</p>
+									</div>
+									<div class="meet_state color_orange">待审批</div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无报告卡信息</p>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			function xiangqing_sq(id,type) {
+				mui.openWindow({
+					url: 'report_card_details.html', //通过URL传参
+					id: 'report_card_details.html', //通过URL传参
+					extras: {
+						item_id: id,
+						item_type: type
+					}
+				})
+			};
+			
+//			function xiangqing_db(id,type) {
+//				mui.openWindow({
+//					url: 'report_card_details.html', //通过URL传参
+//					id: 'report_card_details.html', //通过URL传参
+//					extras: {
+//						item_id: id,
+//						item_type: type
+//					}
+//				})
+//			};
+			//岗位列表
+			quartersList();
+			departmentList();
+			function quartersList() {
+				var _url = root + 'api/report_card/index'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"mime":"1"
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("获取报告卡列表信息成功：==我的申请=="+JSON.stringify(data));
+						if(data.code == 1){
+							if(data.data == ""){
+								$("#item1 ul").css("display","none");
+								$("#item1 .tishi").css("display","block");
+							}else{
+								data.data.forEach(function(v){
+//									$("#item1 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									if(v.status==0){
+										var str='color_orange';
+									}else if(v.status==1){
+										var str='color_green';
+									}else if(v.status==2){
+										var str='color_red';
+									}else{
+										var str='color_blue';
+									}
+									if (v.type==1) {
+										var type="情况报告卡";
+									} else if (v.type==2) {
+										var type="请示报告卡";
+									}else{
+										var type="报告卡";
+									}
+									$("#item1 ul").append('<li onclick="xiangqing_sq('+v.id+','+v.type+')">'+
+																'<div class="left">'+
+																	'<h2>'+v.title+'</h2>'+
+																	'<p >'+type+' <span class="'+str+' fr">'+v.node_name+'</span></p>'+
+																	'<p>'+v.datetime+'</p>'+
+//																'</div>'+str+
+																'</div>'+
+															'</li>')
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+						mui.toast("网络异常");
+					}
+				})
+			}
+			function departmentList() {
+				var _url = root + 'api/report_card/index'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"mime":"0"
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1){
+							if(data.data == ""){
+								$("#item2 ul").css("display","none");
+								$("#item2 .tishi").css("display","block");
+							}else{
+								data.data.forEach(function(v){
+//									if(v.status==0){
+//										var str='<div class="meet_state color_orange">待审批</div>';
+//									}else if(v.status==1){
+//										var str='<div class="meet_state color_green">已完成</div>';
+//									}else if(v.status==2){
+//										var str='<div class="meet_state color_red">驳回</div>';
+//									}
+									if(v.status==0){
+										var str='color_orange';
+									}else if(v.status==1){
+										var str='color_green';
+									}else if(v.status==2){
+										var str='color_red';
+									}else{
+										var str='color_blue';
+									}
+									
+									if (v.type==1) {
+										var type="情况报告卡";
+									} else if (v.type==2) {
+										var type="请示报告卡";
+									}else{
+										var type="报告卡";
+									}
+									$("#item2 ul").append('<li onclick="xiangqing_sq('+v.id+','+v.type+')">'+
+																'<div class="left">'+
+																	'<h2>'+v.title+'</h2>'+
+																	'<p >'+type+' <span class="'+str+' fr">'+v.node_name+'</span></p>'+
+																	'<p>'+v.datetime+'</p>'+
+//																'</div>'+str+
+																'</div>'+
+															'</li>')
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+						mui.toast("网络异常");
+					}
+				})
+		}
+			/*
+			 * add——leave
+			 */
+			function addleave() {
+				mui.openWindow({
+					url: 'report_card_add.html', //通过URL传参
+					id: 'report_card_add.html' //通过URL传参
+				})
+			};
+			
+			
+			window.addEventListener('refresh', function(e) { //执行刷新
+				location.reload();
+			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,140 @@
+.sort.start {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: 1.38rem;
+    /* height: auto; */
+    padding: 0.3rem 0.2rem 0.1rem;
+    overflow: hidden;
+}
+
+.sort {
+    width: 100%;
+    height: 0.98rem;
+    position: fixed;
+    top: 1.3rem;
+    left: 0;
+    padding-left: 0.8rem;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sort.start .sort_list2 {
+    width: calc(33% - 0.2rem);
+    margin: 0 0.1rem 0.3rem 0.1rem;
+    height: 0.4rem;
+}
+
+.sort_list2 {
+    width: 100%;
+    height: 100%;
+    background: none;
+    background-size: 15px 9px;
+    color: #333333;
+    font-size: 0.26rem;
+}
+
+.sort_list2.sort_list_img2 {
+    background: none;
+    background-size: 15px 9px;
+}
+
+.sort.start.height09 {
+    height: 0.9rem;
+}
+
+.sort.start.selectauto {
+    height: auto;
+    border-bottom: 1px solid #cccccc;
+}
+
+.sort.start .sort_list {
+    width: 33%;
+    margin: 0 0 0.3rem;
+    height: 0.4rem;
+}
+
+.sort.start .sort_list.width50 {
+    width: calc(50% - 0.2rem);
+}
+
+.sort.start .sort_list.width100 {
+    width: calc(100% - 0.2rem);
+}
+
+.sort.start .sort_list.hide {
+    display: none;
+}
+
+.sort.start .more_box {
+    height: 0.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.sort.start .more_box .more_img {
+    height: 0.6rem;
+    width: 2.5rem;
+    padding: 0.2rem 1rem;
+    margin: 0 auto;
+}
+
+/* .sort.start .more_box .more_img:hover{background-color: #0000FF;} */
+.sort.start .more_box .more_img.active {
+    transform: rotate(180deg);
+}
+
+/* 修复搜索 */
+.sort.start .search_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    height: 0.4rem;
+    padding-right: 0.15rem;
+    position: relative;
+}
+
+.search_box .sort_input.sort_new {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+    color: #000000;
+    height: 0.4rem;
+    border: none;
+    font-size: 0.26rem;
+    text-align: left;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.search_box .span_search {
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    position: absolute;
+    top: 0.07rem;
+    left: calc(100% - 0.2rem);
+}
+
+.search_box .span_search .img_search {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.search_box .span_search .img_searchs {
+    display: inline-block;
+    width: 80%;
+    height: 50%;
+}
+
+.list.repair.more {
+    padding-top: 2.68rem;
+}

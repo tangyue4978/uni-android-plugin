@@ -1,0 +1,166 @@
+body {
+    background-color: #f6f6f6;
+}
+/* 主体start */
+.content_box {
+    width: 100%;
+    height: auto;
+    background-color: #ffffff;
+    border-radius: 0.2rem;
+    padding: 0.3rem;
+    margin: 1.7rem auto 0;
+}
+/* 主体end */
+/* 标题start */
+.title {
+    width: 100%;
+    height: 0.28rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.title_left {
+    color: #333333;
+    font-size: 0.26rem;
+    line-height: 0.28rem;
+}
+.title_left .line {
+    display: inline-block;
+    width: 0.05rem;
+    height: 0.28rem;
+    background-color: #3a77f0;
+}
+.date {
+    width: 1.3rem;
+    height: auto;
+    background: url(../../images/riverChief/arrow_down.png) no-repeat right;
+    background-size: 14px 8px;
+}
+/* 标题end */
+/* 淤地坝总座数start */
+.totals {
+    width: 91%;
+    height: 1.3rem;
+    border-radius: 0.1rem;
+    background-color: #3a77f0;
+    margin: 0.38rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.totals_data {
+    font-size: 0.35rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+.totals_name {
+    font-size: 0.24rem;
+    color: #9dbbf8;
+}
+/* 淤地坝总座数end */
+/* 分别座数start */
+.sorts {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sortsL,
+.sortsR {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+.color1 {
+    display: inline-block;
+    width: 100%;
+    font-size: 0.34rem;
+    color: #ff9900;
+    font-weight: bold;
+    border-right: 1px solid #c3c3c3;
+}
+.color2 {
+    font-size: 0.24rem;
+    color: #ffcc7f;
+}
+.color3 {
+    display: inline-block;
+    width: 100%;
+    font-size: 0.34rem;
+    color: #40c880;
+    font-weight: bold;
+    border-right: 1px solid #c3c3c3;
+}
+.color4 {
+    font-size: 0.24rem;
+    color: #9fe3bf;
+}
+.color5 {
+    display: inline-block;
+    width: 100%;
+    font-size: 0.34rem;
+    color: #4a9df4;
+    font-weight: bold;
+    border-right: 1px solid #c3c3c3;
+}
+.color6 {
+    font-size: 0.24rem;
+    color: #93c6fc;
+}
+/* 分别座数end */
+/* 统计表格start */
+.river_lake2 {
+    width: 100%;
+    height: auto;
+    margin: 0.5rem auto 0;
+    text-align: center;
+    font-size: 0.22rem;
+    color: #333333;
+    font-weight: 400;
+}
+.river_lake_table {
+    width: 100%;
+    height: 100%;
+}
+.river_lake_table tr th,
+td {
+    padding: 0.1rem;
+    text-align: center;
+    border: 1px solid #cccccc;
+    white-space: nowrap;
+}
+.river_lake_table tr th {
+    border-bottom: none;
+}
+.river_lake_table tr td:first-child,
+th:first-child {
+    width: 3.3125rem;
+}
+.arrowImg {
+    width: 0.3rem;
+    height: 0.3rem;
+    margin: 0 auto;
+}
+/* 区县 */
+.county {
+    background-color: #eef7ff;
+}
+.active.county {
+    background-color: #eef7ff;
+    display: table-row;
+}
+.river_lake_table .county {
+    border: 1px solid #cccccc;
+}
+.river_lake_table .county td {
+    border: none;
+    box-sizing: border-box;
+    border-bottom: 1px solid #cccccc;
+}
+/* 统计表格end */

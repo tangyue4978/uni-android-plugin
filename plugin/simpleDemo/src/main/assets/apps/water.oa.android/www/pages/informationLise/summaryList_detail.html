@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>信息化汇总详情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/informationLise/summaryList_detail.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+			</header>
+			<!-- 名称start -->
+			<div class="content_title">
+				<!-- 1.4全国水利信息化运行维护能力汇总表 -->
+				<div class="content_titles">
+					
+				</div>
+				<!-- 日期 -->
+				<div class="content_date">
+					<select name="date" class="date" id="date">
+						<option value=""></option>
+					</select>
+				</div>
+				<!-- 日期 -->
+			</div>
+			<!-- 名称end -->
+			
+			<!-- 表格start -->
+			<!-- 表格一 -->
+			<div class="content_box">
+				<!-- 上左中：头部 -->
+				<div class="content_boxs">
+					<!-- 上下：头部+主体部分 上左中：左中部分-->
+					<div class="content_table">
+						<table class="tables_head" border="0" cellspacing="0" cellpadding="0">
+							<tbody id="tabhead">
+								
+							</tbody>
+							<tbody id="tabcontent">
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 表格end -->
+		</div>
+	</body>
+	<script src="../../js/informationLise/summaryList_detail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

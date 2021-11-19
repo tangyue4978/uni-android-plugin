@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_w2at8z9smbn.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body style="background: #fff;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>详情</p>
+				<div class="loreDetails">
+					<div class="loreDetails-h">
+						<!--<h1>关于公文写作的知识</h1>
+						<span>2018.02.23 尤友林</span>
+						<p>公文按性质可分为通用公文和专用公文两大类。通用公文按行文方向分为上行文、平行文和下行文；按流通来源分为收进公文、外发公文和内部公文；按作者性质分为党内公文、行政公文和社会团体公文；按发文性质分为问文和复文；按内容处理要求分为参阅性公文和承办性公文；按办理时间要求分为特急公文、紧急公文和常规公文按机密程度分为绝密公文、机密公文、秘密公文和普通公文；按特点和作用分为规范性公文、指挥性公文、报请性公文、知照性公文和记录性公文。通用公文从文种上划分，可分为行政公文和事务公文。</p>-->
+					</div>
+					<div class="loreDetails-f">
+						<h1>附件：</h1>
+						<ul class="loreDetails-f-c">
+							<!--<li onclick="fujian()">
+								<div class="left">
+									<i class="iconfont icon-wenjian"></i>
+								</div>
+								<div class="left">
+									<p>关于公文写作的知识.doc</p>
+									<span>1200.26kb</span>
+								</div>
+							</li>
+							<li onclick="fujian()">
+								<div class="left">
+									<i class="iconfont icon-wenjian"></i>
+								</div>
+								<div class="left">
+									<p>s.doc</p>
+									<span>1200.26kb</span>
+								</div>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.i)
+				list(self.i)
+			});
+
+			function list(i) {
+				var _url = root + 'api/know/show'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": i,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(data)
+						if(data.code == 1) {
+							data.data.create_at = data.data.create_at.slice(0, 10);
+							$(".loreDetails-h").html('<h1>' + data.data.title + '</h1><span>' + data.data.create_at + "&nbsp;&nbsp;" + data.data.username + '</span><p>' + data.data.content + '</p>')
+							
+							if(data.data.attachment.length == 0){
+								$(".loreDetails-f ul").append('<p>无</p>')
+							}else{
+								data.data.attachment.forEach(function(v) {
+									$(".loreDetails-f ul").append('<li onclick="fujian(' + v.id +',\'' + v.name + '\')"><div class="left"><i class="iconfont icon-wenjian"></i></div><div class="left"><p>' + v.name + '</p><span>未知</span></div></li>')
+								})
+							}
+							//附件暂时隐藏
+							$(".loreDetails-f").hide();
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+			function fujian(i,name) {
+				mui.openWindow({
+					url: 'loreDetailsEnclosure.html', //通过URL传参
+					id: 'loreDetailsEnclosure.html', //通过URL传参
+					extras: {
+						i: i,
+						name:name,
+					}, 
+				})
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

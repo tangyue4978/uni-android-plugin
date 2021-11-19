@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>反馈</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/leave_list.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>帮助和反馈</p>
+				<div class="">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								帮助信息
+							</a>
+							<a class="mui-control-item" href="#item2" style="border-right: 1px solid #dcdcdc;">
+								意见反馈
+							</a>
+							
+						</div>
+					</div>
+					<div class="meeting">
+						<div id="item1" class="mui-control-content mui-active help_box">
+							<ul>
+								<a href="leaveDetails.html">
+								<li onclick="xiangqing()">
+									<div class="meet_state fl color_333">手机上请假如何操作？</div>
+								</li>
+								</a>
+								<li onclick="xiangqing()">
+									<div class="meet_state fl color_333">手机上请假如何操作？</div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="meet_state fl color_333">手机上请假如何操作？</div>
+								</li>
+							</ul>
+							<p class="tishi">暂无知识</p>
+						</div>
+						<div id="item2" class="mui-control-content feedback_box">
+							<div class="text_box">
+								<textarea name="" rows="" cols="" placeholder="您在使用过程中有任何问题，都可以在线留言，您的意见和建议，就是我们努力的方向。"></textarea>
+							</div>
+							<button class="text_tj">提交</button>
+							<p class="tishi">暂无知识</p>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+//			if(root == "" || root == undefined || root == null) {
+//				mui.openWindow({
+//					url: 'login.html?cid=1', //通过URL传参
+//					id: 'login.html?cid=1', //通过URL传参
+//				})
+//			}
+			var token = localStorage.getItem("token");
+
+			function xiangqing(i) {
+				mui.openWindow({
+					url: 'loreDetails.html', //通过URL传参
+					id: 'loreDetails.html', //通过URL传参
+					extras: {
+						i: i,
+					}, 
+				})
+			};
+			//岗位列表
+//			quartersList();
+//			departmentList();
+			function quartersList() {
+				var _url = root + 'api/know/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page":1,
+						"type":1,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1){
+							if(data.data == ""){
+								$("#item1 ul").css("display","none");
+								$("#item1 .tishi").css("display","block");
+							}else{
+								data.data.forEach(function(v){
+									$("#item1 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			function departmentList() {
+				var _url = root + 'api/know/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page":1,
+						"type":2,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1){
+							if(data.data == ""){
+								$("#item2 ul").css("display","none");
+								$("#item2 .tishi").css("display","block");
+							}else{
+								data.data.forEach(function(v){
+									$("#item2 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+								})
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			
+			
+		</script>
+	</body>
+
+</html>

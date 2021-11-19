@@ -1,0 +1,262 @@
+.content {
+    background-color: #f6f6f6;
+}
+
+/* 统计start */
+.statics {
+    width: 94%;
+    height: 1.64rem;
+    position: fixed;
+    top: 2.28rem;
+    left: 0;
+    background-color: #3a77f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0.2rem;
+    text-align: center;
+    border-radius: 0.2rem;
+}
+
+.header_list {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.header_list > li {
+    width: 25%;
+    font-size: 0.44rem;
+    color: #ffffff;
+    text-align: center;
+    border-right: 1px solid #ddd;
+}
+
+.header_list > .unborder {
+    border: none;
+}
+
+.header_lists {
+    margin-top: 0.2rem;
+}
+
+.header_lists > li {
+    font-size: 0.26rem;
+    color: #ffffff;
+    border: none;
+    opacity: 0.5;
+}
+
+.header_list > li.active {
+    color: #fae607;
+}
+
+.header_lists > li.active span {
+    /* content: ""; */
+    color: #fae607;
+    border-bottom: 3px solid #fae607;
+    padding-bottom: 0.09rem;
+}
+
+/* 统计end */
+/* 日期start */
+.statics_div {
+    width: 100%;
+    height: 1.2rem;
+    position: fixed;
+    top: 3.9rem;
+    text-align: center;
+    background-color: #f6f6f6;
+    padding-top: 0.3rem;
+}
+
+.statics_div .statics_input {
+    width: 7.1rem;
+    height: 0.68rem;
+    background-color: #ffffff !important;
+    border: 1px solid #cccccc;
+    border-radius: 0.1rem;
+    font-size: 0.24rem;
+    padding-left: 0.3rem;
+    background: url(../../images/xia.png) no-repeat 6.5rem 0.25rem;
+    background-size: 13px 7px;
+}
+
+/* 日期end */
+/* 分类start */
+.sort {
+    width: 100%;
+    height: 0.98rem;
+    position: fixed;
+    top: 1.3rem;
+    left: 0;
+    padding-left: 0.8rem;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sort_list {
+    width: 100%;
+    height: 100%;
+    background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 60px;
+    background-size: 15px 9px;
+    color: #333333;
+    font-size: 0.26rem;
+}
+
+.sort_list1 {
+    background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 78px;
+    background-size: 14px 8px;
+}
+
+/* 分类end */
+/* 列表start */
+.list {
+    width: 96%;
+    height: calc(100% - 3.92rem);
+    margin: 0 auto;
+    padding-top: 5.85rem;
+}
+
+.lists {
+    width: 100%;
+    height: 100%;
+}
+
+.lists_li {
+    width: 100%;
+    height: auto;
+    padding: 0.4rem 0;
+    background-color: #ffffff;
+    margin-bottom: 0.2rem;
+    box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+    border-radius: 0.2rem;
+}
+
+.lists_data {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.lists_data > li {
+    font-size: 0.24rem;
+    font-family: Myriad Pro;
+    font-weight: 400;
+    color: #999999;
+    line-height: 0.4rem;
+}
+
+.lists_data_head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lists_data_head_l {
+    font-size: 0.28rem;
+    color: #333333;
+    line-height: 0.28rem;
+}
+
+.lists_data_head_r {
+    color: #3a77f0;
+}
+
+.kuang1 {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #999999;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+
+.kuang2 {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #c7925e;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+
+.kuang3 {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #e5ae2d;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+
+.kuang4 {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #ffd452;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+
+.kuang5 {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #78d9e9;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+
+.kuang6 {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.38rem;
+    background-color: #40c87e;
+    color: #ffffff;
+    font-size: 0.24rem;
+    text-align: center;
+    line-height: 0.38rem;
+    border-radius: 0.1rem;
+}
+
+/* 列表end */
+.list_number {
+    width: 100%;
+    height: 0.9rem;
+    line-height: 0.9rem;
+    letter-spacing: 0.01rem;
+    padding: 0 0.3rem;
+    background: #f3f3f3;
+    font-size: 0.26rem;
+    color: #666;
+    position: fixed;
+    left: 0;
+    top: 4.9rem;
+    z-index: 99;
+}
+
+.list_number span {
+    color: #6492ff;
+}

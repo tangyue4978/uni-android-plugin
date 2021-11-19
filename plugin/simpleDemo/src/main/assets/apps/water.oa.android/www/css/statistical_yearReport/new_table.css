@@ -1,0 +1,141 @@
+/* tableÐÂ*/
+* {
+	touch-action: auto;
+}
+
+.top_div {
+	box-sizing: border-box;
+	width: 96vw;
+	height: 2.4rem;
+	padding: 0 0.1rem;
+	overflow: hidden;
+	background-color: #ffffff;
+}
+
+.top_div #left_div1 {
+	float: left;
+	text-align: center;
+	margin: 0 auto;
+	width: 30%;
+	height: 100%;
+	color: #8c768c;
+	border: 1px solid #dbdbdb;
+	box-sizing: border-box;
+}
+
+.top_div #left_div1 #left_table1 tr th {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	width: 30%;
+	height: 2.4rem;
+	text-align: center;
+	line-height: 2.4rem;
+	color: #909090;
+	
+}
+
+.top_div #right_div1 {
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	width: 70%;
+	height: 100%;
+	overflow: hidden;
+	overflow-x: auto;
+	border-bottom: 1px solid #dbdbdb;
+	/* border: 1px solid #dbdbdb; */
+	border-right: none;
+}
+
+.top_div #right_div1 #right_table1 {
+	/* background-color: red; */
+	width: 100%;
+	height: 50%;
+	overflow: hidden;
+	overflow-x: auto;
+	
+}
+
+.top_div #right_div1 #right_table1 tr th {
+	width: 5.99rem;
+	border-left: none;
+	border-right: 1px solid #dbdbdb;
+	border-top: 1px solid #dbdbdb;
+}
+
+.top_div #right_div1 #right_table2 {
+	box-sizing: border-box;
+	width: 100%;
+	height: 50%;
+	overflow-x: auto;
+	height: 50%;
+}
+
+.top_div #right_div1 #right_table2 tr th {
+	width: 1.5rem;
+	border: 1px solid #dbdbdb;
+	border-left: none;
+	border-bottom: none;
+}
+
+.bottom_div {
+	height: auto;
+	/* background-color: red; */
+	padding: 0 0.1rem;
+	/* border: 1px solid black; */
+}
+
+.bottom_div #left_div2 {
+	float: left;
+	box-sizing: border-box;
+	width: 30%;
+	height: auto;
+	/* border: 1px solid #dbdbdb; */
+	border-top: none;
+	z-index: -1;
+}
+
+.bottom_div #left_div2 #left_table2 tr {
+	width: 30%;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+.bottom_div #left_div2 #left_table2 tr td {
+	box-sizing: border-box;
+	width: 30%;
+	height: 1rem;
+	line-height: 1rem;
+	text-align: center;
+	border: 1px solid #dbdbdb;
+	border-top: none;
+}
+
+.bottom_div #right_div3 {
+	box-sizing: border-box;
+	width: 70%;
+	overflow: hidden;
+	overflow-x: auto;
+	/* border-right: 1px solid #dbdbdb; */
+}
+
+.bottom_div #right_table3 {
+	box-sizing: border-box;
+	overflow: hidden;
+	overflow-x: auto;
+	width: 70%;
+	height: auto;
+	/* background-color: blue; */
+}
+
+.bottom_div #right_div3 #right_table3 tr td {
+	box-sizing: border-box;
+	height: 1rem;
+	width: 1.5rem;
+	line-height: 1rem;
+	border-bottom: 1px solid #dbdbdb;
+	border-right: 1px solid #dbdbdb;
+	text-align: center;
+}

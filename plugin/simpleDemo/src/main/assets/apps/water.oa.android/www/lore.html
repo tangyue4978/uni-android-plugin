@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<!--<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />-->
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css?v=1024" /> 
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>知识</p>
+				<div class="meeting-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								岗位
+							</a>
+							<a class="mui-control-item" href="#item2" style="border-right: 1px solid #dcdcdc;">
+								部门
+							</a>
+							<a class="mui-control-item" href="#item3">
+								业务
+							</a>
+						</div>
+					</div>
+					<div class="meeting">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2>有关项目进展的会议</h2>
+										<p>2018-08-09&nbsp;&nbsp;&nbsp;&nbsp;马化腾</p>
+									</div>
+									<div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>有关项目进展的会议</h2>
+										<p>2018-08-09&nbsp;&nbsp;&nbsp;&nbsp;马化腾</p>
+									</div>
+									<div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>有关项目进展的会议</h2>
+										<p>2018-08-09&nbsp;&nbsp;&nbsp;&nbsp;马化腾</p>
+									</div>
+									<div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无知识</p>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2>有关项目进展的会议</h2>
+										<p>2018-08-09&nbsp;&nbsp;&nbsp;&nbsp;马化腾</p>
+									</div>
+									<div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div>
+								</li>
+								<li onclick="xiangqing()">
+									<div class="left">
+										<h2>有关项目进展的会议</h2>
+										<p>2018-08-09&nbsp;&nbsp;&nbsp;&nbsp;马化腾</p>
+									</div>
+									<div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无知识</p>
+						</div>
+						<div id="item3" class="mui-control-content">
+							<ul>
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2>有关项目进展的会议</h2>
+										<p>2018-08-09&nbsp;&nbsp;&nbsp;&nbsp;马化腾</p>
+									</div>
+									<div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div>
+								</li>-->
+							</ul>
+							<p class="tishi">暂无知识</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			function xiangqing(i) {
+				mui.openWindow({
+					url: 'loreDetails.html', //通过URL传参
+					id: 'loreDetails.html', //通过URL传参
+					extras: {
+						i: i,
+					}, 
+				})
+			};
+			//岗位列表
+			var page1=1;
+			var page2=1;
+			var page3=1;
+			quartersList();
+			departmentList();
+			businessList();
+			function quartersList() {
+				var _url = root + 'api/know/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page":page1,
+						"type":1,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1){
+							if(page1==1){
+								if(data.data == ""){
+									$("#item1 ul").css("display","none");
+									$("#item1 .tishi").css("display","block");
+								}else{
+									data.data.forEach(function(v){
+										$("#item1 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+								}
+							}else{
+								if(data.data == ""){
+									 self.endPullupToRefresh(true);
+									 mui('.mui-content').pullRefresh().refresh(true);
+								}else{
+									data.data.forEach(function(v){
+										$("#item1 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+									
+									 self.endPullupToRefresh(false);
+									
+								}
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			function departmentList() {
+				var _url = root + 'api/know/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page":page2,
+						"type":2,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1){
+							if(page1==1){
+								if(data.data == ""){
+									$("#item2 ul").css("display","none");
+									$("#item2 .tishi").css("display","block");
+								}else{
+									data.data.forEach(function(v){
+										$("#item2 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+								}
+							}else{
+								if(data.data == ""){
+									self.endPullupToRefresh(true);
+									mui('.mui-content').pullRefresh().refresh(true);
+								}else{
+									data.data.forEach(function(v){
+										$("#item2 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+									self.endPullupToRefresh(false);
+								}
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			function businessList() {
+				var _url = root + 'api/know/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page":page3,
+						"type":3,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1){
+							if(page1==1){
+								if(data.data == ""){
+									$("#item3 ul").css("display","none");
+									$("#item3 .tishi").css("display","block");
+								}else{
+									data.data.forEach(function(v){
+										$("#item3 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+								}
+							}else{
+								if(data.data == ""){
+									self.endPullupToRefresh(true);
+									mui('.mui-content').pullRefresh().refresh(true);
+								}else{
+									data.data.forEach(function(v){
+										$("#item3 ul").append('<li onclick="xiangqing('+v.id+')"><div class="left"><h2>'+v.title+'</h2><p>'+v.create_at+'&nbsp;&nbsp;&nbsp;&nbsp;'+v.username+'</p></div><div class="right" style="padding-top: 0.25rem;"><i class="iconfont icon-youjiantou1"></i></div></li>')
+									})
+									self.endPullupToRefresh(false);
+								}
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			
+		</script>
+		<script type="text/javascript">
+			function pullfresh_function() {
+			     //业务逻辑代码，比如通过ajax从服务器获取新数据；
+			     //注意，加载完新数据后，必须执行如下代码，注意：若为ajax请求，则需将如下代码放置在处理完ajax响应数据之后
+			     //没有更多内容了，endPulldown 传入true， 不再执行下拉刷新
+			     mui('.mui-content').pullRefresh().endPulldown();
+			     location.reload();
+			}
+			var self=null;
+			function up_fun(){}
+			mui.init({
+			  pullRefresh : {
+			    container:".mui-content",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+			    down : {
+			      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+			      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+			      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+			      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+			      offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+			      auto: false,//可选,默认false.首次加载自动上拉刷新一次
+			      callback :pullfresh_function //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+			    }
+			    ,up: {
+					height: "50px", //可选.默认50.触发上拉加载拖动距离
+					auto: false, //可选,默认false.自动上拉加载一次
+					contentdown: "上拉显示更多",
+					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: function(){
+						var str=$(".mui-control-item.mui-active");
+						self=this;
+						console.log(str.attr("href"));
+		//				mui('.mui-content').pullRefresh().endPulldown();
+						
+						switch (str.attr("href")){
+							case "#item1":
+								page1++;
+								quartersList();
+								break;
+							case "#item2":
+								page2++;
+								departmentList();
+								break;
+							case "#item3":
+								page3++;
+								businessList();
+								break;
+							default:
+								break;
+						}
+					
+//						mui('.mui-content').pullRefresh().refresh(true);
+				
+						
+					} //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				}
+			  }
+			});
+		</script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+		
+	</body>
+
+</html>

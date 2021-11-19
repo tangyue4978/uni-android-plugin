@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>工作消息</p>
+				<div class="workNews-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								未读
+							</a>
+							<a class="mui-control-item" href="#item2">
+								全部
+							</a>
+						</div>
+					</div>
+					<div style="    margin-top: 2.5rem;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul>
+								<!--<li>
+									<div class="time">下午 02:00</div>
+									<div class="content">
+										<div class="content-herd">
+											<h1>公务提醒<i class="iconfont icon-gengduomore10 right"></i></h1>
+
+										</div>
+										<div class="content-cet">
+											<p class="shijian">9月04日</p>
+											<p class="title">尊敬的 杨霁霞：<br>你所在的部门发出如下会议通知</p>
+											<p class="p1">会议时间：<span>2018年9月5日   15:00</span></p>
+											<p class="p1">会议地点：公司一楼主会议室</p>
+											<p class="p1">会议内容：关于中秋节放假通知及值班安排</p>
+											<p class="p1">参会人员：人事处全体</p>
+										</div>
+										<div class="content-food">
+											<p>详情<i class="iconfont icon-youjiantou1 right"></i></p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="time">下午 02:00</div>
+									<div class="content">
+										<div class="content-herd">
+											<h1>请假审批<i class="iconfont icon-gengduomore10 right"></i></h1>
+
+										</div>
+										<div class="content-cet">
+											<p class="shijian">9月04日</p>
+											<p class="title">尊敬的 杨霁霞 你收到如下请假审批：</p>
+											<p class="p1">申请人：<span>2这是谁的</span></p>
+											<p class="p1">所在部门：人事部</p>
+											<p class="p1">请假时间：2018年9月10日 至 2018年9月11日</p>
+											<p class="p1">请假理由：医院就医</p>
+										</div>
+										<div class="content-food">
+											<button class="btn2 right">确认</button>
+											<button class="btn1 right">驳回</button>
+										</div>
+									</div>
+								</li>-->
+							</ul>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul>
+								<!--<li>
+									<div class="time">下午 02:00</div>
+									<div class="content">
+										<div class="content-herd">
+											<h1>请假审批1<i class="iconfont icon-gengduomore10 right"></i></h1>
+
+										</div>
+										<div class="content-cet">
+											<p class="shijian">9月04日</p>
+											<p class="title">尊敬的 杨霁霞 你收到如下请假审批：</p>
+											<p class="p1">申请人：<span>2这是谁的</span></p>
+											<p class="p1">所在部门：人事部</p>
+											<p class="p1">请假时间：2018年9月10日 至 2018年9月11日</p>
+											<p class="p1">请假理由：医院就医</p>
+										</div>
+										<div class="content-food">
+											<button class="btn2 right">确认</button>
+											<button class="btn1 right">驳回</button>
+										</div>
+									</div>
+								</li>-->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			console.log(token);
+			//1 收文 2 发文 3 外出报备 4 报销 5 会议申请 会议通知 6 电话通知 7 日程
+			var arritem=["未知","收文","发文","外出报备","报销","会议提醒","电话通知","日程"];
+			function mewsList(qb_type) {
+				var qb_type=qb_type;
+				
+				var _url = root + 'api/message/workmessages';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type":qb_type
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							var new_data=data.data;
+							if(new_data==""||new_data==null||new_data==undefined){
+								if(qb_type==1){
+									$("#item1 ul").append('<li style="text-align:center;font-size:0.375rem !important;">暂无数据</li>');
+								}else{
+									$("#item2 ul").append('<li style="text-align:center;font-size:0.375rem !important;">暂无数据</li>');
+								}
+							}else{
+								
+							
+							for (var i = 0; i < new_data.length; i++) {
+								var html="";
+								html+='<li data-id="'+new_data[i].id+'" data-itemid="'+new_data[i].item_id+'" data-type="'+new_data[i].type+'">'+
+										'<div class="time">'+new_data[i].receive_time.slice(10,16)+'</div>'+
+									'<div class="content">'+
+										'<div class="content-herd">'+
+											'<h1>'+arritem[new_data[i].type]+'<i class="iconfont icon-gengduomore10 right"></i></h1>'+
+										'</div>'+
+										'<div class="content-cet">';
+											html+='<p class="shijian">'+new_data[i].receive_time.slice(0,10)+'</p>'+
+											'<p class="title">尊敬的 '+new_data[i].true_name+' 你收到如下'+arritem[new_data[i].type]+'：</p>';
+											for (var x = 0; x < new_data[i].content.length; x++) {
+												var aa=new_data[i].content;
+												html+='<p class="p1">'+aa[x].name+'：'+aa[x].value+'</p>';
+											}
+										html+='</div>'+
+									'</div>'+
+								'</li>';
+								if(qb_type==1){
+									$("#item1 ul").append(html);
+								}else{
+									$("#item2 ul").append(html);
+								}
+									
+							}
+							}
+							$("#item1 ul li").off("click",xiangqing);
+							$("#item2 ul li").off("click",xiangqing);
+							$("#item1 ul li").on("click",xiangqing);
+							$("#item2 ul li").on("click",xiangqing);
+						} else {
+							mui.toast(data.msg);
+						}
+						console.log(JSON.stringify(data))
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+						mui.toast("网络异常!");
+					}
+				})
+			}
+			mewsList(1)
+			mewsList(0)
+			function weidu(id){
+				var user_id=id;
+				console.log("00000000"+user_id);
+				mui.ajax(root+"api/message/workstatus", {
+					data: {
+						"token": token,
+						"id":user_id
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("user_id----------"+JSON.stringify(data));
+//						location.reload();
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+			
+			//1 收文 2 发文 3 外出报备 4 报销 5 会议申请 会议通知 6 电话通知 7 日程
+			var arritem=["未知","收文","发文","外出报备","报销","会议提醒","电话通知","日程"];
+			function xiangqing() {
+				var id=$(this).attr("data-id");
+				var item_id=$(this).attr("data-itemid");
+				var type=$(this).attr("data-type");
+				
+				
+				switch (type){
+					case "1":
+					//list(self.flow_id, self.item_id)//收文
+						mui.openWindow({
+							url: 'bumfDetails.html', //通过URL传参
+							id: 'bumfDetails.html', //通过URL传参
+							extras: {
+								flow_id: item_id,
+								item_id: 1
+							}
+						})
+						break;
+					case "2":
+					//list(self.flow_id, self.item_id)//发文
+						mui.openWindow({
+							url: 'bumfDetails.html', //通过URL传参
+							id: 'bumfDetails.html', //通过URL传参
+							extras: {
+								flow_id: item_id,
+								item_id: 2
+							}
+						})
+						break;
+					case "3":
+						mui.openWindow({
+							url: 'leaveDetails.html', //通过URL传参
+							id: 'leaveDetails.html', //通过URL传参
+							extras: {
+								i: item_id,
+							}
+						})
+						break;
+					case "4":
+//						mui.toast("正在开发中！");
+						break;
+					case "5":
+						mui.openWindow({
+							url: 'meetingDetails.html', //通过URL传参
+							id: 'meetingDetails.html', //通过URL传参
+							extras: {
+								ii: item_id,
+								type:"1"
+							}
+						})
+						break;
+					case "6":
+						//list(self.flow_id, self.item_id)//电话通知
+						mui.openWindow({
+							url: 'bumfDetails.html', //通过URL传参
+							id: 'bumfDetails.html', //通过URL传参
+							extras: {
+								flow_id: item_id,
+								item_id: 6
+							}
+						})
+						break;
+					case "7":
+						//list(self.flow_id, self.item_id)//电话通知
+//						mui.toast("正在开发中！");
+						break;
+					default:
+						break;
+				}
+				weidu(id);
+			};
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

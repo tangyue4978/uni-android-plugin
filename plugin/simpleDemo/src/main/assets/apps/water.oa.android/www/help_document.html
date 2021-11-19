@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_2f6bthhrl5d.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/help_feedback.css" />
+		<style type="text/css">
+			#content{
+				width: 100%;
+				height: auto;
+				padding: 0rem;
+				margin: 0rem;
+				background-color: #FFFFFF;
+				padding: 0rem 0.3rem;
+			}
+		</style>
+	</head>
+
+	<body style="background: #F1F1F6;">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i><span class="bt_span">帮助文档</span></p>
+
+				<div class="revise-content">
+					<div id="content"></div>
+				</div>
+
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/app.js"></script>-->
+		<!--<script src="js/main.js"></script>-->
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				//获取数据
+				var root = localStorage.getItem("str_url");
+				//				if(root == "" || root == undefined || root == null) {
+				//					mui.openWindow({
+				//						url: 'login.html?cid=1', //通过URL传参
+				//						id: 'login.html?cid=1', //通过URL传参
+				//					})
+				//				}
+				var token = localStorage.getItem("token");
+				var ws = plus.webview.currentWebview();
+//				alert(ws.document_id);
+				function mainList() {
+					var _url = root + 'api/help/show';
+					mui.ajax(_url, {
+						data: {
+							"token": token,
+							"id":ws.document_id
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(obj) {
+							var data = obj.data;
+							if(obj.code == 1) {
+								$(".bt_span").text(data.title);
+								$("#content").html(data.content);
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							//		console.log(type);
+							mui.toast("网络异常！");
+						}
+					})
+				}
+				mainList()
+			}, false);
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

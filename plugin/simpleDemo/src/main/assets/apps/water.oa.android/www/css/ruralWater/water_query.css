@@ -1,0 +1,204 @@
+body{
+	background-color: #F6F6F6;
+}
+.main{
+	width: 100%;
+	height: calc(100% - 4.12rem);
+	position: relative;
+}
+/* 地市搜索start */
+.city_search{
+	width: 100%;
+	height: 1rem;
+	margin:0 auto;
+	background-color: #FFFFFF;
+	margin-top:1.6rem;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: absolute;
+	top: -0.4rem;
+}
+.submit_item{
+	width: 100%;
+	height: 100%;
+	line-height: 0.8rem;
+	padding: 0 0.2rem;
+	background: url(../../images/riverChief/arrow_down.png) no-repeat 96% center;
+	background-size: 12px 7px;
+	padding-left: 0.6rem;
+}
+/* 地市搜索end */
+/* 已接水表start */
+.waterUse_box{
+	width: 96%;
+	height: 1.5rem;
+	margin: 0 2%;
+	margin-top: 0.25rem;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+	position: absolute;
+	top:2.2rem;
+}
+.waterUse{
+	width: 100%;
+	height: 1rem;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 0.35rem;
+}
+.waterUse_title{
+	width: 100%;
+	height: 100%;
+	font-size: 0.36rem;
+	font-weight: 700;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.waterUse_title li{
+	width: 100%;
+	text-align: center;
+	border-right: 1px solid #c3c3c3;
+}
+.waterUse_title .colorY{
+	border: none;
+}
+.waterUse_title .colorS{
+	border: none;
+}
+.waterUse_name{
+	width: 100%;
+	height: 100%;
+	font-size: 0.24rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.waterUse_name li{
+	width: 100%;
+	text-align: center;
+}
+.color1{
+	color: #40c880;
+}
+.color2{
+	color: #fa6763;
+}
+.color3{
+	color: #6eb6ff;
+}
+/* 已接水表end */
+/* 用水趋势分析start */
+.trend{
+	width: 96%;
+	height: 4.5rem;
+	margin: 0 2%;
+	margin-top: 0.25rem;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+	position: absolute;
+	top:4rem;
+}
+nav ul{
+	width: 100%;
+	height: 0.7rem;
+	background-color: #f8f8f8;
+	display: flex;
+	justify-content: space-between;
+}
+nav ul li{
+	width: 100%;
+	height: 100%;
+	display: inline;
+	/* text-decoration: none; */
+	text-align: center;
+	line-height: 0.7rem;
+}
+nav ul li:hover,nav ul li.active{
+	background-color: #ffffff;
+	color: #000000;
+	font-weight: bold;
+}
+.tab{
+	width: 100%;
+	height: 3.8rem;
+	border-bottom-left-radius: 0.2rem;
+	border-bottom-right-radius: 0.2rem;
+}
+#container1{
+	width: 100%;
+	height: 100%;
+}
+#container2{
+	width: 100%;
+	height: 80%;
+}
+/* 用水趋势分析end */
+/* 接入率start */
+.access{
+	width: 100%;
+	height: auto;
+	margin-top: 0.25rem;
+	background-color: #ffffff;
+	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+	border-radius: 0.2rem;
+	position: absolute;
+	top:8.8rem;
+}
+.access1{
+	width: 100%;
+	height: 3.5rem;
+	border-bottom: 1px solid #cccccc;
+	padding:3% 4% 2%;
+}
+.access_title{
+	width: 100%;
+	height: 0.6rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.access_titleL{
+	width: 15%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #333333;
+}
+.shu{
+	width: 0.05rem;
+	height: .3rem;
+	background-color: #6492ff;
+}
+.access_titleR{
+	color:#6492ff;
+	width: 33%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.right_icon{
+	width: 0.2rem;
+	height: 0.3rem;
+}
+.access_content{
+	width: 100%;
+	height: 2.9rem;
+}
+.access_line{
+	line-height: 0.65rem;
+}
+.access_line>span{
+	margin-right: 0.3rem;
+}
+/* 接入率end */
+
+
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			body{
+				background-color: #FFFFFF;
+			}
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.bumf .daiban{
+				/*padding-left: 0.5rem;*/
+				width: 90%;
+				margin: 0 auto;
+				padding-top: 0.15rem;
+				background-color: #FFFFFF;
+			}
+			.bumf .daiban li{
+				margin: 0rem;
+				border-bottom: 1px solid #E0E0E0;
+				padding-left: 0rem;
+			}
+			.bumf .daiban li h2 {
+			    font-size: 0.3rem;
+			    color: #000;
+			    margin-top: 0;
+			    margin-bottom: 0.1rem;
+			    width: 100%;
+			    overflow: visible;
+			    text-overflow: ellipsis;
+			    white-space: inherit;
+			}
+			.bumf .daiban li .left1{
+				width: 100%;
+			}
+			.bumf .daiban li .left1 span.fr{
+				font-size: 0.45rem;
+			}
+			.bumf .daiban li .left1 span.type{
+				padding: 0.02rem 0.15rem;
+				border:1px solid #16CCB6;
+				border-radius: 0.3rem;
+				color: #16CCB6;
+				margin-right: 0.2rem;
+			}
+			.bumf .daiban li .left1 h2{
+				height: auto !important;
+			}
+			.bumf .daiban li .left1 h2 .h2_bt{
+				display: block;
+				width: 100%;
+			    overflow: visible;
+			    height: auto !important;
+			    /*text-overflow: ellipsis;*/
+			    /*white-space: nowrap;*/
+			}
+			.details{
+				font-size: 0.3rem;
+				background-color: #FFFFFF;
+				height: auto;
+				overflow: hidden;
+				color: #323232;
+				width: 90%;
+				margin: 0 auto;
+				/*margin: 0.2rem 0.5rem;*/
+				/*padding-left: 0.5rem;*/
+				box-sizing: border-box;
+				padding-bottom: 0.2rem;
+			}
+			.details p{
+				display: block;
+				width: 100% !important;
+			}
+			.details img{
+				max-width: 100% !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<i class="mui-action-back iconfont icon-fanhui1 left"></i>通知详情
+				</p>
+				<div class="bumf-nav" style="margin-top: 1.3rem;">
+				
+					<div class="bumf" style="margin: 0;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="daiban">
+								<li >
+									<div class="left1">
+										<h2><span class="h2_bt">--</span></h2>
+										<p><span class="type">--</span><span class="fbsj">发布时间: ----年--月--日</span></p>
+										<p class="r_bm">发布人:---　　部门名称:---</p>
+									</div>
+								</li>
+							</ul>
+							<div class="details">---</div>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null){
+					mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var page=1;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+//				url = self.url
+				list(self.type_id)
+				var list2=plus.webview.getWebviewById("unitNews_list.html");
+				mui.fire(list2, 'refresh');
+			});
+			
+
+			function list(id) {
+				console.log("通知id=："+id);
+				var id=id;
+//				1单位动态,2公示,3公告,4通知
+				var _url = root + 'api/message/msgdetail';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id":id
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data1) {
+						var data=data1.data;
+						if(data1.code == 1) {
+//							<h2><span class="h2_bt">--</span></h2>
+//							<p><span class="type">--</span><span class="fbsj">发布时间: ----年--月--日</span></p>
+//							<p class="r_bm">发布人:张冬青　　部门名称:水利厅</p>
+							$(".h2_bt").html(data[0].title);
+							$(".type").html(data[0].msgType);
+							$(".fbsj").html("发布时间: "+data[0].createAt);
+							$(".r_bm").html("发布人: "+data[0].creator+"　　部门名称: "+data[0].departmentName);
+							$(".details").html(data[0].content);
+						}
+						$(".mui-loading").css("display", "none");
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常")
+					}
+				})
+
+			}
+
+			
+
+			
+
+//			function fwxq(i, t) {
+//				console.log(i)
+//				if(i == 0) {
+//					mui.toast("暂无" + t)
+//				} else {
+//
+//				}
+//			}
+//
+//			function swxq(i, t) {
+//				console.log(i)
+//				console.log(t)
+//				if(i == 0) {
+//					mui.toast("暂无" + t)
+//				}
+//			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

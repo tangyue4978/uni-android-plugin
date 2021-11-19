@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>水土保持</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/yuDiBa/index.css" />
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<style type="text/css">
+		.list_cont_box .cont_item_box {
+			width: 23%;
+			align-items: flex-start;
+		}
+
+		.list_cont_box .cont_item_box .list_span {
+			color: #666666;
+		}
+
+		.right {
+			position: absolute;
+			right: 0.2rem;
+		}
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body>
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>水土保持</span>
+			<span class="right" style="font-size: 0.3rem;" onclick="jump_new('../../feedback.html')">意见反馈</span>
+			<!-- <i class="mui-action-menu iconfont icon-menu fr"></i> -->
+		</header>
+		<div class="section">
+			<div class="section_box">
+				<ul class="section_list">
+					<li onclick="jump_new('/pages/yuDiBa/map.html')">
+						<img class="list_img list_img1" src="../../images/icon_yudiba/02.png">
+						<span>淤地坝</span>
+					</li>
+					<li>
+						<img class="list_img" src="../../images/icon_yudiba/03_gray.png">
+						<span>水保监测</span>
+						<span class="text_gray">暂未开放</span>
+					</li>
+					<li>
+						<img class="list_img" src="../../images/icon_yudiba/04_gray.png">
+						<span>生产建设</span>
+						<span class="text_gray">暂未开放</span>
+					</li>
+					<!-- <li onclick="jump_new('/pages/keyControlArea/map.html')"> -->
+					<li>
+						<img class="list_img list_img2" src="../../images/icon_yudiba/05_gray.png">
+						<span>重点防治区</span>
+						<span class="text_gray">暂未开放</span>
+					</li>
+					<li>
+						<img class="list_img" src="../../images/icon_yudiba/06_gray.png">
+						<span>水保规划</span>
+						<span class="text_gray">暂未开放</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	//导航信息
+	$('.gpsInfo_con').hide()
+	$(".icon_arrow").on("click", function () {
+		var arrow = $(this).parent();
+		console.log($(this).index())
+		if ($(this).parent().hasClass("open")) {
+			$(this).parent().removeClass("open").css("height", ".28rem");
+			$(this).next().hide()
+		} else {
+			$(this).parent().addClass("open").css("height", "auto");
+			$(this).next().show()
+		}
+	})
+</script>
+
+</html>

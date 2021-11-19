@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.leave_add .notice {
+				width: 100%;
+				padding: 0rem;
+				padding-top: 1.5rem;
+				background-color: #F6F6FA;
+				text-align: center;
+			}
+			
+			.notice #tijiao {
+				width: 92%;
+			}
+			
+			.notice .gray {
+				background-color: #F5F5F9;
+				height: 0.4rem;
+				overflow: hidden;
+				text-align: left;
+			}
+			
+			.notice .gray.zi {
+				height: 0.9rem;
+				line-height: 1.2rem;
+				padding: 0rem 0.3rem;
+				font-size: 0.25rem;
+				color: #959595;
+			}
+			
+			.notice .leave_ul {
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				padding-left: 0.3rem;
+				list-style: none;
+				background-color: #FFFFFF;
+				border-top: 1px solid #CCCCCC;
+				border-bottom: 1px solid #CCCCCC;
+			}
+			
+			.notice .leave_ul .leave_li {
+				border-bottom: 1px solid #CCCCCC;
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				height: 1rem;
+				line-height: 1rem;
+				font-size: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li:last-child {
+				border: none;
+			}
+			
+			.notice .leave_ul .leave_li .left {
+				float: left;
+				width: 33%;
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input {
+				display: block;
+				margin-left: 33%;
+				padding: 0rem;
+				margin: 0rem;
+				width: 65%;
+				border: none;
+				outline: none;
+				height: 98%;
+				font-size: 0.3rem;
+				color: #262626;
+				padding-right: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_l {
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_r {
+				text-align: right;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_c {
+				text-align: center;
+			}
+			
+			.notice .leave_ul .leave_li .select {
+				padding-right: 0.6rem;
+				background: url(images/jian.png) no-repeat 93% 0.285rem;
+				background-size: 0.22rem 0.38rem;
+			}
+			
+			.equipment_list{
+				border: 1px solid #ccc;padding: 0.04687rem 0.2rem;font-size: 0.3125rem;float: left;margin: 0.3rem 0.2rem 0 0;height: 0.7rem;line-height: 0.7rem;
+			}
+			#equipment_input{
+				width: 100%;border: 0 !important;border-bottom: 1px solid #ccc !important;padding: 0 !important;display: none;
+			}
+			.add_equipment{
+				border-color: red;
+				color: red;
+			}
+			
+		</style>
+	</head>
+
+	<body style="background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news leave_add">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>会议申请
+				</p>
+				<div class="notice">
+					<ul class="leave_ul">
+						<li class="leave_li">
+							<span class="left">申请人姓名</span>
+							<input class="input t_r" type="text" name="" id="sqrxm" value="" readonly="readonly" placeholder="请填写" />
+						</li>
+						<li class="leave_li">
+							<span class="left">所在部门</span>
+							<input class="input t_r" type="text" name="" id="sscs" value="" readonly="readonly" placeholder="请填写" />
+						</li>
+					</ul>
+					<div class="gray"></div>
+					<ul class="leave_ul">
+						<li class="leave_li">
+							<span class="left">会议议题</span>
+							<input class="input t_r" type="text" name="" id="name" value=""  placeholder="请填写" />
+						</li>
+						<li class="leave_li">
+							<span class="left">紧急程度</span>
+							<input class="input select t_r" type="text" name="" id="urgent" value=""  placeholder="请选择" />
+						</li>
+						<li class="leave_li">
+							<span class="left">会议开始时间</span>
+							<input class="input select t_r" type="text" name="" id="startTime" value="" placeholder="请选择" />
+						</li>
+						<li class="leave_li">
+							<span class="left">会议结束时间</span>
+							<input class="input select t_r" type="text" name="" id="endTime" value="" placeholder="请选择" />
+						</li>
+						<li class="leave_li">
+							<span class="left">会议地点</span>
+							<input class="input select t_r" type="text" name="" id="room" value="" placeholder="请选择" />
+						</li>
+					</ul>
+					<div class="gray zi">配套设备</div>
+					<ul class="leave_ul">
+						<li class="leave_li" id="shebei" style="height: auto;overflow: hidden;padding-bottom: 0.3125rem;"> 
+							<!--<div class= "equipment_list ">录音笔</div>
+							<div class="equipment_list ">录音笔</div>
+							<div class="equipment_list ">录音笔</div>
+							<div class="equipment_list ">录音笔</div>
+							<div class="equipment_list ">录音笔</div>
+							<div class="equipment_list ">录音笔</div>
+							<div class="equipment_list ">录音笔</div>
+							<div class="equipment_list ">录音笔</div>-->
+							<!--<div class="equipment_list" id="equipment_other">其他</div>-->
+							<!--<input type="text" placeholder="如果此会议室没有所需设备请输入，用“,”链接" id="equipment_input"  name="" id="" value="" />-->
+						</li>
+					</ul>
+					<div class="gray" style="clear: both;"></div>
+					<ul class="leave_ul">
+						<li class="leave_li">
+							<span class="left">选择审批人</span>
+							<input class="input select t_r" type="text" name="" id="shenpiren" value="" readonly="readonly" placeholder="请选择" />
+						</li>
+					</ul>
+					<button id="tijiao">提交</button>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			var token = localStorage.getItem("token");
+			var typelist=[], allContact = [],roomlist=[],shebeilist=[],huiyi_name=[],
+				detailed, participant = [], 
+				sprid;
+			
+//选择紧急程度
+			document.querySelector('#urgent').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); 
+				aa = [{
+					text: "平急",
+					value: 1,
+				}, {
+					text: "特急",
+					value: 2,
+				}, {
+					text: "正常",
+					value: 3,
+				}]
+				roadPick.setData(aa);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('#urgent').val(itemCallback[0].text);
+					$('#urgent').attr("data-id",itemCallback[0].value);
+					remind_type = itemCallback[0].value;
+
+				});
+			});
+	
+//选择时间
+			$("#startTime").on("tap", function() {
+				var dtpicker = new mui.DtPicker({ 
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+					$("#startTime").val(items.text);
+					dtpicker.dispose();
+				});
+			});
+			$("#endTime").on("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+					$("#endTime").val(items.text);
+					dtpicker.dispose();
+				});
+			});
+//选择类型
+			uepartments()
+
+			function uepartments() {
+				var _url = root + "api/meeting/info";
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							//审批人
+							data.uepartments.forEach(function(v,index) {
+								var a={};
+								a.text=v.trueName,a.value= v.id
+								typelist.push(a);
+							})
+							//会议室
+							data.room.forEach(function(v,index) {
+								var a={};
+								a.text=v.name,a.value= v.id
+								roomlist.push(a);
+								huiyi_name.push(v.name)
+								//配套设备
+								var str_html ="";
+								v.equipment.forEach(function(c,index2) {
+									
+									str_html+='<div class="equipment_list" data-id="'+c.id+'">'+c.name+'</div>';
+								})
+									str_html+='<div class="equipment_list" id="equipment_other">其他</div>';
+									str_html+='<input type="text" placeholder="如果此会议室没有所需设备请输入，用“,”链接" id="equipment_input"  name="" id="" value="" />';
+									shebeilist.push(str_html); 
+							})
+							$("#shebei").append(shebeilist[0])
+							$("#shebei .equipment_list").off("click",device);
+							$("#shebei .equipment_list").on("click",device);
+							$("#equipment_other").off("click",other_div);
+							$("#equipment_other").on("click",other_div);
+
+							//申请人及所在部门
+							var data=data.data;
+							$("#sqrxm").val(data.name);
+							$("#sscs").val(data.department);
+						}
+						$('#room').val(roomlist[0].text);
+						$('#room').attr("title", roomlist[0].value);
+					},
+					error: function(xhr, type, errorThrown, data) {}
+				})
+			}
+//选择审批人
+			$('#shenpiren').on("tap", function() {
+				var roadPick = new mui.PopPicker({});
+				roadPick.setData(typelist);
+				roadPick.show(function(items) { //弹出列表并在里面写业务代码
+					$('#shenpiren').val(items[0].text);
+					$('#shenpiren').attr("title", items[0].value);
+					
+
+				});
+			});
+
+//选择会议地点
+			$('#room').on("tap", function() {
+				var roadPick = new mui.PopPicker({});
+
+				roadPick.setData(roomlist);
+				roadPick.show(function(items) { //弹出列表并在里面写业务代码
+					$('#room').val(items[0].text);
+					$('#room').attr("title", items[0].value);
+					console.log($('#room').attr("title"));
+					//配套设备
+					if(huiyi_name.indexOf(items[0].text) !=-1){
+						$("#shebei").html(shebeilist[huiyi_name.indexOf(items[0].text)])
+						$("#shebei .equipment_list").off("click",device);
+						$("#shebei .equipment_list").on("click",device);
+						$("#equipment_other").off("click",other_div);
+						$("#equipment_other").on("click",other_div);
+					}
+				});
+			});
+//			配套设备选中
+		    $("#shebei .equipment_list").on("click",device);
+	    	function device(){
+		    	$(this).toggleClass("add_equipment");  
+	    	}
+//			配套设备选中后出现input
+	    	$("#equipment_other").on("click",other_div)
+	    	function other_div(){
+				if($('#equipment_other').attr("class").indexOf("add_equipment")==-1){
+				    $("#equipment_input").css('display','none');
+				}else{
+					$("#equipment_input").css('display','block');
+				}
+				
+	    	}
+//提交
+			$("#tijiao").on("click", function() {
+				var a_arr=[];
+				for (var i = 0; i < $("#shebei .add_equipment").length; i++) {
+					a_arr.push($("#shebei .add_equipment").eq(i).attr("data-id"));
+				}
+				//	申请人姓名
+				var sqrxm = $("#sqrxm").val();
+				//	所在部门
+				var sscs = $("#sscs").val(); 
+				//	会议内容
+				var name = $("#name").val();
+				if(name == "" || name == undefined || name == null) {
+					mui.toast("请填写会议内容");
+					return false;
+				}
+				//	紧急程度
+				var urgent = $("#urgent").val();
+				if(urgent == "" || urgent == undefined || urgent == null) {
+					mui.toast("请选择紧急程度");
+					return false; 
+				}
+				//	会议开始时间
+				var startTime = $("#startTime").val();
+				if(startTime == "" || startTime == undefined || startTime == null) {
+					mui.toast("请填写会议开始时间");
+					return false;
+				}
+				//	会议结束时间
+				var endTime = $("#endTime").val();
+				if(endTime == "" || endTime == undefined || endTime == null) {
+					mui.toast("请填写会议结束时间");
+					return false;
+				}
+				//其他设备
+				var other_input = $("#equipment_input").val();
+				if ($("#equipment_other").hasClass("add_equipment")) {
+					var selection_other = "1";
+				} 
+				//审批人
+				var shenpiren = $("#shenpiren").val();
+				if(shenpiren == "" || shenpiren == undefined || shenpiren == null) {
+					mui.toast("请选择审批人");
+					return false;
+				}
+				var _url = root + "api/meeting/new"; 
+				console.log("上传接口1"+_url+"token"+token+"urgent"+urgent+"name"+name+"startTime"+startTime+"endTime"+endTime+"approver"+$('#shenpiren').attr("title")+"meetingRoomEquipment="+ a_arr)
+				$.ajax({
+					type: "POST",
+					url: _url,
+					data: {
+						"token": token,
+						"urgent":$('#urgent').attr("data-id"),
+						"name": name,
+						"startTime": startTime,
+						"endTime": endTime,
+						"IsOtherEquipment":selection_other,
+						"meetingOtherEquipment" :other_input,
+						"room_id":$('#room').attr("title"),
+						"meetingRoomEquipment": a_arr,
+						"leader_person": $('#shenpiren').attr("title")
+					},
+					dataType: 'json', //服务器返回json格式数据
+					success: function(data) {
+						console.log("data成功返回值" + JSON.stringify(data))
+						if(data.code == 1){
+							var list=plus.webview.getWebviewById("meeting.html");
+							mui.fire(list, 'refresh');
+							plus.webview.currentWebview().close();
+							mui.toast(data.msg);
+						}else{
+							mui.toast(data.msg);
+						}
+					}, 
+					error: function(data) {
+						console.log("data失败返回值" + JSON.stringify(data))
+					}
+				})
+			})
+
+		</script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

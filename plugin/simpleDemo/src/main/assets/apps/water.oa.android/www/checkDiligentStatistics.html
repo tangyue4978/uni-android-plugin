@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>考勤统计</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			html,
+			body {
+				height: auto;
+			}
+			.mui-table-view p{
+				margin: 0;
+			}
+			.mui-collapse-content{
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body style="    background: #fff">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>考勤统计</p>
+
+				<div class="checkDiligent">
+					<div class="checkDiligent-h" style="border-bottom: none;">
+						<div class="left">
+							<img id="img" class="ima1" src="" alt="" />
+						</div>
+						<div class="left">
+							<h1 class="h1"></h1>
+							<p class="p1"></p>
+						</div>
+						<div class="right">
+							<p id="riqi" class="p2"><span id="yue">2018-10</span><i class="iconfont icon-jiantou8"></i></p>
+						</div>
+					</div>
+					<div class="checkDiligentStatistics-c">
+						<ul class="mui-table-view">
+							<li class="mui-table-view mui-collapse cd">
+								<!--<a class="mui-navigate-right">迟到<span class="right">1次</span></a>
+								<div class="mui-collapse-content ">
+									<p>2018-09-03  星期一   17:30</p>
+								</div>-->
+							</li>
+							<li class="mui-table-view mui-collapse zt">
+								<!--<a class="mui-navigate-right">早退<span class="right">0次</span></a>-->
+
+							</li>
+							<li class="mui-table-view  mui-collapse kg">
+								<!--<a class="mui-navigate-right">旷工<span class="right">1次</span></a>
+								<div class="mui-collapse-content">
+									<p>2018-09-03  星期一   17:30</p>
+								</div>-->
+							</li>
+							<li class="mui-table-view mui-collapse qk">
+								<!--<a class="mui-navigate-right" href="#">缺卡<span class="right">1次</span></a>
+								<div class="mui-collapse-content">
+									<p>2018-09-03  星期一   17:30</p>
+								</div>-->
+							</li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			
+		</script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+//			console.log(root)
+			var token = localStorage.getItem("token");
+			//选择时间
+			document.querySelector("#riqi").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "month"
+				});
+				dtpicker.show(function(items) {
+					console.log(items.text)
+					var i = items.text.replace("-", "");
+					console.log(i)
+					$("#yue").html(items.text);
+					//					var aa = 
+					list(i);
+					//					查询条件
+					dtpicker.dispose();
+				});
+			});
+
+			var myDate = new Date();
+			var year = myDate.getFullYear();
+			var month = myDate.getMonth() + 1;
+			var ym = year + '' + conver(month);
+			$("#yue").html(year + "-" + conver(month));
+			list(ym);
+
+			function list(i) {
+				var _url = root + 'api/attendance/statistics';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"date": i,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							$(".h1").html(data.data.username + '<span>' + data.data.date.split(".").join("-") + '</span>')
+							$(".p1").html("测试组：" + data.data.name);
+							//头像
+							var avatar = data.data.avatar;
+							if (avatar != undefined && avatar != null && avatar != "") {
+								$("#img").attr("src", root + avatar);
+							} else{
+								$("#img").attr("src", "images/user.png");
+							}
+							$("ima1").attr("src", data.data.avatar);
+							if(data.data.late.count == "0") {
+								$(".cd").html('<a class="mui-navigate-right">迟到<span class="right">' + 0 + '次</span></a>')
+							} else {
+								$(".cd").html('<a class="mui-navigate-right">迟到<span class="right">' + parseInt(data.data.late.count) + '次</span></a><div class="mui-collapse-content"></div>')
+								data.data.late.data.forEach(function(v) {
+									if(v.xq == 1) {
+										v.xingqi = "星期一";
+									} else if(v.xq == 2) {
+										v.xingqi = "星期二";
+									} else if(v.xq == 3) {
+										v.xingqi = "星期三";
+									} else if(v.xq == 4) {
+										v.xingqi = "星期四";
+									} else if(v.xq == 5) {
+										v.xingqi = "星期五";
+									} else if(v.xq == 6) {
+										v.xingqi = "星期六";
+									} else if(v.xq == 7) {
+										v.xingqi = "星期天";
+									}
+									$(".cd .mui-collapse-content").append('<p>' + v.date + ' ' + v.xingqi + ' ' + v.signIntime + '</p>')
+								})
+							}
+							if(data.data.lack.count == "0") {
+								$(".qk").html('<a class="mui-navigate-right">缺卡<span class="right">' + 0 + '次</span></a>')
+							} else {
+								$(".qk").html('<a class="mui-navigate-right">缺卡<span class="right">' + parseInt(data.data.lack.count) + '次</span></a><div class="mui-collapse-content"></div>')
+								data.data.lack.data.forEach(function(v) {
+									if(v.xq == 1) {
+										v.xingqi = "星期一";
+									} else if(v.xq == 2) {
+										v.xingqi = "星期二";
+									} else if(v.xq == 3) {
+										v.xingqi = "星期三";
+									} else if(v.xq == 4) {
+										v.xingqi = "星期四";
+									} else if(v.xq == 5) {
+										v.xingqi = "星期五";
+									} else if(v.xq == 6) {
+										v.xingqi = "星期六";
+									} else if(v.xq == 7) {
+										v.xingqi = "星期天";
+									}
+									$(".qk .mui-collapse-content").append('<p>' + v.date + ' ' + v.xingqi + ' ' + '未签退' + '</p>')
+								})
+							}
+							if(data.data.absenteeism.count == "0") {
+								$(".kg").html('<a class="mui-navigate-right">旷工<span class="right">' + 0 + '次</span></a>')
+							} else {
+								$(".kg").html('<a class="mui-navigate-right">旷工<span class="right">' + parseInt(data.data.absenteeism.count) + '次</span></a><div class="mui-collapse-content"></div>')
+								data.data.absenteeism.data.forEach(function(v) {
+									if(v.xq == 1) {
+										v.xingqi = "星期一";
+									} else if(v.xq == 2) {
+										v.xingqi = "星期二";
+									} else if(v.xq == 3) {
+										v.xingqi = "星期三";
+									} else if(v.xq == 4) {
+										v.xingqi = "星期四";
+									} else if(v.xq == 5) {
+										v.xingqi = "星期五";
+									} else if(v.xq == 6) {
+										v.xingqi = "星期六";
+									} else if(v.xq == 7) {
+										v.xingqi = "星期天";
+									}
+									$(".kg .mui-collapse-content").append('<p>' + v.date + ' ' + v.xingqi + ' ' + '未签到' + '</p>')
+								})
+							}
+							if(data.data.early.count == "0") {
+								$(".zt").html('<a class="mui-navigate-right">早退<span class="right">' + 0 + '次</span></a>')
+							} else {
+								$(".zt").html('<a class="mui-navigate-right">早退<span class="right">' + data.data.early.count + '次</span></a><div class="mui-collapse-content"></div>')
+								data.data.early.data.forEach(function(v) {
+									if(v.xq == 1) {
+										v.xingqi = "星期一";
+									} else if(v.xq == 2) {
+										v.xingqi = "星期二";
+									} else if(v.xq == 3) {
+										v.xingqi = "星期三";
+									} else if(v.xq == 4) {
+										v.xingqi = "星期四";
+									} else if(v.xq == 5) {
+										v.xingqi = "星期五";
+									} else if(v.xq == 6) {
+										v.xingqi = "星期六";
+									} else if(v.xq == 7) {
+										v.xingqi = "星期天";
+									}
+									$(".zt .mui-collapse-content").append('<p>' + v.date + ' ' + v.xingqi + ' ' + v.signIntime + '</p>')
+								})
+							}
+
+						}
+						$(".mui-navigate-right").on("click",function(){
+							if($(this).next("div").css("display")=="none"){
+								$(".mui-navigate-right").next("div").slideUp();
+								$(this).next("div").slideDown();
+							}else{
+								$(this).next("div").slideUp(); 
+							}
+						})
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络异常，请检查网咯");
+					}
+				})
+			}
+
+			//日期时间处理
+			function conver(s) {
+				return s < 10 ? '0' + s : s;
+			}
+		</script>
+		<!--<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.notice-content .fanwei ul {
+				margin: 0rem;
+				padding: 0rem;
+				display: block;
+			}
+			
+			.notice-content .fanwei ul li {
+				text-align: center;
+				float: left;
+				margin: 0rem;
+				padding: 0.1rem 0.2rem;
+				box-sizing: border-box;
+				width: 25%;
+				height: 2rem;
+			}
+			.notice-content p .right input{
+				width: 2.8rem;
+			}
+		</style>
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>通知</p>
+
+				<div class="notice">
+					<div class="notice-content">
+						<p><span class="left">通知名称</span><span class="right"><input type="text" value="" name="title" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+						<p id="leixing" style="border-top: 1px solid #e5e5e5;"><span class="left">选择通知分类</span><span class="right"><input id="leixinginput" type="text" value="" name="msg_type" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p id="kssj" style="border-top: 1px solid #e5e5e5;"><span class="left">开始时间</span><span class="right"><input type="text" value="" name="kssj" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p id="jssj" style="border-top: 1px solid #e5e5e5;"><span class="left">结束时间</span><span class="right"><input type="text" value="" name="jssj" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+					</div>
+					<div class="notice-content">
+						<p style="    height: 0.7rem;line-height: 0.7rem;"><span class="left">详细内容</span></p>
+						<textarea name="content" rows="6" cols="" placeholder="请输入详细内容..."></textarea>
+					</div>
+					<div class="notice-content">
+						<p><span class="left">图片</span><span class="right"><i id="tupian" class="iconfont icon-tupian "></i></span>
+
+						</p>
+						<div class="tupianlist"></div>
+						<p style="border-top: 1px solid #e5e5e5;"><span class="left">附件</span><span class="right"><input type="file" name="file" id="file" onchange="filewenjian()" multiple="multiple" accept="*" capture="" value=""  style="padding: 0;opacity: 0;"/><i id="fujian" class="iconfont icon-lianjie "></i></span></p>
+						<div class="fujialist">
+							<!--<span><i class="iconfont icon-wendang1"></i><a>某某文件袋大家啊四等奖某某文件袋大家啊四等奖</a><i class="iconfont icon-guanbi right"></i></span>
+							<span><i class="iconfont icon-wendang1"></i><a>某某文件袋大家啊四等奖某某文件袋大家啊四等奖</a><i class="iconfont icon-guanbi right"></i></span>
+							<span><i class="iconfont icon-wendang1"></i><a>某某文件袋大家啊四等某某文件袋大家啊四等奖奖</a><i class="iconfont icon-guanbi right"></i></span>-->
+						</div>
+					</div>
+					<div class="notice-content">
+						<p style="    height: 0.7rem;line-height: 0.7rem;"><span class="left">发送范围</span></p>
+						<div class="fanwei">
+							<ul id="lianxiren">
+								<li id="tjren" onclick="tjren()">
+									<div><i class="iconfont icon-tianjia"></i></div>
+									<p>添加</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="notice-content">
+						<p id="next_spr" ><span class="left">审批人</span><span class="right"><input type="text" value="" name="next_spr" readonly="readonly" /><i class="iconfont icon-jiantou8 "></i></span></p>
+					</div>
+					<button id="tijiao">提交</button>
+
+				</div>
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var msgtypeList, msg_type, idList = [],
+				startat = "",
+				endat = ""
+			attachment_img = [],
+				allContact = [],
+				bumen_name=[];
+			//选择类型
+			msgtype();
+			document.querySelector('#leixing').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				roadPick.setData(msgtypeList);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('#leixinginput').val(itemCallback[0].text);
+					msg_type = itemCallback[0].value;
+
+				});
+			});
+			//上传图片
+			var fileArr = [];
+			document.getElementById('tupian').addEventListener('tap', function() {
+				if(mui.os.plus) {
+					var buttonTit = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+
+					plus.nativeUI.actionSheet({
+						title: "上传图片",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch(b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(); /*拍照*/
+								break;
+							case 2:
+								galleryImg(); /*打开相册*/
+								break;
+							default:
+								break;
+						}
+					})
+				}
+			}, false);
+			// 拍照获取图片  
+			function getImage() {
+				plus.camera.getCamera().captureImage(function(p) {
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						console.log(entry.toLocalURL());
+						var url = root + "api/upload/";
+						plus.io.resolveLocalFileSystemURL(entry.toLocalURL(), function(entry) {
+							entry.file(function(file) {
+								console.log(file)
+								var fileReader = new plus.io.FileReader();
+								fileReader.readAsDataURL(file);
+
+								fileReader.onloadend = function(e) {
+
+									var f = entry.toLocalURL();
+									var filename = f.replace(f.substring(0, f.lastIndexOf('/') + 1), '');
+									console.log(filename)
+									console.log(JSON.stringify(e))
+
+									var task = plus.uploader.createUpload(url, {
+
+										},
+										function(t, status) {
+											// 上传完成
+
+											if(status == 200) {
+												console.log(JSON.stringify(JSON.parse(t.responseText).code));
+												if(JSON.stringify(JSON.parse(t.responseText).code) == 1) {
+
+													attachment_img.push(JSON.stringify(JSON.parse(t.responseText).data));
+													console.log(JSON.stringify(attachment_img))
+													fileArr.push(entry.toLocalURL());
+													$(".tupianlist").html("");
+													fileArr.forEach(function(v, index) {
+														$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(this)" class="iconfont icon-guanbi"></i></span>')
+													})
+												} else {
+													mui.toast(JSON.stringify(JSON.parse(t.responseText)).msg);
+												}
+
+											} else {
+
+											}
+										}
+									);
+									console.log(e.target.fileName.toString())
+									task.addFile(e.target.fileName.toString(), {
+										key: "file"
+									});
+									task.addData("token", token);
+									task.addData("type", "image");
+									task.addData("file", e.target.fileName.toString());
+									task.start();
+
+								}
+
+							});
+						});
+
+						//					
+						//						setHtml(fileSrc);
+						fileArr.forEach(function(v, index) {
+							$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(this)" class="iconfont icon-guanbi"></i></span>')
+						})
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+
+				});
+			}
+
+			// 从相册中选择图片   
+			function galleryImg() {
+				// 从相册中选择图片  
+				plus.gallery.pick(function(e) {
+					console.log(JSON.stringify(e))
+					//					$(".tupianlist").html("");
+					e.files.forEach(function(v, i) {
+						fileArr.push(v);
+						$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(this)" class="iconfont icon-guanbi"></i></span>')
+					})
+
+					//					console.log(JSON.stringify(fileArr))
+					e.files.forEach(function(v, index) {
+
+						console.log(v)
+						var url = root + "api/upload/";
+						plus.io.resolveLocalFileSystemURL(v, function(entry) {
+							entry.file(function(file) {
+								console.log(file)
+								var fileReader = new plus.io.FileReader();
+								fileReader.readAsDataURL(file);
+
+								fileReader.onloadend = function(e) {
+
+									var f = v;
+									var filename = f.replace(f.substring(0, f.lastIndexOf('/') + 1), '');
+									console.log(filename)
+									console.log(JSON.stringify(e))
+
+									var task = plus.uploader.createUpload(url, {
+
+										},
+										function(t, status) {
+											// 上传完成
+
+											if(status == 200) {
+												console.log(JSON.stringify(JSON.parse(t.responseText).code));
+												if(JSON.stringify(JSON.parse(t.responseText).code) == 1) {
+
+													attachment_img.push(JSON.stringify(JSON.parse(t.responseText).data));
+													console.log(JSON.stringify(attachment_img))
+												} else {
+													mui.toast(JSON.stringify(JSON.parse(t.responseText)).msg);
+												}
+
+											} else {
+
+											}
+										}
+									);
+									console.log(e.target.fileName.toString())
+									task.addFile(e.target.fileName.toString(), {
+										key: "file"
+									});
+									task.addData("token", token);
+									task.addData("type", "image");
+									task.addData("file", e.target.fileName.toString());
+									task.start();
+
+								}
+
+							});
+						});
+
+					})
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "none",
+					multiple: true,
+					//					maximum: 5,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择5张图片');
+					}
+				});
+			}
+			//删除图片
+//			Array.prototype.remove = function(val) {
+//			    var index = this.indexOf(val);
+//			    if (index > -1) {
+//			        this.splice(index, 1);
+//			    }
+//			};
+			function shanchutupian(i) {
+				var self=i;
+//				console.log("attachment_img="+attachment_img);
+//				console.log("fileArr="+fileArr);
+//				alert($(self).parent().index());
+				var index_img = $(self).parent().index();
+				$(self).parent().remove();
+				delete attachment_img[index_img];
+				delete fileArr[index_img];
+//				attachment_img.remove(attachment_img[index_img]);
+//				fileArr.remove(fileArr[index_img]);
+//				console.log("2attachment_img="+attachment_img);
+//				console.log("2fileArr="+fileArr);
+//				attachment_img.forEach(function(v, index) {
+//					if(i == index) {
+//						attachment_img.splice(attachment_img.indexOf(attachment_img[index]), 1);
+//						fileArr.splice(fileArr.indexOf(fileArr[index]), 1);
+//						$(".tupianlist").html("");
+//						fileArr.forEach(function(v, index) {
+//							$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(' + index + ')" class="iconfont icon-guanbi"></i></span>')
+//						})
+//					}
+//				})
+			}
+			//选择人员
+			var is_all=0, d_ids = [], u_ids = [],viewid="notice.html";
+//			document.getElementById("tjren").addEventListener('tap', );
+			
+			function tjren() {
+				mui.openWindow({
+					url: 'choiceNotice.html', //通过URL传参
+					id: 'choiceNotice.html', //通过URL传参
+					extras: {
+						viewid: viewid,
+						is_all:is_all,
+						d_ids:d_ids,
+						u_ids:u_ids
+					}
+				})
+			}
+
+						function filewenjian() {
+							if(!file.files || !file.files[0]) {
+								return;
+							}
+							
+							var reader = new FileReader();
+							reader.readAsDataURL(file.files[0]);
+							reader.onload = function(evt) {
+							
+								console.log(JSON.stringify(evt));
+								console.log(evt.target.result);
+								console.log(JSON.stringify(evt.target));
+			//					var aa = window.URL.createObjectURL(evt.target.result)
+			//					console.log(aa)
+								var url = root + "api/upload/";
+			//
+								var task = plus.uploader.createUpload(url, {
+			
+									},
+									function(t, status) {
+										// 上传完成
+										if(status == 200) {
+											console.log(JSON.stringify(JSON.parse(t.responseText)));
+											if(JSON.stringify(JSON.parse(t.responseText).code) == 1) {
+			
+												attachment_img.push(JSON.stringify(JSON.parse(t.responseText).data));
+												console.log(JSON.stringify(attachment_img))
+											} else {
+												mui.toast(JSON.stringify(JSON.parse(t.responseText)).msg);
+											}
+			
+										} else {
+			
+										}
+									}
+								);
+								console.log(evt.target.result)
+								task.addFile('aa/da.dat', {
+									key: "file"
+								});
+								task.addData("token", token);
+								task.addData("type", "file");
+								task.addData("file", 'aa/da.dat');
+								task.start();
+							}
+			
+						}
+
+			//上传附件
+			document.getElementById('fujian').addEventListener('tap', function() {
+
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener("plusready", plusReady, false);
+				} 
+			})
+
+			function plusReady() {
+				plus.io.requestFileSystem(plus.io.PRIVATE_WWW, function(fs) {
+					// 可通过fs进行文件操作 
+//					alert("Request file system success!");
+				}, function(e) {
+//					alert("Request file system failed: " + e.message);
+				});
+				//				var fujianlist = [];
+				//
+				//				var file = $('#file');
+				//				file.on('change', function(e) {
+				//					console.log(JSON.stringify(e))
+				//
+				//					$(".fujialist").html("")
+				//					var name = e.currentTarget.files[0].name;
+				//					fujianlist.push(name)
+				//					fujianlist.forEach(function(v) {
+				//						$(".fujialist").append('<span><i class="iconfont icon-wendang1"></i><a>' + v + '</a><i class="iconfont icon-guanbi right"></i></span>')
+				//					})
+				//
+				//				});
+			}
+
+			//类型
+			function msgtype() {
+				console.log("1")
+				var _url = root + 'api/message/msgtype'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						//						console.log(JSON.stringify(data.data))
+						if(data.code == 1) {
+
+							data.data.forEach(function(v) {
+								v.text = v.name;
+								v.value = v.id;
+							})
+							msgtypeList = data.data;
+						} else {
+							mui.toast("获取失败！")
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+			//选择联系人返回传参var is_all=0, d_ids = [], u_ids = [],viewid;
+			window.addEventListener('newMeeting', function(e) {
+				//执行刷新
+				is_all=e.detail.is_all;
+				d_ids=e.detail.d_ids;
+				u_ids=e.detail.u_ids;
+				//location.reload();
+				//				idList = e.detail.user;
+				var _url = root + 'api/contacts/detail';
+				$("#lianxiren").html("");
+				$("#lianxiren").append(
+					'<li id="tjren" onclick="tjren()">'+
+						'<div><i class="iconfont icon-tianjia"></i></div>'+
+						'<p>添加</p>'+
+					'</li>'
+				)
+				
+				if (is_all==1) {
+					$("#lianxiren").append('<li><div><img src="images/whole.png"></div><p>全部</p></li>')
+				} else{
+					d_ids.forEach(function(x){
+						bumen_name.forEach(function(v1) {
+							if(x == v1.id) {
+								$("#lianxiren").append('<li><div><img src="images/department.png"></div><p>' + v1.name + '</p></li>')
+							}
+						})
+					})
+					
+					u_ids.forEach(function(v) {
+						idList.push(v)
+//						console.log("ssssss"+String(idList));
+//						console.log("aaaa"+JSON.stringify(allContact));
+						allContact.forEach(function(v1) {
+							if(v == v1.id) {
+								if(v1.avatar == "" || v1.avatar == undefined || v1.avatar == null) {
+									var src = "images/user.png";
+								} else {
+									var src = root + v1.avatar;
+								}
+								$("#lianxiren").append('<li><div><img src="' + src + '"></div><p>' + v1.trueName + '</p></li>')
+							}
+						})
+					})
+				}
+
+			});
+			//提交事件
+			$("#tijiao").click(function() {
+				//				console.log(attachment_img)
+				//				console.log(typeof(idList))
+				console.log(String(idList))
+
+				//
+				//				var aa = [];
+				//			
+				//				for(var i in idList) {
+				//					aa.push(idList[i]);
+				//				}
+				//			
+				//				console.log(aa)
+				//				console.log(typeof(aa))
+				//is_all//是否全选
+				//d_ids//部门id
+				//u_ids//人员id
+				console.log("is_all="+is_all+"d_ids="+d_ids+"u_ids="+u_ids)
+				console.log(is_all==0&&d_ids==""&&u_ids=="");
+				if(is_all==0&&d_ids==""&&u_ids=="") {
+					mui.toast("请选择发送范围！");
+					return
+				}
+				if(msg_type == '') {
+					mui.toast("请选择通知类型！");
+					return
+				}
+				if($("input[name='title']").val() == '') {
+					mui.toast("请输入通知名称！");
+					return
+				}
+				if(startat == "") {
+					mui.toast("请选择开始时间！");
+					return
+				}
+				if(endat == "") {
+					mui.toast("请选择结束时间！");
+					return
+				}
+				var valspr=$("#next_spr input").val();
+				if(valspr == ""){
+					mui.toast("请选择审批人！");
+					return
+				}
+				console.log("token="+ token+"title="+$("input[name='title']").val()+"msg_type="+ msg_type+"content="+ $("textarea[name='content']").val()+"attachment_img="+ JSON.stringify(attachment_img)+"attachment_file=111startat="+startat+"endat="+ endat+"is_all="+ is_all+"d_ids="+ d_ids+"u_ids="+ u_ids);			
+				var _url = root + "api/message/new";
+				
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"title": $("input[name='title']").val(),
+						"msg_type": msg_type,
+						"content": $("textarea[name='content']").val(),
+						"attachment_img": JSON.stringify(attachment_img),
+						"attachment_file": [],
+						"startat": startat,
+						"endat": endat,
+						"is_all": is_all,
+						"d_ids": d_ids,
+						"u_ids": u_ids,
+						"auditor": $("#next_spr input").attr("data-id")
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					traditional: true,
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast("发布成功！");
+							mui.back();
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {
+
+					}
+
+				})
+			})
+
+			//获取全部人员
+			contacts()
+			var spr_arr=[];
+			function contacts() {
+				var _url = root + "api/contacts/user";
+
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						//						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							localStorage.setItem("bumen", JSON.stringify(data.data))
+							bumen_name=[];
+							
+							data.data.forEach(function(v) {
+								itemObj  = {};
+								var spr='{"value": '+v.id+',"text":"'+v.name +'"';
+								if(v.user != []) {
+									spr+=',"children":[';
+									var spr_user=[]
+									v.user.forEach(function(v1) {
+										spr_user.push('{"value":' +v1.id+',"text": "'+v1.trueName+'"}');
+										v1.text = v1.trueName;
+										v1.value = v1.id;
+										allContact.push(v1);
+										localStorage.setItem("allContact", JSON.stringify(allContact));
+										//										console.log(JSON.stringify(allContact))
+									})
+									spr+=spr_user+"]";
+								}
+								spr+="}";
+								
+								spr_arr.push(spr);
+								var str={id:v.id,name:v.name};
+								bumen_name.push(str);
+							})
+							console.log("["+spr_arr+"]");
+							spr_picker.setData(JSON.parse("["+spr_arr+"]"));
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {
+
+					}
+
+				})
+			}
+
+			//			选择时间开始
+			document.querySelector("#kssj").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "date"
+				});
+				dtpicker.show(function(items) {
+					console.log(JSON.stringify(items))
+					$('input[name="kssj"]').val(items.value);
+					start_time = items.text;
+					startat = items.text;
+					console.log(startat)
+					dtpicker.dispose();
+
+				});
+			});
+			//			选择时间结束
+			document.querySelector("#jssj").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "date"
+				});
+				dtpicker.show(function(items) {
+					console.log(JSON.stringify(items))
+					$('input[name="jssj"]').val(items.value);
+					end_time = items.text;
+					endat = items.text;
+					console.log(startat)
+					dtpicker.dispose();
+				});
+			});
+		</script>
+
+		<!--// Read data from file-->
+		<!--var reader = null;
+entry.file( function ( file ) {
+	reader = new plus.io.FileReader();
+	reader.onloadend = function ( e ) {
+		plus.console.log( "Read success" );
+		// Get data
+		plus.console.log( e.target.result );
+	};
+	reader.readAsDataURL( file );
+}, function ( e ) {
+	alert( e.message );
+} );-->
+
+		<script type="text/javascript">
+			//审批人
+			var spr_picker = new mui.PopPicker({
+			    layer: 2
+			});
+		    spr_picker.setData([{
+		        value: ' ',
+		        text: '暂无数据'
+		    }])
+		    $("#next_spr").on("click",function(){
+		    	spr_picker.show(function(SelectedItem) {
+//					console.log("data-id:"+selectItems[1].value+","+selectItems[0].value);
+					$("#next_spr input").val(SelectedItem[1].text);
+					$("#next_spr input").attr("data-id",SelectedItem[1].value);
+				})
+		    })
+
+		</script>
+		<!--<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

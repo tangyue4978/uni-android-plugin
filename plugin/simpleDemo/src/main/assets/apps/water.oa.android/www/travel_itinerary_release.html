@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/travel_itinerary_release.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--弹出层-->
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<style type="text/css">
+			.leave_add .notice {
+				width: 100%;
+				padding: 0rem;
+				padding-top: 1.5rem;
+				background-color: #F6F6FA;
+				text-align: center;
+			}
+			
+			.notice #tijiao {
+				width: 92%;
+			}
+			
+			.notice .gray {
+				background-color: #F5F5F9;
+				height: 0.4rem;
+				overflow: hidden;
+				text-align: left;
+			}
+			
+			.notice .gray.zi {
+				height: 0.9rem;
+				line-height: 1.2rem;
+				padding: 0rem 0.3rem;
+				font-size: 0.3rem;
+				color: #959595;
+			}
+			
+			.notice .leave_ul {
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				padding-left: 0.3rem;
+				list-style: none;
+				background-color: #FFFFFF;
+				border-top: 1px solid #CCCCCC;
+				border-bottom: 1px solid #CCCCCC;
+			}
+			
+			.notice .leave_ul .leave_li {
+				border-bottom: 1px solid #CCCCCC;
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				height: 1rem;
+				line-height: 1rem;
+				font-size: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li:last-child {
+				border: none;
+			}
+			
+			.notice .leave_ul .leave_li .left {
+				float: left;
+				width: 28%;
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input {
+				display: block;
+				margin-left: 28%;
+				padding: 0rem;
+				margin: 0rem;
+				width: 70%;
+				border: none;
+				outline: none;
+				height: 98%;
+				font-size: 0.3rem;
+				color: #262626;
+				padding-right: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_l {
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_r {
+				text-align: right;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_c {
+				text-align: center;
+			}
+			
+			.notice .leave_ul .leave_li .select {
+				padding-right: 0.6rem;
+				background: url(images/jian.png) no-repeat 93% 0.285rem;
+				background-size: 0.22rem 0.38rem;
+			}
+			
+			.cadre {
+				display: none;
+			}
+			
+			.notice .leave_ul .leave_li.cadre {
+				display: none;
+			}
+			
+			.notice .leave_ul.cadre {
+				display: none;
+			}
+			
+		</style>
+	</head>
+	<body style="background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news leave_add">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>发布工作动态
+				</p>
+				
+				<div class="notice"> 
+					<form>
+						<h3 class="tableTitle">厅领导今日工作动态</h3>
+						<p class="tableTime"></p>
+						<table class="releaseTable">
+							<colgroup width="20%"></colgroup>
+							<colgroup width="40%"></colgroup>
+							<colgroup width="40%"></colgroup>
+							<tr>
+								<td>姓名</td>
+								<td>上午</td>
+								<td>下午</td>
+							</tr>
+							<tbody id="datas">
+								
+							</tbody>
+						</table>
+						<div class="notice-content">
+							<p class="fanweiCont"><span class="left">发送范围</span></p>
+							<div class="fanwei">
+								<ul id="lianxiren">
+									<li id="tjren" onclick="tjren()">
+										<div><i class="iconfont icon-tianjia"></i></div>
+										<p>添加</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<button type="button" id="tijiao">提交</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			var token = localStorage.getItem("token");
+			var trips = [];
+			var spr_picker = new mui.PopPicker({
+			    layer: 2
+			});
+		    spr_picker.setData([{
+		        value: ' ',
+		        text: '暂无数据'
+		    }])
+			var msgtypeList, msg_type, idList = [],
+				startat = "",
+				endat = ""
+			attachment_img = [],
+				allContact = [],
+				bumen_name=[];
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1' //通过URL传参
+				})
+			}
+			
+			/**
+			 * 获取表格
+			 */
+			function getLeaderTripToday() {
+				var _url = root + "api/logs/getleadertriptoday";
+				$.ajax({
+					type: "POST",
+					url: _url,
+					data: {
+						"token": token,	
+					},
+					dataType: 'json', //服务器返回json格式数据
+					async:true,
+					success: function(data) {
+						if(data.code = 1) {
+							var infor= data.date;
+							trips = infor.trips;
+							$(".tableTime").text(infor.date);
+							
+						    for (var i = 0; i < infor.trips.length; i++) {
+						        var tbBody = "";
+								tbBody += "<tr><td class=\"leaderName\">"+infor.trips[i].trueName+"</td><td class=\"leaderMorning\">"+infor.trips[i].morningTrip+"</td><td class=\"leaderAfternoon\">"+infor.trips[i].afternoonTrip+"</td></tr>";
+            					$("#datas").append(tbBody); 
+						    }
+//							$("#travel_duties").val(infor.duty);
+						}else if(2<=data.code&&data.code<99){
+							mui.openWindow({
+								url: 'login.html?cid=1', //通过URL传参
+								id: 'login.html?cid=1' //通过URL传参
+							})
+						}else{
+							mui.toast(data.msg) 
+						}
+					},
+					error: function(data) {
+						console.log("data失败返回值" + JSON.stringify(data))
+					}
+				})
+		    }
+			getLeaderTripToday();
+			
+			/**
+			 * 获取发送者
+			 */
+			var is_all=0, d_ids = [], u_ids = [],viewid="travel_itinerary_release.html";
+			function tjren() {
+				mui.openWindow({
+					url: 'choiceNotice.html', //通过URL传参
+					id: 'choiceNotice.html', //通过URL传参
+					extras: {
+						viewid: viewid,
+						is_all:is_all,
+						d_ids:d_ids,
+						u_ids:u_ids
+					}
+				})
+			}
+			
+			//选择联系人返回传参var is_all=0, d_ids = [], u_ids = [],viewid;
+			window.addEventListener('newMeeting', function(e) {
+				//执行刷新
+				is_all=e.detail.is_all;
+				d_ids=e.detail.d_ids;
+				u_ids=e.detail.u_ids;
+				//location.reload();
+				//				idList = e.detail.user;
+				var _url = root + 'api/contacts/detail';
+				$("#lianxiren").html("");
+				$("#lianxiren").append(
+					'<li id="tjren" onclick="tjren()">'+
+						'<div><i class="iconfont icon-tianjia"></i></div>'+
+						'<p>添加</p>'+
+					'</li>'
+				)
+				
+				if (is_all==1) {
+					$("#lianxiren").append('<li><div><img src="images/whole.png"></div><p>全部</p></li>')
+				} else{
+					d_ids.forEach(function(x){
+						bumen_name.forEach(function(v1) {
+							if(x == v1.id) {
+								$("#lianxiren").append('<li><div><img src="images/department.png"></div><p>' + v1.name + '</p></li>')
+							}
+						})
+					})
+					
+					u_ids.forEach(function(v) {
+						idList.push(v)
+						allContact.forEach(function(v1) {
+							if(v == v1.id) {
+								if(v1.avatar == "" || v1.avatar == undefined || v1.avatar == null) {
+									var src = "images/user.png";
+								} else {
+									var src = root + v1.avatar;
+								}
+								$("#lianxiren").append('<li><div><img src="' + src + '"></div><p>' + v1.trueName + '</p></li>')
+							}
+						})
+					})
+				}
+
+			});
+			
+			//获取全部人员
+			contacts()
+			function contacts() {
+				var spr_arr=[];
+				var _url = root + "api/contacts/user";
+
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					async:true,
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						//						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							localStorage.setItem("bumen", JSON.stringify(data.data))
+							bumen_name=[];
+							
+							data.data.forEach(function(v) {
+								itemObj  = {};
+								var spr='{"value": '+v.id+',"text":"'+v.name +'"';
+								if(v.user != []) {
+									spr+=',"children":[';
+									var spr_user=[]
+									v.user.forEach(function(v1) {
+										spr_user.push('{"value":' +v1.id+',"text": "'+v1.trueName+'"}');
+										v1.text = v1.trueName;
+										v1.value = v1.id;
+										allContact.push(v1);
+										localStorage.setItem("allContact", JSON.stringify(allContact));
+										//										console.log(JSON.stringify(allContact))
+									})
+									spr+=spr_user+"]";
+								}
+								spr+="}";
+								
+								spr_arr.push(spr);
+								var str={id:v.id,name:v.name};
+								bumen_name.push(str);
+							})
+							console.log("["+spr_arr+"]");
+							spr_picker.setData(JSON.parse("["+spr_arr+"]"));
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {
+
+					}
+
+				})
+			}
+			
+			/**
+			 * 提交
+			 */
+			 
+			function tijiao_box(){
+				var _url = root + "api/logs/releasetrip";
+				var trip =JSON.stringify(trips);
+//				console.log("is_all="+is_all+typeof(is_all)+"；d_ids="+d_ids+typeof(d_ids)=="array"+"；u_ids="+ u_ids+typeof(u_ids));
+				$.ajax({
+					type: "POST",
+					url: _url,
+					data: {
+						"token": token,
+						"is_all":String(is_all),
+						"d_ids":String(d_ids),
+						"u_ids":String(u_ids),
+						"leader_trips": String(trip)	//发布的行程信息	
+					},
+					dataType: 'json', //服务器返回json格式数据
+					async:false,
+					beforeSend:function(){
+						plus.nativeUI.showWaiting();
+					},
+					success: function(data) {
+						console.log("接收到的数据===="+JSON.stringify(data));
+						if(data.code==1){
+								var list = plus.webview.getWebviewById("travel_itinerary_list.html");
+								mui.fire(list, 'refresh');
+								plus.webview.currentWebview().close();
+							mui.toast(data.msg);
+						}else if(2<=data.code&&data.code<99){
+							mui.openWindow({
+								url: 'login.html?cid=1', //通过URL传参
+								id: 'login.html?cid=1' //通过URL传参
+							})
+						}else{
+							mui.toast(data.msg);
+						}
+					},
+					error: function(data) {
+						console.log("失败" + JSON.stringify(data))
+					},
+					complete:function(){
+						plus.nativeUI.closeWaiting();
+					}
+				})
+			}
+			//提交
+			$("#tijiao").on("click", tijiao_box)
+			</script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

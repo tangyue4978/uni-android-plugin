@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>预警</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/meteorological/warning_detail.css" />
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<style type="text/css">
+		/* 自带放大缩小隐藏 */
+		.ol-zoom {
+			display: none;
+		}
+
+		.right {
+			position: absolute;
+			right: 0.2rem;
+			display: none;
+		}
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function() {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl" style="cursor: pointer;"></i>
+			<span class="detail_title" style="font-size: 0.32rem;"></span>
+			<!-- <span class="right" style="font-size: 0.3rem;" onclick="jump_list()">历史记录</span> -->
+		</header>
+		<!-- 列表1start -->
+		<div class="list">
+			<!-- 预警 -->
+			<div class="lists_span_box heads">
+				<div class="lists_span_title headline">
+					<span class="headline_text"></span>
+					<span class="tagger"></span>
+				</div>
+				<div class="lists_span subline">
+					<span class="subline_left">
+						<img src="../../images/meteorological/relese2.png" >
+						<span></span>
+					</span>
+					<span class="subline_right">
+						<img src="../../images/meteorological/relese1.png" >
+						<span></span>
+					</span>
+				</div>
+				<div class="lists_span conent">
+					<!-- 降水量是衡量一个地区降水多少的数据。 -->
+				</div>
+			</div>
+			<!-- 防御指南 -->
+			<div class="lists_span_box box2">
+				<div class="lists_span_title">
+					防御指南
+				</div>
+				<div class="lists_span defenseGuide">
+					<!-- 降水量是衡量一个地区降水多少的数据。 -->
+				</div>
+			</div>
+			<!-- 标准 -->
+			<div class="lists_span_box box3">
+				<div class="lists_span_title">
+					标准
+				</div>
+				<div class="lists_span standard">
+					<!-- 降水量是衡量一个地区降水多少的数据。 -->
+				</div>
+			</div>
+		</div>
+		<!-- 列表1end -->
+
+	</div>
+
+	<!-- 当前手机位置 -->
+	<div id="marker" class="marker"></div>
+
+</body>
+
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/meteorological/warning_detail.js" type="text/javascript" charset="utf-8"></script>
+</html>

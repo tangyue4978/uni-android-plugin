@@ -1,0 +1,143 @@
+/* 降水信息 */
+.search_frame {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    z-index: 3;
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+    border: 1px solid #f0f0f0;
+    background-color: #ffffff;
+    padding-bottom: 0.5rem;
+}
+.search_arrow {
+    text-align: center;
+}
+.search_frame .icon_arrow {
+    width: 0.6rem;
+    height: 0.4rem;
+    margin: 0.1rem auto;
+    padding: 0.1rem 0;
+}
+.search_frame .icon_arrow.active {
+    transform: rotate(180deg);
+}
+.search_frame .search_title {
+    font-size: 0.3rem;
+    color: #333333;
+    padding: 0.1rem 0.3rem;
+    line-height: 0.4rem;
+}
+.search_frame .search_table_box {
+    height: 0rem;
+    padding: 0rem 0.3rem;
+    overflow: hidden;
+    /* border: 1px solid #DDEBF8; */
+    transition: all 0.5s;
+}
+.search_frame .search_table_box.active {
+    height: 5rem;
+}
+.search_frame .search_table_box .cont_table_box {
+    height: calc(100% - 0.4rem);
+    width: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    padding-bottom: 0.5rem;
+}
+.search_frame .search_table_box .mui-table {
+    border: 1px solid #ddebf8;
+    text-align: center;
+    vertical-align: middle;
+}
+.search_frame .search_table_box .mui-table tr {
+    border-bottom: 1px solid #ddebf8;
+}
+.search_frame .search_table_box .mui-table tr th {
+    border-bottom: 1px solid #ddebf8;
+    background-color: #ddebf8;
+}
+.search_frame .search_table_box .mui-table tr th,
+.search_frame .search_table_box .mui-table tr td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.1rem;
+    height: 0.4rem;
+    box-sizing: border-box;
+    line-height: 0.4rem;
+}
+#managementObjects {
+    z-index: 9999;
+}
+/*小时选择*/
+.rightPosi {
+    z-index: 5555;
+}
+.rightTabs ul {
+    text-align: center;
+}
+.rightTabs .tab_type .point {
+    position: relative;
+}
+.rightTabs .tab_type .point .mui-icon {
+    position: relative;
+    bottom: 0.5625rem;
+    right: 0rem;
+    z-index: 999;
+}
+.rightTabs .tab_type .hide {
+    margin-top: -0.6rem;
+    display: none;
+}
+.rightTabs .tab_type .show {
+    margin-top: -0.6rem;
+    display: block;
+}
+.rightTabs .tab_type .mui-icon-arrowdown {
+    margin-top: -0.2rem;
+    color: white;
+}
+.rightTabs .tab_type .mui-icon-arrowup {
+    margin-top: -0.2rem;
+    color: white;
+}
+.rightTabs ul li {
+    color: #007aff;
+    font-size: 0.875rem;
+    display: flex;
+    justify-content: center;
+}
+.bottom {
+    height: 0rem;
+    margin-top: 0.5rem;
+}
+.bottom .nav_li_item {
+    border-top: 1px solid #ededed;
+    padding-top: 0.1rem;
+}
+/* 地图图例 */
+.map_legend {
+    position: fixed;
+    left: 4%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #cccccc;
+    border-radius: 0.1rem;
+    width: auto;
+    display: flex;
+    padding: 0.1rem;
+    font-size: 12px;
+}
+.turn_img {
+    width: 0.18rem;
+    height: 0.312rem;
+    margin-right: 0.2rem;
+}
+.map_legend_img {
+    width: 0.68rem;
+    height: 3.04rem;
+}
+.map_legend .isHide {
+    display: none;
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+		<title>周报搜索</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/mui.picker.css" rel="stylesheet" />
+		<link href="../../css/mui.poppicker.css" rel="stylesheet" />
+		<link href="../../css/mui.dtpicker.css" rel="stylesheet" />
+		<link href="../../css/supervise.css" rel="stylesheet" />		
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="header">
+				<a href="javascript:history.go(-1)" class="mui-icon mui-icon-back"></a>
+				查询
+			</div>
+			<div class="section">
+				<form action="" class="weekly_search">
+					<ul>
+						<li>
+							<span>事项编号</span>
+							<input type="tel" class="weekly_number" placeholder="请输入小写数字" />
+						</li>
+						<li>
+							<span>交办事项</span>
+							<input type="text" class="weekly_matter" placeholder="请输入关键字" />
+						</li>
+						<li class="arrow">
+							<span>立项时间</span>
+							<input type="text" id="timeframe" class="weekly_timeframe" style="text-align: right;" placeholder="请选择日期范围" />
+						</li>
+						<li class="arrow">
+							<span>任务来源</span>
+							<select name="" id="" class="weekly_source">
+								<option value ="">请选择...</option>
+								<option value ="a">张三</option>
+								<option value ="b">李四</option>
+							</select>
+						</li>
+						<li class="arrow">
+							<span>进行阶段</span>
+							<select name="" id="" class="weekly_stage">
+								<option value ="">请选择...</option>
+								<option value ="a">张三</option>
+								<option value ="b">李四</option>
+							</select>
+						</li>
+					</ul>
+					<button type="submit" class="submitBtn">查询</button>
+				</form>
+			</div>
+		</div>			
+	</body>
+	<script>
+		$(function(){
+			//日期范围
+			$("#timeframe").on("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "date"
+				});
+				var dtpicker2 = new mui.DtPicker({
+					"type": "date"
+				});
+				dtpicker.show(function(items) {
+					var dateframe = items.text;
+					dtpicker2.show(function(items) {
+						$("#timeframe").val(dateframe+" — "+items.text);
+						dtpicker.dispose();
+					});
+				});			
+			});
+			//验证
+			$(".submitBtn").click(function(){
+				var $number = $(".weekly_number").val();
+				var $matter = $(".weekly_matter").val();
+				var $timeframe = $(".weekly_timeframe").val();
+				var $source = $(".weekly_source").val();
+				var $stage = $(".weekly_stage").val();
+				if ($.trim($number).length < 1) {
+                	mui.toast("请输入事项编号",{ duration:'long', type:'div' });
+                	return false;
+	            } else if ($.trim($matter).length < 1) {
+	                mui.toast("请输入交办事项关键字",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($timeframe.length < 1) {
+	                mui.toast("请选择日期范围",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($source.length < 1) {
+	                mui.toast("请选择任务来源",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($stage.length < 1) {
+	                mui.toast("请选择进行阶段",{ duration:'long', type:'div' });
+	                return false;
+	            } else{
+	            	
+	            }
+			})
+		})
+	</script>
+</html>

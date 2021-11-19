@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水利视频</title>
+		<!-- 引入样式 -->
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" href="../../css/previewImage.css">
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" href="../../css/working/index.css?v=1030">
+		<link rel="stylesheet" href="../../js/photoviewer/viewer.css">
+		<!-- 引入js -->
+		<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/ruralWater/jump_page.js"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="../../js/photoviewer/viewer.js"></script> -->
+		<!-- <script src="https://books.sxjicheng.com/js/qwebchannel.js" type="text/javascript" charset="utf-8"></script> -->
+		<style type="text/css">
+			* {
+				touch-action: auto;
+			}
+
+			.viewer-canvas {
+				top: 0.9rem;
+			}
+
+			.viewer-tooltip {
+				width: 1.5rem;
+				height: 0.6rem;
+				line-height: 0.6rem;
+				text-align: center;
+				font-size: 0.4rem;
+				transform: translateX(-50%);
+			}
+
+			.viewer-footer {
+				overflow: visible;
+			}
+
+			.viewer-toolbar>ul {
+				position: relative;
+				margin: 0 auto 0.15rem;
+				overflow: visible;
+			}
+
+			.viewer-toolbar>ul>li+li {
+				margin-left: 0.5rem;
+			}
+
+			.viewer-toolbar>ul>li {
+				height: 0.6rem;
+				width: 0.6rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.viewer-toolbar>ul>li:nth-child(1) {
+				position: absolute;
+				top: -45vh;
+				left: -3.4rem;
+			}
+
+			.viewer-toolbar>ul>li:nth-child(2) {
+				position: absolute;
+				top: -45vh;
+				right: -3.4rem;
+			}
+
+			.viewer-toolbar>ul>li:nth-child(3) {
+				position: absolute;
+				top: -80vh;
+				right: -3.54rem;
+			}
+
+			.viewer-toolbar>ul>li:nth-child(4) {
+				position: absolute;
+				top: -74vh;
+				right: -3.54rem;
+			}
+
+			.viewer-prev::before,
+			.viewer-next::before,
+			.viewer-zoom-in::before,
+			.viewer-zoom-out::before {
+				position: static;
+				width: 0.46rem;
+				height: 0.46rem;
+				background-size: 5rem;
+			}
+
+			.viewer-prev::before {
+				background-position: -1.4rem 0.05rem;
+			}
+
+			.viewer-next::before {
+				background-position: -2.1rem 0.05rem;
+			}
+
+			.viewer-zoom-in::before {
+				background-position: 0.05rem 0.05rem;
+			}
+
+			.viewer-zoom-out::before {
+				background-position: -0.3rem 0.05rem;
+			}
+
+			.viewer-backdrop {
+				background-color: rgba(0, 0, 0, 0.8);
+			}
+
+			/* 关闭按钮start */
+			.viewer-button {
+				top: 1.2rem;
+				right: 0.2rem;
+				width: 0.6rem;
+				height: 0.6rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.viewer-button::before {
+				position: static;
+				width: 0.46rem;
+				height: 0.46rem;
+			}
+
+			.viewer-close::before {
+				background-size: 5rem;
+				background-position: -4.6rem 0.05rem;
+			}
+
+			/* 关闭按钮start */
+			.img_li {
+				display: none;
+				width: 60px;
+				height: 60px;
+			}
+
+			.right {
+				position: absolute;
+				right: 0.2rem;
+			}
+
+			.so_li_box {
+				/* background-color: #0000FF; */
+				position: relative;
+			}
+
+			.catalog .item_text,
+			.item_line {
+				font-size: 0.24rem;
+				font-weight: 700;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl" style="cursor: pointer;" ontap="history.go(-1)"></i>
+				<span>水利视频</span>
+			</header>
+			<div class="section">
+				<div class="title_wrap">
+					<div class="title">
+						<span class="title_text">目录</span>
+					</div>
+				</div>
+
+				<div class="catalog" id="catalog">
+				</div>
+				<!-- <div class="footer_wrap">
+					<div class="footer">
+						<span class="title_block"></span>
+						<span class="title_r">&gt;&gt;</span>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/HCPlugin/bridge.js"></script>
+	<script src="../../js/HCPlugin/common.js"></script>
+	<script type="text/javascript">
+		// 参数
+		var token = localStorage.getItem('token');
+		var root = localStorage.getItem("str_url");
+		// mui.plusReady(function() {
+		// 	var self = plus.webview.currentWebview();
+		// 	plus.nativeUI.showWaiting("加载中...");
+		// 	getList();
+		// });
+		getList();
+
+		function getList() {
+			var url_ = root + 'api/v4/video_monitor_info/info'
+			var videoInfo = {
+				'token': token
+			}
+			mui.ajax(url_, {
+				data: videoInfo,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					console.log(data)
+					if (data.code === 1) {
+						plus.nativeUI.closeWaiting();
+						var videoData = data.data.info
+						// console.log(videoData)
+						let listinfo = ''
+						
+						for (let i = 0; i < videoData.length; i++) {
+							console.log(videoData[i])
+							listinfo += `
+								<div class="catalog_item">
+									<span class="item_num">${i+1}</span>
+									<span class="item_line">|</span>
+									<span class="item_text">${videoData[i].name}</span>
+								</div>
+							`
+						}
+						$('.catalog').append(listinfo)
+
+						$('.catalog .catalog_item').off('click').on('click', function() {
+							let cacheIndex = $(this).index()
+
+							userAddDevice(videoData[cacheIndex])
+						})
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					console.log(type)
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+		
+		// 用户开启视频设备
+		function userAddDevice(deviceInfo) {
+			// var _deviceName = '太原汾河南中环滨河公园西北匝道2'
+			// var _ip = '220.194.174.36'
+			// var _port = 8000
+			// var _username = 'admin'
+			// var _password = 'asdfg1230'
+			
+			var _deviceName = deviceInfo.name
+			var _ip = deviceInfo.ip
+			var _port = parseInt(deviceInfo.port)
+			var _username = deviceInfo.username
+			var _password = deviceInfo.password
+			
+			var _loading = plus.nativeUI.showWaiting("正在开启..."); // 开启 loading
+			
+			plus.pluginhcnet.createHCVideo({
+				deviceName: _deviceName,
+				ip: _ip,
+				port: _port,
+				username: _username,
+				password: _password
+			}, (ret) => {
+				_loading.close()
+				let _result = JSON.parse(ret[0])
+				
+				_loading.close(); // 关闭 loading
+				
+				if (_result.code != 0) {
+					mui.toast(_result.msg || '打开失败')
+				}
+			})
+		}
+	</script>
+</html>

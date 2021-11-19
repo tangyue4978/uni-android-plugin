@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>河湖长制</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess.css" />
+	<!-- 筛选css -->
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+	<!-- 筛选css end -->
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/map/getCity.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.all3 {
+			top: 2.68rem;
+		}
+
+		.list {
+			margin-top: 3.68rem;
+		}
+
+		.weight {
+			font-size: 0.28rem;
+			color: #333;
+			font-weight: 700;
+		}
+
+		.lists_data>.titles {
+			width: 100%;
+		}
+
+		.event_imgs {
+			width: 0.27rem;
+			height: 0.27rem;
+			display: inline;
+		}
+
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+
+		/* 样式复写 */
+		.sort.start .sort_list {
+			width: 50%;
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+
+		.search_box .sort_input.sort_new {
+			width: 80%;
+		}
+
+		.sort.start .sort_list.text_input {
+			background: none
+		}
+
+		.search_box .span_search {
+			left: calc(100% - 0.5rem);
+		}
+	</style>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>排污口信息列表</span>
+		</header>
+		<div class="content_box content_boxs">
+			<!-- 分类start -->
+			<div class="sort sorts start">
+				<select name="city" class="sort_list sort_list_img" id="city">
+					<option value="">山西省</option>
+				</select>
+				<div class="sort_list search_box text_input">
+					<input type="text" id="outletName" placeholder="排污口名称" class="sort_input sort_new sort_search" />
+					<span class="span_search" id="searchOutletName">
+						<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+					</span>
+				</div>
+				<div class="sort_list search_box hide text_input">
+					<input type="text" id="riverName" placeholder="排入河流名称" class="sort_input sort_new sort_search" />
+					<span class="span_search" id="searchRiverName">
+						<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+					</span>
+				</div>
+				<div class="sort_list search_box hide text_input">
+					<input type="text" id="riverSystem" placeholder="所属水系" class="sort_input sort_new sort_search" />
+					<span class="span_search" id="searchRiverSystem">
+						<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+					</span>
+				</div>
+				<div class="more_box"><img class="more_img" src="../../images/ruralWater/bottomInfo_down.png"
+						data-class="drainOutlet"></div>
+			</div>
+			<!-- 分类end -->
+		</div>
+		<!-- 总条数 -->
+		<div class="all all3">
+			共<span class="all_num">0</span>个排污口
+		</div>
+		<!-- 列表start -->
+		<div class="list">
+			<ul class="lists">
+			</ul>
+		</div>
+		<!-- 列表end -->
+
+	</div>
+</body>
+
+<script src="../../js/riverChief/drainOutlet.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js -->
+<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js end -->
+
+</html>

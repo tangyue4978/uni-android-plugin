@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_rpo2kq59ywm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-switch{
+				float: right;
+			}
+			.custom ul li {
+			    border-bottom: 1px solid #e0e0e0;
+			}
+			.custom ul li .icon-xiangshangjiantou1{
+				margin-right: 1rem;
+			}
+		</style>
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>工作台自定义<button class="right" id="save">保存</button></p>
+
+				<div class="custom">
+					<ul class="mui-table-view">
+						<!--<li class="mui-table-view-cell">
+							<span>状态：true</span>
+							<i class="iconfont icon-xiangshangjiantou1"></i>
+							<i class="iconfont icon-jiantou8"></i>
+							<div class="mui-switch mui-switch-blue">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<span>状态：true</span>
+							<div class="mui-switch mui-switch-blue">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</li>-->
+					</ul>
+
+					<div>
+						<!--<h1>未启用</h1>-->
+						<!--<ul id="xia">-->
+						<!--<li draggable="true"><i class="iconfont icon-tianjia1"></i>
+								<p>请假1</p>
+							</li>
+							<li draggable="true"><i class="iconfont icon-tianjia1"></i>
+								<p>请假2</p>
+							</li>
+							<li draggable="true"><i class="iconfont icon-tianjia1"></i>
+								<p>请假3</p>
+							</li>-->
+
+						<!--</ul>-->
+					</div>
+
+				</div>
+
+			</div>
+
+			<div class="mui-loading" style="padding-top: 5rem;">
+				<div class="mui-spinner">
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var moveItem, list;
+
+			function mainList() {
+				var _url = root + 'api/nav/list'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"version":plus.runtime.version
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						$(".mui-loading").css("display","none")
+						if (data.code != 1) {
+							$(".mui-table-view").append("<div style='text-align:center;font-size:0.35rem;padding:0.5rem 0rem;position: relative;'>"+data.msg+"</div>")
+						} else{
+							list = data.data.selected;
+							
+							if(data.code == 1 && data.data.selected != []) {
+								data.data.selected.forEach(function(v, index) {
+									v.zt = true;
+									$(".mui-table-view").append('<li class=""><span>' + v.name + '</span> <div class="mui-switch mui-switch-blue mui-active"><div class="mui-switch-handle"></div></div> <i class="shang iconfont icon-xiangshangjiantou1"></i> <i class=" xia iconfont icon-jiantou8"></i>  </li>')
+								})
+							}
+							if(data.code == 1 && data.data.unselect != []) {
+								data.data.unselect.forEach(function(v, index) {
+									list.push(v)
+									v.zt = false;
+									$(".mui-table-view").append('<li class=""><span>' + v.name + '</span> <div class="mui-switch mui-switch-blue"><div class="mui-switch-handle"></div></div> <i class=" shang iconfont icon-xiangshangjiantou1"></i> <i class=" xia iconfont icon-jiantou8"></i>  </li>')
+								})
+							}
+							$(".shang").click(function() {
+								var pTr = $(this).parents("li");
+								//当前tr插入到前一个tr的前面
+								pTr.prev().before(pTr);
+							});
+
+							$(".xia").click(function() {
+								var pTr = $(this).parents("li");
+								//当前tr插入到后一个tr的后面
+								pTr.next().after(pTr);
+							});
+
+							mui('.mui-content .mui-switch').each(function(v1) { //循环所有toggle
+								mui(this).switch();
+								this.addEventListener('toggle', function(event) {
+									list.forEach(function(v, index) {
+										if(v1 == index) {
+											v.zt = event.detail.isActive;
+										}
+									})
+								});
+							});
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络错误,请尝试退出应用重新登录");
+					}
+				})
+			}
+
+			
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				mainList()
+			});
+
+			//			function shang(index) {
+			//				console.log(index)
+			//
+			//				if(index == 0) {
+			//					mui.toast("已经到顶了")
+			//				} else {
+			//					$(".mui-table-view li").each(function(i) {
+			//						if(i == index) {
+			//							console.log($(this));
+			//							$(this).prev().before($(this));
+			//						}
+			//
+			//					})
+			//
+			//				}
+			//
+			//			}
+
+			//			function xia(index) {
+			//				console.log(index)
+			//			}
+
+			$("#save").click(function(v) {
+				plus.nativeUI.showWaiting("数据保存中...")
+				var items = [],
+					aa = [];
+				list.forEach(function(v) {
+					if(v.zt == true) {
+						items.push(v)
+					}
+				})
+				console.log($(".mui-table-view li"))
+				$(".mui-table-view li").each(function(i) {
+					var a = $(this);
+					items.forEach(function(v) {
+						if(v.name == a.context.innerText) {
+							aa.push(v.id)
+						}
+
+					})
+				})
+				console.log(aa)
+				//				return
+
+				aa.forEach(function(v) {
+					v = parseInt(v);
+				})
+				var bb = aa.join(',')
+				var _url = root + 'api/nav/save'
+				//				setTimeout(function(){
+					console.log("工作台保存地址:"+_url);
+					console.log("工作台保存参数ids："+bb);
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"ids": bb,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						plus.nativeUI.closeWaiting()
+						if(data.code == 1) {
+							mui.toast("设置成功")
+							var view = plus.webview.getWebviewById("main.html");　
+							mui.fire(view, 'refresh', {});
+							//返回true,继续页面关闭逻辑
+//							mui.back()
+//							var w = plus.webview.create("main.html","main.html",{
+//								autoShow: true, 
+//								aniShow: "fade-in", 
+//								duration: "300" 
+//							}); 
+//							w.show("main.html","fade-in","300");
+							mui.openWindow({
+								url: "main.html",
+								id: "main.html",
+								show: {
+									autoShow: true, 
+									aniShow: "fade-in", 
+									duration: "300" 
+								},
+								createNew: true
+							});
+						}else{
+							mui.toast(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						plus.nativeUI.closeWaiting()
+						//异常处理；
+						mui.toast("网络错误,请尝试退出应用重新登录");
+					}
+				})
+				//				},1000)
+
+			})
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

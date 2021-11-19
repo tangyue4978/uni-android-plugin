@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>河湖长制</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess_detail.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.deal_photo_box img{
+				width: 3.16rem;
+				height: 2.38rem;
+			}
+			.base_info_table{
+				margin-bottom: 0.4rem;
+			}
+			.event_imgSize{
+				width: 5rem;
+				height: 2.86rem;
+			}
+			.respect_table{
+				border: none;
+				text-align: center;
+			}
+			.photo_img{
+				height: 3rem;
+				margin-top: 0.2rem;
+			}
+			.base_info{
+				margin-top: 0.2rem;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细情况</span>
+			</header>
+			<!-- 头部start -->
+			<div class="head">
+				<div class="head_text head_texts">
+					<!-- 乱采 -->
+				</div>
+				<div class="head_line"></div>
+				<div class="head_text head_desc">
+					<!-- 非法采砂 -->
+				</div>
+			</div>
+			<!-- 头部end -->
+			<div class="main">
+				<!-- 湖泊基本信息start -->
+				<div class="base_info">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								基本信息
+							</span>
+						</div>
+						<table class="base_info_table base_info_tables" border="1" cellspacing="0" cellpadding="0">
+							<!-- <tr>
+								<td class="texr">湖泊名称</td>
+								<td class="texl">665</td>
+								<td class="texr">行政地区</td>
+								<td class="texl">202007</td>
+							</tr>
+							<tr>
+								<td class="texr">类型</td>
+								<td class="texl">1</td>
+								<td class="texr">湖泊编号</td>
+								<td class="texl">02</td>
+							</tr>
+							<tr>
+								<td class="texr">上级湖泊</td>
+								<td class="texl">黄河</td>
+								<td class="texr">所属流域</td>
+								<td class="texl">22</td>
+							</tr>
+							<tr>
+								<td class="texr">湖长姓名</td>
+								<td class="texl">111.363065</td>
+								<td class="texr">水面面积(km²)</td>
+								<td class="texl">39.463971</td>
+							</tr>
+							<tr>
+								<td class="texr">平均水深(m)</td>
+								<td class="texl">665</td>
+								<td class="texr">最大水深(m)</td>
+								<td class="texl">202007</td>
+							</tr>
+							<tr>
+								<td class="texr">湖泊容积(m³)</td>
+								<td class="texl">1</td>
+								<td class="texr">咸淡水属性</td>
+								<td class="texl">02</td>
+							</tr>
+							<tr>
+								<td class="texr">左下角经度</td>
+								<td class="texl">黄河</td>
+								<td class="texr">左下角纬度</td>
+								<td class="texl">22</td>
+							</tr>
+							<tr>
+								<td class="texr">右上角经度</td>
+								<td class="texl">111.363065</td>
+								<td class="texr">右上角纬度</td>
+								<td class="texl">39.463971</td>
+							</tr>
+							<tr>
+								<td class="texr">简介</td>
+								<td class="texl" colspan="3">。。。。。。</td>
+							</tr> -->
+						</table>
+						<div class="photos">
+							<!-- <div class="photo_title">
+								111
+							</div>
+							<img class="photo_img" src="http://183.201.254.26:8916//37382/img/7fcce6c428934a6990f8a16f968ca181.jpg" >
+							<div class="photo_title">
+								111
+							</div>
+							<img class="photo_img" src="http://183.201.254.26:8916//37382/img/7fcce6c428934a6990f8a16f968ca181.jpg" > -->
+						</div>
+					</div>
+				</div>
+				<!-- 监测信息start -->
+				<div class="base_info">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								审批信息
+							</span>
+						</div>
+						<table class="base_info_table respect_table" border="0" cellspacing="0" cellpadding="0">
+							
+						</table>
+					</div>
+				</div>
+				<!-- 监测信息end -->
+				<!-- 处理描述start -->
+				<!-- <div class="deal_with">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								处理描述
+							</span>
+						</div>
+						<div class="deal_with_text">2060010174点，东经111.363120°，北纬39.463910°，
+							寺沟村旧鱼塘，经初步核实为违障设施，处理方案是拆除护
+							栏回填鱼塘，废弃其蓄水养殖功能，现已整改完成。
+						</div>
+					</div>
+				</div> -->
+				<!-- 处理描述end -->
+				<!-- 处理前后照片对比start -->
+				<!-- <div class="deal_photo">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								处理前后照片对比
+							</span>
+						</div>
+						<div class="deal_photo_text">
+							<div class="deal_photo_box">
+								<span>处理前</span>
+								<img src="../../images/riverChief/deal_photo01.png" class="before">
+							</div>
+							<div class="deal_photo_box">
+								<span>处理后</span>
+								<img src="../../images/riverChief/deal_photo02.png" class="after">
+							</div>
+						</div>
+					</div>
+				</div> -->
+				<!-- 处理前后照片对比end -->
+			</div>
+		</div>
+	</body>
+	
+	<script src="../../js/riverChief/event_detail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

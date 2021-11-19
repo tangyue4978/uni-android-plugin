@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_w2at8z9smbn.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/leave_list.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.leave_details .details_info .info_list.t_gan_bu {
+				display: none;
+			}
+			
+			.selectNode {
+				/*display: none;*/
+			}
+			
+			.isListBox {
+				/*display: none;*/
+			}
+			/*-----------------*/
+			.commit {
+				display: block;
+				border-radius: 2em;
+				width: 6rem;
+				height: 0.8rem;
+				margin: 0 auto;
+				background: #397cf3;
+				color: #fff;
+			}
+			.isListBox {
+				display: none;
+				border-top: 1px solid #cccccc;
+				padding: 0 0.2rem;
+			}
+			
+			.isListBox .title {
+				font-size: 0.375rem;
+				color: #464646;
+				text-align: center;
+				height: auto;
+				line-height: 1rem;
+			}
+			
+			.isListBox .radio_box {
+				width: 100%;
+			}
+			
+			.isListBox .radio_box .radio_ul {
+				width: 100%;
+				overflow: hidden;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0rem;
+			}
+			
+			.isListBox .radio_box .radio_ul li {
+				width: 40%;
+				margin: 0.2rem 5%;
+				border-radius: 2em;
+				background-color: #F0F0F0;
+				color: #464646;
+				text-align: center;
+				list-style: none;
+				float: left;
+				height: 0.7rem;
+				line-height: 0.7rem;
+				font-size: 0.35rem;
+				text-align: center;
+			}
+			
+			.isListBox .radio_box .radio_ul li.active {
+				background-color: #397AEF;
+				color: #FFFFFF;
+			}
+			
+			.isListBox .select_box {
+				width: 100%;
+			}
+			
+			.isListBox .select_box .select_ul {
+				width: 100%;
+				overflow: hidden;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0rem;
+			}
+			
+			.isListBox .select_box .select_ul li {
+				min-width: 30%;
+				margin: 0.2rem 0.1rem;
+				border-radius: 2em;
+				background-color: #F0F0F0;
+				color: #464646;
+				text-align: center;
+				list-style: none;
+				float: left;
+				height: 0.7rem;
+				line-height: 0.7rem;
+				font-size: 0.35rem;
+				text-align: center;
+				padding: 0 0.1rem;
+			}
+			
+			.isListBox .select_box .select_ul li.active {
+				background-color: #397AEF;
+				color: #FFFFFF;
+			}
+			
+			/*同意  驳回*/
+			.leave_details .details_handle .handle_button.active{
+				background-color: #FFFFFF;
+			}
+			.leave_details .details_handle .handle_button{
+				display: inline-block;
+				width: 45%;
+				height: 0.8rem;
+				border-radius: 0em;
+				background-color: #ffffff;
+				color: #464646;
+				text-align: center;
+				line-height: 0.8rem;
+				font-size: 0.32rem;
+				border: 1px solid #E0E0E0;
+			}
+			/*.handle_button.active{background-color: #4178F9 !important;}*/
+			
+			.leave_details .details_handle .handle_button.active.reject {
+				border: 1px solid #FB5F53;
+				background: url(images/reject.png) no-repeat 0.5rem 0.18rem;
+				background-size: 0.4rem;
+				color: #FB5F53;
+			}
+			.leave_details .details_handle .handle_button.active.agree {
+				border: 1px solid #39C28E;
+				background: url(images/agree.png) no-repeat 0.5rem 0.18rem;
+				background-size: 0.4rem;
+				color: #39C28E;
+			}
+		</style>
+	</head>
+
+	<body style="background: #fff;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a><span class="bt_span_xq">外出报备审批详情</span>
+				</p>
+				<div class="loreDetails leave_details">
+					<div class="loreDetails-h details_man">
+						<div class="head_box fl">
+							<img src="images/user.png" class="head_img" id="imgid" />
+						</div>
+						<div class="fl manage_box">
+							<div class="color_333 manage_name fl" id="name"></div>
+							<div class="color_999 manage_name fr" id="datetime"></div>
+							<div class="color_999 manage_return" id="cszc"></div>
+						</div>
+					</div>
+					<div class="loreDetails-f details_info">
+						<div class="info_list t_gan_bu">
+							<div class="color_999 fl">外出类型</div>
+							<div class="color_333 info_mar" id="wclx"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">外出事由</div>
+							<div class="color_333 info_mar" id="wcsy"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">外出离开时间</div>
+							<div class="color_333 info_mar" id="wclksj"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">外出返回时间</div>
+							<div class="color_333 info_mar" id="wcfhsj"></div>
+						</div>
+						<div class="info_list t_gan_bu">
+							<div class="color_999 fl">外出地点</div>
+							<div class="color_333 info_mar" id="wcdd"></div>
+						</div>
+						<div class="info_list t_gan_bu">
+							<div class="color_999 fl">主持工作负责</div>
+							<div class="color_333 info_mar" id="zcgzfz"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">交通工具</div>
+							<div class="color_333 info_mar" id="vehicle"></div>
+						</div>
+						<div class="info_list">
+							<div class="color_999 fl">备注</div>
+							<div class="color_333 info_mar" id="bz"></div>
+						</div>
+						<!--<div class="info_images">
+							<img src="images/qwe.png"/>
+							<img src="images/qwe.png"/>
+							<img src="images/qwe.png"/>
+							<img src="images/qwe.png"/>
+							<img src="images/qwe.png"/>
+						</div>-->
+					</div>
+					<div class="details_history">
+						<span class="color_333">查看历史记录</span>
+						<img src="images/right.png" class="fr history_img" />
+					</div>
+					<div class="details_approval">
+						<span class="color_999">审批信息</span>
+					</div>
+					<div class="details_flow">
+						<!--<div class="flow_div">
+							<img src="images/qwe.png" alt="" class="div_img" />
+							<div style="margin-left: 1.3rem;overflow: hidden;">
+								<div style="overflow: hidden;">
+									<div class="color_333  div_name fl">刘鑫鑫</div>
+									<div class="color_red  div_opinion fl" style="position: relative;">驳回</div>
+									<div class="color_999 div_time fr">2018-12-18 15:24</div>
+								</div>
+								<div style="overflow: hidden;">
+									<div class="color_red  div_opinion fl" style="position: relative;">驳回</div>
+									<div class="color_999 fl div_supp" style="">我怕我怕我怕我怕我怕我怕我怕我怕我怕我怕我怕我怕我怕我怕我怕</div>
+								</div>
+								<div><div class="color_999 div_time fl">2018-12-18 15:24</div></div>
+							</div>
+						</div>-->
+					</div>
+					<div class="details_occupy"></div>
+					<div class="selectNode">
+						<h3 class="node_title" style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步节点</h3>
+						<div class="select_node">
+							<select id="select_node" style="background-color: #0062CC;color:#FFFFFF;font-size: 0.3rem;text-align: center;padding: 0.2rem;border-radius: 0.1rem;">
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+					<div class="isListBox">
+						<h3 id="clr_h3" style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步审批人</h3>
+						<div class="select_box">
+							<!--<p>部门</p>
+							<ul class="select_ul">
+								<li class="">安安生生</li>
+								<li class="">安安生生</li>
+								<li class="">安安生生</li>
+							</ul>-->
+						</div>
+					</div>
+					<div class="details_handle clyj_box">
+						<textarea id="clyj" name="" rows="" class="handle_textarea" cols="" placeholder="您的处理意见"></textarea>
+						<span class=" handle_button reject" data-opinion="2">驳回</span>
+						<span class=" handle_button agree active" data-opinion="1">同意</span>
+						<!--<button class="bg_red handle_button" onclick="btn_bh()">驳回</button>
+						<button class="bg_green handle_button" onclick="btn_ty()">同意</button>-->
+					</div>
+					<div class="commit_box">
+						<button type="butto" class="commit" onclick="btn_clr()">提交</button>
+					</div>
+					<div class="details_occupy"></div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			//同意不同意
+			$(".handle_button").on("click",function(){
+				$(this).addClass("active").siblings(".handle_button").removeClass("active");
+			})
+		</script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				var root = localStorage.getItem("str_url");
+				if(root == "" || root == undefined || root == null) {
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+					})
+				}
+				var token = localStorage.getItem("token");
+
+				var _url = root + 'api/applyleave/details';
+				var datelis = plus.webview.currentWebview();
+				console.log("当前待办id=" + datelis.i);
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": datelis.i
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.category == 2) {
+							$(".t_gan_bu").show();
+						}
+						var uid = data.data.uid;
+						$(".details_history").on("click", function() {
+							mui.openWindow({
+								url: 'leaveHistoryRecord.html',
+								id: 'leaveHistoryRecord.html',
+								extras: {
+									uid: uid
+								}
+							})
+						})
+						if(data.code == 1) {
+							if(data.isApproval == 0) {
+								$(".clyj_box").hide();
+							} else {
+								$(".clyj_box").show();
+							}
+							//节点信息
+							if(data.isSelectNode != 0) {
+								if(data.nextFlows == "" || data.nextFlows == null || data.nextFlows == undefined) {
+									mui.toast("节点为空")
+								} else {
+									$("#select_node").html("");
+									data.nextFlows.forEach(function(item, index) {
+										$("#select_node").append('<option value="' + item.id + '" flowid="' + item.flow_id + '" sorting="' + item.sorting + '" ismany="' + item.is_many + '" isselectpeople="' + item.is_selectpeople + '">' + item.note + '</option>')
+									})
+									selectNode();
+									$("#select_node").on("change", selectNode);
+								}
+								$(".selectNode").show();
+								$(".commit_box").show();
+
+							} else {
+								$(".selectNode").hide();
+								$(".isListBox").hide();
+								$(".commit_box").hide();
+							}
+							if(data.isOpinion != 0) {
+								$(".clyj_box").show();
+								$(".commit_box").show();
+							}else{
+								$(".clyj_box").hide();
+							}
+							function selectNode() {
+								if($("#select_node option:selected").attr("isselectpeople") == "1") {
+									$(".isListBox").show();
+									xyb_spr();
+								} else {
+									$(".isListBox").hide();
+								}
+							}
+							//节点信息 end
+							var approvers = data.approvers;
+							var data = data.data;
+							//头像
+							var img_src = "";
+							if(data.avatar != null && data.avatar != undefined && data.avatar != "") {
+								img_src = root + data.avatar;
+							} else {
+								img_src = "images/user.png";
+							}
+
+							document.getElementById('imgid').setAttribute("src", img_src);
+							//姓名
+							$("#name").text(data.name);
+							//时间
+							$("#datetime").text(data.time);
+							//处室职务
+							$("#cszc").text(data.dname + "　　" + data.duty + "　　" + data.phone);
+							//外出事由
+							$("#wcsy").text(data.reason);
+							//外出离开时间
+							$("#wclksj").text(data.start_at);
+							//外出返回时间
+							$("#wcfhsj").text(data.end_at);
+							//外出地点
+							$("#wcdd").text(data.place);
+							//主持工作负责
+							$("#zcgzfz").text(data.rname + "-" + data.rmobile);
+							//外出类型
+							if(data.type!= "" && data.type != null && data.type != undefined) {
+								if(data.type==1){
+									$("#wclx").text("公事(出差)");
+								}else if(data.type==2){
+									$("#wclx").text("私事(请假)");
+								}else{
+									$("#wclx").text("-");
+								}
+							} else {
+								$("#wclx").text("-");
+							}
+							//交通工具
+							if(data.vehicle != "" && data.vehicle != null && data.vehicle != undefined) {
+								$("#vehicle").text(data.vehicle);
+							} else {
+								$("#vehicle").text("-");
+							}
+							//备注
+							if(data.remark != "" && data.remark != null && data.remark != undefined) {
+								$("#bz").text(data.remark);
+							} else {
+								$("#bz").text("-");
+							}
+
+							//流程信息
+							//默认显示一条信息
+//							$(".details_flow").append(
+//								'<div class="flow_div">' +
+//								'<img src="' + img_src + '" alt="" class="div_img" />' +
+//								'<div style="margin-left: 1.3rem;overflow: hidden;">' +
+//								'<div style="overflow: hidden;">' +
+//								'<div class="color_333  div_name fl">' + data.name + '</div>' +
+//								'<div class="color_333  div_opinion fl" style="position: relative;">' + data.dname + "　" + data.duty + '</div>' +
+//								'</div>' +
+//								'<div style="overflow: hidden;">' +
+//								'<div class="color_333  div_opinion fl" style="position: relative;">发起申请</div>' +
+//								'<div class="color_999 fl div_supp" style=""> </div>' +
+//								'</div>' +
+//								'<div style="overflow: hidden;">' +
+//								'<div class="color_999 div_time fl">' + data.time + '</div>' +
+//								'</div>' +
+//								'</div>' +
+//								'</div>'
+//							)
+							if(approvers != "" && approvers != null && approvers != undefined && approvers.length > 0) {
+								for(var i = 0; i < approvers.length; i++) {
+									var approver_img_src = "";
+									if(approvers[i].avatar != null && approvers[i].avatar != undefined && approvers[i].avatar != "") {
+										approver_img_src = root + approvers[i].avatar;
+									} else {
+										approver_img_src = "images/user.png";
+									}
+									var a = approvers[i].status;
+									if(a == 1) {
+										var color = "color_green";
+										var opinion = "同意";
+									} else if(a == 2) {
+										var color = "color_red";
+										var opinion = "驳回";
+									} else {
+										var color = "color_blue";
+										var opinion = approvers[i].node;
+									}
+									if(approvers[i].opinion!=null&&approvers[i].opinion!=""&&approvers[i].opinion!=undefined){
+										var yijian = '<div class="color_999 fl div_supp" style="">' + approvers[i].opinion + '</div>'
+									}else{
+										var yijian ="";
+									}
+									
+									$(".details_flow").append(
+										'<div class="flow_div">' +
+										'<img src="' + approver_img_src + '" alt="" class="div_img" />' +
+										'<div style="margin-left: 1.3rem;overflow: hidden;">' +
+										'<div style="overflow: hidden;">' +
+										'<div class="color_333  div_name fl">' + approvers[i].approver + '</div>' +
+										'<div class="color_333  div_opinion fl" style="position: relative;">' + approvers[i].department + "　" + approvers[i].duty + '</div>' +
+										//											'<div class="color_999 div_time fr">'+approvers[i].time+'</div>'+
+										'</div>' +
+										'<div style="overflow: hidden;">' +
+										'<div class="' + color + '  div_opinion fl" style="position: relative;">' + opinion + '</div>' +yijian+
+//										'<div class="color_999 fl div_supp" style="">' + approvers[i].opinion + '</div>' +
+										'</div>' +
+										'<div>' +
+										'<div class="color_999 div_time fl">' + approvers[i].approve_at + '</div>' +
+										'</div>' +
+										'</div>' +
+										'</div>'
+									)
+								}
+							} else {
+
+							}
+							//							color_red
+							//							$(".clyj_box").show();
+						} else {
+							mui.toast(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常");
+					}
+				})
+
+			}, false);
+
+			function btn_clr() {
+				//				document.addEventListener('plusready', function() {
+				var root = localStorage.getItem("str_url");
+				if(root == "" || root == undefined || root == null) {
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+					})
+				}
+				var token = localStorage.getItem("token");
+				var _url = root + 'api/applyleave/approval';
+				var datelis = plus.webview.currentWebview();
+				var text_data = $("#clyj").val();
+//				if(text_data == "" || text_data == null || text_data == undefined) {
+//					mui.toast("请填写审批意见");
+//					return false;
+//				}
+				//下一步审批人
+				if($(".isListBox .select_box .select_ul li.active").attr("data-id") == undefined) {
+					var spr_str_id = "";
+				} else {
+					var spr_obj = $(".isListBox .select_box .select_ul li.active");
+					//		var spr_str_id = $(".isListBox .select_box .select_ul li.active").attr("data-id");
+					var spr_str_id = [];
+					for(var i = 0; i < spr_obj.length; i++) {
+						spr_str_id.push(spr_obj.eq(i).attr("data-id"));
+					}
+				}
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": datelis.i,
+						"remark": text_data,
+						"opinion": $(".handle_button.active").attr("data-opinion"),
+						"node_code": $("#select_node option:selected").attr("sorting"),
+						"approver_ids": String(spr_str_id),
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						var list2 = plus.webview.getWebviewById("leave_list.html");
+						mui.fire(list2, 'refresh');
+						plus.webview.currentWebview().close();
+						mui.toast(data.msg);
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常");
+					}
+				})
+				//				}, false);
+			}
+
+		</script>
+		<!--审批人-->
+		<script type="text/javascript">
+			function r_active() {
+				$(".isListBox .select_box .select_ul li").attr("class", "");
+				$(this).attr("class", "active");
+			}
+
+			function s_active() {
+				if($(this).hasClass("active")) {
+					$(this).removeClass("active");
+				} else {
+					$(this).addClass("active");
+				}
+			}
+
+			//显示下一步审批人
+			function xyb_spr() {
+				var root = localStorage.getItem("str_url");
+				var token = localStorage.getItem("token");
+				var _url = root + 'api/document/getapproveuser';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"flow_id": $("#select_node option:selected").attr("flowid"),
+						"node_code": $("#select_node option:selected").attr("sorting")
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型 
+					success: function(data) {
+						$(".isListBox .select_box").html("");
+						if(data.data.list == "" || data.data.list == undefined || data.data.list == null) {
+							$(".isListBox .select_box").append('<p>暂无信息</p>');
+						} else {
+							var html = "";
+							data.data.list.forEach(function(v, index) {
+								html += '<p>' + v.departmentName + '</p><ul class="select_ul">';
+								data.data.list[index].users.forEach(function(v2, index2) {
+									html += '<li class="" data-id="' + v2.id + '">' + v2.trueName + '</li>';
+								})
+								html += '</ul>';
+							})
+							$(".isListBox .select_box").append(html);
+						}
+						if($("#select_node option:selected").attr("ismany") == 1) {
+							//单选
+							$(".isListBox .select_box .select_ul li").off("click", r_active);
+							$(".isListBox .select_box .select_ul li").on("click", r_active);
+						} else {
+							//多选
+							$(".isListBox .select_box .select_ul li").off("click", s_active);
+							$(".isListBox .select_box .select_ul li").on("click", s_active);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						console.log("xhr=" + JSON.stringify(xhr) + ";type=" + type + ";errorThrown=" + errorThrown);
+						mui.toast(errorThrown)
+					}
+				})
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

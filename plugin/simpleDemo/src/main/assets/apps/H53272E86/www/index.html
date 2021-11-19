@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<script src="./js/bridge.js"></script>
+		<script src="./js/common.js"></script>
+
+		<style type="text/css">
+			.container {
+				width: 100vw;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 15px;
+			}
+			
+			.input_box {
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 1vh;
+				border: solid 1px #CCCCCC;
+				padding: 7px 12px;
+				border-radius: 6px;
+				font-size: 14px;
+				background: white;
+			}
+			
+			.input_box input {
+				border: none;
+				background: white;
+				text-align: right;
+				font-size: 14px;
+			}
+
+			.container button {
+				width: 100%;
+				margin-bottom: 1vh;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<view class="input_box">
+				<label for="">IP</label>
+				<input class="input_ip" placeholder="请输入 vpn 连接 IP 地址">
+			</view>
+			<view class="input_box">
+				<label for="">端口</label>
+				<input class="input_port" placeholder="请输入 vpn 连接端口">
+			</view>
+			<button type="button" class="mui-btn mui-btn-blue" onclick="toInitVpn()">初始化vpn</button>
+			<button type="button" class="mui-btn mui-btn-blue" onclick="toLoginVpn()">登录vpn</button>
+			<button type="button" class="mui-btn mui-btn-blue" onclick="toStartVpn()">开启vpn</button>
+			<button type="button" class="mui-btn mui-btn-blue" onclick="toCloseVpn()">关闭vpn</button>
+			<button type="button" class="mui-btn mui-btn-blue" onclick="toCheckVpn()">检测vpn</button>
+		</div>
+		
+		<script type="text/javascript">
+			(function() {
+				document.addEventListener("plusready", function() {
+					toInitVpn();
+				}, true);
+			})();
+		</script>
+	</body>
+</html>

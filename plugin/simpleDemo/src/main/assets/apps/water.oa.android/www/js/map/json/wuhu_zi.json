@@ -1,0 +1,79 @@
+{
+	"type": "FeatureCollection",
+	"features": [{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [110.49039913735835, 34.88877451680729]
+			},
+			"properties": {
+				"name": "伍姓湖",
+				"Layer": "新建图层",
+				"desc_": "",
+				"Style": "BRUSH(fc:#4d90fe50,id:ogr-brush-0);PEN(c:#4d90feff,w:2.000000px,id:ogr-pen-0);LABEL(f:黑体,s:11.000000pt,c:#ffffffff,w:100.000000,o:#000000f",
+				"ORIG_FID": 0,
+				"id":5
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [110.9989756206328, 34.984690916716076]
+			},
+			"properties": {
+				"name": "盐湖",
+				"Layer": "新建图层",
+				"desc_": "",
+				"Style": "BRUSH(fc:#4d90fe50,id:ogr-brush-0);PEN(c:#4d90feff,w:2.000000px,id:ogr-pen-0);LABEL(f:黑体,s:11.000000pt,c:#ffffffff,w:100.000000,o:#000000f",
+				"ORIG_FID": 1,
+				"id":4
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [112.5008082660316, 37.768635681613354]
+			},
+			"properties": {
+				"name": "晋阳湖",
+				"Layer": "新建图层",
+				"desc_": "",
+				"Style": "BRUSH(fc:#4d90fe50,id:ogr-brush-0);PEN(c:#4d90feff,w:2.000000px,id:ogr-pen-0);LABEL(f:黑体,s:11.000000pt,c:#ffffffff,w:100.000000,o:#000000f",
+				"ORIG_FID": 2,
+				"id":1
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [112.77252196326349, 37.0651917437577]
+			},
+			"properties": {
+				"name": "云竹湖",
+				"Layer": "新建图层",
+				"desc_": "",
+				"Style": "BRUSH(fc:#4d90fe50,id:ogr-brush-0);PEN(c:#4d90feff,w:2.000000px,id:ogr-pen-0);LABEL(f:黑体,s:11.000000pt,c:#ffffffff,w:100.000000,o:#000000f",
+				"ORIG_FID": 3,
+				"id":3
+			}
+		},
+		{
+			"type": "Feature",
+			"geometry": {
+				"type": "Point",
+				"coordinates": [113.04477540523052, 36.28019696657143]
+			},
+			"properties": {
+				"name": "漳泽湖",
+				"Layer": "新建图层",
+				"desc_": "",
+				"Style": "BRUSH(fc:#4d90fe50,id:ogr-brush-0);PEN(c:#4d90feff,w:2.000000px,id:ogr-pen-0);LABEL(f:黑体,s:11.000000pt,c:#ffffffff,w:100.000000,o:#000000f",
+				"ORIG_FID": 4,
+				"id":2
+			}
+		}
+	]
+}

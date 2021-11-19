@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_agtywncb2zc.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="communication">
+				<p class="p1">通讯录</p>
+				<div class="communication-nav">
+					<h1><div class="left"><i class="iconfont icon-zuzhi"></i></div>组织架构</h1>
+					<ul id="communication-ul">
+						<!--<li>办公室</li>
+						<li>人事部</li>
+						<li>水力资源部</li>-->
+					</ul>
+					<p class="zhankaisuoyou">展开所有<i class="iconfont icon-xiala"></i></p>
+					<p class="guanbizhankai">关闭展开<i class="iconfont icon-xiala-xiangshang"></i></p>
+				</div>
+				<div class="communication-content">
+					<div class="communication-c-h">
+						<h1><div class="left"><i class="iconfont icon-lianxiren1"></i></div>常用联系人</h1>
+					</div>
+					<div class="communication-c-c">
+						<ul id="details">
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/header.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+
+				var root = localStorage.getItem("str_url");
+				if(root == "" || root == undefined || root == null) {
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+					})
+				}
+				var token = localStorage.getItem("token");
+				var b = 1;
+				//			console.log("asdadas")
+				function list(b) {
+					var _url = root + 'api/contacts/'
+
+					if(b == 1) {
+						console.log(11111111111111)
+						mui.ajax(_url, {
+							data: {
+								"token": token,
+							},
+							datatype: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							success: function(data) {
+								console.log(JSON.stringify(data))
+								if(data.code == 1) {
+									$("#communication-ul").empty();
+									$("#details").empty()
+									data.data.department.forEach(function(v, index) {
+										if(index < 3) {
+											$("#communication-ul").append("<li onclick='cont(" + v.id + ",\"" + v.name + "\")'>" + v.name + "</li>");
+										}
+									})
+									data.data.contacts.forEach(function(v1, index) {
+										$("#details").append("<li onclick='contxq(" + v1.id + ")' ><div class='left'><img src='" + v1.avatar + "'/></div>" + v1.truename + "</li>");
+									})
+
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								//异常处理；
+								//		console.log(type);
+							}
+						})
+					} else {
+						mui.ajax(_url, {
+							data: {
+								"token": token,
+							},
+							datatype: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							success: function(data) {
+								console.log(JSON.stringify(data))
+								if(data.code == 1) {
+									$("#communication-ul").empty();
+									$("#details").empty()
+									data.data.department.forEach(function(v, index) {
+										$("#communication-ul").append("<li onclick='cont(" + v.id + ",\"" + v.name + "\")'>" + v.name + "</li>");
+									})
+									data.data.contacts.forEach(function(v1, index) {
+										$("#details").append("<li onclick='contxq(" + v1.id + ")' ><div class='left'><img src='" + v1.avatar + "'/></div>" + v1.truename + "</li>");
+									})
+
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								//异常处理；
+								//		console.log(type);
+							}
+						})
+					}
+
+				}
+				list(b);
+
+				function cont(i, n) {
+					console.log(i)
+					console.log(n)
+					mui.openWindow({
+						url: 'contacts.html', //通过URL传参
+						id: 'contacts.html', //通过URL传参
+						extras: {
+							name: n,
+							i: i,
+						}, //
+					})
+				}
+
+				function contxq(idd) {
+					console.log(idd)
+					mui.openWindow({
+
+						url: 'communicationDetails.html', //通过URL传参
+						id: 'communicationDetails.html', //通过URL传参
+						extras: {
+							i: idd,
+						},
+					})
+				}
+
+				//			jq
+				$(".zhankaisuoyou").click(function() {
+					$(this).css("display", "none");
+					$(".guanbizhankai").css("display", "block");
+					b = 2;
+					list(b)
+				})
+				$(".guanbizhankai").click(function() {
+					$(this).css("display", "none");
+					$(".zhankaisuoyou").css("display", "block");
+					b = 1;
+					list(b)
+				})
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

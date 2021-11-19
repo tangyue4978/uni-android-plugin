@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_j11yuu596xl.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/bumfDetails.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/state.css"/>
+		<style type="text/css">
+			.secret{
+				display: none;
+			}
+			/*//选择节点*/
+			.selectNode{
+				display: none;
+			}
+			/*选择协助节点*/
+			.isAssist{
+				display: none;
+			}
+			.jointly_sign{
+				width: 100%;
+				background-color: #FFFFFF;
+			}
+			.jointly_sign .jointly_sign_box{
+				width: 100%;
+			}
+			.jointly_sign .jointly_sign_box .jointly_sign_ul{
+				width: 100%;
+				overflow: hidden;
+				padding: 0.1rem 0rem;
+			} 
+			.jointly_sign .jointly_sign_box .jointly_sign_ul li{
+				width: 45%;
+				float: left; 
+				margin-left: 3%;
+				background-color: #F0F0F0;
+				color: #333333;
+				height: 0.6rem;
+				line-height: 0.6rem;
+				text-align: center;
+				list-style: none;
+				padding: 0rem;
+				border-radius: 2em;
+				font-size: 0.35rem;
+				margin-bottom: 0.2rem;
+				overflow: hidden;
+			}
+			.jointly_sign .jointly_sign_box .jointly_sign_ul li.active{
+				background-color: #397AEF;;
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body style="background: #fff;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></i></a>收文签收
+				</p>
+				<div class="bumfDetails-nav">
+
+					<!--<div class="left">
+						<h2><span class="h2_bt">有关项目进展的会议有关项目进展的会议有关项目进展的会议</span><span class="fr type">厅函</span></h2>
+						<p>王建国　办公室科员　2018-12-08 20:21</p>
+					</div>-->
+					<div class="left">
+						<h2><span class="h2_bt"></span><span class="fr type" id="type_fr"></span></h2>
+						<p class="information"></p>
+					</div>
+				</div>
+				<div class="bumfDetails-conent">
+					<div>
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a id="a_item1" class="mui-control-item mui-active" href="#item1">批阅卡信息</a>
+							<a id="a_item2" class="mui-control-item" href="#item2">正文附件</a>
+							<!--<a class="mui-control-item" href="#item3">
+								签批单
+							</a>-->
+
+						</div>
+					</div>
+					<div class="">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul>
+								<!--<li><span>发文字号</span>晋发[12]号</li>
+								<li><span>紧急程度</span>平急</li>
+								<li><span>密级</span>机密</li>
+								<li><span>发文日期</span>2018-12-12</li>
+								<li><span>拟文部门</span>办公室</li>
+								<li><span>签收部门</span>水利厅</li>
+								<li><span>签发人</span>2018-12-12</li>
+								<li><span>拟稿人</span>2018-12-12</li>
+								<li class="fujian"><span>附件</span>
+									<div class="left div1"><i class="iconfont icon-wenjian"></i></div>
+									<div class="left div2">
+										<p>测试附件.doc</p><span>未知</span></div>
+								</li>-->
+
+							</ul>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<!--<div class="btn"><button onclick="chakanzhengwen()">查看正文</button></div>-->
+
+							<!--<ul class="hide">
+								<li>
+									<p class="title"><span class="span1">秘书一处副主任</span><span class="span2">同意</span><span class="span2">回退</span><i class="iconfont icon-xiaoxi2"></i></p>
+									<h3>安排了快递</h3>
+									<p class="sj">2018-08-31 16:20</p>
+								</li>
+								<li>
+									<p class="title"><span class="span1">秘书一处副主任</span><span class="span2">同意</span><span class="span2">回退</span><i class="iconfont icon-xiaoxi2"></i></p>
+									<h3>安排了快递</h3>
+									<p class="sj">2018-08-31 16:20</p>
+								</li>
+								<li>
+									<p class="title"><span class="span1">秘书一处副主任</span><span class="span2">同意</span><span class="span2">回退</span><i class="iconfont icon-xiaoxi2"></i></p>
+									<h3>语音</h3>
+									<p class="sj">2018-08-31 16:20</p>
+								</li>
+							</ul>-->
+
+							<!--<div class="bumfDetails-fooder">
+								<div class="left yijian"></div>
+								<div class="right" onclick="chuli()"><i class="iconfont icon-bianji"></i>处理</div>
+							</div>-->
+						</div>
+					</div>
+					<div class="gray intitle">流程信息</div>
+					<div class="process_box">
+						<ul class="process_ul">
+							<!--<li class="process_li">
+								<h3 class="p_h3">
+									<span class="p_s1">王鹏宇</span>
+									<span class="p_s2">水资源处科员</span>
+									<span class="p_s3 text-blue">拟稿</span>
+								</h3>
+								<p class="p_time">文件描述不明确</p>
+								<p class="p_time">2018-12-08 15:24</p>
+							</li>
+							<li class="process_li">
+								<h3 class="p_h3">
+									<span class="p_s1">王鹏宇</span>
+									<span class="p_s2">水资源处科员</span>
+									<span class="p_s3 text-green">同意</span>
+								</h3>
+								<p class="p_time">文件描述不明确</p>
+								<p class="p_time">2018-12-08 15:24</p>
+							</li>
+							<li class="process_li">
+								<h3 class="p_h3">
+									<span class="p_s1">王鹏宇</span>
+									<span class="p_s2">水资源处科员</span>
+									<span class="p_s3 text-red">驳回</span>
+								</h3>
+								<p class="p_time">文件描述不明确</p>
+								<p class="p_time">2018-12-08 15:24</p>
+							</li>-->
+						</ul>
+					</div>
+					<div class="gray"></div>
+					<div class="approval">
+						
+						<!--下一步节点-->
+						<div class="selectNode" >
+							<h3 style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步节点</h3>
+							<div class="select_node" >
+								<select id="select_node" style="background-color: #0062CC;color:#FFFFFF;font-size: 0.3rem;text-align: center;padding: 0.2rem;border-radius: 0.1rem;">
+									<option value="" >请选择</option>
+								</select>
+							</div>
+						</div>
+						<!--选择协助节点-->
+						<div class="isAssist" >
+							<h3 style="color: #323232;text-align: center;font-size: 0.35rem;">协助审批</h3>
+							<div class="assistFlows" >
+								<select id="assistFlows" style="background-color: #0062CC;color:#FFFFFF;font-size: 0.3rem;text-align: center;padding: 0.2rem;border-radius: 0.1rem;">
+									<option value="" >请选择</option>
+								</select>
+							</div>
+						</div>
+						<!--选择下一步审批人-->
+						<div class="isListBox" >
+							<h3 id="clr_h3" style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步处理人</h3>
+							<div class="select_box">
+								<!--<p>部门</p>
+								<ul class="select_ul">
+									<li class="">安安生生</li>
+									<li class="">安安生生</li>
+									<li class="">安安生生</li>
+								</ul>-->
+							</div>
+						</div>
+						<div class="clyj_box">
+							<textarea class="textarea" name="" rows="" cols="" placeholder="您的处理意见"></textarea>
+							<div class="audio_box">
+								<div class="text_box">点击录音</div>
+								<div class="img_box" data-status="0"></div>
+								<div class="text_box gray_color">录音时长：00:00</div>
+							</div>
+							<div class="play_list_box">
+								<!--<div class="play_box">
+									<div class="play_left play_recording_start"></div>
+									<div class="play_center play_recording_centent">点击播放</div>
+									
+									<div class="play_right play_recording_end">
+										<span class="second">
+											<span class="play_time">--:--</span>
+											<span class="clear_ly">删除</span>
+										</span>
+									</div>
+								</div>-->
+							</div>
+
+							<!--<div class="btn_box">
+								<span data-status="2" class="reject btn_span">驳回</span>
+								<span data-status="1" class="agree btn_span active">同意</span>
+							</div>-->
+						</div>
+						
+						<div id="submit">
+							<button class="button">提交</button>
+						</div>
+					</div>
+					<div class="mui-loading" style="padding-top: 3rem;">
+						<div class="mui-spinner"></div>
+					</div>
+				</div>
+
+			</div>
+			<!--<iframe src="pdf/viewer.html" width="100%" height="" ></iframe>-->
+		</div>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="js/mui.PopPicker.js"></script>
+		<script src="js/receipt_sign_details.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/autio.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

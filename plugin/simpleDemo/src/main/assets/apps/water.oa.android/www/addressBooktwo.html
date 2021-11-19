@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/addressbook.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.noticce {
+				padding-left: 0rem;
+				padding-right: 0rem;
+				padding-bottom: 1px;
+			}
+			
+			.noticce-content {
+				border: 0rem solid #e5e5e5;
+			}
+			/*我的*/
+			
+			.photo {
+				padding: 0rem 0.3rem;
+				padding-right: 0rem;
+				height: auto;
+				/*border-top: 1px solid #CCCCCC;*/
+				/*border-bottom: 1px solid #CCCCCC;*/
+			}
+			
+			.photo .mt-125 {
+				display: block;
+				height: 1.3rem;
+				border-bottom: 1px solid #CCCCCC;
+				margin: 0rem;
+				/*background-color: red;*/
+				width: 100%;
+				padding: 0.15rem 0rem;
+			}
+			/*.photo .mt-125:last-child {
+				border-bottom: 0px solid #CCCCCC;
+			}*/
+			
+			.photo .mt-125 .mt-left {
+				display: block;
+				width: 1rem;
+				height: 100%;
+				float: left;
+				padding-top: 0.1rem;
+				text-align: left;
+			}
+			
+			.photo .mt-125 .mt-left .mt-img {
+				width: 0.8rem;
+				height: 0.8rem;
+				border-radius: 50%;
+			}
+			
+			.photo .mt-125 .mt-right {
+				display: block;
+				margin-left: 1rem;
+				position: relative;
+			}
+			
+			.photo .mt-125 .mt-right .mt-h4 {
+				padding: 0rem;
+				margin: 0rem;
+				padding-right: 0.8rem;
+				overflow: hidden;
+				font-size: 0.33rem;
+				height: 0.5rem;
+				line-height: 0.6rem;
+				color: #333333;
+			}
+			
+			.photo .mt-125 .mt-right .mt-p {
+				padding: 0rem;
+				margin: 0rem;
+				padding-right: 0.8rem;
+				overflow: hidden;
+				font-size: 0.27rem;
+				height: 0.5rem;
+				line-height: 0.5rem;
+				color: #999999;
+			}
+			
+			.photo .mt-125 .mt-right .mt-jt {
+				padding: 0rem;
+				margin: 0rem;
+				display: inline-block;
+				position: absolute;
+				right: 0.3rem;
+				width: 0.5rem;
+				text-align: center;
+				height: 100%;
+				color: #959595;
+				top: 0rem;
+				line-height: 1rem;
+			}
+		</style>
+	</head>
+
+	<body style="background:#F8F8F8;">
+		<div class="mui-content btt-01">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>
+				</p>
+
+				<div class="chioceNotice-sousuo  chioceNotice-susu">
+					<i class="iconfont icon-sousuo"></i>
+					<input type="text" name="" id="soso_input" value="" readonly="readonly" placeholder="搜索姓名/电话" />
+				</div>
+				<div class="noticce text-f">
+
+					<div class="noticce-content">
+						<div class="photo">
+							<!--<div class="mt-125">
+								<div class="mt-left">
+									<img class="mt-img" src="images/tu-hui.png" />
+								</div>
+								<div class="mt-right">
+									<h4 class="mt-h4">赵立冬</h4>
+									<p class="mt-p"><span class="mt-span">职务</span></p>
+									<i class="mt-jt mui-icon mui-icon-arrowright "></i>
+								</div>
+							</div>
+							<div class="mt-125">
+								<div class="mt-left">
+									<img class="mt-img" src="images/258.png" />
+								</div>
+								<div class="mt-right">
+									<h4 class="mt-h4">赵立冬</h4>
+									<p class="mt-p"><span class="mt-span">职务</span></p>
+									<i class="mt-jt mui-icon mui-icon-arrowright "></i>
+								</div>
+							</div>-->
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+				if(root == "" || root == undefined || root == null) {
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+					})
+				}
+			var token = localStorage.getItem("token");
+			var self,department_id;
+			document.addEventListener( "plusready", function(){
+				self = plus.webview.currentWebview();
+//				console.log(JSON.stringify(self));
+				department_id = self.department_id
+				var _url = root + 'api/contacts/list';
+				mui.ajax(_url, {
+					data: {
+						"token": token
+						,"department_id":department_id
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						if(data.code == 1) {
+							
+							$(".pp").html('<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>'+data.dName)
+							var contacts = data.data;
+							if(contacts != "" && contacts != null && contacts != undefined) {
+								for(var i in contacts) {
+									var str =contacts[i].avatar!=undefined? root+contacts[i].avatar:'images/tu-hui.png';
+									$(".photo").append(
+										'<div class="mt-125" onclick="personnel_details(' + contacts[i].id + ')">' +
+										'<div class="mt-left">' +
+										'<img class="mt-img" src="' + str + '"/>' +
+										'</div>' +
+										'<div class="mt-right">' +
+										'<h4 class="mt-h4">' + contacts[i].truename + '</h4>' +
+										'<p class="mt-p"><span class="mt-span">' + contacts[i].duty + '</span></p>' +
+										'<i class="mt-jt mui-icon mui-icon-arrowright "></i>'+
+										'</div>' +
+										'</div>'
+									)
+								}
+							} else {
+								$(".photo").append('<div class="mt-125" style="text-align: center;line-height: 1rem;color: #666666;padding-right: 0.5rem;font-size: 0.3rem;">暂无联系人</div>')
+								//							$(".photo").hide();
+								//							$(".attn").hide();
+							}
+						} else if(data.code > 2 && data.code < 100) {
+							mui.toast(data.msg);
+							mui.openWindow({
+								url: 'login.html?cid=1', //通过URL传参
+								id: 'login.html?cid=1' //通过URL传参
+							})
+						} else {
+							mui.toast(data.msg);
+						}
+						$(".mui-loading").hide();
+	
+					},
+					error: function(xhr, type, errorThrown) {
+						//					console.log(JSON.stringify(xhr)+"\n"+ type+"\n"+ errorThrown)
+						mui.toast("网络异常！")
+					}
+				})
+			}, false );
+			
+			//跳转部门列表
+			function department_list(id) {
+				var id = id;
+				mui.openWindow({
+					url: 'addressBooktwo.html', //通过URL传参
+					id: 'addressBooktwo.html', //通过URL传参
+					extras: {
+						department_id: id
+					}
+				})
+			}
+			//跳转人员详情
+			function personnel_details(id) {
+				var id = id;
+				mui.openWindow({
+					url: 'addressBookthree.html', //通过URL传参
+					id: 'addressBookthree.html', //通过URL传参
+					extras: {
+						user_id: id
+					}
+				})
+			}
+		</script>
+		<script type="text/javascript">
+			/*
+			 * 搜索
+			 */
+			$("#soso_input").on("click",function(){
+				mui.openWindow({
+					url: 'addressBookSearch.html', //通过URL传参
+					id: 'addressBookSearch.html' //通过URL传参
+				})
+			})
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

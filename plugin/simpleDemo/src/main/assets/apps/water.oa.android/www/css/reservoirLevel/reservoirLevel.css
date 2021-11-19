@@ -1,0 +1,137 @@
+/* .leftPosi {
+    top: 3rem!important;
+} */
+/* 自带放大缩小隐藏 */
+.ol-zoom {display: none;}
+.section{width: 100%;height: calc(100% - 1.3rem);position: fixed;left: 0;top: 1.3rem;margin: 0;}
+.mapBox,#map{width: 100%;height: 100%;}
+
+.searchPanel.searchPanel1{
+	width: 100%;
+	height: 1.35rem;
+	background-color: #FFFFFF;
+	border-bottom: 0.01rem solid #CCCCCC;
+	display: flex;
+	justify-content: space-between;
+	position: absolute;
+	left: 0px;
+	top:0px;
+}
+.reservoirBoxL{
+	width: 50%;
+	height: 100%;
+	padding: 0.28rem 0;
+}
+.reservoirBoxL_S{
+	width: 100%;
+	height: 0.34rem;
+	text-align: center;
+	font-size: 0.38rem;
+	font-weight: bold;
+	color: #3a77f0;
+	border-right: 0.01rem solid #CCCCCC;
+}
+.reservoirBoxL_X{
+	width: 100%;
+	height: 0.48rem;
+	color: #333333;
+	font-size: 0.24rem;
+	padding-top: 0.15rem;
+}
+.reservoirBoxL_X label{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.checkBox_input{
+	width: 0.4rem;
+	height: 0.4rem;
+	background: url(../../images/remember_k.png) no-repeat center;
+	background-size: 100% 100%;
+	margin-right: 0.1rem;
+	cursor: pointer;
+}
+.checkBox_input:checked{
+	background: url(../../images/remember.png) no-repeat center;
+	background-size: 100% 100%;
+	cursor: pointer;
+}
+/* 侧边导航 */
+.rightTabs{}
+.rightPosi{position: absolute;top: 1.6rem;right: 4%;}
+.leftPosi{position: absolute;top: 1.6rem;left: 2%;}
+.rightTabs ul li{margin: .06rem 0;}
+.rightTabs li a{display: block;}
+.rightTabs li img{width: 1.2rem;height: 1.2rem;}
+
+/* 基础框start */
+.baseFrame{
+	width: auto;
+	height: auto;
+	position: absolute;
+	/* left: 0.38rem; */
+	top: 1.3rem;
+	z-index: 6;
+}
+.baseFrame_box1{
+	width: 1.23rem;
+	height: 0.9rem;
+	display: none;
+}
+.baseFrame_box1s{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(143,172,206,0.8);
+	border-radius: 0.1rem;
+	display: flex;
+	align-items: center;
+}
+.baseFrame .baseFrame_img{
+	width: 0.33rem;
+	height: 100%;
+	background-color: rgba(110,157,229,0.7);
+	border-top-left-radius: 0.1rem;
+	border-bottom-left-radius: 0.1rem;
+	transform: rotateZ(180deg);
+}
+.baseFrame .leftArrow{
+	width: 0.3rem;
+	height: 0.3rem;
+	margin-top: 0.3rem;
+}
+.baseFrame .baseFrame_text{
+	width: 0.9rem;
+	height: 0.9rem;
+	box-sizing: border-box;
+	background-color: rgba(143,172,206,0.5);
+	border-radius: 0.1rem;
+	color: #feffff;
+	font-size: 0.28rem;
+	line-height: 1.2;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.baseFrame_box2{
+	width: auto;
+	height: auto;
+	padding: 0 0.2rem;
+	border: 1px solid #7898bf;
+	border-radius: 0.1rem;
+	color: #15449e;
+	font-size: 0.28rem;
+	white-space: nowrap;
+	position: absolute;
+	right: 0;
+	top: 0.31rem;
+	background-color: rgba(208,225,235,0.7);
+}
+.baseFrame_box2 .wrong{
+	font-size: 0.4rem;
+	display: inline-block;
+	width: 0.5rem;
+	vertical-align: middle;
+	text-align: center;
+}
+/* 基础框end */

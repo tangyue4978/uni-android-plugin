@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>cesium</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/map/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/riverChief.css"/>
+		<!-- 引入右边导航栏样式 -->
+		<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+		<!-- cesium -->
+		<link rel="stylesheet" type="text/css" href="http://wateroa.sxjicheng.com/uploads/Cesium-1.82/Widgets/widgets.css"/>
+		<style type="text/css">
+			.icon_img06{
+				width: 0.36rem;
+				height: 0.36rem;
+				margin-right: 10px;
+			}
+			.icon_img07{
+				width: 0.4rem;
+				height: 0.4rem;
+				margin-right: 10px;
+			}
+			.nav_ul_box .nav_li_item{width: 50%;}
+			
+			.mapBox #map{background-color: #C3E2AE;}
+		</style>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://wateroa.sxjicheng.com/uploads/Cesium-1.82/Cesium.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>cesium</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a href=""><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section">
+				<div class="mapBox">
+					<div id="map"></div>
+					<div class="top_nav">
+						<ul class="nav_ul_box">
+							<li class="nav_li_item isShow" data-type="riverLakeLongSystem">管理对象</li>
+							<li class="nav_li_item isShow" data-type="listLogSystem">列表查看</li>
+						</ul>
+					</div>
+					<div class="list_box" id="riverLakeLongSystem">
+						<div class="list_obj heightauto" >
+							<ul class="list_ul">
+								<li class="list_li" data-type="qdata" data-qname="zhirancun" data-Url="api/rural/map">
+									<img class="icon_img06" src="../../images/ruralWater/marker_blue.png" >
+									<span>测试1</span>
+								</li>
+								<li id="jczd" class="list_li" data-type="qdata" data-url="api/v4/water_gate_pump/pump" data-qname="icon_23" data-id="6">
+									<img class="icon_img06" src="../../images/big_water_network/icon-23.png" >
+									<span>测试2</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+	<script src="../../js/cesium/cesium_map_init.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/cesium/cesium_base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		/**
+		 * @description 放大
+		 */
+		function zoomInFun() {
+			$(".ol-zoom .ol-zoom-in").click();
+		}
+		/**
+		 * @description 缩小
+		 */
+		function zoomOutFun() {
+			$(".ol-zoom .ol-zoom-out").click();
+		}
+	</script>
+</html>

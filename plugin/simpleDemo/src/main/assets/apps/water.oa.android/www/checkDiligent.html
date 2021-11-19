@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body style="background: #fff">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>考勤</p>
+
+				<div class="checkDiligent">
+					<div class="checkDiligent-h">
+						<div class="left">
+							<img id="img" src="" alt="" />
+						</div>
+						<div class="left">
+							<h1 id="h1">--<span>****-**-**</span></h1>
+							<p class="p1">考勤组：*****</p>
+						</div>
+						<div class="right">
+							<button id="tongji">考勤统计</button>
+						</div>
+					</div>
+					<div class="checkDiligent-c">
+						<h6 class="h61"><span class="dian">●</span></h6>
+						<div class="yiqiandao">
+							<button class="zhengc qiandao"></button>
+							<p class="didian"></p>
+						</div>
+						<p class="yiqd"></p>
+						<p class="qddd" style="margin-left: 0.3rem;margin-top: -0.5rem;"></p>
+					</div>
+					<div class="tishi" style="line-height: 8rem;width: 100%;color: #c1c1c1;font-size: 0.4rem;">----</div>
+					<div class="checkDiligent-c" style="margin: 0 0.3rem;border-left: 1px solid #fff;">
+						<h6 class="h62"><span class="dian">●</span></h6>
+						<!--<p class="queka">缺卡</p>-->
+						<div class="yiqiantui">
+							<button class="zhengc qiantui"></button>
+							<p class="didian"></p>
+						</div>
+						<p class="yiqt"></p>
+						<p class="qtdd" style="margin-left: 0.3rem;margin-top: -0.5rem;"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var user_latitude, user_longitude,user_addresses;
+			//考勤统计
+			document.getElementById("tongji").addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'checkDiligentStatistics.html', //通过URL传参
+					id: 'checkDiligentStatistics.html', //通过URL传参
+				})
+			});
+
+			list()
+			function list() {
+							
+				var _url = root + 'api/attendance/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							console.log(data.data);
+							if(data.data == false){
+								$(".checkDiligent-c").css("display", "none");
+								$(".tishi").css("display", "block");
+								$(".tishi").html("不在考勤时间内")
+							}else{
+								if(data.data.type == 6){
+									$(".checkDiligent-c").css("display", "none");
+									$(".tishi").css("display", "block");
+									$(".tishi").html("今天是休息日")
+								}else{
+									$(".checkDiligent-c").css("display", "block");
+									if(data.data.sign_intime != null&&data.data.sign_intime != ""&&data.data.sign_intime != undefined) {
+										$(".yiqiandao").css("display", "none");
+										$(".yiqd").css("display", "block");
+										if(data.data.signInstatus == 1) {
+											$(".yiqd").html("签到时间：" + data.data.sign_intime + "<span>正常</span>")
+											$(".qddd").html("签到地点：" + data.data.sign_inaddress)
+										} else {
+											$(".yiqd").html("签到时间：" + data.data.sign_intime + "<span>迟到</span>")
+											$(".qddd").html("签到地点：" + data.data.sign_inaddress)
+										}
+									}
+									if(data.data.sign_outtime != null&&data.data.sign_outtime != ""&&data.data.sign_outtime != undefined) {
+										$(".yiqiantui").css("display", "none")
+										$(".yiqt").css("display", "block");
+										//								$(".yiqt").html("签到时间：" + data.data[0].sign_outtime)
+										//		
+										if(data.data.signOutstatus == 1) {
+											$(".yiqt").html("签退时间：" + data.data.sign_outtime + "<span>正常</span>")
+											$(".qtdd").html("签退地点：" + data.data.sign_outaddress)
+											
+										} else {
+											$(".yiqt").html("签退时间：" + data.data.sign_outtime + "<span>早退</span>")
+											$(".qtdd").html("签退地点：" + data.data.sign_outaddress)
+										}
+									}
+									$(".h61").html('<span class="dian">●</span>上班时间：' + data.data.start_worktime)
+									$(".h62").html('<span class="dian">●</span>下班时间：' + data.data.end_worktime)
+								}
+							}
+							//头像已注释
+							var avatar = data.information.avatar;
+							if (avatar != undefined && avatar != null && avatar != "") {
+								$("#img").attr("src", root + avatar);
+							} else{
+								$("#img").attr("src", "images/user.png");
+							}
+							$("#h1").html(data.information.username + '<span>' + data.information.date + '</span>')
+							$(".p1").html('考勤组：' + data.information.name);
+						}else{
+							mui.toast(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络异常,请确认网络状态");
+					}
+				})
+			}
+			setInterval("getDate()", 1000)
+
+			function getDate() {
+
+				var myDate = new Date();
+
+				//获取当前年
+				var year = myDate.getFullYear();
+				//获取当前月
+				var month = myDate.getMonth() + 1;
+
+				//获取当前日
+				var date = myDate.getDate();
+				var h = myDate.getHours(); //获取当前小时数(0-23)
+				var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+				var s = myDate.getSeconds();
+
+				//获取当前时间
+
+				var yearmonthdate = year + '-' + conver(month) + "-" + conver(date)
+				var qiandaodata = year + '/' + conver(month) + "/" + conver(date) + " " + "08:30:00";
+				var qiantuidata = year + '/' + conver(month) + "/" + conver(date) + " " + "18:00:00";
+				var shifenmiao = conver(h) + ':' + conver(m) + ":" + conver(s);
+				//				console.log(qiandaodata);
+
+				//				获取签到时间的时间戳
+				var qdTime = (new Date(qiandaodata).getTime() / 1000);
+				var qtTime = (new Date(qiantuidata).getTime() / 1000);
+				var ssTime = ((new Date().getTime() / 1000).toFixed(0))
+				//				console.log(qdTime)
+				//				console.log(ssTime)
+
+				if(qdTime > ssTime) {
+					$(".qiandao").html('正常打卡<br><span>' + shifenmiao + '</span>')
+				} else {
+					$(".qiandao").addClass("chidao")
+					$(".chidao").html('迟到打卡<br><span>' + shifenmiao + '</span>')
+				}
+				if(qtTime > ssTime) {
+					$(".qiantui").html('早退打卡<br><span>' + shifenmiao + '</span>')
+				} else {
+					$(".qiantui").html('正常打卡<br><span>' + shifenmiao + '</span>')
+				}
+
+			}
+			//日期时间处理
+			function conver(s) {
+				return s < 10 ? '0' + s : s;
+			}
+			//签到
+			$(".qiandao").click(function() {
+				var _url = root + 'api/attendance/new';
+				console.log(
+					"--token--"+ token+
+					"--type--"+ "sign_in"+
+					"--longitude--"+ user_longitude+
+					"--latitude--"+ user_latitude+
+					"--address--"+ user_addresses
+				)
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type": "sign_in",
+						"longitude": user_longitude,
+						"latitude": user_latitude,
+						"address": user_addresses
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast("签到成功");
+							list()
+						}else{
+							mui.toast(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络异常，请检查网络");
+//						mui.alert("xhr="+JSON.stringify(xhr)+", type="+type+", errorThrown="+errorThrown);
+					}
+				})
+
+			})
+
+			$(".qiantui").click(function() {
+				var _url = root + 'api/attendance/new';
+				console.log(
+					"--token--"+ token+
+					"--type--"+ "sign_out"+
+					"--longitude--"+ user_longitude+
+					"--latitude--"+ user_latitude+
+					"--address--"+ user_addresses
+				)
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type": "sign_out",
+						"longitude": user_longitude,
+						"latitude": user_latitude,
+						"address": user_addresses
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast("签退成功");
+							list();
+						}else{
+							mui.toast(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("网络异常，请检查网络");
+//						mui.alert("xhr="+JSON.stringify(xhr)+", type="+type+", errorThrown="+errorThrown);
+					}
+				})
+
+			})
+
+			document.addEventListener("plusready", function() {
+
+				plus.geolocation.getCurrentPosition(function(res) {
+					//成功回调				
+					user_addresses = res.addresses;
+					user_latitude = res.coords.latitude;
+					//纬度					
+					user_longitude = res.coords.longitude;
+					console.log("地址："+user_addresses+"纬度："+user_latitude+"经度："+user_longitude);
+					if(user_addresses != null && user_addresses != undefined && user_addresses !== "") {
+						$('.didian').html('签到地点：'+ user_addresses)
+					}else {
+						$(".didian").html('签到地点：'+'未获取到当前地点')
+					}
+					
+					
+					//经度					
+					//mui.alert("经度："+user_longitude+" 纬度："+user_latitude);
+				}, function(e) {
+					console.log('Gelocation Error: code - ' + e.code + '; message - ' + e.message);
+					switch(e.code) {
+						case 10:
+							mui.alert('请开启应用的定位权限', '温馨提示', '确定', function() {}, 'div');
+							break;
+						case 9:
+							//mui.alert('请开启手机定位服务');		
+							mui.alert('请开启手机定位服务', '温馨提示', '确定', function() {}, 'div');
+							break;
+						case 2:
+							if(e.message.indexOf("[geolocation:13]") > -1) {
+								//如果网络开启，定位失败，提示检查定位权限				
+								mui.alert('请开启应用的定位权限', '温馨提示', '确定', function() {}, 'div');
+							}
+							if(e.message.indexOf("[geolocation:14]") > -1) {
+								//如果应用的权限开了，提示网络异常			
+								mui.alert('请检查网络是否正常', '温馨提示', '确定', function() {}, 'div');
+							}
+							break;
+						case e.PERMISSION_DENIED:
+							mui.alert('请求定位被拒绝', '温馨提示', '确定', function() {}, 'div');
+							break;
+						case e.POSITION_UNAVAILABLE:
+							mui.alert("位置信息不可用", '温馨提示', '确定', function() {}, 'div');
+							break;
+						case e.TIMEOUT:
+							mui.alert("获取位置信息超时", '温馨提示', '确定', function() {}, 'div');
+							break;
+						case e.UNKNOWN_ERROR:
+							mui.alert("未知错误", '温馨提示', '确定', function() {}, 'div');
+							break;
+					}
+				}, {
+					//超时未获取到经纬度信息  执行失败回调  (默认为5秒)		
+					timeout: 3000
+				})
+				//打印输出
+
+			}, false);
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

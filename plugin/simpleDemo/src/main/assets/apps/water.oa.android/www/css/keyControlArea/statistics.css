@@ -1,0 +1,71 @@
+body{
+	background-color: #F6F6F6;
+}
+/* 主体start */
+.content_box{
+	width: 94%;
+	height: auto;
+	background-color: #ffffff;
+	border-radius: 0.2rem;
+	padding: 0.3rem;
+	margin: 1.7rem auto 0;
+}
+/* 主体end */
+/* 标题start */
+.title{
+	width: 100%;
+	height: 0.28rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.title_left{
+	color: #333333;
+	font-size: 0.26rem;
+	line-height: 0.28rem;
+}
+.title_left .line{
+	display: inline-block;
+	width: 0.05rem;
+	height: 0.28rem;
+	background-color: #3A77F0;
+}
+.date{
+	width: 1.3rem;
+	height: auto;
+	background: url(../../images/riverChief/arrow_down.png) no-repeat right;
+	background-size: 14px 8px;
+}
+/* 标题end */
+/* 总治理面积start */
+.totals{
+	width: 91%;
+	height: 1.3rem;
+	border-radius: 0.1rem;
+	background-color: #3A77F0;
+	margin:0.38rem auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.totals_data{
+	font-size: 0.35rem;
+	color: #ffffff;
+	font-weight: bold;
+}
+.totals_name{
+	font-size: 0.24rem;
+	color: #9DBBF8;
+}
+/* 总治理面积end */
+/* 治理面积start */
+.government{
+	width: 100%;
+	height: 7rem;
+}
+.piechart{
+	width: 100%;
+	height: 100%;
+}
+/* 治理面积end */

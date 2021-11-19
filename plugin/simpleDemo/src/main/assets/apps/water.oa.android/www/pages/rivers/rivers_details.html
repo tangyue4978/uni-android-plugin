@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>河流</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess_detail.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/reservoirLevel/details_syt.css" />
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+	<style type="text/css">
+		.texr {
+			width: 50%;
+			text-align: center;
+		}
+
+		.texl {
+			width: 50%;
+			text-align: center;
+		}
+
+		#kuangs {
+			margin: 0 auto;
+		}
+
+		.head_explain_text {
+			line-height: 0.6rem;
+		}
+
+		/**
+			 *  2021年01月13日08:12:56
+				根据赵总要求更改样式，如需恢复删除下面三行代码。
+				另根据赵总要求隐藏水质信息。如需恢复请删除行内display: none !important;
+			 */
+		.deal_photo {
+			width: 94%;
+		}
+
+		.isShow {
+			display: none;
+		}
+
+		.base_info {
+			width: 100%;
+		}
+
+		.base_info_box {
+			width: 100%;
+		}
+
+		.num_font {
+			color: #007AFF;
+		}
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>河流详情</span>
+		</header>
+		<!-- 头部start -->
+		<div class="head">
+		</div>
+		<!-- 水库详情说明 -->
+		<div class="head_explain">
+			<span class="head_explain_text">
+			</span>
+			<span class="head_explain_open"></span>
+		</div>
+		<!-- 头部end -->
+		<div class="main">
+			<!-- 基本信息 -->
+			<div class="deal_photo">
+				<div class="base_info">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								基本信息
+							</span>
+						</div>
+						<table id="jbxx" class="base_info_table" border="1" cellspacing="0" cellpadding="0">
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- 基本信息end -->
+		</div>
+	</div>
+</body>
+
+
+<script src="../../js/Highcharts-8.1.2/code/highcharts.js"></script>
+<script src="../../js/rivers/rivers_details.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var page_status = true;
+	var root = localStorage.getItem("str_url");
+	if (root == "" || root == undefined || root == null) {
+		mui.openWindow({
+			url: 'login.html?cid=1', //通过URL传参
+			id: 'login.html?cid=1', //通过URL传参
+		})
+	}
+	var token = localStorage.getItem("token");
+	var obj_data = {};
+	var page = 1;
+	var data_info = {};
+	mui.plusReady(function () {
+		var self = plus.webview.currentWebview();
+		plus.nativeUI.showWaiting("加载中...");
+		
+		obj_data.token = token;
+		obj_data.id = self.item_id;
+
+		vailageDetail(obj_data);
+	});
+	function vailageDetail(obj_data) {
+		console.log(JSON.stringify(obj_data));
+		var _url = root + 'api/v4/rivers/show';
+		console.log(_url);
+		mui.ajax(_url, {
+			data: obj_data,
+			datatype: 'json', //服务器返回json格式数据
+			type: 'post', //HTTP请求类型
+			success: function (data) {
+				plus.nativeUI.closeWaiting();
+				console.log("----------" + JSON.stringify(data));
+				if (data.code == 1) {
+
+					// 水库详情说明
+					let head_text = data.data.head[0].information;
+					if (head_text == "") {
+						$('.head_explain').css('display', 'none')
+					} else {
+						$('.head_explain_text').text(head_text.slice(0, 60));
+						$('.head_explain_open').text('[展开]');
+						$('.head_explain_open').on('click', function () {
+							if ($(this).text() == '[关闭]') {
+								$('.head_explain_text').text(head_text.slice(0, 60));
+								$(this).text('[展开]')
+							} else {
+								$('.head_explain_text').text(head_text);
+								$(this).text('[关闭]')
+							}
+						})
+					}
+
+					var item_html = '';
+					var item_data = data.data.data[0].data;
+					var item_head = data.data.head;
+					//基本信息
+
+					for (var index = 0; index < item_data.length; index++) {
+						var item2 = item_head[index];
+						if (index < 2) {
+							$('.head').append(
+								'<div class="head_text">' +
+								'<div class="head_textX">' + item2.name + '</div>' +
+								'<div class="">' + item2.value + '</div>' +
+								'</div>'
+							);
+						}
+						var item = item_data[index];
+						item_html += "<tr><td class='texr'>" + item.name + "</td>" + "<td class='texl'>" + item.value + "</td></tr>";
+					}
+					$("#jbxx").html(item_html);
+					//基本信息 end
+					
+				} else {
+					plus.nativeUI.toast(data.msg)
+				}
+			},
+			error: function (xhr, type, errorThrown) {
+				plus.nativeUI.closeWaiting();
+			}
+		})
+	}
+</script>
+</html>

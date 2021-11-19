@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>巡查详情</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/previewImage.css"/>
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess_detail.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.base_info{
+				margin-bottom: 0.2rem;
+			}
+			.deal_photo_box img{
+				width: 3.16rem;
+				height: 2.38rem;
+			}
+			.base_info_table{
+				margin-bottom: 0.4rem;
+			}
+			.texc{
+				text-align: center;
+			}
+			#map{
+				width: 6.6rem;
+				height: 4rem;
+				margin: 0.2rem auto;
+				margin-left: -0.2rem;
+				box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+				position: relative;
+			}
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {display: none;}
+			
+			#patrol_photo{display: none;}
+			.photo_box{display: flex;justify-content: space-between;align-items: center;flex-wrap: wrap;}
+			.photo_box .photo_item{width: 50%;display: inline-flex;padding: 0.1rem;align-items: center;}
+			.photo_box .photo_item .photo_img{width: 100%;background-color: #F0F0F0;}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>巡查详情</span>
+			</header>
+			<!-- 头部start -->
+			<div class="head">
+				<div class="head_text head_texts">
+					<!-- 乱采 -->
+				</div>
+				<div class="head_line"></div>
+				<div class="head_text head_desc">
+					<!-- 非法采砂 -->
+				</div>
+			</div>
+			<!-- 头部end -->
+			<div class="main">
+				<!-- 湖泊基本信息start -->
+				<div class="base_info">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								基本信息
+							</span>
+						</div>
+						<table class="base_info_table base_info_tables" border="1" cellspacing="0" cellpadding="0">
+							<colgroup width="40%"></colgroup>
+							<colgroup width="60%"></colgroup>
+							<!-- <tr>
+								<td class="texr">简介</td>
+								<td class="texl">。。。。。。</td>
+							</tr> -->
+						</table>
+					</div>
+				</div>
+				<!-- 巡查图片 -->
+				<div class="base_info" id="patrol_photo">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								巡查图片
+							</span>
+						</div>
+						<div class="photo_box" id="photo">
+							<!-- <div class="photo_item"><img class="photo_img" src="http://202.97.140.68:8082/resimg/dc4376923e2b42308ebbb4bd58c894ce.jpg" ></div> -->
+						</div>
+					</div>
+				</div>
+				<!-- 巡查图片 end-->
+				<!-- 巡查轨迹 -->
+				<div class="base_info">
+					<div class="base_info_box">
+						<div class="base_info_title">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								巡查轨迹
+							</span>
+						</div>
+						<div id="map"></div>
+					</div>
+				</div>
+				<!-- 巡查轨迹 end-->
+			</div>
+		</div>
+	</body>
+	
+	<!-- <script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../../js/reservoirLevel/basemap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/yuDiBa/patrol_detail.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

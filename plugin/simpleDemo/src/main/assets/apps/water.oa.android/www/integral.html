@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_9m6zubjaugm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.integral ul li .span1 {
+				width: 75%;
+				height: 0.1rem;
+				background: transparent;
+				border-radius: 0.1rem;
+				display: block;
+				margin-left: 0.55rem;
+				margin-top: 0.1rem;
+			}
+			.integral ul li .span1 .span3{
+				width: 80%;
+				height: 100%;
+				background: #ff9949;
+				border-radius: 0.1rem;
+				display: block;
+				margin-left: 0rem;
+				position: relative;
+			}
+			.integral ul li .span1 .span3.acacac{
+				background: #acacac;
+			}
+			.integral ul li .span1 .span3 .span2{
+				/*position: absolute;*/
+				font-size: 0.3rem;
+			}
+			/*ranking*/
+			.ranking{
+				background: url(images/ranking.png) no-repeat 0.08rem 0rem;
+			    background-size: 75%;
+			    width: 0.6rem;
+			    height: 0.8rem;
+			    position: relative;
+			    top: -0.1rem;
+			    font-style: normal;
+			    font-size: 0.25rem !important;
+			    line-height: 1.1rem;
+			    text-align: center;
+			    color: #e65f47 !important;
+			}
+			.ranking3{
+				background: url(images/ranking3.png) no-repeat 0.08rem 0rem;
+			    background-size: 75%;
+			    width: 0.6rem;
+			    height: 0.8rem;
+			    position: relative;
+			    top: -0.1rem;
+			    font-style: normal;
+			    font-size: 0.25rem !important;
+			    line-height: 1.1rem;
+			    text-align: center;
+			    color: #acacac !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>积分</p>
+				<div class="integral-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								个人积分排行
+							</a>
+							<a class="mui-control-item" href="#item2">
+								文档积分排行
+							</a>
+						</div>
+					</div>
+					<div class="integral">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="grul">
+								<!--<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming icon1"></i>
+									<p>张三是</p><span class="span1"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming icon2"></i>
+									<p>张三是</p><span class="span1"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming icon3"></i>
+									<p>张三是</p><span class="span1"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming"></i>
+									<p>张三是</p><span class="span1 spanb"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming"></i>
+									<p>张三是</p><span class="span1 spanb"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming"></i>
+									<p>张三是</p><span class="span1 spanb"><span class="span2">1200</span></span>
+								</li>-->
+							</ul>
+							<p id="wu" style="text-align: center;display:none;background: #f8f8f8;margin-top: 2.5rem;color: #8f8f94;">暂无个人积分排行</p>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul class="wdul">
+								<!--<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming icon1"></i>
+									<p>张三是</p><span class="span1"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming icon2"></i>
+									<p>张三是</p><span class="span1"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming icon3"></i>
+									<p>张三是</p><span class="span1"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming"></i>
+									<p>张三是</p><span class="span1 spanb"><span class="span2">1200</span></span>
+								</li>
+								<li onclick="xiangqing()"><i class="iconfont left icon-jinhuotongji-jiangpaipaiming"></i>
+									<p>张三是</p><span class="span1 spanb"><span class="span2">1200</span></span>
+								</li>-->
+							</ul>
+							<p id="wu1" style="text-align: center;display:none;background: #f8f8f8;margin-top: 2.5rem;color: #8f8f94;">暂无文档积分排行</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			wdlist()
+			function wdlist() {
+				var _url = root + 'api/credit/file'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							if(data.data.length == 0) {
+								$("#wu1").css("display", "block");
+							} else {
+								data.data.forEach(function(v,index) {
+									v.n = 2;//文档积分排行
+									if(v.record!=0){
+										var bfb=parseInt((v.record/data.data[0].record)*100)+"%";
+									}else{
+										var bfb="1%";
+									}
+									index++;
+									if(index < 4){
+										$(".wdul").append('<li onclick="xiangqing(' + v.id + ',\'' + v.n + '\')"><i class="left ranking">'+ index +'</i><p>' + v.title + '</p><span class="span1"><span class="span3" style="width: '+bfb+';"><span class="span2">' + v.record + '</span></span></span></li>')
+									}else{
+										$(".wdul").append('<li onclick="xiangqing(' + v.id + ',\'' + v.n + '\')"><i class="left ranking3">'+ index +'</i><p>' + v.title + '</p><span class="span1"><span class="span3 acacac" style="width: '+bfb+';"><span class="span2">' + v.record + '</span></span></span></li>')
+									}
+								})
+							}
+
+						} else {
+							mui.toast('无数据')
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("接口异常");
+					}
+				})
+			}
+			grlist()
+
+			function grlist() {
+				var _url = root + 'api/credit/'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							if(data.data.length == 0) {
+								$("#wu").css("display", "block");
+							} else {
+								data.data.forEach(function(v,index) {
+									v.n = 1;//个人积分排行
+									if(v.record!=0){
+										var bfb=parseInt((v.record/data.data[0].record)*100)+"%";
+									}else{
+										var bfb="1%";
+									}
+									index++;
+									if(index < 4){
+										$(".grul").append('<li onclick="xiangqing(' + v.id + ',\'' + v.n + '\')"><i class="left ranking">'+ index +'</i><p>' + v.username + '</p><span class="span1"><span class="span3" style="width: '+bfb+';"><span class="span2">' + v.record + '</span></span></span></li>')
+									}else{
+										$(".grul").append('<li onclick="xiangqing(' + v.id + ',\'' + v.n + '\')"><i class="left ranking3">'+ index +'</i><p>' + v.username + '</p><span class="span1"><span class="span3 acacac" style="width: '+bfb+';"><span class="span2">' + v.record + '</span></span></span></li>')
+									}
+									
+								})
+							}
+						} else {
+							mui.toast('无数据');
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("接口异常");
+					}
+				})
+			}
+
+			function xiangqing(i, n) {
+				console.log("id："+i+"类型："+n);
+				mui.openWindow({
+					url: 'integralDetails.html', //通过URL传参
+					id: 'integralDetails.html', //通过URL传参
+					extras: {
+						i: i,
+						n: n,
+					},
+				})
+			};
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

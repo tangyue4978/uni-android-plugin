@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html style='height:100%;'>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>天气预报</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/meteorological/weather_forecast.css" />
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+		<style>
+			.tab-box {
+				height: 3.4%;
+				display: flex;
+				align-items: center;
+			}
+
+			.yubaobox {
+				overflow-y: auto;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+
+		<body class="content">
+			<div class="mui-content">
+				<header class="header pp">
+					<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+					<span>气象</span>
+				</header>
+				<!-- 实时温度start -->
+				<div class='yubaobox'>
+					<div class='box'>
+						<div class='innerbox'>
+							<!-- <div class="radarImage" onclick="jump_new('/pages/meteorological/radarImage.html')">
+								<img src="../../images/meteorological/radarImage.png" class="radarImage_img">
+								<span>雷达图</span>
+							</div> -->
+							<div class='temperature'>
+								<span class='number2'></span><span class='number'>&#176;</span>
+								<span class='position'>
+									<span class='mui-icon mui-icon-location'></span>
+									<span class='address'></span>
+								</span>
+							</div>
+							<div class='information'>
+								<div>
+									<div class='Diagonal_line'></div>
+									<p class='text3'>湿度<span class='text' id='humidity'></span></p>
+								</div>
+								<div>
+									<div class='Diagonal_line'></div>
+									<p class='text2'><span class='text' id='wind'></span></p>
+								</div>
+								<div>
+									<div class='Diagonal_line'></div>
+									<p class='text2'>&nbsp;&nbsp;空气质量<span class='text' id='quality'></span></p>
+								</div>
+							</div>
+							<div class='date'>
+								<span></span>
+							</div>
+							<div class="warning">
+								<img class="warning_img" src="../../images/meteorological/horn.png" >
+								<div class="warnings">
+									<div class="warnings_inner">
+										<!-- <div class="warning_text" data-id="1">山洪灾害气象预警 2021年08月16日18时</div>
+										<div class="warning_text" data-id="2">111111111111111 2021年08月16日18时</div>
+										<div class="warning_text" data-id="3">222222222222222 2021年08月16日18时</div>
+										<div class="warning_text" data-id="1">山洪灾害气象预警 2021年08月16日18时</div> -->
+									</div>
+								</div>
+							</div>
+							<div class="tab">
+								<div class='innerbox'>
+									<div class="tab-menux">
+										<ul>
+											<li class='change'>24小时预报</li>
+											<li>15天预报</li>
+										</ul>
+									</div>
+
+								</div>
+                                <div class="tab-box">
+										<div class='prediction'>
+
+										</div>
+
+										<div class='prediction2'>
+
+										</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class='classification'>
+						<div onclick="jump_new('/pages/meteorological/precipitation.html',{'type':1})">
+							<img src='../../images/meteorological/precipitation.png'>
+							降水预报
+						</div>
+						<div onclick="jump_new('/pages/meteorological/disaster_warning.html')">
+							<img src='../../images/meteorological/zaihaiyujing.png'>
+							气象灾害预警
+						</div>
+						<div onclick="jump_new('/pages/meteorological/meteorological.html',{'type':2})">
+							<img src='../../images/meteorological/shikuangtianqi.png'>
+							实况天气
+						</div>
+						<!-- <div onclick="jump_new('/pages/meteorological/meteorological.html',{'type':2})"><img
+								src='../../images/meteorological/temperature.png'>温度</div>
+						<div onclick="jump_new('/pages/meteorological/meteorological.html',{'type':3})"><img
+								src='../../images/meteorological/wind_speed.png'>风速</div>
+						<div onclick="jump_new('/pages/meteorological/meteorological.html',{'type':4})" class='last'>
+							<img src='../../images/meteorological/humidity.png'>湿度</div> -->
+						<!-- <div onclick="jump_new('/pages/meteorological/precipitation.html',{'type':4})" class='last'>
+							<img src='../../images/meteorological/humidity.png'>降水量</div> -->
+					</div>
+				</div>
+
+				<!-- 实时温度end -->
+
+			</div>
+		</body>
+
+	</body>
+	<script src="../../js/meteorological/weater_forecast.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" href="css/addressbook.css" />
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/schedule_pop.css"/>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+		<div class="mui-content staky-not">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>日程</p>
+				<div class="workNews-nav">
+					<div class="note-pad" style="">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								日程
+							</a>
+							<a class="mui-control-item" href="#item2">
+								便签
+							</a>
+						</div>
+					</div>
+
+					<div class="mt-023">
+						<div id="item1" class="mui-control-content mui-active">
+							<div>
+								<div class="text_align" id="time1">
+									<span  class="date"></span>
+									<span><img src="images/xia.png" class="xia"/></span>
+								</div>
+							</div>
+							<table class="calendar richeng_table ">
+								<tr class="year bg-c1">
+									<th>日</th>
+									<th>一</th>
+									<th>二</th>
+									<th>三</th>
+									<th>四</th>
+									<th>五</th>
+									<th>六</th>
+								</tr>
+								<tbody class="rili">
+									<!--<tr class="year bt-c2 hg-60">
+									<td>25</td>
+									<td>26</td>
+									<td>27</td>
+									<td>28</td>
+									<td>29</td>
+									<td>30</td>
+									<td>1</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">2</td>
+									<td class="meet_gary">3</td>
+									<td>4</td>
+									<td>5</td>
+									<td class="location" style="">
+										6
+										<a href=""><span class="today">今天</span></a>
+									</td>
+									<td>7</td>
+									<td>8</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">9</td>
+									<td class="meet_red">10</td>
+									<td class="meet_red">11</td>
+									<td>12</td>
+									<td>13</td>
+									<td class="meet_red">14</td>
+									<td class="bt-c2">15</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">16</td>
+									<td>17</td>
+									<td class="meet_red">18</td>
+									<td>19</td>
+									<td>20</td>
+									<td>21</td>
+									<td class="bt-c2">22</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">23</td>
+									<td>24</td>
+									<td>25</td>
+									<td>26</td>
+									<td class="meet_red">27</td>
+									<td>28</td>
+									<td class="bt-c2">29</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">30</td>
+									<td>31</td>
+									<td class="bt-c2">1</td>
+									<td class="bt-c2">2</td>
+									<td class="bt-c2">3</td>
+									<td class="bt-c2 ">4</td>
+									<td class="bt-c2">5</td>
+								</tr>-->
+								</tbody>
+							</table>
+
+							<div class="text-jia">
+								<div class="fl-right"><img src="images/jia.png" alt="" class="jia richeng" /></div>
+							</div>
+						</div>
+						<div id="item2" class="mui-control-content">
+							<div>
+								<div class="text_align" id="time2"> 
+									<span  class="date"></span>
+									<span><img src="images/xia.png" class="xia"/></span>
+								</div>
+							</div>
+							<table class="calendar bianqian_table">
+								<tr class="year bg-c1">
+									<th>日</th>
+									<th>一</th>
+									<th>二</th>
+									<th>三</th>
+									<th>四</th>
+									<th>五</th>
+									<th>六</th>
+								</tr>
+								<tbody class="rili">
+									<!--<tr class="year bt-c2 hg-60">
+									<td>25</td>
+									<td>26</td>
+									<td>27</td>
+									<td>28</td>
+									<td>29</td>
+									<td>30</td>
+									<td>1</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">2</td>
+									<td class="memo_gary">3</td>
+									<td>4</td>
+									<td>5</td>
+									<td class="location" style="">
+										6
+										<a href=""><span class="today">今天</span></a>
+									</td>
+									<td>7</td>
+									<td>8</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">9</td>
+									<td class="memo_red">10</td>
+									<td class="memo_red">11</td>
+									<td>12</td>
+									<td>13</td>
+									<td class="memo_red">14</td>
+									<td class="bt-c2">15</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">16</td>
+									<td>17</td>
+									<td class="memo_red">18</td>
+									<td>19</td>
+									<td>20</td>
+									<td>21</td>
+									<td class="bt-c2">22</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">23</td>
+									<td>24</td>
+									<td>25</td>
+									<td>26</td>
+									<td class="memo_red">27</td>
+									<td>28</td>
+									<td class="bt-c2">29</td>
+								</tr>
+								<tr class="year bt-c3 hg-60">
+									<td class="bt-c2">30</td>
+									<td>31</td>
+									<td class="bt-c2">1</td>
+									<td class="bt-c2">2</td>
+									<td class="bt-c2">3</td>
+									<td class="bt-c2 ">4</td>
+									<td class="bt-c2">5</td>
+								</tr>-->
+								</tbody>
+							</table>
+
+							<div class="text-jia">
+								<div class="fl-right"><img src="images/jia.png" alt="" class="jia bianqian" /></div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="pop_list hide" id="pop_box">
+				<div class="list_box">
+					<div class="biaoti"></div>
+					<div class="list_cent">
+						<ul class="list_ul">
+							<!--<li class="list_li">
+								<div class="pop_li_left">●</div>
+								<div class="pop_li_right">
+									<div class="pop_t">
+										<span class="cont_bt">处室内部会议</span>
+										<span class="fr">10:00-11:00</span>
+									</div>
+									<div class="pop_b">
+										<span>602大会议室</span>
+									</div>
+								</div>
+							</li>-->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function() {
+				//获取数据
+				var root = localStorage.getItem("str_url");
+					if(root == "" || root == undefined || root == null) {
+						mui.openWindow({
+							url: 'login.html?cid=1', //通过URL传参
+							id: 'login.html?cid=1', //通过URL传参
+						})
+					}
+				var token = localStorage.getItem("token");
+				var ws = plus.webview.currentWebview();
+				//					alert(ws.video_id);
+				function mainList_richeng(year, month) {
+					var year = year,
+						month = month;
+					var _url = root + 'api/calendar/';
+					mui.ajax(_url, {
+						data: {
+							"token": token,
+							"year": year,
+							"month": month,
+							"type":"1"
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(obj) {
+							var data = obj.data;
+							//							console.log(obj.date.slice(0,4)+"年"+obj.date.slice(5,7)+"月");
+							//							console.log(JSON.stringify(data));
+							if(obj.code == 1) {
+								var html = "";
+								for(var i = 0; i < data.length; i++) {
+									html += '<tr class="year bt-c3 hg-60">';
+									var td_day = data[i];
+									for(var x = 0; x < td_day.length; x++) {
+										if(td_day[x].flag != 1) {
+											var cl = "bt-c2";
+										} else {
+											var cl = "bt-c3";
+										}
+										var istoday = "";
+										if(td_day[x].istoday == 1) {
+											istoday = " location";
+										}
+										if(td_day[x].meeting == "1") {
+											var meeting = " meet_red meet_show";
+										}else if(td_day[x].meeting == "2"){
+											var meeting = " meet_gary meet_show";
+										}else {
+											var meeting = " ";
+										}
+										console.log("meeting"+td_day[x].year+td_day[x].month+td_day[x].day+"===="+td_day[x].meeting+"----->"+meeting);
+										html += '<td class="' + cl + istoday + meeting + '" data-year="'+td_day[x].year+'" data-month="'+td_day[x].month+'" data-day="'+td_day[x].day+'">' + td_day[x].day + '</td>';
+									}
+									html += '</tr>';
+								}
+								$(".richeng_table .rili").html(html);
+								$(".meet_show").on("click",{type:"1"},meet_show)
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							//		console.log(type);
+							mui.toast("网络异常！");
+						}
+					})
+					
+				}
+				mainList_richeng();
+				
+				function mainList_bianqian(year, month) {
+					var year = year,
+						month = month;
+					var _url = root + 'api/calendar/';
+					mui.ajax(_url, {
+						data: {
+							"token": token,
+							"year": year,
+							"month": month,
+							"type":"2"
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(obj) {
+							var data = obj.data;
+							//							console.log(obj.date.slice(0,4)+"年"+obj.date.slice(5,7)+"月");
+							//							console.log(JSON.stringify(data));
+							if(obj.code == 1) {
+								var html = "";
+								for(var i = 0; i < data.length; i++) {
+									html += '<tr class="year bt-c3 hg-60">';
+									var td_day = data[i];
+									for(var x = 0; x < td_day.length; x++) {
+										if(td_day[x].flag != 1) {
+											var cl = "bt-c2";
+										} else {
+											var cl = "bt-c3";
+										}
+										var istoday = "";
+										if(td_day[x].istoday == 1) {
+											istoday = " location";
+										}
+										
+										if(td_day[x].memo == "1") {
+											var memo = " memo_red memo_show";
+										}else if(td_day[x].memo == "2"){
+											var memo = " memo_gary memo_show";
+										}else {
+											var memo = " ";
+										}
+										html += '<td class="' + cl + istoday + memo + '" data-year="'+td_day[x].year+'" data-month="'+td_day[x].month+'" data-day="'+td_day[x].day+'">' + td_day[x].day + '</td>';
+									}
+									html += '</tr>';
+								}
+								$(".bianqian_table .rili").html(html);
+								$(".memo_show").on("click",{type:"2"},memo_show)
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							//		console.log(type);
+							mui.toast("网络异常！");
+						}
+					})
+					
+				}
+				mainList_bianqian();
+				/*
+				 * 时间选择 
+				 */
+				var dtpicker1 = new mui.DtPicker({"type": "month"});
+				var dtpicker2 = new mui.DtPicker({"type": "month"});
+				document.querySelector("#time1").addEventListener("tap", function() {
+					dtpicker1.show(function(items) {
+						console.log(JSON.stringify(items))
+						$("#time1 .date").html(items.y.text + "年" + items.m.text + "月");
+						mainList_richeng(items.y.text, items.m.text)
+					});
+				});
+				document.querySelector("#time2").addEventListener("tap", function() {
+					dtpicker2.show(function(items) {
+						console.log(JSON.stringify(items))
+						$("#time2 .date").html(items.y.text + "年" + items.m.text + "月");
+						mainList_bianqian(items.y.text, items.m.text)
+					});
+				});
+				
+				$(".date").text(new Date().getFullYear()+"年"+(new Date().getMonth()+1)+"月");
+			}, false);
+				$(".date").text(new Date().getFullYear()+"年"+(new Date().getMonth()+1)+"月");
+		</script>
+		<script type="text/javascript">
+			$(".richeng").on("click",function(){
+				mui.openWindow({
+					url: 'newSchedule.html',
+					id: 'newSchedule.html',
+					extras: {
+						i: 1
+					}
+				})
+			})
+			$(".bianqian").on("click",function(){
+				mui.openWindow({
+					url: 'newSchedule.html',
+					id: 'newSchedule.html',
+					extras: {
+						i: 2
+					}
+				})
+			})
+		</script>
+		<!--pop_box-->
+		<script type="text/javascript">
+//			$(function(){
+//				$(".meet_show").on("click",function(){
+//					$("#pop_box").attr("class","pop_list show");
+//				})
+//				$(".memo_show").on("click",function(){
+//					$("#pop_box").attr("class","pop_list show");
+//				})
+//			})
+			
+			$("#pop_box").on("click",function(){
+				$("#pop_box").fadeOut();
+			})
+			$("#pop_box .list_box").on("click",function(e){
+				e.stopPropagation();
+				e.preventDefault();
+			})
+			
+			
+			//会议当日列表
+			function meet_show(e){
+//				console.log("eeeeeeeee====>"+JSON.stringify(e.data))
+				var type=e.data.type;
+				var root = localStorage.getItem("str_url");
+				var token = localStorage.getItem("token");
+				var meet_url = root + 'api/calendar/alert';
+					mui.ajax(meet_url, {
+						data: {
+							"token": token,
+							"year": $(this).attr("data-year"),
+							"month": $(this).attr("data-month"),
+							"day":$(this).attr("data-day"),
+							"type":type
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(obj) {
+							$("#pop_box .biaoti").text(obj.nowDay);
+							var data = obj.data;
+							$("#pop_box .list_ul").html("");
+							for (i in data) {
+								$("#pop_box .list_ul").append(
+									'<li class="list_li" data-id="'+data[i].id+'">'+
+										'<div class="pop_li_left">●</div>'+
+										'<div class="pop_li_right">'+
+											'<div class="pop_t">'+
+												'<span class="cont_bt">'+data[i].title+'</span>'+
+												'<span class="fr">'+data[i].start_time+'-'+data[i].end_time+'</span>'+
+											'</div>'+
+											'<div class="pop_b">'+
+												'<span>'+data[i].content+'</span>'+
+											'</div>'+
+										'</div>'+
+									'</li>'
+								);
+							}
+							$("#pop_box").fadeIn();
+						},
+						error:function(obj){
+							mui.toast("网络异常")
+						}
+					})
+				
+			}
+			
+			//便签列表
+			function memo_show(e){
+//				console.log("eeeeeeeee====>"+JSON.stringify(e.data))
+				var type=e.data.type;
+				var root = localStorage.getItem("str_url");
+				var token = localStorage.getItem("token");
+				var meet_url = root + 'api/calendar/alert';
+					mui.ajax(meet_url, {
+						data: {
+							"token": token,
+							"year": $(this).attr("data-year"),
+							"month": $(this).attr("data-month"),
+							"day":$(this).attr("data-day"),
+							"type":type
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(obj) {
+							$("#pop_box .biaoti").text(obj.nowDay);
+							var data = obj.data;
+							$("#pop_box .list_ul").html("");
+							for (i in data) {
+								$("#pop_box .list_ul").append(
+									'<li class="list_li" data-id="'+data[i].id+'">'+
+										'<div class="pop_li_left">●</div>'+
+										'<div class="pop_li_right">'+
+											'<div class="pop_t">'+
+												'<span class="cont_bt">'+data[i].title+'</span>'+
+												'<span class="fr">'+data[i].start_time+'-'+data[i].end_time+'</span>'+
+											'</div>'+
+											'<div class="pop_b">'+
+												'<span>'+data[i].content+'</span>'+
+											'</div>'+
+										'</div>'+
+									'</li>'
+								);
+							}
+							$("#pop_box").fadeIn();
+						},
+						error:function(obj){
+							mui.toast("网络异常")
+						}
+					})
+			}
+		</script>
+		<script type="text/javascript">
+			window.addEventListener('refresh', function(e) { //执行刷新
+				location.reload();
+			});
+		</script>
+		<!--<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

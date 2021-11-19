@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>报修记录</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess.css" />
+	<!-- 筛选css -->
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+	<!-- 筛选css end -->
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.all3 {
+			top: 2.68rem;
+		}
+
+		.list {
+			/* margin-top: 3.68rem; */
+			margin-top: 1.68rem;
+		}
+		.lists_data>li{
+			width: auto;
+		}
+		.weight {
+			font-size: 0.28rem;
+			color: #333;
+			font-weight: 700;
+		}
+
+		.lists_li {
+			position: relative;
+		}
+
+		.position {
+			position: absolute;
+			right: 0.2rem;
+		}
+
+		.sorts {
+			width: 100%;
+			border-radius: 0;
+		}
+
+		.lists_data>.titles {
+			width: 100%;
+		}
+		.lists_data>.contents {
+			width: 100%;
+			line-height: 0.4rem;
+			white-space: normal;
+			text-align: justify
+		}
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+
+		/* 样式复写 */
+		.sort_list {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+
+		.search_box .sort_input.sort_new {
+			width: 80%;
+		}
+
+		.text_input {
+			background: none;
+		}
+	</style>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>报修记录</span>
+		</header>
+		<!-- 总条数 -->
+		<!-- <div class="all all3">
+			共<span class="all_num">0</span>条巡河记录
+		</div> -->
+		<!-- 列表start -->
+		<div class="list">
+			<ul class="lists">
+				
+			</ul>
+		</div>
+		<!-- 列表end -->
+
+	</div>
+</body>
+<script src="../../js/scanning/repair_history.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

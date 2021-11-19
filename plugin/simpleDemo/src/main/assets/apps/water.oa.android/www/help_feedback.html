@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_2f6bthhrl5d.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css"/>
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css"/>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/help_feedback.css"/>
+	</head>
+
+	<body style="background: #F1F1F6;">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>
+					<span>帮助和反馈</span>
+					<span class="right" style="font-size: 0.3rem;" onclick="feedback()">意见反馈</span>
+				</p>
+
+				<div class="revise-content">
+					<!--<div class="modular">
+						<table class="modular_table" border="0" cellspacing="0" cellpadding="0">
+							<colgroup width="50%"></colgroup>
+							<colgroup width="50%"></colgroup>
+							<tr>
+								<td>
+									<div class="block_div">
+										<h2 class="h2">通知</h2>
+										<div class="introduce">一呼百应，支持投票功能</div>
+									</div>
+								</td>
+								<td>
+									<div class="block_div">
+										<h2 class="h2">通知</h2>
+										<div class="introduce">一呼百应，支持投票功能</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="block_div">
+										<h2 class="h2">通知</h2>
+										<div class="introduce">一呼百应，支持投票功能</div>
+									</div>
+								</td>
+								<td>
+									<div class="block_div">
+										<h2 class="h2">通知</h2>
+										<div class="introduce">一呼百应，支持投票功能</div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>-->
+				</div>
+				<div class="popup_box">
+					<div class="help_popup">
+						<h2 class="pop-h2">一分钟查看通知</h2>
+						<ul class="pop-ul">
+							<li class="video">
+								<img class="pop-img" src="images/help_video_icon.png"/>
+								<span>详细的视频教程</span>
+								<span class="pop-right mui-icon mui-icon-arrowright"></span>
+							</li>
+							<li class="document">
+								<img class="pop-img" src="images/help_xx_icon.png"/>
+								<span>详细的图文教程</span>
+								<span class="pop-right mui-icon mui-icon-arrowright"></span>
+							</li>
+						</ul>
+						<div class="pop-div">
+							<span class="pop-close mui-icon mui-icon-closeempty"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/app.js"></script>-->
+		<!--<script src="js/main.js"></script>-->
+		<script type="text/javascript" src="js/mui.picker.min.js" ></script>
+		<script type="text/javascript">
+				//获取数据
+				var root = localStorage.getItem("str_url");
+//				if(root == "" || root == undefined || root == null) {
+//					mui.openWindow({
+//						url: 'login.html?cid=1', //通过URL传参
+//						id: 'login.html?cid=1', //通过URL传参
+//					})
+//				}
+				var token = localStorage.getItem("token");
+				function mainList() {
+					var _url = root + 'api/help/';
+					mui.ajax(_url, {
+						data: {
+							"token": token,
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						success: function(obj) {
+							var data=obj.data;
+							console.log(JSON.stringify(data))
+							if(obj.code == 1) {
+								if(data!=""&&data!=undefined&&data!=null){
+									var html="";
+									for(var i=0;i<data.length;i++){
+										
+										html+=  '<div class="modular">'+
+													'<table class="modular_table" border="0" cellspacing="0" cellpadding="0">'+
+													'<colgroup width="50%"></colgroup>'+
+													'<colgroup width="50%"></colgroup>';
+													var cont=data[i];
+//													console.log(JSON.stringify(cont));
+													var k=0;
+													for (x in cont) {
+//														console.log("数组来来来=="+x);
+														var info_a=cont[x];
+//														console.log("k%2="+k%2);
+														console.log(k%2==0);
+														if (k%2==0) {
+															html+=  '<tr>';
+														}
+														html+=  '<td>'+
+																	'<div class="block_div" data-id="'+cont[x].id+'" data-video="'+cont[x].video+'">'+
+																		'<h2 class="h2">'+cont[x].title+'</h2>'+
+																		'<div class="introduce">'+cont[x].subtitle+'</div>'+
+																	'</div>'+
+																'</td>';
+														if ((cont.length-1)==x) {
+															if(cont.length%2==1){
+																html+=  '<td></td>';
+															}
+														}
+														
+														if (k%2!=0) {
+															html+=  '</tr>';
+														}
+														k++;
+													}
+													
+													html+=  '</table>'+'</div>';
+									}
+									$(".revise-content").append(html);
+									$(".block_div").off("click",pop_fun);
+									$(".block_div").on("click",pop_fun);
+								}
+								
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							//		console.log(type);
+							mui.toast("网络异常！");
+						}
+					})
+				}
+				mainList()
+		</script>
+		<script type="text/javascript">
+			/*
+			 * 弹出层
+			 */
+//			$(".block_div").on("click",pop_fun);
+			function pop_fun(){
+				$(".popup_box").show();
+				$(".popup_box .help_popup .pop-h2").text($(this).find(".h2").text());
+				var video_id=$(this).attr("data-video");
+				var document_id=$(this).attr("data-id");
+//				alert("video_id="+video_id+"document_id="+document_id);
+				if(video_id!=0&&video_id!=null&&video_id!=undefined){
+					$(".popup_box .pop-ul .video").attr("data-video",video_id);
+					$(".popup_box .pop-ul .video").show();
+				}else{
+					$(".popup_box .pop-ul .video").attr("data-video"," ");
+					$(".popup_box .pop-ul .video").hide();
+				}
+				if(document_id!=0&&document_id!=null&&document_id!=undefined){
+					$(".popup_box .pop-ul .document").attr("data-id",document_id);
+					$(".popup_box .pop-ul .document").show();
+				}else{
+					$(".popup_box .pop-ul .document").attr("data-id"," ");
+					$(".popup_box .pop-ul .document").hide();
+				}
+			}
+			$(".popup_box .pop-close").on("click",function(){
+				$(".popup_box").hide();
+			});
+		</script>
+		<script type="text/javascript">
+			/*
+			 * 跳详情页面
+			 */
+			
+			$(".popup_box .pop-ul .document").on("click",documnt_fun);
+			$(".popup_box .pop-ul .video").on("click",video_fun);
+//			$(".popup_box .pop-ul .video").on("click",video_fun);
+			function video_fun(){
+				var video_id=$(".popup_box .pop-ul .video").attr("data-video");
+				$(".popup_box").hide();
+				mui.openWindow({
+					url: 'help_video.html',
+					id: 'help_video.html',
+					extras:{
+						video_id:video_id
+					}
+				});
+				
+			}
+//			$(".popup_box .pop-ul .document").on("click",documnt_fun);
+			function documnt_fun(){
+				var document_id=$(".popup_box .pop-ul .document").attr("data-id");
+				$(".popup_box").hide();
+				mui.openWindow({
+					url: 'help_document.html',
+					id: 'help_document.html',
+					extras:{
+						document_id:document_id
+					}
+				});
+				
+			}
+			
+			
+			window.addEventListener('refresh', function(e) { //执行刷新
+				location.reload();
+			});
+		</script>
+		<script type="text/javascript">
+			function feedback() {
+				mui.openWindow({
+					url: 'feedback.html', 
+					id: 'feedback.html' 
+//					extras: {
+//						i: i,
+//					},
+				})
+			};
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

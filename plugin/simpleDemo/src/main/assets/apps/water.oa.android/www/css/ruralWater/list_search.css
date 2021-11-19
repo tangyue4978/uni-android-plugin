@@ -1,0 +1,45 @@
+@charset "utf-8";
+/*CSS Document*/
+.section{height: calc( 100% - 1.3rem);position: relative;margin: 0;margin-top: 1.3rem;}
+.list_number{position: static;}
+/* 条件查询 */
+.gpsInfo{width: 100%;height: auto;background: #FFFFFF;border-top: 1px solid #cfcfcf;border-radius: 0 0 .2rem .2rem;box-shadow: 0 1px 6px #e2e2e2;position: static;left: 0;bottom: 0;overflow: hidden;}
+.gpsInfo .icon_arrow_box{padding:0.2rem 0rem;}
+.gpsInfo .icon_arrow{-webkit-transform: rotateZ(180deg);transform: rotateZ(180deg);width: .46rem;height: .14rem;display: block;position: static;left: 0;right: 0;margin: auto;top: .14rem;-webkit-transition:transform 0.2s ease-out;transition:transform 0.2s ease-out;}
+.gpsInfo.open{height: auto;}
+.gpsInfo.open .icon_arrow{-webkit-transform: rotateZ(0deg);transform: rotateZ(0deg);}
+.gpsInfo.open .gpsInfo_con{display: block;}
+.gpsInfo .gpsInfo_con{padding: .4rem 0 0;display: none;}
+.gpsInfo .gpsInfo_con .title{font-size: .28rem;color: #333;margin: 0 .3rem;}
+.gpsInfo_con .search_form ul{overflow: hidden;margin: .2rem .3rem 0;}
+.gpsInfo_con .search_form ul li{width: 50%;float: left;font-size: .25rem;color: #666;line-height: .76rem;margin: .05rem 0;overflow: hidden;}
+.gpsInfo_con .search_form ul li .label{width: 1.2rem;float: left;}
+.gpsInfo_con .search_form ul li .field{width: auto;height: .76rem;display: block;margin-left:1.2rem;border: 1px solid #d6d5d3;border-radius: .06rem;font-size: .24rem;color: #333;padding: 0 .15rem;}
+.gpsInfo_con .search_form ul li .field .input{width: 100%;border: none;}
+.gpsInfo_con .search_form ul li:nth-child(2n+1){padding-right: .2rem;}
+.gpsInfo_con .search_form ul li:nth-child(2n){padding-left: .2rem;}
+.gpsInfo_con .search_form .button{width: 7.25rem;height: .9rem;display: block;border: none;background: none;background-image: linear-gradient(#3877f0, #4e62ff);margin: .3rem auto 0rem;border-radius: .1rem;box-shadow: 0 2px 8px #c1d5fa;font-size: .3rem;color: #fff;font-weight: 600;}
+
+
+
+/* 回到顶部 */
+.top_back_div{
+	position: fixed;
+	bottom: 2rem;
+	right: 0.6rem;
+	background-color: rgba(0,0,0,0.3);
+	color: #FFFFFF;
+	border-radius: 50%;
+	width: 0.8rem;
+	height: 0.8rem;
+	font-size: 0.22rem;
+	overflow: hidden;
+	z-index: 9999999;
+	line-height: 0.25rem;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 0.1rem 0rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

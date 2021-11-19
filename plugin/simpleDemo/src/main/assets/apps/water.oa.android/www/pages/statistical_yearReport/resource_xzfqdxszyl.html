@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>节水灌溉面积</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/waterSaving_statistics.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.marker{
+				width: 15px;
+				height: 15px;
+				border: 1px solid #088;
+				border-radius: 50%;
+				background-color: #00FFFF;
+				opacity: 0.5;
+				display: none;
+			}
+			.marker:after {				content: " ";				background-color: #00FFFF;				position: absolute;				left: 50%;				top: 50%;				width: 15px;				height: 15px;				border-radius: 50%;				margin-left: -50%;				margin-top: -50%;				-webkit-animation-name: 'ripple';				-webkit-animation-duration: 1s;				-webkit-animation-timing-function: linear;				-webkit-animation-delay: 0s;				-webkit-animation-iteration-count: infinite;				-webkit-animation-direction: normal;			}			@keyframes ripple {				0% {					opacity: 1;					width: 15px;					height: 15px;				}				50% {					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -15px;
+					margin-top: -15px;				}				100% {					opacity: 0.05;					width: 60px;					height: 60px;					margin-left: -30px;					margin-top: -30px;				}			}
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {display: none;}
+			.main_source{
+				margin: 0.2rem auto 0;
+			}
+			.river_lake_head {
+			    width: 90%;
+			}
+			.river_lake_content .river_lake_table {
+			    width: 700%;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>行政分区地下水资源量</span>
+			</header>
+			<div class="main">
+				<!-- 标签start -->
+				<div class="tab">
+					<ul class="tab_box">
+						<li onclick="jump_new('resource_xzfqdxszyl.html')" class="tab_active">行政分区地下水资源量</li>
+						<li onclick="jump_new('resource_lyfqdxszyl.html')" >流域分区地下水资源量</li>
+					</ul>
+				</div>
+				<!-- 标签end
+				<!-- 数据来源start -->
+				<div class="main_source">
+					<!-- 数据来源：2019年度水利年鉴、2019年度水资源公报 -->
+				</div>
+				<!-- 数据来源end -->
+				<!-- 年份收缩start -->
+				<div class="year_search">
+					<div class="submit_item" id="muiPicker"></div>
+				</div>
+				<!-- 年份收缩end -->
+				<!-- 节水灌溉面积start -->
+				<div class="river_lake">
+					<div class="river_lake_title">
+						<div class="river_lake_title_l">
+							<div class="line"></div>
+							<div class="text" id="text1"></div>
+						</div>
+						<div class="river_lake_title_r">
+						</div>
+					</div>
+					<div class="river_lake2">
+					<div class="river_lake_head">
+						<table id="tabhead" class="river_lake_table" border="0" cellspacing="0" cellpadding="0">
+							
+						</table>
+					</div>	
+					<div class="river_lake_content">
+						<table id="tabcontent" class="river_lake_table" border="0" cellspacing="0" cellpadding="0">
+							
+							
+						</table>
+					</div>
+					</div>
+				</div>
+				<!-- 节水灌溉面积end -->
+				<!-- 全省节水灌溉面积start -->
+				<div class="water_save water_saveh">
+					<div class="river_lake_title">
+						<div class="river_lake_title_l">
+							<div class="line"></div>
+							<div class="text" id="text2"></div>
+						</div>
+					</div>
+					<div id="pip_container1" class="piechart"></div>
+				</div>
+				<!-- 全省节水灌溉面积end -->
+				<!-- 节水灌溉面积对比start -->
+				<div class="water_save water_saves">
+					<div class="river_lake_title">
+						<div class="river_lake_title_l">
+							<div class="line"></div>
+							<div class="text" id="text3"></div>
+						</div>
+						<ul class="tab_li">
+							<!-- <li class="tab_li_active">按流域</li>
+							<li>|</li>
+							<li>按地市</li> -->
+						</ul>
+					</div>
+					<div id="column_container1" class="piechart"></div>
+				</div>
+				<!-- 节水灌溉面积对比end -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts-3d.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/waterSaving_statistics.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/statistical_yearReport/resource_xzfqdxszyl.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.querySelector("#muiPicker").addEventListener("tap", function() {
+			picker.show(function(SelectedItem) {
+				$("#muiPicker").text(SelectedItem[0].text);
+				data_info.year = SelectedItem[0].value;
+				list(data_info);
+				 // console.log(JSON.stringify(SelectedItem));
+			})
+		});
+	</script>
+</html>

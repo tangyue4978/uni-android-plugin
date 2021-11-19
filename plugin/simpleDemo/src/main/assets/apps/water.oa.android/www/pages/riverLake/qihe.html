@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>七河</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/riverLake/qihe.css" />
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script src="../../js/map/getCity.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {
+				display: none;
+			}
+
+			.weight {
+				font-size: 0.28rem;
+				color: #333;
+				font-weight: 700;
+			}
+
+			.sort_lists {
+				background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 90%;
+				background-size: 15px 9px;
+			}
+
+			.lists_li {
+				position: relative;
+			}
+			.position {
+				text-align: right;
+			}
+			.lists_data2 > li{
+				width: 100%;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>河湖列表</span>
+			</header>
+			<div class="content_box">
+				<!-- 标签start -->
+				<div class="tab">
+					<ul class="tab_box">
+						<li onclick="qihe()" class="tab_active isShow" id='qihe'>七河</li>
+						<li onclick="wuhu()" id='wuhu'>五湖</li>
+					</ul>
+				</div>
+				<!-- 标签end -->
+			</div>
+			<!-- 统计start -->
+			<!-- <div class="statics">
+				<ul class="header_list">
+					<li>3218</li>
+					<li>9346</li>
+					<li>3307</li>
+					<li>15091</li>
+					<li class="unborder">5022</li>
+				</ul>
+				<ul class="header_list header_lists">
+					<li>乱占</li>
+					<li>乱采</li>
+					<li>乱堆</li>
+					<li>乱建</li>
+					<li>其他</li>
+				</ul>
+			</div> -->
+			<!-- 统计end -->
+			<!-- 总条数 -->
+			<div class="all isShow" id='qihenumber'>
+				共<span class="all_num">0</span>条河流
+			</div>
+			<div class="all ishide" id='wuhunumber'>
+				共<span class="all_num  number">5</span>个湖泊
+			</div>
+			<!-- 列表start -->
+			<div class="list">
+				<ul class="lists isShow">
+					<!-- 河流 -->
+					<!-- <li class="lists_li lists_lis" onclick="jump_new('four_mess_detail4.html')">
+						<ul class="lists_data lists_datas">
+							<li >
+								<span>河流名称：</span>
+								<span class="riverName"></span>
+							</li>
+							<li>
+								<span>河长姓名：</span>
+								<span class="userName"></span>
+							</li>
+							<li>
+								<span>行政地区：</span>
+								<span class="adFullName"></span>
+							</li>
+							<li>
+								<span>河流等级：</span>
+								<span class="riverLevel"></span>
+							</li>
+							<li>
+								<span>河流长度(km)：</span>
+								<span class="riverLenght"></span>
+							</li>
+							<li>
+								<span>流域面积(k㎡)：</span>
+								<span class="waterArea"></span>
+							</li>
+						</ul>
+					</li> -->
+				</ul>
+				<ul class="lists2 ishide">
+					<!-- 湖泊 -->
+					<!-- <li class="lists_li" onclick="jump_new('four_mess_detail.html')">
+						<ul class="lists_data">
+							<li>
+								<span>湖泊名称：</span>
+								<span>名称</span>
+							</li>
+							<li>
+								<span>湖泊姓名：</span>
+								<span>姓名</span>
+							</li>
+							<li>
+								<span>行政地区：</span>
+								<span>偏关县</span>
+							</li>
+							<li>
+								<span>类型：</span>
+								<span>类型</span>
+							</li>
+							<li>
+								<span>水面面积(km²)：</span>
+								<span>22250</span>
+							</li>
+							<li>
+								<span>湖泊容积(m³)：</span>
+								<span>202007</span>
+							</li>
+							<li>
+								<span>平均水深(m)：</span>
+								<span>22250</span>
+							</li>
+							<li>
+								<span>咸淡水属性：</span>
+								<span>咸淡水</span>
+							</li>
+						</ul>
+					</li> -->
+				</ul>
+
+
+			</div>
+			<!-- 列表end -->
+
+		</div>
+
+		<!-- 当前手机位置 -->
+		<div id="marker" class="marker"></div>
+
+	</body>
+
+	<script src="../../js/riverLake/qihe.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

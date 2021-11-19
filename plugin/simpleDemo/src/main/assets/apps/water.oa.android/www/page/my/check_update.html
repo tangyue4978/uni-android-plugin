@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/addressbook.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.news .pp{
+				background-size: 100% 100%;
+			}
+			.content_box{
+				width: 100%;
+				margin-top: 1.3rem;
+				overflow: hidden;
+			}
+			.content_box .gray{
+				height: 0.3rem;
+				background-color: #EEEEEE;
+			}
+			.content_box .height3{
+				height: 0.3rem;
+			}
+			.content_box .list_ul{
+				padding: 0rem;
+				padding-left:0.4rem;
+				list-style: none;
+				background-color: #FFFFFF;
+				margin: 0 auto;
+			}
+			.content_box .list_ul .list_li{
+				padding: 0rem;
+				padding-right:0.4rem;
+				border-bottom: 1px solid #F0F0F0;
+				overflow: hidden;
+				height: 1rem;
+				font-size: 0.3rem;
+				line-height: 1rem;
+			}
+			.content_box .list_ul .list_li .left_title{
+				float: left;
+				width: 35%;
+				height: 100%;
+			}
+			.content_box .list_ul .list_li .right_infor{
+				float: right;
+				width: 60%;
+				height: 100%;
+				text-align: right;
+			}
+			.content_box .list_ul .list_li .right_infor .select_box{
+				float: right;
+				height: 100%;
+				width: 0.75rem;
+				padding: 0rem;
+				margin: 0rem;
+				font-size: 0.3rem;
+			}
+			.color_red{color: #FF0000;}
+			/* 检查更新 */
+			
+			.version_box{
+				text-align: center;
+			}
+			.version_box .logo_img{
+				width: 2.8rem;
+				margin: 1.5rem auto 1rem;
+			}
+			.version_box .update_title{
+				font-size: 0.36rem;
+				font-weight: bold;
+				color: #111111;
+				margin-bottom: 0.2rem;
+			}
+			.version_box .version_info{
+				font-size: 0.3rem;
+				color: #999999;
+			}
+			.update_btn{
+				width: 80%;
+				height: 1rem;
+				font-size: 0.3rem;
+				color: #FFFFFF;
+				font-weight: 100;
+				text-align: center;
+				line-height: 1rem;
+				background-color: #007AFF;
+				border-radius: 2em;
+				position: fixed;
+				bottom: 0.5rem;
+				left: 10%;
+			}
+			.zwf_update_btn{height: 1.5rem;}
+			.current_version{display: none;}
+			.current_version.active{display: inline-block;}
+			
+			
+			.updated_cont{display: none;font-size: 0.35rem;color: #888888;width: 95%;margin: 10px auto;height: 4.5rem;overflow-y: auto;padding: 8px;box-shadow: 0px 0px 10px -7px #009CF5;line-height: 30px;}
+			#demo5{overflow: hidden;display: none;width: 95%;margin: 0 auto;height: 3px;background-color: #CCCCCC;position: relative;}
+			#demo5 span{display: block;width: 100%;background: #007AFF;height: 100%;}
+		</style>
+	</head>
+
+	<body style="background: #f8f8f8">
+		<div class="mui-content" style="">
+			<div class="news">
+				<p class="pp"><a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>检查更新</p>
+			</div>
+		</div>
+		<div class="content_box">
+			
+			<div class="height3"></div>
+			<div id="demo5" class="mui-progressbar">
+				<span></span>
+			</div>
+			<div class="version_box">
+				<img class="logo_img" src="../../images/logo_oa.png" alt="">
+				<div class="update_title">已是最新版本</div>
+				<div class="version_info">
+					<span>
+						<span>当前版本:</span>
+						<span class="version"></span>
+					</span>
+					<span class="current_version">
+						<span>最新版本:</span>
+						<span class="new_version"></span>
+					</span>
+				</div>
+			</div>
+			
+			
+			<div class="updated_cont"></div>
+			<div class="zwf_update_btn"></div>
+			<div class="update_btn" onclick="checkUpdate()">检查更新</div>
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			
+			var token = localStorage.getItem("token");
+			//版本号
+			document.addEventListener( "plusready", function(){
+				$(".version").text("V"+plus.runtime.version);
+			}, false );
+			
+		</script>
+		<!-- <script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/check_update.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//关闭窗口
+			function closeme(){
+				var ws=plus.webview.currentWebview();
+				plus.webview.close(ws);
+			}
+			
+			// 版本更新
+			function checkUpdate(){
+				console.log("检查更新中");
+				$(".update_title").html("检查更新中");
+				plus.nativeUI.showWaiting("检查更新中...");
+				
+					var system="";
+					if (plus.os.name == 'iOS') {
+						system=2;
+					}else{
+						system=1;
+					}
+					var data_obj = {
+						system: system,
+						versionnum: plus.runtime.version
+						// versionnum: '0.0.1'
+					}
+					var root = localStorage.getItem("str_url");
+						mui.ajax(root + "api/version/checkversion", {
+							data: data_obj,
+							dataType: 'json',
+							type: 'post',
+							contentType: "application/x-www-form-urlencoded; charset=utf-8",
+				//			timeout: 60000,
+							success: function(data) {
+								console.log(JSON.stringify(data));
+								var obj=data;
+								if(data.code == 1) {
+									if(data.status==1){
+										Callback_5(obj)
+									}else{
+										$(".update_title").html("已是最新版本");
+										plus.nativeUI.closeWaiting();
+									}
+								} else {
+									mui.alert(data.msg)
+								}
+							},
+							error: function(xhr, type, errorThrown) {}
+						});
+						
+				
+			}
+		</script>
+	</body>
+
+</html>

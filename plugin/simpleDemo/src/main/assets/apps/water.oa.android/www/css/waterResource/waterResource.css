@@ -1,0 +1,81 @@
+.leftPosi {
+    top: 3rem!important;
+}
+.searchPanel.searchPanel1{
+	width: 100%;
+	height: 1.35rem;
+	background-color: #FFFFFF;
+	border-bottom: 0.01rem solid #CCCCCC;
+	display: flex;
+	justify-content: space-between;
+}
+.reservoirBoxL{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/* padding: 0.28rem 0; */
+}
+.reservoirBoxL_S{
+	width: 100%;
+	height: 0.34rem;
+	text-align: center;
+	font-size: 0.38rem;
+	font-weight: bold;
+	color: #3a77f0;
+	border-right: 0.01rem solid #CCCCCC;
+}
+.reservoirBoxL_X{
+	width: 100%;
+	height: 0.48rem;
+	color: #333333;
+	font-size: 0.24rem;
+	padding-top: 0.15rem;
+	text-align: center;
+}
+.reservoirBoxL_X label{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* 侧边导航 */
+.rightTabs{}
+.rightPosi{position: absolute;top: 1.6rem;right: 4%;}
+.leftPosi{position: absolute;top: 1.6rem;left: 2%;}
+.rightTabs ul li{margin: .06rem 0;}
+.rightTabs li a{display: block;}
+.rightTabs li img{width: 1.2rem;height: 1.2rem;}
+#map {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top:2.7rem;
+}
+/* 隐藏默认放大缩小 */
+.ol-zoom {
+	display: none;
+}
+
+/* 图层标注样式 */
+.map_mark{
+	width: 1rem;
+	font-size: 0.22rem;
+	color: #333333;
+	font-weight: 700;
+	/* color: #0000FF; */
+	font-family: lisu;
+}
+.map_line{
+	width: 1rem;
+	height: 0.02rem;
+	background-color: #8C8C8B;
+}
+.map_num{
+	font-size: 0.22rem;
+	font-family: Arial;
+	font-weight: 400;
+	color: #666666;
+	/* color: darkred; */
+}

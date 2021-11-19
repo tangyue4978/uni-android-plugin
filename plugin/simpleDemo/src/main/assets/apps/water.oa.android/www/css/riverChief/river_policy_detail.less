@@ -1,0 +1,238 @@
+.main {
+    width: 100%;
+    height: calc(100vh - 4.12rem);
+    background-color: #f6f6f6;
+
+    .select {
+		height: 1rem;
+        padding: 0.2rem;
+        color: #686868;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .select_item {
+            width: 32%;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            text-align: center;
+            background-color: #dbdbdb;
+            border-radius: 0.1rem;
+			margin-right: 1%;
+            &.active {
+                color: #3a77f0;
+                font-weight: bold;
+                background-color: #fff;
+                border: 2px solid #3c79f0;
+            }
+        }
+    }
+    .content_wrap {
+        height: calc(100% - 1rem);
+        // 基本信息样式
+        .base,
+        .water_quality,
+        .river_control,
+        .river_green,
+        .drain,
+        .sewage,
+        .other {
+            height: 100%;
+            padding: 0.2rem;
+            background-color: #fff;
+            border-radius: 0.3rem;
+			display: none;
+            .title {
+                position: relative;
+                height: 1rem;
+                display: flex;
+                align-items: center;
+                .blue {
+                    display: inline-block;
+                    width: 0.1rem;
+                    height: 50%;
+                    background-color: #6492ff;
+                }
+
+                .text {
+                    margin-left: 0.1rem;
+                    font-size: 0.4rem;
+                    color: #000;
+                }
+                .order_wrap {
+                    position: absolute;
+                    right: 2%;
+                    width: 2rem;
+                    height: 0.6rem;
+                    border-radius: 0.3rem;
+                    background-color: #efeeed;
+                    font-size: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .order {
+                        display: inline-block;
+                        width: 0.92rem;
+                        height: 0.5rem;
+                        line-height: 0.5rem;
+                        text-align: center;
+                        border-radius: 0.25rem;
+                        font-size: 0.25rem;
+                        &.active {
+                            color: #fff;
+                            font-weight: bold;
+                            background-color: #6492ff;
+                        }
+                    }
+                }
+            }
+            .wrap {
+                height: calc(100% - 1rem);
+                overflow: auto;
+                .list {
+                    border: 1px solid #d8d7d5;
+                    .line {
+                        border-bottom: 1px solid #d8d7d5;
+                        display: flex;
+                        &:last-child {
+                            border-bottom: none;
+                        }
+                        .left,
+                        .right {
+                            width: 50%;
+                            display: flex;
+                            align-items: center;
+                            padding: 0.2rem;
+                        }
+                        .left {
+                            background-color: #efeeed;
+                        }
+                    }
+					
+					.lists{
+						width: 100%;
+						height: 100%;
+						.lists_li{
+							width: 100%;
+							background-color: #ffffff;
+							margin-bottom: 0.2rem;
+							box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.06);
+							border-radius: 0.2rem;
+							padding: 0.2rem 0;
+							.lists_data{
+								width: 90%;
+								height: 100%;
+								margin: 0 auto;
+								display: flex;
+								flex-wrap: wrap;
+								justify-content: flex-start;
+								align-content: space-around;
+								li{
+									width: 50%;
+									font-size: 0.24rem;
+									font-family: Myriad Pro;
+									font-weight: 400;
+									color: #999999;
+									line-height: 0.25rem;
+									white-space: nowrap;
+									overflow: hidden;
+									padding: 0.1rem 0.1rem;
+									text-overflow: ellipsis;
+									&.position {
+										text-align: right;
+									}
+									&.titles {
+										width: 100%;
+									}
+									.weight {
+										font-size: 0.28rem;
+										color: #333;
+										font-weight: 700;
+									}
+								}
+							}
+						}
+					}
+				}
+                .time {
+                    height: 1rem;
+                    display: flex;
+                    align-items: center;
+                    .circle_wrap {
+                        width: 0.36rem;
+                        height: 0.36rem;
+                        margin: 0 0.1rem;
+                        border-radius: 50%;
+                        background-color: #d0deff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        .circle {
+                            display: inline-block;
+                            width: 0.2rem;
+                            height: 0.2rem;
+                            border-radius: 50%;
+                            background-color: #6492ff;
+                        }
+                    }
+
+                    .text {
+                        font-size: 0.32rem;
+                        font-weight: bold;
+                        color: #6492ff;
+                    }
+                }
+                .item {
+                    color: #333;
+                    display: flex;
+                    &:first-child {
+                        color: #666;
+                        border: 1px solid #dbdad8;
+                        background-color: #efeeed;
+                        .right {
+                            text-align: center;
+                        }
+                    }
+                    &:last-child {
+                        border-bottom: 1px solid #dbdad8;
+                    }
+                    &:nth-child(odd) {
+                        background-color: #f7f7f7;
+                    }
+                    .left,
+                    .right {
+                        padding: 0.2rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .left {
+                        flex: 1;
+                        border-right: 1px solid #dbdad8;
+                    }
+                    .right {
+                        flex: 3;
+                    }
+                }
+            }
+        }
+
+        .drain {
+            .wrap {
+                .item {
+                    .center {
+                        padding: 0.16rem;
+                        border-right: 1px solid #dbdad8;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    .left,
+                    .center,
+                    .right {
+                        flex: 1;
+                    }
+                }
+            }
+        }
+    }
+}

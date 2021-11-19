@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>预警</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/list.css" />
+	<!-- 筛选css -->
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+	<!-- 筛选css end -->
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function() {
+			resizeRoot(750);
+		};
+	</script>
+	<style type="text/css">
+		.listBox ul li span{
+			line-height: 0.4rem;
+		}
+		.listBox ul li > a{
+			height: .4rem;
+			border:none;
+			margin: 0.1rem 0;
+		}
+		.listBox ul li > a img{
+			width: 0.3rem;
+			display: inline-block;
+		}
+	</style>
+	<style type="text/css">
+		.screen_box{
+			width: 100%;
+			height: 3.5rem;
+			position: fixed;
+			top: 1.3rem;
+			z-index: 9;
+			background-color: #FAF8FD;
+		}
+		.sort_lists {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat fixed 90%;
+			background-size: 15px 9px;
+		}
+		.sort_list.sort_lista {
+			background: none !important;
+		}
+		.search_box .sort_input.sort_new{
+			background-color: #FAF8FD;
+		}
+		.search_box .span_search {
+			left: calc(100% - 0.5rem);
+		}
+		.listBox{
+			margin-top: 2.8rem;
+		}
+		
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+		
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+		
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+		
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+		
+		.sort.start .sort_list{width: 50%;}
+		.listBox ul li > a.yj_a{display: flex;justify-content: space-between;align-items: center;}
+		.yj_a .yjbox{display: flex;justify-content: flex-start;align-items: center;}
+		.yj_a .yjbox .yj_img{margin-right: 0.1rem;}
+		.yj_a .yjbox .yjtitle{font-size: 0.28rem;color: #333333;}
+		.yj_a .yjtime{padding-right: 0.55rem;}
+		.listBox ul li > a span{margin: 0;}
+		.listBox ul li > a::after{top: 40%;}
+	</style>
+</head>
+
+<body>
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl" style="cursor: pointer;"></i>
+			<span>数据列表</span>
+		</header>
+		<div class="section">
+			<div class="sort start screen_box">
+				<select name="onlineType" class="sort_list sort_lists" id="warning_type">
+					<option value="">预警等级</option>
+					<option value="1">省级</option>
+					<option value="2">市级</option>
+					<option value="3">县级</option>
+				</select>
+				<div class="sort_list sort_lista search_box">
+					<input type="text" id="keywords" placeholder="关键字" class="sort_input sort_new sort_search" />
+					<span class="span_search" id="searchKey">
+						<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+					</span>
+				</div>
+			</div>
+			<div class="listBox">
+				<ul>
+					<!-- <li>
+						<a href="warning_detail.html">太原市<span>共1511条记录</span></a>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/meteorological/warning_list.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js -->
+<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+<!-- 筛选js end -->
+</html>

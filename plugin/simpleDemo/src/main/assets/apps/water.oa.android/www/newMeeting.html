@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>新建会议</p>
+
+				<div class="notice">
+					<div class="notice-content">
+						<p><span class="left">会议名称</span><span class="right"><input type="text" value="" name="mc" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+						<!--<p class="ptb"><span class="left">主持人</span><span class="right"><input type="text" value="" name="title" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+						<p class="ptb"><span class="left">记录人</span><span class="right"><input type="text" value="" name="title" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+						<p class="ptb"><span class="left">审批人</span><span class="right"><input type="text" value="" name="title" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+						<p class="ptb"><span class="left">会议地点</span><span class="right"><input type="text" value="" name="title" /><i class="iconfont icon-qianbipencil84 "></i></span></p>-->
+						<p class="ptb" id="zcr"><span class="left">主持人</span><span class="right"><input type="text" value="" name="zcr" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb" id="jlr"><span class="left">记录人</span><span class="right"><input type="text" value="" name="jlr" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb" id="spr"><span class="left">审批人</span><span class="right"><input type="text" value="" name="spr" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb" id="dd"><span class="left">会议地点</span><span class="right"><input type="text" value="" name="dd" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb" id="lx"><span class="left">会议类型</span><span class="right"><input type="text" value="" name="lx" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb" id="kssj"><span class="left">开始时间</span><span class="right"><input type="text" value="" name="kssj" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb" id="jssj"><span class="left">结束时间</span><span class="right"><input type="text" value="" name="jssj" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb" id="jj"><span class="left">紧急程度</span><span class="right"><input type="text" value="" name="jj" disabled="disabled" /><i class="iconfont icon-jiantou8 "></i></span></p>
+						<p class="ptb"><span class="left">所需设备</span><span class="right"><input type="text" value="" name="sb" disabled="disabled" /></span></p>
+						<p class="ptb"><span class="left">其他设备</span><span class="right"><input type="text" value="" name="qtsb" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+					</div>
+					<div class="notice-content">
+						<p style="    height: 0.7rem;line-height: 0.7rem;"><span class="left">会议议程</span></p>
+						<textarea name="hyyc" rows="6" cols="" placeholder="请输入详细内容..."></textarea>
+					</div>
+
+					<div class="notice-content">
+						<p><span class="left">图片</span><span class="right"><i id="tupian" class="iconfont icon-tupian "></i></span>
+
+						</p>
+						<div class="tupianlist"></div>
+						<p style="border-top: 1px solid #e5e5e5;"><span class="left">附件</span><span class="right"><input type="file" name="file" id="file" value=""  style="padding: 0;opacity: 0;"/><i id="fujian" class="iconfont icon-lianjie "></i></span></p>
+						<div class="fujialist">
+							<!--<span><i class="iconfont icon-wendang1"></i><a>某某文件袋大家啊四等奖某某文件袋大家啊四等奖</a><i class="iconfont icon-guanbi right"></i></span>
+							<span><i class="iconfont icon-wendang1"></i><a>某某文件袋大家啊四等奖某某文件袋大家啊四等奖</a><i class="iconfont icon-guanbi right"></i></span>
+							<span><i class="iconfont icon-wendang1"></i><a>某某文件袋大家啊四等某某文件袋大家啊四等奖奖</a><i class="iconfont icon-guanbi right"></i></span>-->
+						</div>
+					</div>
+					<div class="notice-content">
+						<p style="    height: 0.7rem;line-height: 0.7rem;"><span class="left">参会人员</span></p>
+						<div class="fanwei">
+							<ul id="lianxiren">
+								<li id="tjren">
+									<div><i class="iconfont icon-tianjia"></i></div>
+									<p>添加</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="notice-content">
+						<p><span class="left">其他人员</span><span class="right"><input type="text" value="" name="qtry" /><i class="iconfont icon-qianbipencil84 "></i></span></p>
+					</div>
+					<div class="notice-content">
+						<p style="    height: 0.7rem;line-height: 0.7rem;"><span class="left">备注</span></p>
+						<textarea name="bz" rows="6" cols="" placeholder="请输入备注"></textarea>
+					</div>
+					<button id="tijiao">提交</button>
+
+				</div>
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var allContact = [],
+				allMeetingroom = [],
+				compere,
+				recorder,
+				approval,
+				room_id,
+				type,
+				start_time,
+				end_time,
+				time,
+				urgent,
+				equipment_id=[],
+				participant,
+				allrenyun=[]
+			
+			$("#tijiao").click(function() {
+				console.log(start_time+','+end_time)
+				
+				var _url = root + "api/meeting/new";
+
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"urgent": urgent,
+						"name": $("input[name='mc']").val(),
+						"type": type,
+						"time": start_time+','+end_time,
+						"room_id": room_id,
+						"compere": compere,
+						"recorder":recorder,
+						"participant":participant,
+						"other_participant": $("input[name='qtry']").val(),
+						"agenda": $("textarea[name='hyyc']").val(),
+						"apply_note": $("textarea[name='bz']").val(),
+						"equipment_id": equipment_id,
+						"other_equipment":$("input[name='qtsb']").val(),
+						"approval":approval,
+						"attachment_file":"",
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast("发布成功！");
+							mui.back();
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {
+
+					}
+
+				})
+			})
+
+			//获取全部人员
+			contacts()
+
+			function contacts() {
+				var _url = root + "api/contacts/user";
+
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							localStorage.setItem("bumen",JSON.stringify(data.data))
+							data.data.forEach(function(v) {
+								v.text = v.name;
+								v.value = v.id;
+								v.children = v.user;
+								if(v.children != []) {
+									v.children.forEach(function(v1) {
+										v1.text = v1.trueName;
+										v1.value = v1.id;
+										allContact.push(v1);
+										localStorage.setItem("allContact", JSON.stringify(allContact));
+										console.log(JSON.stringify(allContact))
+									})
+								}
+							})
+							allrenyun = data.data;
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {
+
+					}
+
+				})
+			}
+			//获取全部会议地点设备
+			meetingroom()
+
+			function meetingroom() {
+				var _url = root + "api/meeting/meetingroom";
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							data.data.forEach(function(v) {
+								v.value = v.id;
+								v.text = v.name;
+								allMeetingroom.push(v)
+							})
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {
+
+					}
+
+				})
+			}
+
+			//			主持人选择
+			document.querySelector('#zcr').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker({layer: 2});
+				roadPick.setData(allrenyun);
+				roadPick.show(function(items) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('input[name="zcr"]').val(itemCallback[1].text);
+					compere = itemCallback[1].value;
+				});
+			});
+			//			记录人选择
+			document.querySelector('#jlr').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker({layer: 2});
+				roadPick.setData(allrenyun);
+				roadPick.show(function(items) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('input[name="jlr"]').val(itemCallback[1].text);
+					recorder = itemCallback[1].value;
+				});
+			});
+			//			审批人选择
+			document.querySelector('#spr').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker({layer: 2});
+				roadPick.setData(allrenyun);
+				roadPick.show(function(items) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('input[name="spr"]').val(itemCallback[1].text);
+					approval = itemCallback[1].value;
+				});
+			});
+			//			会议地点选择
+			document.querySelector('#dd').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				roadPick.setData(allMeetingroom);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+						console.log(JSON.stringify(itemCallback));
+						var sblist = [];
+						itemCallback[0].equipment.forEach(function(v){
+							sblist.push(v.name);
+							equipment_id.push(v.id);
+							
+						})
+						console.log(sblist)
+						$('input[name="sb"]').val(sblist)
+					$('input[name="dd"]').val(itemCallback[0].text);
+					room_id = itemCallback[0].value;
+				});
+			});
+			//			会议类型选择
+			document.querySelector('#lx').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				aa=[{
+					text:"例会",
+					value:1
+				},{
+					text:"部门会议",
+					value:2
+				},{
+					text:"工作简会",
+					value:3
+				},{
+					text:"专题会议",
+					value:4
+				},{
+					text:"总结会议",
+					value:5
+				},{
+					text:"外事会议",
+					value:6
+				},{
+					text:"其他",
+					value:7
+				}]
+				roadPick.setData(aa);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('input[name="lx"]').val(itemCallback[0].text);
+					type = itemCallback[0].value;
+				});
+			});
+				//			选择时间开始
+			document.querySelector("#kssj").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+					console.log(JSON.stringify(items))
+					$('input[name="kssj"]').val(items.value);
+					start_time = items.text;
+					dtpicker.dispose();
+				});
+			});
+				//			选择时间结束
+			document.querySelector("#jssj").addEventListener("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+					console.log(JSON.stringify(items))
+					$('input[name="jssj"]').val(items.value);
+					end_time = items.text;
+					dtpicker.dispose();
+				});
+			});
+			//			会议紧急程度
+			document.querySelector('#jj').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				aa=[{
+					text:"正常",
+					value:3
+				},{
+					text:"平急",
+					value:1
+				},{
+					text:"特急",
+					value:2
+				}]
+				roadPick.setData(aa);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$('input[name="jj"]').val(itemCallback[0].text);
+					urgent = itemCallback[0].value;
+				});
+			});
+			
+			//上传图片
+			var fileArr = [];
+			document.getElementById('tupian').addEventListener('tap', function() {
+				if(mui.os.plus) {
+					var buttonTit = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+
+					plus.nativeUI.actionSheet({
+						title: "上传图片",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch(b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(); /*拍照*/
+								break;
+							case 2:
+								galleryImg(); /*打开相册*/
+								break;
+							default:
+								break;
+						}
+					})
+				}
+			}, false);
+			// 拍照获取图片  
+			function getImage() {
+				plus.camera.getCamera().captureImage(function(p) {
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						console.log(entry.toLocalURL());
+						fileArr.push(entry.toLocalURL());
+						$(".tupianlist").html("");
+						//						setHtml(fileSrc);
+						fileArr.forEach(function(v, index) {
+							$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(' + index + ')" class="iconfont icon-guanbi"></i></span>')
+						})
+					}, function(e) {
+						outLine("读取拍照文件错误：" + e.message);
+					});
+
+				});
+			}
+			// 从相册中选择图片   
+			function galleryImg() {
+				// 从相册中选择图片  
+				plus.gallery.pick(function(e) {
+					console.log(JSON.stringify(e))
+					e.files.forEach(function(v) {
+						fileArr.push(v);
+					})
+					$(".tupianlist").html("");
+					fileArr.forEach(function(v, index) {
+						$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(' + index + ')" class="iconfont icon-guanbi"></i></span>')
+					})
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "image",
+					multiple: true,
+					//					maximum: 5,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择5张图片');
+					}
+				});
+			}
+			//			删除图片
+			function shanchutupian(i) {
+				console.log(i)
+				fileArr.forEach(function(v, index) {
+					if(i == index) {
+						fileArr.splice(fileArr.indexOf(fileArr[index]), 1);
+						$(".tupianlist").html("");
+						fileArr.forEach(function(v, index) {
+							$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(' + index + ')" class="iconfont icon-guanbi"></i></span>')
+						})
+					}
+
+				})
+			}
+			//选择人员
+			document.getElementById("tjren").addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'choiceNotice.html', //通过URL传参
+					id: 'choiceNotice.html', //通过URL传参
+					extras: {
+						i: "newMeeting.html",
+				
+					}, //
+				})
+			});
+
+			//			选择联系人返回
+			window.addEventListener('newMeeting', function(e) {
+				console.log(e)
+				console.log(JSON.stringify(e.detail.user));
+				console.log(allContact)
+				participant = e.detail.user;
+				e.detail.user.forEach(function(v){
+					allContact.forEach(function(v1){
+						if(v == v1.id){
+							$("#lianxiren").append('<li><div><img src="' + v1.avatar + '"></div><p>' + v1.trueName + '</p></li>')
+						}
+					})
+				})
+				
+			});
+
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

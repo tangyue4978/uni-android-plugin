@@ -1,0 +1,33 @@
+@charset "utf-8";
+/*CSS Document*/
+/* 一级列表 */
+.listBox {width: 100%;height: 100%;overflow-y: auto;}
+.listBox ul{margin-left: .3rem;}
+.listBox ul li{border-bottom: 1px solid #d6d5d3;padding: .3rem 0;}
+.listBox ul li > a{display: block;height: .34rem;border-left: .07rem solid #6492ff;padding-left: .1rem;line-height: .34rem;font-size: .28rem;color: #333;position: relative;}
+.listBox ul li > a span{font-size: .24rem;color: #999;margin-left: .2rem;letter-spacing: .01rem;}
+.listBox ul li > a::after{content:'';width:.16rem;height:.16rem;border-right:1px solid #999;border-bottom:1px solid #999;position:absolute;top:47%;right:.3rem;transform:rotate(-45deg) translateY(-50%);-webkit-transform:rotate(-45deg) translateY(-50%);}
+/* 二级列表 */
+.list_number{width: 100%;height: .9rem;line-height: .9rem;letter-spacing: .01rem;padding: 0 .3rem;background: #f3f3f3;font-size: .26rem;color: #666;position: fixed;left: 0;top: 1.3rem;z-index: 99;}
+.list_number span{color: #6492ff;}
+.listBox > a{display: block;margin-left: .3rem;}
+.listBox dl{border-bottom: 1px solid #d6d5d3;padding: .3rem 0;}
+.listBox dl dt{height: .34rem;border-left: .07rem solid #6492ff;padding-left: .1rem;line-height: .34rem;font-size: .28rem;color: #333;position: relative;}
+.listBox dl dt::after{content:'';width:.16rem;height:.16rem;border-right:1px solid #999;border-bottom:1px solid #999;position:absolute;top:47%;right:.3rem;transform:rotate(-45deg) translateY(-50%);-webkit-transform:rotate(-45deg) translateY(-50%);}
+.listBox dl dd{font-size: .24rem;color: #999;line-height:.3rem;margin-top: .2rem;overflow: hidden;}
+.listBox dl dd span{color: #666;}
+.listBox dl dd p{width: 35%;float: left;font-size: .24rem;color: #999;line-height:.3rem;}
+/* 条件查询 */
+.gpsInfo{width: 100%;height: .48rem;background: #fff;border-top: 1px solid #cfcfcf;border-radius: .2rem .2rem 0 0;box-shadow: 0 1px 6px #e2e2e2;position: fixed;left: 0;bottom: 0;}
+.gpsInfo .icon_arrow{width: .46rem;height: .14rem;display: block;position: absolute;left: 0;right: 0;margin: auto;top: .14rem;-webkit-transition:transform 0.2s ease-out;transition:transform 0.2s ease-out;}
+.gpsInfo.open .icon_arrow{-webkit-transform: rotateZ(180deg);transform: rotateZ(180deg);}
+.gpsInfo .gpsInfo_con{padding: .4rem 0 0;}
+.gpsInfo .gpsInfo_con .title{font-size: .28rem;color: #333;margin: 0 .3rem;}
+.gpsInfo_con .search_form ul{overflow: hidden;margin: .2rem .3rem 0;}
+.gpsInfo_con .search_form ul li{width: 50%;float: left;font-size: .25rem;color: #666;line-height: .76rem;margin: .05rem 0;overflow: hidden;}
+.gpsInfo_con .search_form ul li .label{width: 1.2rem;float: left;}
+.gpsInfo_con .search_form ul li .field{width: auto;height: .76rem;display: block;margin-left:1.2rem;border: 1px solid #d6d5d3;border-radius: .06rem;font-size: .24rem;color: #333;padding: 0 .15rem;}
+.gpsInfo_con .search_form ul li .field .input{width: 100%;border: none;}
+.gpsInfo_con .search_form ul li:nth-child(2n+1){padding-right: .2rem;}
+.gpsInfo_con .search_form ul li:nth-child(2n){padding-left: .2rem;}
+.gpsInfo_con .search_form .button{width: 7.25rem;height: .9rem;display: block;border: none;background: none;background-image: linear-gradient(#3877f0, #4e62ff);margin: .3rem auto;border-radius: .1rem;box-shadow: 0 2px 8px #c1d5fa;font-size: .3rem;color: #fff;font-weight: 600;}

@@ -1,0 +1,5 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.11670851800011,40.14428103800003]},"properties":{"OBJECTID":329,"name":"云冈石窟"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.53559615200004,39.092114464000076]},"properties":{"OBJECTID":330,"name":"五台山"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.24096471540824,37.1988831096293]},"properties":{"OBJECTID":0,"name":"平遥古城"}}
+]}

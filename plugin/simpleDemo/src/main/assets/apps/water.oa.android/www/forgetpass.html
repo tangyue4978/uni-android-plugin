@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<!--图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_rpo2kq59ywm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<!--<script src="js/mui.enterfocus.js"></script>-->
+	</head>
+
+	<body>
+		<div class="mui-content" style="background: #fff;">
+			<img src="images/wjmm.png" width="100%" />
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row" style="border-bottom: 1px solid #eee;">
+					<label><i class="iconfont icon-shouji1"></i></label>
+					<input id='username' type="text" placeholder="请输入手机号">
+				</div>
+				<div class="mui-input-row" style="border-bottom: 1px solid #eee;">
+					<label><i class="iconfont icon-shoujiyanzheng"></i></label>
+					<input class="left" style="float: left;width: 50%;" id='code'  type="text"  placeholder="请输入手机验证码">
+					<span class="right yzm">发送短信验证码</span>
+				</div>
+				<div class="mui-input-row" style="border-bottom: 1px solid #eee;">
+					<label><i class="iconfont icon-mima"></i></label>
+					<input id='new_password'  type="password"  placeholder="请输入新密码">
+					<!--<span class="mui-icon mui-icon-eye iconfont icon-yanjing"></span>-->
+				</div>
+				<div class="mui-input-row">
+					<label><i class="iconfont icon-mima"></i></label>
+					<input id='again_password' type="password"  placeholder="确认密码">
+					<!--<span class="mui-icon mui-icon-eye iconfont icon-yanjing"></span>-->
+				</div>
+			</form>
+			<!--<div class="link-area" style=" width: 80%; margin: 0.25rem auto;">
+				<span class="left span1">
+					<a id="passa"><i class="iconfont icon-weixuanzhongkuang"></i><i class="iconfont icon-xuanzhong" ></i>记住密码</a>
+				</span>
+				<span class="right span2">
+				 	<a id='forgetPassword' style="color: #378ba4; font-size: 0.25rem;">忘记密码？</a>
+				 </span>
+
+			</div>-->
+
+			<div class="mui-content-padded" style="margin-top: 0.5rem;padding: 0;">
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary queding">确定</button>
+			</div>
+			<p class="fhdl mui-action-back">返回登录</p>
+		</div>
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="js/mui.enterfocus.js"></script>-->
+		<!--<script src="js/app.js" type="text/javascript" charset="utf-8"></script>-->
+		<!--<script src="js/login.js"></script>-->
+		<script type="text/javascript">
+		
+//				(function($, doc) {
+//					$.init({
+//
+//					});
+//
+//					$.plusReady(function() {
+//						$.preload({
+//							"id": 'dhy',
+//							"url": 'dhy.html',
+//							show: {
+//								aniShow: 'pop-in'
+//							},
+//						});
+//					
+//						plus.screen.lockOrientation("portrait-primary");
+//					var settings = app.getSettings();
+//					var state = app.getState();
+//						var mainPage = plus.webview.getWebviewById("dhy");
+//						console.log(mainPage)
+//						var main_loaded_flag = false;
+//						if(!mainPage) {
+//							mainPage = $.preload({
+//								"id": 'dhy',
+//								"url": 'dhy.html'
+//							});
+//						} else {
+//							main_loaded_flag = true;
+//						}
+//
+//						mainPage.addEventListener("loaded", function() {
+//							main_loaded_flag = true;
+//						});
+//						var toMain = function() {
+//							//使用定时器的原因：
+//							//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+//							var id = setInterval(function() {
+//								console.log(main_loaded_flag)
+//								if(main_loaded_flag) {
+//									clearInterval(id);
+//									$.fire(mainPage, 'show', null);
+//									mainPage.show("pop-in");
+//								}
+//							}, 20);
+//						};
+//
+//						//检查 "登录状态/锁屏状态" 结束
+//						var loginButton = doc.getElementById('login');
+//						var accountBox = doc.getElementById('username');
+//						var passwordBox = doc.getElementById('password');
+//						var autoLoginButton = doc.getElementById("autoLogin");
+//						var jizhumima = jQuery("#passa .icon-xuanzhong").css('display');
+//						loginButton.addEventListener('tap', function(event) {
+//							var loginInfo = {
+//								"mobile": accountBox.value,
+//								"password": passwordBox.value
+//							};
+//
+//							app.login(loginInfo, function(err) {
+//								if(err) {
+//									plus.nativeUI.toast(err);
+//									return;
+//								}
+//								toMain();
+//							});
+//
+//						});
+//						var backButtonPress = 0;
+//						$.back = function(event) {
+//							backButtonPress++;
+//							if(backButtonPress > 1) {
+//								plus.runtime.quit();
+//							} else {
+//								plus.nativeUI.toast('再按一次退出应用');
+//							}
+//							setTimeout(function() {
+//								backButtonPress = 0;
+//							}, 1000);
+//							return false;
+//						};
+//					});
+//				}(mui, document));
+
+			$(".queding").click(function(){
+//				mui.openWindow({
+//					url: 'forgetpassSuccess.html', //通过URL传参
+//					id: 'forgetpassSuccess.html' //通过URL传参
+//				})
+					
+					var mobile=$("#username").val();
+					if(mobile==""||mobile==undefined||mobile==null){
+						mui.toast("请输入手机号");
+						return false;
+					}else if(!isPoneAvailable(mobile)){
+						mui.toast("请输入正确的手机号");
+						return false;
+					}
+					var yzm_hash=hash;
+					if(yzm_hash==""||yzm_hash==undefined||yzm_hash==null){
+						mui.toast("请发送短信验证码");
+						return false;
+					}
+					var code=$("#code").val();
+					if(code==""||code==undefined||code==null){
+						mui.toast("请输入验证码");
+						return false;
+					}
+					var new_password=$("#new_password").val();
+					if(new_password==""||new_password==undefined||new_password==null){
+						mui.toast("请输入新密码");
+						return false;
+					}else if(new_password.toString().length<6){
+						mui.toast("新密码不得少于6位");
+						return false;
+					}
+					var again_password=$("#again_password").val();
+					if(again_password!=new_password){
+						mui.toast("请确认新密码与确认密码一致");
+						return false;
+					}
+					var _url = root + 'api/login/forget';
+					mui.ajax(_url, {
+						data: {
+							"mobile": mobile,
+							"hash": hash,
+							"code": code,
+							"new_password": new_password,
+							"repeat_password": again_password
+						},
+						dataType: 'json',
+						type: 'post',
+						success: function(data) {
+							if (data.code==1) {
+								localStorage.setItem("login_mobile", "");
+								localStorage.setItem("login_password", "");
+								list=plus.webview.getWebviewById("login.html");
+								mui.fire(list, 'refresh');
+								mui.toast(data.msg);
+								mui.back();
+							} else{
+								mui.toast(data.msg);
+							}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.toast("网络异常");
+						}
+					})
+				
+			})
+			
+		</script>
+		<!--忘记密码-->
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			
+			function isPoneAvailable(val) {
+		        var myreg=/^[1][0-9][0-9]{9}$/;  
+		        if (!myreg.test(val)) {
+		            return false;  
+		        } else {  
+		            return true;  
+		        }  
+		    }
+			var miss = 60;
+			function code() {
+				miss--;
+				$(".yzm").text(miss + "s后重新发送")
+				if(miss > 0) {
+					setTimeout(code, 1000)
+				} else {
+					$(".yzm").text("发送短信验证码");
+					miss = 60;
+					$(".yzm").on("click",yzm);
+//					hash="";
+				}
+			}
+			$(".yzm").on("click",yzm);
+			var hash="";
+			function yzm() {
+				var _url = root + 'api/login/sms';
+				if ($("#username").val()!=""&&$("#username").val()!=undefined&&$("#username").val()!=null) {
+					if(isPoneAvailable($("#username").val())){
+						$(".yzm").off("click",yzm);
+						
+						mui.ajax(_url, {
+							data: {
+								"mobile": $("#username").val()
+							},
+							dataType: 'json',
+							type: 'post',
+							success: function(data) {
+								if (data.code==1) {
+									hash=data.data.hash;
+									mui.toast(data.msg);
+									code();
+//									mui.back();
+								} else{
+									mui.toast(data.msg);
+									$(".yzm").on("click",yzm);
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.toast("网络异常");
+								$(".yzm").on("click",yzm);
+							}
+						})
+						
+					}else{
+						mui.toast("请输入正确的手机号码");
+					}
+				} else{
+					mui.toast("请输入手机号");
+				}
+				
+			}
+		</script>
+	<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

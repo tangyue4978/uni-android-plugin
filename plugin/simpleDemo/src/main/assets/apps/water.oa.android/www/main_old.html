@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_n5hqayz6dk.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="css/main_icon/main_iconfont.css">
+		<style type="text/css">
+			.main-header{
+				background-size: 100% 100%;
+			}
+			.main-head ul li{
+				width: 25%;
+				margin: 0;
+			}
+			.main-head ul li div{
+				display: inline-block;
+    			color: #fff;
+			}
+		</style>
+	</head>
+
+	<body class="background:#f8f8f8;">
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="main-header">
+				<p class="p1" style="padding: 0.5rem 0.2rem 0 0.2rem ;"></p>
+				<!--<img src="images/logo.png" alt="" />-->
+				<div class="main-ss" id="inputid">
+					<!--<input type="text" name="" value="" placeholder="请输入关键字...." />-->
+					<!--<div id="inputid" style="position: absolute;width: 3.7rem;height: 0.6rem;border-radius: 5rem 0 0 5rem;border: none;font-size: 0.26rem;top: 0rem;z-index: 999;"></div>-->
+					<!--<button>搜索</button>-->
+				</div>
+
+			</div>
+
+			<div class="main-head">
+				<div class="div1">
+					<p>工作台</p>
+					<span id="zidingyi">自定义</span>
+				</div>
+				<ul class="caidan">
+					<!--<li id="tongzhi">
+						<div style="background: #f86d6d;"><i class="iconfont icon-tongzhi"></i></div><span>通知</span></li>
+					<li id="huiyi">
+						<div style="background: #b4c644;"><i class="iconfont icon-huiyi"></i></div><span>会议</span></li>
+					<li id="zhishi">
+						<div style="background: #3d9cfa;"><i class="iconfont icon-zhishi"></i></div><span>知识</span></li>
+					<li id="yunpan">
+						<div style="background: #f08d4b;"><i class="iconfont icon-yunyingpan"></i></div><span>云盘</span></li>
+					<li id="rizhi">
+						<div style="background: #f08d4b;"><i class="iconfont icon-rizhi"></i></div><span>日志</span></li>
+					<li id="qingjia">
+						<div style="background: #2bd998;"><i class="iconfont icon-qingjia1"></i></div><span>请假</span></li>
+					<li id="baoxiao">
+						<div style="background: #3d9cfa;"><i class="iconfont icon-icon-test1"></i></div><span>报销</span></li>
+					<li id="kaoqin">
+						<div style="background: #2bbfe4;"><i class="iconfont icon-buqian"></i></div><span>考勤</span></li>
+					<li id="keshihua">
+						<div style="background: #f86d6d;"><i class="iconfont icon-keshihuashujuETL"></i></div><span>可视化</span></li>
+					<li id="richeng">
+						<div style="background: #3d9cfa;"><i class="iconfont icon-rili"></i></div><span>日程</span></li>
+					<li id="jifen">
+						<div style="background: #2bd998;"><i class="iconfont icon-jifen"></i></div><span>积分</span></li>
+					<li id="gongwen">
+						<div style="background: #b4c644;"><i class="iconfont icon-gongwen"></i></div><span>公文</span></li>-->
+					<!--<li id="hezhangzhi">
+						<div onclick="cd('河长制')" style="background: #2bbfe4;"><i class="iconfont icon-mingpian"></i></div><span>河长制</span></li>-->
+
+				</ul>
+			</div>
+
+		</div>
+		<div style="height: 1.26rem;"></div>
+		<nav class="mui-bar mui-bar-tab " id="nav">
+			<a class="mui-tab-item " id="defaultTab" href="news.html">
+				<span class="mui-icon iconfont icon-xiaoxi"></span>
+				<span class="mui-tab-label navwenzi">消息</span>
+			</a>
+			<a class="mui-tab-item " id="a2" href="handle.html">
+				<span class="mui-icon iconfont icon-daiban"></span>
+				<span class="mui-tab-label navwenzi">办理</span>
+			</a>
+			<a class="mui-tab-item mui-active" id="a3" href="main.html">
+				<img src="images/322.png" class="" alt="">
+				<!-- <span class="mui-icon iconfont icon-address-book-o"></span> -->
+				<span class="mui-tab-label navwenzi"></span>
+			</a>
+			<!--<a class="mui-tab-item " id="a4" href="communication.html">-->
+			<a class="mui-tab-item " id="a4" href="addressBookone.html">
+				<span class="mui-icon iconfont icon-address-book-o"></span>
+				<span class="mui-tab-label navwenzi">通讯录</span>
+			</a>
+			<a class="mui-tab-item " id="a5" href="my.html">
+				<span class="mui-icon icon-gerenzhongxin iconfont"></span>
+				<span class="mui-tab-label navwenzi">我的</span>
+			</a>
+		</nav> 
+		<div class="mui-loading" style="position: fixed;display: none;z-index: 999999;background:rgba(0, 0, 0, 0.3);top: 0;width: 100%;height: 100%;">
+			<div class="mui-spinner" style="display: block;margin: 0 auto;margin-top: 5.5rem;">
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/tab_layout.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/nav.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/main.js"></script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			document.addEventListener('plusready', function(){
+			    // 页面加载时触发  
+			    var pinf = plus.push.getClientInfo();
+			    var cid = pinf;//客户端标识  
+			    var clientid = cid.clientid;
+			    var token = localStorage.getItem("token");
+				var root = localStorage.getItem("str_url");
+				var _url = root + 'api/notice/set_getui_cid';
+				plus.os.model=plus.device.model;
+				var os = plus.os;
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"equipment_info":os,
+						"client_id":clientid
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+//						mui.toast(data.msg);
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("接口报错");
+					}
+				})
+			}, false);
+		</script>
+	</body>
+
+</html>

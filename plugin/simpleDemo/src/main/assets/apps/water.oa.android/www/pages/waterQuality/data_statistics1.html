@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水质数据统计</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/waterQuality/data_statistics1.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.marker{
+				width: 15px;
+				height: 15px;
+				border: 1px solid #088;
+				border-radius: 50%;
+				background-color: #00FFFF;
+				opacity: 0.5;
+				display: none;
+			}
+			.marker:after {				content: " ";				background-color: #00FFFF;				position: absolute;				left: 50%;				top: 50%;				width: 15px;				height: 15px;				border-radius: 50%;				margin-left: -50%;				margin-top: -50%;				-webkit-animation-name: 'ripple';				-webkit-animation-duration: 1s;				-webkit-animation-timing-function: linear;				-webkit-animation-delay: 0s;				-webkit-animation-iteration-count: infinite;				-webkit-animation-direction: normal;			}			@keyframes ripple {				0% {					opacity: 1;					width: 15px;					height: 15px;				}				50% {					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -15px;
+					margin-top: -15px;				}				100% {					opacity: 0.05;					width: 60px;					height: 60px;					margin-left: -30px;					margin-top: -30px;				}			}
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {display: none;}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>统计图表</span>
+			</header>
+			<div class="main">
+				<!-- 地市搜素start -->
+				<div class="city_search">
+					<select class = "submit_item" id="city" name="city_code"  >
+						<option value="">山西省</option>
+					</select>
+					<!-- <div class="submit_item" id="muiPicker">2020-12</div> -->
+				</div>
+				<!-- 地市搜素end -->
+				<!-- 水库类型分析start -->
+				<div class="waterUse_box reservoir_type">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">监测数据到报</div>
+							</div>
+						</div>
+						<div class="waterUse">
+							<ul class="waterUse_title" id="use_value">
+								
+							</ul>
+							<ul class="waterUse_name" id="use_name">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 水库类型分析end -->
+				<!-- 水库类型分析start -->
+				<div class="waterUse_box reservoir_type">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">监测数据水质警告</div>
+							</div>
+						</div>
+						<div class="waterUse">
+							<ul class="waterUse_title" id="warning_value">
+
+							</ul>
+							<ul class="waterUse_name" id="warning_name">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 水库类型分析end -->
+				
+				<!-- 巡河计划start -->
+				<div class="river_patrol">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">监测数据水质类别占比</div>
+							</div>
+						</div>
+						<div id="container3" class="charts3"></div>
+					</div>
+				</div>
+				<!-- 巡河计划end -->
+				<!-- 巡河计划start -->
+				<div class="river_patrol">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">监测数据各流域监测站点占比</div>
+							</div>
+						</div>
+						<div id="container4" class="charts3"></div>
+					</div>
+				</div>
+				<!-- 巡河计划end -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/waterQuality/data_statistics1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

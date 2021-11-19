@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body >
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news communication">
+				<p class="pp">
+				</p>
+				<div class="communication-content" style="    margin-top: 1.4rem;">
+
+					<div class="communication-c-c">
+						<ul id="contact">
+							<!--<li>
+								<div class="left"><img src="images/qwe.png"></div>联系人</li>
+							<li>
+								<div class="left"><img src="images/qwe.png"></div>联系人</li>
+							<li>
+								<div class="left"><img src="images/qwe.png"></div>联系人</li>
+							<li>
+								<div class="left"><img src="images/qwe.png"></div>联系人</li>
+							<li>
+								<div class="left"><img src="images/qwe.png"></div>联系人</li>
+							<li>
+								<div class="left"><img src="images/qwe.png"></div>联系人</li>-->
+						</ul>
+						<p id="wu" style="text-align: center;display: none;background: #f8f8f8;">暂无联系人</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.name)
+				console.log(self.id)
+				$(".pp").html('<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>' + self.name + '联系人');
+				list(self.i)
+			});
+
+			function list(id) {
+				var _url = root + 'api/contacts/list';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"department_id": id,
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							console.log(data.data)
+							if(data.data != "") {
+								data.data.forEach(function(v1, index) {
+									$("#contact").append("<li onclick='contxq(" + v1.id + ")' ><div class='left'><img src='" + v1.avatar + "'/></div>" + v1.truename + "</li>");
+								})
+							} else {
+								console.log("1")
+								$("#wu").css("display", "block");
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+//			document.getElementById('details').addEventListener('tap', function() {
+//				mui.openWindow({
+//					url: 'communicationDetails.html', //通过URL传参
+//					id: 'communicationDetails.html', //通过URL传参
+//				})
+//			})
+
+			function contxq(idd) {
+				console.log(idd)
+				mui.openWindow({
+					url: 'communicationDetails.html', //通过URL传参
+					id: 'communicationDetails.html', //通过URL传参
+					extras: {
+						i: idd,
+					},
+				})
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

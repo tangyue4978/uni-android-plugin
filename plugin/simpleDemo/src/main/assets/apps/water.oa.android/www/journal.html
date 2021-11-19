@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0gd1tdmtrr0o.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body style="background: #fff;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>日志<i class="iconfont icon-tianjia right" id="add"></i></p>
+				<div class="meeting-nav">
+					<div style="position: fixed;z-index: 9;top: 1.3rem;">
+						<div id="segmentedControl" class="mui-segmented-control">
+							<a class="mui-control-item mui-active" href="#item1" style="border-right: 1px solid #dcdcdc;">
+								我的
+							</a>
+							<a class="mui-control-item" href="#item2">
+								全部
+							</a>
+						</div>
+					</div>
+					<div class="journal">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul>
+								<!--<li>
+									<div class="left shijian">
+										<p class="riqi">2017-07-07</p><span class="time">17:30</span></div>
+									<div class="left leftinput">
+										<span class="dian dianh">●</span>
+										<textarea type="text" placeholder="请输入今天日志..." cols="3" name="content" id="" value="" /></textarea>
+									</div>
+									<div class="right">
+										<p><button class="tijiao1" onclick="tijiaocontent()">提交</button></p>
+									</div>
+								</li>-->
+								<!--<li>
+									<div class="left shijian">
+										<p class="riqi">2017-07-07</p><span class="time">17:30</span></div>
+									<div class="left leftinput">
+										<span class="dian dianl">●</span>
+										<div class="rzcontent">
+											<p class="p1">ad欧爱军氨基酸哦大家泼洒紧迫爱手机端怕手机破到静安寺坡打破是</p>
+											<p><i class="iconfont icon-xiaoxi2"></i>评论(2)</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+											<p><input type="" placeholder="请输入评论" name="" id="" value="" /></p>
+										</div>
+									</div>
+									<div class="right">
+										<i class="iconfont icon-dianzan"></i>
+										<span>(0)</span>
+										<p><button>提交</button></p>
+									</div>
+								</li>
+								<li>
+									<div class="left shijian">
+										<p class="riqi">2017-07-07</p><span class="time">17:30</span></div>
+									<div class="left leftinput">
+										<span class="dian dianl">●</span>
+										<div class="rzcontent">
+											<p class="p1">ad欧爱军氨基酸哦大家泼洒紧迫爱手机端怕手机破到静安寺坡打破是</p>
+											<p><i class="iconfont icon-xiaoxi2"></i>评论(2)</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+										</div>
+									</div>
+									<div class="right">
+										<i class="iconfont icon-dianzan"></i>
+										<span>(0)</span>
+									</div>
+								</li>-->
+							</ul>
+							<p id="wu" style="text-align: center;display:none;background: #fff;margin-top: 0rem;color: #8f8f94;">暂无日志</p>
+							
+						</div>
+						<div id="item2" class="mui-control-content">
+							<ul>
+								<!--
+								<li>
+									<div class="left shijian">
+										<p class="riqi">2017-07-07</p><span class="time">17:30</span></div>
+									<div class="left leftinput">
+										<span class="dian dianl">●</span>
+										<div class="rzcontent">
+											<p class="p1">ad欧爱军氨基酸哦大家泼洒紧迫爱手机端怕手机破到静安寺坡打破是</p>
+											<p><i class="iconfont icon-xiaoxi2"></i>评论(2)</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+										</div>
+									</div>
+									<div class="right">
+										<i class="iconfont icon-dianzan"></i>
+										<span>(0)</span>
+									</div>
+								</li>
+								<li>
+									<div class="left shijian">
+										<p class="riqi">2017-07-07</p><span class="time">17:30</span></div>
+									<div class="left leftinput">
+										<span class="dian dianl">●</span>
+										<div class="rzcontent">
+											<p class="p1">ad欧爱军氨基酸哦大家泼洒紧迫爱手机端怕手机破到静安寺坡打破是</p>
+											<p><i class="iconfont icon-xiaoxi2"></i>评论(2)</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+										</div>
+									</div>
+									<div class="right">
+										<i class="iconfont icon-dianzan"></i>
+										<span>(0)</span>
+									</div>
+								</li>
+								<li>
+									<div class="left shijian">
+										<p class="riqi">2017-07-07</p><span class="time">17:30</span></div>
+									<div class="left leftinput">
+										<span class="dian dianl">●</span>
+										<div class="rzcontent">
+											<p class="p1">ad欧爱军氨基酸哦大家泼洒紧迫爱手机端怕手机破到静安寺坡打破是</p>
+											<p><i class="iconfont icon-xiaoxi2"></i>评论(2)</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+											<p><img src="images/qwe.png" />写的好好非常好！</p>
+										</div>
+									</div>
+									<div class="right">
+										<i class="iconfont icon-dianzan"></i>
+										<span>(0)</span>
+									</div>
+								</li>-->
+							</ul>
+							<p id="wu1" style="text-align: center;display:none;background: #fff;margin-top: 0rem;color: #8f8f94;">暂无日志</p>
+							
+						</div>
+					</div>
+				</div>
+				<div class="mui-loading" style="padding-top: 3rem;">
+					<div class="mui-spinner">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+
+			//添加日志
+			document.getElementById("add").addEventListener('tap', function(e) {
+				e.detail.gesture.preventDefault(); //修复iOS 8.x平台存在的bug，使用plus.nativeUI.prompt会造成输入法闪一下又没了
+				var btnArray = ['取消', '确定'];
+				mui.prompt('', '', '请输入日志内容：', btnArray, function(e) {
+					if(e.index == 1) {
+						var tmp = document.querySelector('.mui-popup-input textarea').value.trim();
+						tijiaocontent(tmp)
+					} else {
+
+					}
+				}, "div")
+				var tt = document.querySelector(".mui-popup-input");
+				tt.innerHTML = "<textarea autofocus='' rows='5' style='font-size: 0.3rem;'></textarea>"
+				document.querySelector('.mui-popup-input textarea').value = temp;
+			});
+			list()
+
+			function list() {
+				$("#item1 ul").html('');
+				var _url = root + 'api/logs/worklogs'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page": 1,
+						"type": 1
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						$(".mui-loading").css("display","none")
+						if( data.data.rel == null || data.data.rel.length == 0 ){
+							$("#wu").css("display","block")
+						}else{
+							data.data.rel.forEach(function(v, index) {
+								$("#item1 ul").append('<li><div class="left shijian"><p class="riqi">' + (v.log_time).slice(0, 10) + '</p><span class="time">' + (v.log_time).slice(10, 19) + '</span></div><div class="left leftinput"><span class="dian dianl">●</span><div class="rzcontent" id="pid' + index + '"><p class="p1">' + v.content + '</p><p onclick="pinglun(' + v.id + ',\'' + v.person_id + '\')"><i class="iconfont icon-xiaoxi2"></i>评论(' + v.commentcount + ')</p></div></div><div class="right"><i onclick="dianzan(' + v.id + ',\'' + v.person_id + '\')" class="iconfont icon-dianzan"></i><span>(' + v.likes + ')</span></div></li>')
+								if(v.commentcount != "0") {
+									v.comment.forEach(function(v1) {
+										if(v1.avatar!=null&&v1.avatar!=undefined&&v1.avatar!=""){
+											var tx_url=root+ v1.avatar;
+										}else{ 
+											var tx_url="images/user.png";
+										}
+										
+										$('#item1 #pid' + index + '').append('<p><img src="'+tx_url+ '" />' +v1.username+": "+ v1.content + '</p>')
+										//										('input[name="pl' + i + '"]')
+									})
+								}
+							})
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("接口信息错误");
+					}
+				})
+			}
+
+			list1()
+
+			function list1() {
+				$("#item2 ul").html('');
+				var root = localStorage.getItem("str_url");
+				if(root == "" || root == undefined || root == null) {
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+					})
+				}
+				var _url = root + 'api/logs/worklogs'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page": 1,
+						"type": 2
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.data.rel != null && data.data.rel != "" && data.data.rel != undefined) {
+							data.data.rel.forEach(function(v, index) {
+								$("#item2 ul").append('<li><div class="left shijian"><p class="riqi">' + (v.log_time).slice(0, 10) + '</p><span class="time">' + (v.log_time).slice(10, 19) + '</span></div><div class="left leftinput"><span class="dian dianl">●</span><div class="rzcontent" id="pid' + index + '"><p class="p1">' + v.content + '</p><p onclick="pinglun(' + v.id + ',\'' + v.person_id + '\')"><i class="iconfont icon-xiaoxi2"></i>评论(' + v.commentcount + ')</p></div></div><div class="right"><i onclick="dianzan(' + v.id + ',\'' + v.person_id + '\')" class="iconfont icon-dianzan"></i><span>(' + v.likes + ')</span></div></li>')
+								if(v.commentcount != "0") {
+									v.comment.forEach(function(v1) {
+										$('#item1 #pid' + index + '').append('<p><img src="'+root + v1.avatar + '" />' + v1.content + '</p>')
+									})
+								}
+							})
+						} else {
+							$("#item2 ul").html('');
+							$("#wu1").css("display","block")
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast("接口信息错误");
+					}
+				})
+			}
+
+			function tijiaocontent(t) {
+				var _url = root + 'api/logs/worklogsnew'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"content": t,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast("新增日志成功")
+							list()
+						} else {
+							mui.toast(data.msg)
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+			function dianzan(i, ii) {
+				console.log(i);
+				console.log(ii);
+				var _url = root + 'api/logs/logslike'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"id": i,
+						"person_id": ii,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast(data.msg)
+							list()
+						} else {
+							mui.toast(data.msg)
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+
+			}
+
+			function pinglun(i, ii) {
+				console.log(i);
+				console.log(ii);
+				var btnArray = ['取消', '确定'];
+				mui.prompt('', '', '请输入日志评论：', btnArray, function(e) {
+					if(e.index == 1) {
+						var tmp = document.querySelector('.mui-popup-input textarea').value.trim();
+						var _url = root + 'api/logs/logscomment'
+						mui.ajax(_url, {
+							data: {
+								"content": tmp,
+								"token": token,
+								"id": i,
+								"person_id": ii,
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							success: function(data) {
+								console.log(JSON.stringify(data))
+								if(data.code == 1) {
+									mui.toast("评论成功")
+									list()
+								} else {
+									mui.toast("评论失败")
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								//异常处理；
+								//		console.log(type);
+							}
+						})
+					} else {
+
+					}
+				}, "div")
+				var tt = document.querySelector(".mui-popup-input");
+				tt.innerHTML = "<textarea autofocus='' rows='5' style='font-size: 0.3rem;'></textarea>"
+				document.querySelector('.mui-popup-input textarea').value = temp;
+
+			}
+
+			//添加日志
+
+			//			$(".tijiao1").click(function(){
+			//				if(){
+			//					
+			//				}
+			//			})
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

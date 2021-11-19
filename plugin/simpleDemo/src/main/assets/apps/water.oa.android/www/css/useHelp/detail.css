@@ -1,0 +1,49 @@
+div {
+  box-sizing: border-box;
+}
+.section .left_btn {
+  left: 5%;
+}
+.section .right_btn {
+  right: 5%;
+}
+.section .left_btn,
+.section .right_btn {
+  position: fixed;
+  top: 94%;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.section .left_btn .btn_img,
+.section .right_btn .btn_img {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.section .left_btn .btn_text,
+.section .right_btn .btn_text {
+  font-size: 0.2rem;
+}
+.section .return {
+  position: fixed;
+  top: 94%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.section .return .return_img {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.section .return .return_text {
+  font-size: 0.2rem;
+}
+.section .flipbook .page {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}

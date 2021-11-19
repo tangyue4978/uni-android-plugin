@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/list.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>自然村水利信息</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section">
+				<div class="listBox">
+					<ul>
+						<!-- <li>
+							<a href="list_village.html">太原市<span>共1511条记录</span></a>
+						</li> -->
+					</ul>
+				</div>
+				<!-- <div class="gpsInfo">
+					<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png" >
+					<div class="gpsInfo_con">
+						<p class="title">条件查询</p>
+						<form class="search_form">
+							<ul>
+								<li>
+									<label class="label">地市</label>
+									<div class="field">
+										<select class="input" id="city" name="city">
+											<option value="">全部</option>
+										</select>
+									</div>
+								</li>
+								<li>
+									<label class="label">县区</label>
+									<div class="field">
+										<select class="input" id="county" name="county">
+											<option value="">全部</option>
+										</select>
+									</div>
+								</li>
+								<li>
+									<label class="label">乡镇</label>
+									<div class="field">
+										<select class="input" id="town" name="town">
+											<option value="">全部</option>
+										</select>
+									</div>
+								</li>
+								<li>
+									<label class="label">行政村</label>
+									<div class="field">
+										<select class="input" id="village" name="village">
+											<option value="">全部</option>
+										</select>
+									</div>
+								</li>
+							</ul>
+							<button onclick="submit_fun()" type="button" class="button">查询</button>
+						</form>
+					</div>
+				</div>
+			 -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			//菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+			//条件查询
+			$(".gpsInfo .icon_arrow").on("click",function(){
+				if($(".gpsInfo").hasClass("open")){
+					$(".gpsInfo").removeClass("open").css("height",".48rem");
+				}else{
+					$(".gpsInfo").addClass("open").css("height","auto");
+				}
+			})
+		})
+		//一级村列表
+		var root = localStorage.getItem("str_url");
+		if(root == "" || root == undefined || root == null){
+				mui.openWindow({
+				url: 'login.html?cid=1', //通过URL传参
+				id: 'login.html?cid=1', //通过URL传参
+			})
+		}
+		var token = localStorage.getItem("token");
+		var list_this = '';
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			plus.nativeUI.showWaiting("加载中...");
+			list();
+			getInfoData("",1)
+		});
+		function list() {
+				var _url = root + 'api/rural/firstvillage';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						plus.nativeUI.closeWaiting();
+						if(data.code == 1) {
+							for (let key in data.data) {
+								$(".listBox ul").append(
+									'<li onclick="xiangqing('+key+','+data.data[key].city_count+')">'+
+										'<a>'+data.data[key].city_name+'<span>共'+data.data[key].city_count+'条记录</span></a>'+
+									'</li>'
+								)
+							}
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						plus.nativeUI.closeWaiting();
+					}
+				})
+			}
+		function xiangqing(item_id,item_num) {
+			console.log("详情="+item_id);
+			mui.openWindow({
+				url: 'list_village.html', //通过URL传参
+				id: 'list_village.html', //通过URL传参
+				extras: {
+					item_id: item_id,
+					item_num: item_num
+				}
+			})
+		}
+		
+		//条件查询
+		/**
+		 * @param {Object} city 地市
+		 * @param {Object} county 县区
+		 * @param {Object} town 村
+		 */
+		function getInfoData(code,level){
+			console.log(code,level);
+			var _url = root + 'api/rural/citiestowns';
+			mui.ajax(_url, {
+				data: {
+					"token": token,
+					"code": code,
+					"level": level
+				},
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------"+JSON.stringify(data));
+					var city = "";
+					var county = "";
+					var town = "";
+					var village = "";
+					if(data.code == 1) {
+						switch (level){
+							case 1:
+								for (let key in data.data) {
+									console.log(JSON.stringify(data.data[key]));
+									city += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								county = "<option value=''>全部</option>";
+								town = "<option value=''>全部</option>";
+								village = "<option value=''>全部</option>";
+								$("#city").html(city);
+								$("#county").html(county);
+								$("#town").html(town);
+								$("#village").html(village);
+								getInfoData($("#city").val(),2);
+								break;
+							case 2:
+								for (let key in data.data) {
+									console.log(JSON.stringify(data.data[key]));
+									county += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								town = "<option value=''>全部</option>";
+								village = "<option value=''>全部</option>";
+								$("#county").html(county);
+								$("#town").html(town);
+								$("#village").html(village);
+								getInfoData($("#county").val(),3);
+								break;
+							case 3:
+								for (let key in data.data) {
+									console.log(JSON.stringify(data.data[key]));
+									town += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								village = "<option value=''>全部</option>";
+								$("#town").html(town);
+								$("#village").html(village);
+								getInfoData($("#town").val(),4);
+								break;
+							case 4:
+								for (let key in data.data) {
+									console.log(JSON.stringify(data.data[key]));
+									village += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								$("#village").html(village);
+								break;
+							default:
+								for (let key in data.data) {
+									console.log(JSON.stringify(data.data[key]));
+									city += "<option value='"+data.data[key].code+"'>"+data.data[key].name+"</option>";
+								}
+								county = "<option value=''>全部</option>";
+								town = "<option value=''>全部</option>";
+								village = "<option value=''>全部</option>";
+								$("#city").html(city);
+								$("#county").html(county);
+								$("#town").html(town);
+								$("#village").html(village);
+								break;
+						}
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+		//查询
+		var $cityType = "";
+		//查询选择联动-地市
+		$("#city").on("change",function(){
+			$cityType = 2;
+			var $cityVal = $("#city").val();
+			getInfoData($cityVal,$cityType);
+		})
+		//查询选择联动-县区
+		$("#county").on("change",function(){
+			$cityType = 3;
+			var $countyVal = $("#county").val();
+			getInfoData($countyVal,$cityType)
+			
+		})
+		//查询选择联动-乡镇
+		$("#town").on("change",function(){
+			$cityType = 4;
+			var $townVal = $("#town").val();
+			getInfoData($townVal,$cityType)
+		})
+		//点击查询
+		function submit_fun(){
+			var code_id = "";
+			var city_id = $("#city").val();//地市
+			var county_id = $("#county").val();//县区
+			var town_id = $("#town").val();//乡镇
+			var village_id = $("#village").val();//行
+			if(county_id == "" || county_id == undefined || county_id == null){
+				code_id = city_id;
+			}else if(town_id == "" || town_id == undefined || town_id == null){
+				code_id = county_id;
+			}else if(village_id == "" || village_id == undefined || village_id == null){
+				code_id = town_id;
+			}else{
+				code_id = village_id;
+			}
+			mui.openWindow({
+				url: 'queryResult_list.html', //通过URL传参
+				id: 'queryResult_list.html', //通过URL传参
+				extras: {
+					code_id: code_id
+				}
+			})
+		}
+	</script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

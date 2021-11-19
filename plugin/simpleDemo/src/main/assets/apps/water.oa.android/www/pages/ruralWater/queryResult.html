@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/query.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>一村一井工程</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="tabsLabel">
+				<ul>
+					<li class="active">规划井列表</li>
+					<li>规划井汇总</li>
+				</ul>
+			</div>
+			<div class="section">
+				<div class="tabsItem" style="display: block;">
+					<div class="listBox">
+						<div class="listOne">
+							<p class="title">运城市 垣曲县 新城镇</p>
+							<ul>
+								<li>井名称：<span>新城街</span></li>
+								<li>水源类型：<span>裂隙水</span></li>
+								<li>井深：<span>600</span></li>
+								<li>出水量(m³/h)：<span>50</span></li>
+							</ul>
+						</div>
+						<div class="listOne">
+							<p class="title">运城市 垣曲县 新城镇</p>
+							<ul>
+								<li>井名称：<span>新城街</span></li>
+								<li>水源类型：<span>裂隙水</span></li>
+								<li>井深：<span>600</span></li>
+								<li>出水量(m³/h)：<span>50</span></li>
+							</ul>
+						</div>
+						<div class="listOne">
+							<p class="title">运城市 垣曲县 新城镇</p>
+							<ul>
+								<li>井名称：<span>新城街</span></li>
+								<li>水源类型：<span>裂隙水</span></li>
+								<li>井深：<span>600</span></li>
+								<li>出水量(m³/h)：<span>50</span></li>
+							</ul>
+						</div>
+						<div class="listOne">
+							<p class="title">运城市 垣曲县 新城镇</p>
+							<ul>
+								<li>井名称：<span>新城街</span></li>
+								<li>水源类型：<span>裂隙水</span></li>
+								<li>井深：<span>600</span></li>
+								<li>出水量(m³/h)：<span>50</span></li>
+							</ul>
+						</div>
+						<div class="listOne">
+							<p class="title">运城市 垣曲县 新城镇</p>
+							<ul>
+								<li>井名称：<span>新城街</span></li>
+								<li>水源类型：<span>裂隙水</span></li>
+								<li>井深：<span>600</span></li>
+								<li>出水量(m³/h)：<span>50</span></li>
+							</ul>
+						</div>
+						<div class="listOne">
+							<p class="title">运城市 垣曲县 新城镇</p>
+							<ul>
+								<li>井名称：<span>新城街</span></li>
+								<li>水源类型：<span>裂隙水</span></li>
+								<li>井深：<span>600</span></li>
+								<li>出水量(m³/h)：<span>50</span></li>
+							</ul>
+						</div>
+						<div class="listOne">
+							<p class="title">运城市 垣曲县 新城镇</p>
+							<ul>
+								<li>井名称：<span>新城街</span></li>
+								<li>水源类型：<span>裂隙水</span></li>
+								<li>井深：<span>600</span></li>
+								<li>出水量(m³/h)：<span>50</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="tabsItem">
+					<div class="listBox">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			//右上角菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+			//tabs切换
+			$(".tabsLabel li").on("click",function(){
+				var $index = $(this).index();
+				$(this).addClass("active").siblings("li").removeClass("active");
+				$(".tabsItem").eq($index).show().siblings(".tabsItem").hide();
+			})
+		})
+	</script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

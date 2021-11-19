@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/list.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<style>
+		.section{height: calc( 100% - 2.2rem);position: relative;margin: 0;margin-top: 2.2rem;}
+	</style>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>查询结果</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i> -->
+				<!-- <div class="menuList">
+					<ul>
+						<li class="menu_village active"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="list_number">共<span></span>条记录</div>
+			<div class="section">
+				<div class="listBox">
+					<!-- <a href="villageDetails.html">
+						<dl>
+							<dt>临汾市 尧都区 屯里镇 东漳堡</dt>
+							<dd>供水工程名称：<span>卧虎山集中供水工程</span></dd>
+							<dd>
+								<p>工程类型：<span>提水</span></p>
+								<p>水源类型：<span>裂隙水</span></p>
+							</dd>
+						</dl>
+					</a> -->
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		$(function(){
+			//菜单
+			$(".icon-menu").on("click",function(){
+				var $menuList = $(this).parent(".header").find(".menuList");
+				if($menuList.hasClass("show")){
+					$menuList.removeClass("show").fadeOut();
+				}else{
+					$menuList.addClass("show").fadeIn();
+				}
+			})
+			//条件查询
+			$(".gpsInfo .icon_arrow").on("click",function(){
+				if($(".gpsInfo").hasClass("open")){
+					$(".gpsInfo").removeClass("open").css("height",".33rem");
+				}else{
+					$(".gpsInfo").addClass("open").css("height","auto");
+				}
+			})
+		})
+		var root = localStorage.getItem("str_url");
+		if(root == "" || root == undefined || root == null){
+				mui.openWindow({
+				url: 'login.html?cid=1', //通过URL传参
+				id: 'login.html?cid=1', //通过URL传参
+			})
+		}
+		var token = localStorage.getItem("token");
+		var page = 1;
+		var list_this = '';
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			plus.nativeUI.showWaiting("加载中...");
+			list(self.code_id);
+		});
+		
+		function list(code_id) {
+			var _url = root + 'api/rural/citiestownslist';
+			console.log(_url);
+			mui.ajax(_url, {
+				data: {
+					"token": token,
+					"code": code_id,
+					"page": page
+				},
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------"+JSON.stringify(data));
+					if(data.code == 1) {
+						$(".list_number").children("span").html(data.count);
+						if(data.data.length>0){
+							if(page>1){
+								list_this.endPullupToRefresh(false);
+							}
+							data.data.forEach(function(item,index) {
+								$(".listBox").append(
+									'<a onclick=xiangqing('+item.id+')>'+
+										'<dl>'+
+											'<dt>'+item.city+' '+item.county+' '+item.town+' '+item.natural_village+'</dt>'+
+											'<dd>供水工程名称：<span>'+item.water_project_code+'</span></dd>'+
+											'<dd>'+
+												'<p>工程类型：<span>'+item.project_type_name+'</span></p>'+
+												'<p>水源类型：<span>'+item.water_type_name+'</span></p>'+
+											'</dd>'+
+										'</dl>'+
+									'</a>'
+								)
+							})
+						}else{
+							if(page>1){
+								list_this.endPullupToRefresh(true);
+							}else{
+								$(".listBox").append(
+									'<a style="font-size:0.35rpx;text-align:center;margin-top:100px;">暂无数据</a>'
+								)
+							}
+						}
+						$(".mui-loading").css("display", "none")
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+		function xiangqing(item_id) {
+			var self = plus.webview.currentWebview();
+			mui.openWindow({
+				url: 'villageDetails.html', //通过URL传参
+				id: 'villageDetails.html', //通过URL传参
+				extras: {
+					item_id: item_id,
+				}
+			})
+		};
+	</script>
+	<script type="text/javascript">
+		mui.init({
+			pullRefresh: {
+				container: ".mui-content", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+				up: {
+					height: "50px", //可选.默认50.触发上拉加载拖动距离
+					auto: false, //可选,默认false.自动上拉加载一次
+					contentdown: "上拉显示更多",
+					contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+					contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+					callback: up_fun //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+				}
+			}
+		});
+		function up_fun(){
+			page++;
+			console.log("上拉加载成功");
+			var self = plus.webview.currentWebview();
+			list(self.code_id);
+			list_this=this;
+		}
+	</script>
+	<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

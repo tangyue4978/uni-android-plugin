@@ -1,0 +1,69 @@
+.main {
+  position: fixed;
+  top: 1.3rem;
+  width: 100vw;
+  height: calc(100vh - 1.3rem);
+}
+.main .nav_wrap {
+  height: 3rem;
+  padding: 0.5rem;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.main .nav_wrap .nav .nav_item {
+  display: inline-block;
+  width: 1rem;
+}
+.main .nav_wrap .nav .nav_item.active {
+  color: #2d91f6;
+}
+.main .nav_wrap .search {
+  display: flex;
+  align-items: center;
+}
+.main .nav_wrap .search .input {
+  margin: 0;
+  width: 6rem;
+  height: 0.8rem;
+  border-radius: unset;
+  border: 1px solid #e0e0e0;
+}
+.main .nav_wrap .search .icon {
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: #2b91f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .nav_wrap .search .icon img {
+  width: 50%;
+  height: 50%;
+}
+.main .list {
+  height: calc(100% - 3rem);
+  padding: 0.4rem;
+  overflow: auto;
+}
+.main .list .item {
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #eaeaea;
+  display: flex;
+  align-items: center;
+}
+.main .list .item .item_left .left_top {
+  color: #000;
+}
+.main .list .item .item_left .left_btm {
+  margin-top: 0.5rem;
+  font-size: 0.24rem;
+}
+.main .list .item .item_right {
+  margin-left: 0.2rem;
+}
+.main .list .item .item_right img {
+  width: auto;
+  height: 1.5rem;
+}

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>工作用图</title>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" href="../../css/previewImage.css">
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" href="../../css/working/index.css">
+	<link rel="stylesheet" href="../../js/photoviewer/viewer.css">
+	<!-- 引入js -->
+	<script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/ruralWater/jump_page.js"></script>
+	<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/photoviewer/viewer.js"></script>
+	<style type="text/css">
+		.viewer-canvas {
+			top: 0.9rem;
+		}
+
+		.viewer-toolbar>ul>li+li {
+			margin-left: 0.5rem;
+		}
+
+		.viewer-toolbar>ul>li {
+			height: 44px;
+			width: 44px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.viewer-backdrop {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+
+		.viewer-button {
+			top: 1.4rem;
+			right: 0.2rem;
+			width: 0.6rem;
+			height: 0.6rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.viewer-button::before {
+			position: static;
+		}
+
+		.img_li {
+			display: none;
+			width: 60px;
+			height: 60px;
+		}
+
+		.right {
+			position: absolute;
+			right: 0.2rem;
+		}
+
+		.so_li_box {
+			/* background-color: #0000FF; */
+			position: relative;
+		}
+
+		.catalog .item_text,
+		.item_line {
+			font-size: 0.28rem;
+			font-weight: 700;
+		}
+		header {
+		    width: 100%;
+		    height: 1.3rem;
+		    line-height: 1.3rem;
+		    padding: 0.2rem 0;
+		    font-size: 0.36rem;
+		    color: #fff;
+		    text-align: center;
+		    background: #3876ef;
+		    background: url(../../images/ruralWater/bj.jpg) no-repeat;
+		    background-size: 100% 100%;
+		    margin: 0;
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    z-index: 999999;
+		}
+		header i.iconfont{
+			/* padding-right: 0.8rem; */
+			width: 20%;
+		}
+		.icon-fanhui1:before {
+			content: "\e605";
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body>
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl" style="cursor: pointer;" ontap="history.go(-1)"></i>
+			<span>工作用图</span>
+		</header>
+		<div class="section">
+			<div class="start">
+				<div class="start">
+					<img class="start_img" src="../../images/use_help/xiangyousanjiaoxing.png" alt="">
+					<span class="start_text">进入下一页</span>
+				</div>
+			</div>
+			<div class="title_wrap">
+				<div class="title">
+					<span class="title_text">目录</span>
+				</div>
+			</div>
+
+			<div class="catalog" id="catalog">
+				<div class="catalog_item" data-page='1' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/1.jpg">
+					<span class="item_num">01</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省地形</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/1.jpg">
+				</div>
+				<div class="catalog_item" data-page='2' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/2.jpg">
+					<span class="item_num">02</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省交通图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/2.jpg">
+				</div>
+				<div class="catalog_item" data-page='3' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/3.jpg">
+					<span class="item_num">03</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省水系流域图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/3.jpg">
+				</div>
+				<div class="catalog_item" data-page='4' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/4.jpg">
+					<span class="item_num">04</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省大中型水库分布图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/4.jpg">
+				</div>
+				<div class="catalog_item" data-page='5' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/5.jpg">
+					<span class="item_num">05</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省1956-2016年平均年降水量等值线图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/5.jpg">
+				</div>
+				<div class="catalog_item" data-page='6' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/6.jpg">
+					<span class="item_num">06</span>
+					<span class="item_line">|</span>
+					<span class="item_text">以汾河为重点的“七河”生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/6.jpg">
+				</div>
+				<div class="catalog_item" data-page='7' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/7.jpg">
+					<span class="item_num">07</span>
+					<span class="item_line">|</span>
+					<span class="item_text">汾河流域生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/7.jpg">
+				</div>
+				<div class="catalog_item" data-page='8' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/8.jpg">
+					<span class="item_num">08</span>
+					<span class="item_line">|</span>
+					<span class="item_text">汾河百公里中游示范区工程位置示意图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/8.jpg">
+				</div>
+				<div class="catalog_item" data-page='9' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/9.jpg">
+					<span class="item_num">09</span>
+					<span class="item_line">|</span>
+					<span class="item_text">汾河百公里中游示范区先行示范段工程位置示意图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/9.jpg">
+				</div>
+				<div class="catalog_item" data-page='10' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/10.jpg">
+					<span class="item_num">10</span>
+					<span class="item_line">|</span>
+					<span class="item_text">桑干河流域生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/10.jpg">
+				</div>
+				<div class="catalog_item" data-page='11' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/11.jpg">
+					<span class="item_num">11</span>
+					<span class="item_line">|</span>
+					<span class="item_text">滹沱河流域生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/11.jpg">
+				</div>
+				<div class="catalog_item" data-page='12' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/12.jpg">
+					<span class="item_num">12</span>
+					<span class="item_line">|</span>
+					<span class="item_text">漳河流域生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/12.jpg">
+				</div>
+				<div class="catalog_item" data-page='13' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/13.jpg">
+					<span class="item_num">13</span>
+					<span class="item_line">|</span>
+					<span class="item_text">沁（丹）河流域生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/13.jpg">
+				</div>
+				<div class="catalog_item" data-page='14' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/14.jpg">
+					<span class="item_num">14</span>
+					<span class="item_line">|</span>
+					<span class="item_text">涑水河流域生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/14.jpg">
+				</div>
+				<div class="catalog_item" data-page='15' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/15.jpg">
+					<span class="item_num">15</span>
+					<span class="item_line">|</span>
+					<span class="item_text">大清河流域生态保护与修复规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/15.jpg">
+				</div>
+				<div class="catalog_item" data-page='16' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/16.jpg">
+					<span class="item_num">16</span>
+					<span class="item_line">|</span>
+					<span class="item_text">“五水济汾”供水保障图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/16.jpg">
+				</div>
+				<div class="catalog_item" data-page='17' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/17.jpg">
+					<span class="item_num">17.1</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西大水网（两纵十横）规划图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/17.jpg">
+				</div>
+				<div class="catalog_item" data-page='18' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/18.jpg">
+					<span class="item_num">17.2</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西大水网（两纵十横）现状图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/18.jpg">
+				</div>
+				<div class="catalog_item" data-page='19' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/19.jpg">
+					<span class="item_num">18</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省水文站网分布图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/19.jpg">
+				</div>
+				<div class="catalog_item" data-page='20' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/20.jpg">
+					<span class="item_num">19</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省防洪重点示意图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/20.jpg">
+				</div>
+				<div class="catalog_item" data-page='21' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/21.jpg">
+					<span class="item_num">20</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省重点防洪城市分布图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/21.jpg">
+				</div>
+				<div class="catalog_item" data-page='22' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/22.jpg">
+					<span class="item_num">21</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省淤地坝分布示意图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/22.jpg">
+				</div>
+				<div class="catalog_item" data-page='23' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/23.jpg">
+					<span class="item_num">22</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省山洪灾害防治区示意图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/23.jpg">
+				</div>
+				<div class="catalog_item" data-page='24' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/24.jpg">
+					<span class="item_num">23</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省黄河干流防御重点示意图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/24.jpg">
+				</div>
+				<div class="catalog_item" data-page='25' data-gallery="manual"
+					href="https://books.sxjicheng.com/image/small_app/25.jpg">
+					<span class="item_num">24</span>
+					<span class="item_line">|</span>
+					<span class="item_text">山西省旱灾易发地区分布图</span>
+					<img class="img_li" src="https://books.sxjicheng.com/image/small_app/25.jpg">
+				</div>
+			</div>
+			<div class="footer_wrap">
+				<div class="footer">
+					<span class="title_block"></span>
+					<span class="title_r">&gt;&gt;</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+<script>
+
+	const gallery = new Viewer(document.getElementById('catalog'), {
+		navbar: false,
+		title: false,
+		toggleOnDblclick: false,
+		toolbar: {
+			prev: true,
+			next: true,
+		},
+		button: true
+	});
+	$(".catalog_item").on("click", function () {
+		gallery.view($(this).index());
+	})
+	//gallery.show()
+</script>

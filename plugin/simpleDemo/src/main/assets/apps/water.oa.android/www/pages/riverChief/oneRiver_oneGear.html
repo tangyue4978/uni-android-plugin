@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>河湖长制</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<!-- 本页面样式 -->
+	<link rel="stylesheet" href="../../css/riverChief/oneRiver_oneGear.css">
+
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body class="content">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>一河一档</span>
+		</header>
+		<main class="main">
+			<nav class="nav">
+				<div class="nav_item active">河流</div>
+				<div class="nav_item">湖泊</div>
+				<div class="nav_item">河段</div>
+			</nav>
+			<div class="select_wrap">
+				<div class="select_item">
+					<select name="" id="">
+						<option value="">河流等级</option>
+					</select>
+					<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+				</div>
+				<div class="select_item">
+					<select name="" id="">
+						<option value="">上级河流</option>
+					</select>
+					<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+				</div>
+				<div class="select_item">
+					<input class="input" type="text" placeholder="名称搜索">
+					<img class="img" src="../../images/riverChief/new/search_gray.png" alt="">
+				</div>
+			</div>
+			<!-- 列表 -->
+			<div class="all">
+				共<span class="all_num">0</span>条记录
+			</div>
+			<div class="list">
+				<ul class="list_box">
+					<li class="list_box_item">
+						<ul class="list_box_item_inner">
+							<li class="titles">
+								<span>汾河</span>
+								<span>省级</span>
+							</li>
+							<li>
+								<span>河长姓名：林武、蓝佛安</span>
+								<span>上级河流：黄河</span>
+							</li>
+							<li>
+								<span>河流长度(km)：713</span>
+								<span>河流编号：DD000000000L</span>
+							</li>
+							<li>
+								<button type="button" onclick="jump_new('./oneRiver_oneGear_baseDetail.html')">基础信息</button>
+								<button type="button">动态信息汇总</button>
+								<button type="button">分类动态信息</button>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</main>
+	</div>
+	
+</body>
+
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/riverChief/oneRiver_oneGear.js" type="text/javascript" charset="utf-8"></script>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.bumf .daiban{
+				padding-left: 0.5rem;
+				background-color: #FFFFFF;
+			}
+			.bumf .daiban li{
+				margin: 0rem;
+				border-bottom: 1px solid #E0E0E0;
+				padding-left: 0rem;
+			}
+			.bumf .daiban li .left{
+				width: 100%;
+			}
+			.bumf .daiban li .left span.fr{
+				font-size: 0.45rem;
+			}
+			.bumf .daiban li .left span.type{
+				padding: 0.02rem 0.15rem;
+				border:1px solid #16CCB6;
+				border-radius: 0.3rem;
+				color: #16CCB6;
+				margin-right: 0.2rem;
+			}
+			.bumf .daiban li .left h2 .h2_bt{
+				display: inline-block;
+				width: 80%;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<i class="mui-action-back iconfont icon-fanhui1 left"></i>
+				</p>
+				<div class="bumf-nav" style="margin-top: 1.3rem;">
+				
+					<div class="bumf" style="margin: 0;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="daiban">
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2><span class="h2_bt">有关项目进展的会议有关项目进展的会议有关项目进展的会议</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>
+										<p><span class="type">厅函</span>会议时间：09/15   08：36-10:50</p>
+										<p>王建国　办公室科员</p>
+									</div>
+								</li>-->
+								<!--<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn2">特急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn3">加急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn4">特提</button></div></li>-->
+							</ul>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null){
+					mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var status
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+//				url = self.url
+//				$("")
+				if(self.status == "待办"){
+					status = 1
+				}else if(self.status == "在办"){
+					status = 2
+				}else if(self.status == "已办"){
+					status = 3
+				}else if(self.status == "办结"){
+					status = 4
+				}
+				list(status,self.type)
+				if (self.type==1) {
+					$(".pp").html('<i class="mui-action-back iconfont icon-fanhui1 left"></i>收文'+self.status)
+				} else if (self.type==2) {
+					$(".pp").html('<i class="mui-action-back iconfont icon-fanhui1 left"></i>发文'+self.status)
+				}else{
+					$(".pp").html('<i class="mui-action-back iconfont icon-fanhui1 left"></i>电话通知'+self.status)
+				}
+				
+				
+			});
+			
+
+			function list(s,t) {
+				console.log("收文类型"+t+"代办状态"+s);
+				var _url = root + 'api/document/list';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type":t,
+						"status":s
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("----------"+JSON.stringify(data));
+						if(data.code == 1) {
+							data.data.forEach(function(v) {
+								v.type_id = t
+								if(v.state == 0){
+									v.mj = "无密";
+									v.btn = "btn1"
+								}else if(v.state == 1) {
+									v.mj = "无密";
+									v.btn = "btn1"
+								}else if(v.state == 2){
+										v.mj = "秘密";
+									v.btn = "btn2"
+								}else if(v.state == 3){
+										v.mj = "机密";
+									v.btn = "btn3"
+								}else if(v.state == 4){
+										v.mj = "绝密";
+									v.btn = "btn4"
+								}
+								$("#item1 .daiban").append(
+									'<li onclick="xiangqing('+t+','+v.id+')">'+
+										'<div class="left">'+
+											'<h2><span class="h2_bt">'+v.title+'</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>'+
+											'<p><span class="type">'+v.type+'</span>'+v.time+'</p>'+
+											'<p>'+v.name+'　'+v.duty+'</p>'+
+										'</div>'+
+									'</li>'
+								)
+//								$("#item1 .daiban").append('<li onclick="xiangqing(' + v.id + ',\'' + v.type_id + '\')"><div class="left"><h2>' + v.title + '</h2><p>会议时间：' + v.time + '</p></div><div class="right"><button class="' + v.btn + '">' + v.mj + '</button></div></li>')
+							})
+
+							$(".mui-loading").css("display", "none")
+						}
+//						console.log(JSON.stringify(data))
+
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+
+			}
+
+			
+
+			function xiangqing(i,ii) {
+				console.log("i"+i+"ii"+ii);
+				mui.openWindow({
+					url: 'bumfDetails.html', //通过URL传参
+					id: 'bumfDetails.html', //通过URL传参
+					extras: {
+						flow_id: ii,
+						item_id: i,
+
+					}, //
+				})
+			};
+
+//			function fwxq(i, t) {
+//				console.log(i)
+//				if(i == 0) {
+//					mui.toast("暂无" + t)
+//				} else {
+//
+//				}
+//			}
+//
+//			function swxq(i, t) {
+//				console.log(i)
+//				console.log(t)
+//				if(i == 0) {
+//					mui.toast("暂无" + t)
+//				}
+//			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

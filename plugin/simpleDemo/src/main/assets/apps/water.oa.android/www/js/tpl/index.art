@@ -1,0 +1,6 @@
+{{include './layout.art'}}
+{{block 'content'}} ddssdsd{{/block}}
+
+<script>
+	console.log(extend);
+</script>

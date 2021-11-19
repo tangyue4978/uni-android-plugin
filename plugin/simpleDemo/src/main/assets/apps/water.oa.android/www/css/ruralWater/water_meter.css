@@ -1,0 +1,34 @@
+.gpsInfo_con{
+	height: 3.68rem;
+	/* height: 4.56rem; */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.info_dhxx_table{
+	width: 90%;
+	margin:0 auto;
+}
+.info_dhxx_table td{
+	border:1px solid #C7C7C7;
+	text-align: center;
+	color: #3877F0;
+	width: 22%;
+}
+.info_dhxx_table .texl{
+	background-color: #EEEEEE;
+	color: #666666;
+}
+.info_dhxx_box{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+.info_dhxx_box .title{
+	width:40%;
+	margin-top: 0.1rem;
+	margin-left: 0.3rem;
+}
+.title_active{
+	display: none;
+}

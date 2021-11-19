@@ -1,0 +1,48 @@
+@charset "utf-8";
+/*CSS Document*/
+.tabsLabel{height: 1.1rem;padding-top: .3rem;line-height: .8rem;background: #f3f3f3;position:fixed;left:0;top:1.3rem;width:100%;z-index:999;}
+.tabsLabel ul{white-space:nowrap;overflow-x:scroll;}
+.tabsLabel ul::-webkit-scrollbar{display:none;}
+.tabsLabel li{display:inline-block;font-size: .3rem;color: #666;padding: 0 .18rem;position: relative;}
+.tabsLabel li::after{content: '';width: 1px;height: .3rem;background: #999;position: absolute;top: 0;bottom: 0;margin: auto;right: 0;}
+.tabsLabel li:last-child::after{height: 0;}
+.tabsLabel li.active{color: #6492ff;font-weight: 600;}
+.section{width: 100%;height: calc(100% - 2.4rem);position: fixed;left: 0;top: 2.4rem;margin: 0;/* margin-top: 2.4rem; */}
+.tabsItem{width: 100%;height: 100%;overflow-y: auto;display: none;}
+.tabsItem .table{width: 92%;margin: .2rem auto;}
+.tabsItem .table .unit{font-size: .24rem;color: #666;line-height: .6rem;text-align: right;}
+.tabsItem .table table{width: 100%;border-collapse: collapse;font-size: .26rem;}
+.table table td{border: 1px solid #d6d5d3;padding: .1rem;line-height: .46rem;}
+.table table td.th_head,.table table td.td_head{background: #efeeed;color: #333;text-align: center;}
+.table table td.td_head{text-align: right;}
+.tabsItem .tabsItemCon{margin-bottom: 1rem;}
+.tabsItem .investChart{width: 100%;height: 5.2rem;margin: .05rem auto 0;}
+.investChart #colChart_invest{width: 100%;height: 100%;}
+.investChart #colChart_first{width: 100%;height: 100%;}
+.gpsInfo{width: 100%;height: .48rem;background: #fff;border-top: 1px solid #cfcfcf;border-radius: .2rem .2rem 0 0;box-shadow: 0 1px 6px #e2e2e2;position: fixed;left: 0;bottom: 0;}
+.gpsInfo .icon_arrow{width: .46rem;height: .14rem;display: block;position: absolute;left: 0;right: 0;margin: auto;top: .14rem;-webkit-transition:transform 0.2s ease-out;transition:transform 0.2s ease-out;}
+.gpsInfo.open .icon_arrow{-webkit-transform: rotateZ(180deg);transform: rotateZ(180deg);}
+.gpsInfo .gpsInfo_con{padding: .4rem 0 0;}
+.gpsInfo .gpsInfo_con .title{font-size: .28rem;color: #333;margin: 0 .3rem;}
+.gpsInfo_con .search_form ul{overflow: hidden;margin: .2rem .3rem 0;}
+.gpsInfo_con .search_form ul li{width: 50%;float: left;font-size: .25rem;color: #666;line-height: .76rem;margin: .05rem 0;overflow: hidden;}
+.gpsInfo_con .search_form ul li .label{width: 1.2rem;float: left;}
+.gpsInfo_con .search_form ul li .field{width: auto;height: .76rem;display: block;margin-left:1.2rem;border: 1px solid #d6d5d3;border-radius: .06rem;font-size: .24rem;color: #333;padding: 0 .15rem;}
+.gpsInfo_con .search_form ul li .field .input{width: 100%;border: none;}
+.gpsInfo_con .search_form ul li:nth-child(2n+1){padding-right: .2rem;}
+.gpsInfo_con .search_form ul li:nth-child(2n){padding-left: .2rem;}
+.gpsInfo_con .search_form .button{width: 7.25rem;height: .9rem;display: block;border: none;background: none;background-image: linear-gradient(#3877f0, #4e62ff);margin: .3rem auto;border-radius: .1rem;box-shadow: 0 2px 8px #c1d5fa;font-size: .3rem;color: #fff;font-weight: 600;}
+.tabsItem .noContent{font-size: .32rem;color: #999;text-align: center;margin: 3rem 0;}
+.tabsItem .noContent img{width: 3rem;display: block;margin: .5rem auto 0;}
+.facilitiesTable,.workedTable,.situationTable,.manageTable,.qualityTable{overflow: hidden;}
+.facilitiesTable table,.workedTable table,.situationTable table,.manageTable table,.qualityTable table{line-height: .9rem;margin: .25rem 0;}
+.facilitiesTable .left,.workedTable .left,.situationTable .left,.manageTable .left,.qualityTable .left{width: 45%;float: left;}
+.facilitiesTable .right,.workedTable .right,.situationTable .right,.manageTable .right,.qualityTable .right{width: 55%;float: right;overflow-y: auto;}
+.facilitiesTable .right table,.workedTable .right table,.situationTable .right table,.manageTable .right table,.qualityTable .right table{width: auto;min-width: 160%;}
+.facilitiesTable .left table tr:nth-child(2n+1) td,.workedTable .left table tr:nth-child(2n+1) td{background: #efefef;}
+.facilitiesTable .right table tr:nth-child(2n+1) td,.workedTable .right table tr:nth-child(2n+1) td{background: #efefef;}
+.situationTable table{text-align: center;}
+.situationTable table td .tdBox,.manageTable table td .tdBox,.qualityTable table td .tdBox{height: .8rem;display: flex;justify-content: center;align-items: center;}
+.situationTable .left table tr td,.manageTable .left table tr td,.qualityTable .left table tr td{background: #efefef;}
+.situationTable .right table tr:nth-child(1) td,.manageTable .right table tr:nth-child(1) td,.qualityTable .right table tr:nth-child(1) td{background: #efefef;}
+.situationTable .right table tr td:nth-child(5n){background: #efefef;}

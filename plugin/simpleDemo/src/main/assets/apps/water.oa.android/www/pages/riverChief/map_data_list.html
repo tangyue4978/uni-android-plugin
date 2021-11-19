@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>河湖长制</title>
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/map/index.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/riverChief/riverChief.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/map/popup.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/riverChief/four_mess.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+    <!-- 引入右边导航栏样式 -->
+    <link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+    <!-- 底图切换样式 -->
+    <link rel="stylesheet" type="text/css" href="../../css/map/change_base_map/change_base_map.css" />
+
+    <script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.min.js"></script>
+    <script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+	<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+    <script>
+        //计算根节点HTML的字体大小 1rem=48px
+        function resizeRoot(width) {
+            var deviceWidth = document.documentElement.clientWidth,
+                num = width,
+                num1 = num / 100;
+            if (deviceWidth > num) {
+                deviceWidth = num;
+            }
+            document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+        }
+        //根节点HTML的字体大小初始化
+        resizeRoot(750);
+        window.onresize = function () {
+            resizeRoot(750);
+        };
+    </script>
+	<style type="text/css">
+		.nav_ul_box {
+			border-bottom: solid 1px #CCCCCC;
+		}
+	
+		.nav_ul_box .nav_li_item {
+			width: 100%;
+		}
+		
+		.right {
+			position: absolute;
+			right: 0.2rem;
+		}
+	
+		.all3 {
+			top: 2.6rem;
+		}
+
+		.list {
+			margin-top: 3.3rem;
+			height: calc(100% - 3.3rem);
+			overflow-y: scroll;
+		}
+		
+		.list .lists {
+			padding-bottom: 1rem;
+		}
+
+		.weight {
+			font-size: 0.28rem;
+			color: #333;
+			font-weight: 700;
+		}
+
+		.sort_lists {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 15px 9px;
+		}
+
+		.lists_li {
+			position: relative;
+		}
+
+		.position {
+			text-align: right;
+		}
+
+		.sorts {
+			width: 100%;
+			border-radius: 0;
+		}
+
+		.lists_data>.titles {
+			width: 100%;
+		}
+
+		.search_box .span_search .img_searchs {
+			display: inline-block;
+			width: 100%;
+			height: 70%;
+		}
+
+		/* 修改palceholder颜色 */
+		.search_box input.sort_search:focus::-webkit-input-placeholder {
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus::-moz-placeholder {
+			/* Mozilla Firefox 19+ */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-moz-placeholder {
+			/* Mozilla Firefox 4 to 18 */
+			color: #aaaaaa;
+		}
+
+		.search_box input.sort_search:focus:-ms-input-placeholder {
+			/* Internet Explorer 10-11 */
+			color: #aaaaaa;
+		}
+
+		/* 样式复写 */
+		.sort_list {
+			background: url(../../images/riverChief/arrow_down.png) no-repeat 90% center;
+			background-size: 12px 8px;
+		}
+
+		.sort.start .search_box {
+			padding: 0;
+		}
+
+		.search_box .sort_input.sort_new {
+			width: 80%;
+		}
+
+		.text_input {
+			background: none
+		}
+	</style>
+	
+	<style>
+		.section {
+			background: #F6F6F6;
+		}
+	
+		#mapBox .top_nav {
+			height: auto !important;
+		}
+		
+		#mapBox .top_nav .nav_ul_box {
+			height: 1.3rem !important;
+		}
+		
+		.search_all_box {
+			width: 100%;
+			height: 1rem;
+			background: #FFFFFF;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-evenly;
+			align-items: center;
+		}
+		
+		.search_all_box .sort_list {
+			width: 30%;
+			height: 0.4rem;
+			color: #333333;
+			font-size: 0.26rem;
+		}
+		
+		.search_all_box .search_box {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			box-sizing: border-box;
+			height: 0.4rem;
+			position: relative;
+		}
+		
+		.search_all_box .more_box {
+			height: 0.4rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			width: 100%;
+		}
+		
+		.search_all_box .more_box .more_img {
+			height: 0.6rem;
+			width: 2.5rem;
+			padding: 0.2rem 1rem;
+			margin: 0 auto;
+		}
+		
+		.top_nav .sum_total {
+			width: 100%;
+			height: 1rem;
+			line-height: 1rem;
+			font-size: 0.3rem;
+			color: #CCCCCC;
+			padding-left: 0.3rem;
+			letter-spacing: 0.01rem;
+			background-color: #F6F6F6;
+			z-index: 3;
+		}
+		
+		.list_container {
+			margin-top: 3.3rem;
+			height: calc(100% - 3.3rem);
+		}
+		
+		.list_container .lists {
+			height: 100%;
+			overflow-y: scroll;
+			padding-bottom: 15px;
+		}
+	</style>
+</head>
+
+<body id="body">
+    <div class="mui-content">
+        <header class="header pp">
+            <i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+            <span>河湖长制“一张图”</span>
+            <span class="right" style="font-size: 0.3rem;" onclick="jump_new('../../feedback.html')">意见反馈</span>
+        </header>
+        <div class="section">
+            <div class="mapBox">
+                <div class="top_nav">
+                    <ul class="nav_ul_box">
+                        <li class="nav_li_item" onclick="jump_new('map.html')">管理对象</li>
+                        <li class="nav_li_item active">数据列表</li>
+                    </ul>		
+					
+					<!-- 分类start -->
+					<div class="search_all_box">
+						<select name="city" class="sort_list sort_lists select_type" id="status">
+						</select>
+						
+						<select name="city" class="sort_list sort_list_img select_city" id="city_select">
+						</select>
+						
+						<div class="sort_list search_box hide text_input">
+							<input type="text" id="searchKey" placeholder="搜索名称" class="sort_input sort_new sort_search search_name" />
+							<span class="span_search" id="searchKeyevent">
+								<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+							</span>
+						</div>
+					</div>
+					<!-- 分类end -->
+					
+					<div class="sum_total">
+						共 <span class="all_num">0</span> 条事件
+					</div>
+                </div>
+
+				<!-- 列表start -->
+				<div class="list list_container">
+					<ul class="lists">
+					</ul>
+				</div>
+			</div>
+        </div>
+
+    </div>
+</body>
+
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="../../js/riverChief/event.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/riverChief/map_data_list.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	mui.plusReady(function() {
+		var river=plus.webview.getWebviewById("map.html");
+		if(river){
+		   console.log(river.getURL());
+		   river.hide();
+		   river.close();
+		}
+	})
+</script>
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+		<title>任务反馈情况</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/supervise.css" rel="stylesheet" />		
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="header">
+				<a href="javascript:history.go(-1)" class="mui-icon mui-icon-back"></a>
+				任务反馈情况
+			</div>
+			<div class="section">
+				<div class="info_matter white_bg">
+					<ul class="info_matter_list">
+					    <li>
+					    	<span>任务来源</span>
+					    	<p>2016年农村饮水安全脱贫攻坚考核评价</p>
+					    </li>
+					    <li>
+					    	<span>编号</span>
+					    	<p>2016002040026</p>
+					    </li>
+					    <li>
+					    	<span>交办事项</span>
+					    	<p>关于全面开展2016年农村饮水安全脱贫攻坚考核评价工作</p>
+					    </li>
+					    <li>
+					    	<span>内容</span>
+					    	<p>详见附件</p>
+					    </li>
+					    <li>
+					    	<span>交办单位</span>
+					    	<p>水利厅办公室</p>
+					    </li>
+					    <li>
+					    	<span>承办单位</span>
+					    	<p>水资源处、政策法规处、规划计划处</p>
+					    </li>
+					    <li>
+					    	<span>任务阶段</span>
+					    	<p>七天反馈</p>
+					    </li>
+					    <li class="list_enclosure">
+					    	<span>附件</span>
+					    	<p>
+					    		<img src="../../images/enclosure.jpg" alt="" />
+					    		<em class="enclosure_name">关于公文写作的知识.doc<i>1200.26kb</i></em>
+					    	</p>
+					    </li>
+					</ul>
+					<span class="packup_btn">收起</span>
+				</div>											
+				<p class="info_details_state">该事项已进行，距下次反馈截止时间还有23小时</p>
+				<div class="info_details white_bg">
+					<dl class="info_details_list">
+						<dt>
+							<em>水资源处</em>
+							<i class="fr">退回</i>
+						</dt>
+						<dd>
+							<span>反馈节点</span>
+							<p>七天反馈</p>
+						</dd>
+						<dd>
+							<span>反馈时间</span>
+							<p>2016-06-20 14:30</p>
+						</dd>
+						<dd>
+							<span>反馈周目</span>
+							<p>2016年第25周（06.20-07.21）</p>
+						</dd>
+						<dd>
+							<span>反馈内容</span>
+							<p>第七天反馈关于全面开展2016年农村饮水安全脱贫攻坚考核评价工作</p>
+						</dd>
+						<dd class="currentState_apply">
+							<span>当前状态</span>
+							<p>申请完结<br/>申请理由在此处显示申请理由在此处显示</p>
+						</dd>
+					</dl>
+					<dl class="info_details_list">
+						<dt>
+							<em>水资源处</em>
+							<i class="fr">退回</i>
+						</dt>
+						<dd>
+							<span>反馈节点</span>
+							<p>七天反馈</p>
+						</dd>
+						<dd>
+							<span>反馈时间</span>
+							<p>2016-06-20 14:30</p>
+						</dd>
+						<dd>
+							<span>反馈周目</span>
+							<p>2016年第25周（06.20-07.21）</p>
+						</dd>
+						<dd>
+							<span>反馈内容</span>
+							<p>第七天反馈关于全面开展2016年农村饮水安全脱贫攻坚考核评价工作</p>
+						</dd>
+						<dd>
+							<span>当前状态</span>
+							<p>申请完结<br/>申请理由在此处显示申请理由在此处显示</p>
+						</dd>
+					</dl>
+					<dl class="info_details_list">
+						<dt>
+							<em>水资源处</em>
+							<i class="fr">退回</i>
+						</dt>
+						<dd>
+							<span>反馈节点</span>
+							<p>七天反馈</p>
+						</dd>
+						<dd>
+							<span>反馈时间</span>
+							<p>2016-06-20 14:30</p>
+						</dd>
+						<dd>
+							<span>反馈周目</span>
+							<p>2016年第25周（06.20-07.21）</p>
+						</dd>
+						<dd>
+							<span>反馈内容</span>
+							<p>第七天反馈关于全面开展2016年农村饮水安全脱贫攻坚考核评价工作</p>
+						</dd>
+						<dd>
+							<span>当前状态</span>
+							<p>申请完结<br/>申请理由在此处显示申请理由在此处显示</p>
+						</dd>
+					</dl>
+				</div>
+			</div>
+		</div>			
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			$(".packup_btn").click(function(){
+				var $text = $(this).text();
+				if($text == "收起"){
+					$(this).text("展开").prev(".info_matter_list").children(".list_enclosure").hide();
+				}else{
+					$(this).text("收起").prev(".info_matter_list").children(".list_enclosure").show();
+				}
+				
+			})
+		})
+	</script>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_jz8c0ow7tko.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="https://sandbox.runjs.cn/uploads/rs/294/c4c2o6mh/jquery.js" type="text/javascript" charset="utf-8"></script>-->
+	</head>
+
+	<body style="background: #f3f7fd;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>审批</p>
+				<!--<div class="bumfDetailsHandle-nav">
+					<button class="btn1">同意</button>
+					<button class="btn2">回退</button>
+				</div>-->
+				<div class="bumfDetailsHandle-content" style="margin-top: 1.3rem;">
+					<div class="cyy">
+						<h1 class="xz"></h1>
+					</div>
+
+					<textarea name="" rows="" class="yijiantext" maxlength="50" placeholder="请输入审批意见..." cols=""></textarea>
+					<div>
+						<p class="left">50字</p>
+						<button class="right" id="changyongyu"><i class="iconfont icon-tuding"></i>常用语</button>
+						<button class="right" onclick="yy()"><i class="iconfont icon-yuyin"></i>语音</button>
+					</div>
+				</div>
+				<!--<div class="bumfDetailsHandle-fooder">
+					<button>提交</button>
+
+				</div>-->
+				<div class="bumfDetailsHandle-nav" style="margin-top: 0rem;border-top: 1px solid #dcdcdc;">
+					<button class="btn1" onclick="tongyi()">同意</button>
+					<button class="btn2" onclick="bohui()">回退</button>
+				</div>
+				<div class="yuying" align="left" tabindex="0">
+					<p class="dsq">按住说话</p>
+					<!--<p >00:00</p>-->
+					<div class="chanan" id="aaa">
+						<i class="iconfont icon-yuyin"></i>
+					</div>
+					<h6>上滑删除 松开发送</h6>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var flow_id, item_id
+
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				flow_id = self.flow_id
+				item_id = self.item_id
+//				list(flow_id, item_id)
+			});
+
+			function tongyi(flow_id, item_id) {
+				var _url = root + 'api/approval/approved'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"flow_id": flow_id,
+						"item_id": item_id,
+						"status": 1,
+						"opinion": $(".yijiantext").val(),
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast(data.msg)
+							
+							var view = plus.webview.getWebviewById("handleDetails.html");　
+							//					console.log(JSON.stringify(list))
+							mui.fire(view, 'refresh', {});
+							//返回true,继续页面关闭逻辑
+							mui.back()
+
+						} else {
+							mui.toast(data.msg)
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+			function bohui(flow_id, item_id) {
+				var _url = root + 'api/approval/approved'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"flow_id": flow_id,
+						"item_id": item_id,
+						"status": 2,
+						"opinion": $(".yijiantext").val(),
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							mui.toast(data.msg)
+							
+							var view = plus.webview.getWebviewById("handleDetails.html");　
+							//					console.log(JSON.stringify(list))
+							mui.fire(view, 'refresh', {});
+							//返回true,继续页面关闭逻辑
+							mui.back()
+
+						} else {
+							mui.toast(data.msg)
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+			document.querySelector('#changyongyu').addEventListener("tap", function() {
+				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+				aa = [{
+					text: "同意",
+					value: 1,
+				}, {
+					text: "不同意",
+					value: 2,
+				}]
+				roadPick.setData(aa);
+				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+					var itemCallback = roadPick.getSelectedItems();
+					$(".bumfDetailsHandle-content .cyy").append('<p class="xz">' + itemCallback[0].text + '</p>')
+					//					$('.xz').val(itemCallback[0].text);
+
+				});
+			});
+
+			function yy() {
+				//				console.log($(".yuying").css("bottom"))
+				if($(".yuying").css("bottom") == "-192.533px") {
+					$(".yuying").css("bottom", "0rem");
+					$(".yuying").css("transition", "transform 1s");
+				} else {
+					$(".yuying").css("bottom", "-4rem")
+					$(".yuying").css("transition", "transform 1s");
+				}
+			}
+
+			$(".chanan").on({
+
+				touchstart: function(e) {
+					start()
+					$(".chanan").css("background", "#ddd");
+					$(".yuying h6").css("display", "block");
+					$(".yuying h6").html("上滑删除 松开发送");
+					timeOutEvent = setTimeout("longPress()", 500);
+
+					e.preventDefault();
+					// 判断默认行为是否可以被禁用
+					if(e.cancelable) {
+						// 判断默认行为是否已经被禁用
+						if(!e.defaultPrevented) {
+							e.preventDefault();
+						}
+					}
+					startX = e.originalEvent.changedTouches[0].pageX,
+						startY = e.originalEvent.changedTouches[0].pageY;
+
+					return false;
+				},
+				touchmove: function() {
+					clearTimeout(timeOutEvent);
+					timeOutEvent = 0;
+				},
+				touchend: function(e) {
+					clearTimeout(timeOutEvent);
+					timeOutEvent = ShortLeave();
+					e.preventDefault();
+
+					if(e.cancelable) {
+						// 判断默认行为是否已经被禁用
+						if(!e.defaultPrevented) {
+							e.preventDefault();
+						}
+					}
+					moveEndX = e.originalEvent.changedTouches[0].pageX,
+						moveEndY = e.originalEvent.changedTouches[0].pageY,
+						//						X = moveEndX - startX,
+						Y = moveEndY - startY;
+					//上滑
+					if(Y < 0) {
+
+					}
+
+					return false;
+				}
+			})
+
+			function longPress() {
+				timeOutEvent = 0;
+				$(".yuying h6").css("display", "block");
+
+			}
+
+			function ShortLeave() {
+				timeOutEvent = 0;
+				$(".yuying h6").css("display", "none");
+
+				Reset()
+
+			}
+			//初始化变量
+			var hour, minute, second; //时 分 秒
+			hour = minute = second = 0; //初始化
+			var millisecond = 0; //毫秒
+			var int;
+			//重置函数
+			function Reset() {
+				window.clearInterval(int);
+				millisecond = hour = minute = second = 0;
+				$(".dsq").html("按住说话");
+				$(".chanan").css("background", "#397cf3");
+				//				document.getElementById('dsq').value = '00时00分00秒000毫秒';
+			}
+			//开始函数
+			function start() {
+				int = setInterval(timer, 50); //每隔50毫秒执行一次timer函数
+			}
+			//计时函数
+			function timer() {
+				millisecond = millisecond + 50;
+				if(millisecond >= 1000) {
+					millisecond = 0;
+					second = second + 1;
+				}
+				if(second >= 60) {
+					second = 0;
+					minute = minute + 1;
+				}
+
+				if(minute >= 60) {
+					minute = 0;
+					hour = hour + 1;
+				}
+				if(second > 9) {
+					$(".dsq").html(minute + ':' + second);
+				} else {
+					$(".dsq").html(minute + ':0' + second);
+				}
+
+				//				document.getElementById('timetext').value = hour + '时' + minute + '分' + second + '秒' + millisecond + '毫秒';
+
+			}
+			//暂停函数
+			function stop() {
+				window.clearInterval(int);
+				millisecond = hour = minute = second = 0;
+
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

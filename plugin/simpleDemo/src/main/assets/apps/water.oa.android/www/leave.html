@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_a2lnshq3a69.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.dtpicker.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.leave_add .notice {
+				width: 100%;
+				padding: 0rem;
+				padding-top: 1.5rem;
+				background-color: #F6F6FA;
+				text-align: center;
+			}
+			
+			.notice #tijiao {
+				width: 92%;
+			}
+			
+			.notice .gray {
+				background-color: #F5F5F9;
+				height: 0.4rem;
+				overflow: hidden;
+				text-align: left;
+			}
+			
+			.notice .gray.zi {
+				height: 0.9rem;
+				line-height: 1.2rem;
+				padding: 0rem 0.3rem;
+				font-size: 0.25rem;
+				color: #959595;
+			}
+			
+			.notice .leave_ul {
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				padding-left: 0.3rem;
+				list-style: none;
+				background-color: #FFFFFF;
+				border-top: 1px solid #CCCCCC;
+				border-bottom: 1px solid #CCCCCC;
+			}
+			
+			.notice .leave_ul .leave_li {
+				border-bottom: 1px solid #CCCCCC;
+				display: block;
+				padding: 0rem;
+				margin: 0rem;
+				height: 1rem;
+				line-height: 1rem;
+				font-size: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li:last-child {
+				border: none;
+			}
+			
+			.notice .leave_ul .leave_li .left {
+				float: left;
+				width: 33%;
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input {
+				display: block;
+				margin-left: 33%;
+				padding: 0rem;
+				margin: 0rem;
+				width: 65%;
+				border: none;
+				outline: none;
+				height: 98%;
+				font-size: 0.3rem;
+				color: #262626;
+				padding-right: 0.3rem;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_l {
+				text-align: left;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_r {
+				text-align: right;
+			}
+			
+			.notice .leave_ul .leave_li .input.t_c {
+				text-align: center;
+			}
+			
+			.notice .leave_ul .leave_li .select {
+				padding-right: 0.6rem;
+				background: url(images/jian.png) no-repeat 93% 0.285rem;
+				background-size: 0.22rem 0.38rem;
+			}
+			
+			.cadre {
+				display: none;
+			}
+			
+			.notice .leave_ul .leave_li.cadre {
+				display: none;
+			}
+			
+			.notice .leave_ul.cadre {
+				display: none;
+			}
+			/*审批人*/
+			
+			.isListBox {
+				display: none;
+				border-top: 1px solid #cccccc;
+			}
+			
+			.isListBox .title {
+				font-size: 0.375rem;
+				color: #464646;
+				text-align: center;
+				height: auto;
+				line-height: 1rem;
+			}
+			
+			.isListBox .radio_box {
+				width: 100%;
+			}
+			
+			.isListBox .radio_box .radio_ul {
+				width: 100%;
+				overflow: hidden;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0rem;
+			}
+			
+			.isListBox .radio_box .radio_ul li {
+				width: 40%;
+				margin: 0.2rem 5%;
+				border-radius: 2em;
+				background-color: #F0F0F0;
+				color: #464646;
+				text-align: center;
+				list-style: none;
+				float: left;
+				height: 0.7rem;
+				line-height: 0.7rem;
+				font-size: 0.35rem;
+				text-align: center;
+			}
+			
+			.isListBox .radio_box .radio_ul li.active {
+				background-color: #397AEF;
+				color: #FFFFFF;
+			}
+			
+			.isListBox .select_box {
+				width: 100%;
+			}
+			
+			.isListBox .select_box .select_ul {
+				width: 100%;
+				overflow: hidden;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0rem;
+			}
+			
+			.isListBox .select_box .select_ul li {
+				min-width: 30%;
+				margin: 0.2rem 0.1rem;
+				border-radius: 2em;
+				background-color: #F0F0F0;
+				color: #464646;
+				text-align: center;
+				list-style: none;
+				float: left;
+				height: 0.7rem;
+				line-height: 0.7rem;
+				font-size: 0.35rem;
+				text-align: center;
+				padding: 0 0.1rem;
+			}
+			
+			.isListBox .select_box .select_ul li.active {
+				background-color: #397AEF;
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news leave_add">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>外出报备申请
+				</p>
+				<div class="notice">
+					<ul class="leave_ul">
+						<li class="leave_li">
+							<span class="left">申请人姓名</span>
+							<input class="input t_r" type="text" name="" id="sqrxm" value="" readonly="readonly" placeholder="请填写" />
+						</li>
+						<li class="leave_li">
+							<span class="left">所属处室</span>
+							<input class="input t_r" type="text" name="" id="sscs" value="" readonly="readonly" placeholder="请填写" />
+						</li>
+						<li class="leave_li">
+							<span class="left">职务</span>
+							<input class="input t_r" type="text" name="" id="zw" value="" placeholder="请填写" />
+						</li>
+						<li class="leave_li">
+							<span class="left">联系电话</span>
+							<input class="input t_r" type="number" name="" id="lxdh" value="" placeholder="请填写" />
+						</li>
+					</ul>
+					<div class="gray"></div>
+					<ul class="leave_ul">
+						<li class="leave_li cadre">
+							<span class="left">外出类型</span>
+							<select class="input t_r" name="" id="wclx" style="min-width:2rem;width: auto;float: right;">
+								<option value="1">公事(出差)</option>
+								<option value="2">私事(请假)</option>
+							</select>
+						</li>
+						<li class="leave_li">
+							<span class="left">外出事由</span>
+							<input class="input t_r" type="text" name="" id="leixing" value="" placeholder="请填写" />
+						</li>
+						<li class="leave_li">
+							<span class="left">外出离开时间</span>
+							<input class="input select t_r" type="text" name="" id="kaishiday" readonly="readonly" value="" placeholder="请填写" />
+						</li>
+						<li class="leave_li">
+							<span class="left">外出返回时间</span>
+							<input class="input select t_r" type="text" name="" id="jieshuday" readonly="readonly" value="" placeholder="请填写" />
+						</li>
+						<li class="leave_li cadre">
+							<span class="left">外出地点</span>
+							<input class="input t_r" type="text" name="" id="wcdd" value="" placeholder="请填写" />
+						</li>
+					</ul>
+					<div class="gray zi cadre">主持工作负责同志</div>
+					<ul class="leave_ul cadre">
+						<li class="leave_li">
+							<span class="left">姓名及职务</span>
+							<input class="input t_r" type="text" name="" id="zc_xm" value="" placeholder="请填写" />
+						</li>
+						<!--<li class="leave_li">
+							<span class="left">职务</span>
+							<input class="input t_r" type="text" name="" id="zc_zw" value="" placeholder="请填写" />
+						</li>-->
+						<li class="leave_li">
+							<span class="left">联系方式</span>
+							<input class="input t_r" type="number" name="" id="zc_lxfs" value="" placeholder="请填写" />
+						</li>
+					</ul>
+					<div class="gray"></div>
+					<ul class="leave_ul">
+						<li class="leave_li">
+							<span class="left">交通工具</span>
+							<input class="input t_r" type="text" name="" id="vehicle" value="" placeholder="非必填" />
+						</li>
+					</ul>
+					<div class="gray"></div>
+					<ul class="leave_ul">
+						<li class="leave_li">
+							<span class="left">备注</span>
+							<input class="input t_r" type="text" name="" id="bz" value="" placeholder="非必填" />
+						</li>
+					</ul>
+					<div class="gray"></div>
+					<div class="selectNode">
+						<h3 class="node_title" style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步节点</h3>
+						<div class="select_node">
+							<select id="select_node" style="background-color: #0062CC;color:#FFFFFF;font-size: 0.3rem;text-align: center;padding: 0.2rem;border-radius: 0.1rem;">
+								<option value="">请选择</option>
+							</select>
+						</div>
+					</div>
+					<div class="isListBox">
+						<h3 id="clr_h3" style="color: #323232;text-align: center;font-size: 0.35rem;">选择下一步审批人</h3>
+						<div class="select_box">
+							<!--<p>部门</p>
+							<ul class="select_ul">
+								<li class="">安安生生</li>
+								<li class="">安安生生</li>
+								<li class="">安安生生</li>
+							</ul>-->
+						</div>
+					</div>
+					<!--<ul class="leave_ul">
+						<li class="leave_li">
+							<span class="left">选择审批人</span>
+							<input class="input select t_r" type="text" name="" id="shenpiren" value="" readonly="readonly" placeholder="请选择" />
+						</li>
+					</ul>-->
+					<button id="tijiao">提交</button>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script src="js/xyb_spr.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1' //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var typelist, allContact = [],
+				detailed, participant = [],
+				sprid;
+			//选择类型
+			leaveType()
+
+			function leaveType() {
+				var _url = root + "api/approval/getapplytype";
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type": 1
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							data.data.forEach(function(v) {
+								v.text = v.name;
+								v.value = v.id;
+							})
+							typelist = data.data;
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {}
+				})
+			}
+			//			$('#leixing').on("tap", function() {
+			//				var roadPick = new mui.PopPicker(); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+			//
+			//				roadPick.setData(typelist);
+			//				roadPick.show(function(item) { //弹出列表并在里面写业务代码
+			//					var itemCallback = roadPick.getSelectedItems();
+			//					$('#leixing').val(itemCallback[0].text);
+			//
+			//				});
+			//			});
+			//选择审批人
+			$('#shenpiren').on("tap", function() {
+				var roadPick = new mui.PopPicker({
+					layer: 2
+				}); //获取弹出列表组建，假如是二联则在括号里面加入{layer:2}
+
+				roadPick.setData(allContact);
+				roadPick.show(function(items) { //弹出列表并在里面写业务代码
+					//					console.log(JSON.stringify(items))
+					var itemCallback = roadPick.getSelectedItems();
+					console.log(JSON.stringify(itemCallback));
+					$('#shenpiren').val(itemCallback[1].text);
+					sprid = itemCallback[1].value;
+					console.log(sprid)
+					$('#shenpiren').attr("title", sprid);
+
+				});
+			});
+			//上传图片
+			var fileArr = [];
+			$("#tupian").on('tap', function() {
+				if(mui.os.plus) {
+					var buttonTit = [{
+						title: "拍照"
+					}, {
+						title: "从手机相册选择"
+					}];
+
+					plus.nativeUI.actionSheet({
+						title: "上传图片",
+						cancel: "取消",
+						buttons: buttonTit
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch(b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(); /*拍照*/
+								break;
+							case 2:
+								galleryImg(); /*打开相册*/
+								break;
+							default:
+								break;
+						}
+					})
+				}
+			}, false);
+			// 拍照获取图片  
+			function getImage() {
+				plus.camera.getCamera().captureImage(function(p) {
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						console.log(entry.toLocalURL());
+						fileArr.push(entry.toLocalURL());
+						$(".tupianlist").html("");
+						//						setHtml(fileSrc);
+						fileArr.forEach(function(v, index) {
+							$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(' + index + ')" class="iconfont icon-guanbi"></i></span>')
+						})
+					}, function(e) {
+						outLine("读取拍照文件错误：" + e.message);
+					});
+
+				});
+			}
+			// 从相册中选择图片   
+			function galleryImg() {
+				// 从相册中选择图片  
+				plus.gallery.pick(function(e) {
+					console.log(JSON.stringify(e))
+					e.files.forEach(function(v) {
+						fileArr.push(v);
+					})
+					$(".tupianlist").html("");
+					fileArr.forEach(function(v, index) {
+						$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(' + index + ')" class="iconfont icon-guanbi"></i></span>')
+					})
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "image",
+					multiple: true,
+					//					maximum: 5,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择5张图片');
+					}
+				});
+			}
+			//			删除图片
+			function shanchutupian(i) {
+				console.log(i)
+				fileArr.forEach(function(v, index) {
+					if(i == index) {
+						fileArr.splice(fileArr.indexOf(fileArr[index]), 1);
+						$(".tupianlist").html("");
+						fileArr.forEach(function(v, index) {
+							$(".tupianlist").append('<span><img src="' + v + '"  alt="" /><i onclick="shanchutupian(' + index + ')" class="iconfont icon-guanbi"></i></span>')
+						})
+					}
+
+				})
+			}
+
+			//			选择时间
+			$("#kaishiday").on("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+					$("#kaishiday").val(items.text);
+					dtpicker.dispose();
+				});
+			});
+			$("#jieshuday").on("tap", function() {
+				var dtpicker = new mui.DtPicker({
+					"type": "datetime"
+				});
+				dtpicker.show(function(items) {
+					$("#jieshuday").val(items.text);
+					dtpicker.dispose();
+				});
+			});
+			//验证
+			var wcdd = zc_xm = zc_lxfs = "";
+
+			function leave_category() {
+				wcdd = $("#wcdd").val();
+				if(wcdd == "" || wcdd == undefined || wcdd == null) {
+					mui.toast("请填写外出地点");
+					return false;
+				}
+				zc_xm = $("#zc_xm").val();
+				if(zc_xm == "" || zc_xm == undefined || zc_xm == null) {
+					mui.toast("请填写主持工作负责同志姓名及职务");
+					return false;
+				}
+//				zc_zw = $("#zc_zw").val();
+//				if(zc_zw == "" || zc_zw == undefined || zc_zw == null) {
+//					mui.toast("请填写主持工作负责同志职务");
+//					return false;
+//				}
+				zc_lxfs = $("#zc_lxfs").val();
+				if(zc_lxfs == "" || zc_lxfs == undefined || zc_lxfs == null) {
+					mui.toast("请填写主持工作负责同志联系方式");
+					return false;
+				}
+
+				return true;
+			}
+			//提交
+			$("#tijiao").on("click", function() {
+				plus.nativeUI.showWaiting("提交中...");
+				var vehicle = $("#vehicle").val();
+				var bz = $("#bz").val();
+				var sqrxm = $("#sqrxm").val();
+				//				if(sqrxm == "" || sqrxm == undefined || sqrxm == null) {
+				//					mui.toast("请填写申请人姓名");
+				//					return false;
+				//				}
+				var sscs = $("#sscs").val();
+				//				if(sscs == "" || sscs == undefined || sscs == null) {
+				//					mui.toast("请填写所属处室");
+				//					return false;
+				//				}
+				var zw = $("#zw").val();
+				//				if(zw == "" || zw == undefined || zw == null) {
+				//					mui.toast("请填写职务");
+				//					return false;
+				//				}
+				var lxdh = $("#lxdh").val();
+				//				if(lxdh == "" || lxdh == undefined || lxdh == null) {
+				//					mui.toast("请填写联系电话");
+				//					return false;
+				//				} 
+				if($("#wclx").parents(".cadre").css("display")=="none"){
+					var wclx=0;
+				}else{
+					var wclx = $("#wclx").val();
+				}
+				var leixing1 = $("#leixing").val();
+				if(leixing1 == "" || leixing1 == undefined || leixing1 == null) {
+					mui.toast("请填写外出事由");
+					plus.nativeUI.closeWaiting();
+					return false;
+				}
+				var kaishiday1 = $("#kaishiday").val();
+				if(kaishiday1 == "" || kaishiday1 == undefined || kaishiday1 == null) {
+					mui.toast("请填写外出离开时间");
+					plus.nativeUI.closeWaiting();
+					return false;
+				}
+				var jieshuday1 = $("#jieshuday").val();
+				if(jieshuday1 == "" || jieshuday1 == undefined || jieshuday1 == null) {
+					mui.toast("请填写外出返回时间");
+					plus.nativeUI.closeWaiting();
+					return false;
+				}
+				if(leave_category_type == 1) {
+
+				} else if(leave_category_type == 2) {
+					if(!leave_category()) {
+						plus.nativeUI.closeWaiting();
+						return false;
+					}
+				} else {
+
+				}
+
+				var shenpiren = $(".isListBox .select_box .select_ul li.active").length;
+				if(shenpiren <= 0) {
+					mui.toast("请选择审批人");
+					plus.nativeUI.closeWaiting();
+					return false;
+				}
+				var approver = [];
+				var spr = $(".isListBox .select_box .select_ul li.active");
+				for(var i = 0; i < spr.length; i++) {
+					approver.push(spr.eq(i).attr("data-id"));
+				}
+				
+				var _url = root + "api/applyleave/new";
+				console.log("上传接口" + _url + "token" + token + "phone" + lxdh + "reason" + leixing1 + "start_at" + kaishiday1 + "end_at" + jieshuday1 + "place" + wcdd + "name" + zc_xm + "mobile" + zc_lxfs + "remark" + bz + "approver" + String(approver))
+				$.ajax({
+					type: "POST",
+					url: _url,
+					data: {
+						"token": token,
+						"node_code": $("#select_node option:selected").attr("sorting"),
+						"phone": lxdh,
+						"reason": leixing1,
+						"start_at": kaishiday1,
+						"end_at": jieshuday1,
+						"place": wcdd,
+						"name": zc_xm,
+//						"duty": zc_zw,
+						"mobile": zc_lxfs,
+						"vehicle":vehicle,
+						"remark": bz,
+						"type":wclx,
+						"approver": String(approver)
+					},
+					dataType: 'json', //服务器返回json格式数据
+					success: function(data) {
+						plus.nativeUI.closeWaiting();
+						//console.log("data成功返回值" + JSON.stringify(data))
+						var list = plus.webview.getWebviewById("leave_list.html");
+						mui.fire(list, 'refresh');
+						plus.webview.currentWebview().close();
+						mui.toast(data.msg);
+					},
+					error: function(data) {
+						plus.nativeUI.closeWaiting();
+						console.log("data失败返回值" + JSON.stringify(data))
+					}
+				})
+			})
+
+			//获取全部人员
+			contacts()
+			var leave_category_type = "";
+
+			function contacts() {
+
+				function selectNode() {
+					if($("#select_node option:selected").attr("isselectpeople") == "1") {
+						$(".isListBox").show();
+						xyb_spr();
+					} else {
+						$(".isListBox").hide();
+					}
+				}
+
+				//---------------
+				var _url2 = root + "api/applyleave/info";
+
+				mui.ajax(_url2, {
+					data: {
+						"token": token
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("获取外出报备信息：" + JSON.stringify(data))
+						if(data.code == 1) {
+							var infor = data.data;
+							$("#sqrxm").val(infor.name); //姓名
+							$("#sscs").val(infor.department); //处室
+							$("#zw").val(infor.duty); //职务
+							$("#lxdh").val(infor.phone); //电话
+							leave_category_type = infor.category;
+							if(leave_category_type == 2) {
+								$(".cadre").show();
+							}
+							
+							if(infor.nextFlows == "" || infor.nextFlows == null || infor.nextFlows == undefined) {
+								mui.toast("节点为空")
+							} else {
+								$("#select_node").html("");
+								infor.nextFlows.forEach(function(item, index) {
+									$("#select_node").append('<option value="' + item.id + '" flowid="' + item.flow_id + '" sorting="' + item.sorting + '" ismany="' + item.is_many + '" isselectpeople="' + item.is_selectpeople + '">' + item.note + '</option>')
+								})
+								selectNode();
+								$("#select_node").on("change", selectNode);
+							}
+
+						}
+					},
+					error: function(xhr, type, errorThrown, data) {
+
+					}
+
+				})
+			}
+
+			
+		</script>
+		
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

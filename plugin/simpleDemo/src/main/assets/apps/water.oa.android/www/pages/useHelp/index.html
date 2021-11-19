@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>使用帮助</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+    <link rel="stylesheet" href="../../css/previewImage.css">
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+    <link rel="stylesheet" href="../../css/useHelp/index.css">
+    <!-- 引入js -->
+    <script src="../../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.min.js"></script>
+
+    <style type="text/css">
+        .right {
+            position: absolute;
+            right: 0.2rem;
+        }
+
+        .so_li_box {
+            /* background-color: #0000FF; */
+            position: relative;
+        }
+    </style>
+    <script>
+        //计算根节点HTML的字体大小
+        function resizeRoot(width) {
+            var deviceWidth = document.documentElement.clientWidth,
+                num = width,
+                num1 = num / 100;
+            if (deviceWidth > num) {
+                deviceWidth = num;
+            }
+            document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+        }
+        //根节点HTML的字体大小初始化
+        resizeRoot(750);
+        window.onresize = function () {
+            resizeRoot(750);
+        };
+    </script>
+</head>
+
+<body>
+    <div class="mui-content">
+        <header class="header pp">
+            <i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+            <span>使用帮助</span>
+        </header>
+        <div class="section">
+            <div class="start">
+                <img class="start_img" src="../../images/use_help/xiangyousanjiaoxing.png" alt="">
+                <span class="start_text">进入下一页</span>
+            </div>
+            <img class="img" src="../../images/use_help/header.png" alt="">
+            <div class="catalog">
+                <!-- <div class="catalog_row">
+                    <img class="catalog_img" src="../../images/use_help/text.png" alt="">
+                    <div class="catalog_text">
+                        <span class="text_left">02</span>
+                        <span class="text_right">系统概述</span>
+                    </div>
+                </div>
+                <div class="catalog_row">
+                    <div class="catalog_text">
+                        <span class="subtext_left">10</span>
+                        <span class="subtext_right">水利地图</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    //调整页面高度
+    let header = $('.header').outerHeight()
+    let imgHeight = $('.img').height()
+    let bodyHeight = $('body').height()
+    let h = bodyHeight - header - imgHeight
+    $('.catalog').height(h)
+
+    // 显示loading
+    mui.plusReady(function () {
+        plus.nativeUI.showWaiting("加载中...");
+    })
+
+    // 网络请求参数
+    let root = localStorage.getItem("str_url");
+    let token = window.localStorage.getItem('token')
+    let dom
+    console.log(root);
+    // 发送网络请求
+    $.post(root + 'api/appwatermap/', { token: token }, (data) => {
+        if (data.code !== 1) {
+            mui.toast(data.msg, { duration: 'short', type: 'div' })
+        }
+        let dataArray = data.data
+        let catalogArray = dataArray.map((item) => {
+            return {
+                name: item.name,
+                page: item.number,
+                page_id: item.name_id,
+                type: item.type,
+                isShow: item.isShow
+            }
+        })
+        catalogArray.forEach((item) => {
+            if (item.type === 1 && item.isShow === 1) {
+                dom = `  
+                    <div class="catalog_row" data-page="${item.page}">
+                        <img class="catalog_img" src="../../images/use_help/text.png" alt="">
+                        <div class="catalog_text">
+                            <span class="text_left">${item.page_id}</span>
+                            <span class="text_right">${item.name}</span>
+                        </div>
+                    </div>
+                `
+                $('.catalog').append(dom)
+            } else if (item.type === 2 && item.isShow === 1) {
+                dom = `  
+                    <div class="catalog_row subrow" data-page="${item.page}">
+                        <div class="catalog_subtext">
+                            <span class="subtext_left">${item.page}</span>
+                            <span class="subtext_right">${item.name}</span>
+                        </div>
+                    </div>
+                `
+                $('.catalog').append(dom)
+            }
+        })
+        // 关闭loading
+        plus.nativeUI.closeWaiting();
+    })
+    // $.post(root + 'api/appwatermap/details', { token: token, number: 2 }, (data) => {
+    //     console.log(JSON.stringify(data));
+    // })
+
+    // 添加页面跳转点击事件
+    $("body").on("click", ".catalog_row", function () {
+        let page = $(this).attr('data-page')
+        mui.openWindow({
+            url: './detail.html',
+            extras: {
+                page: page
+            }
+        })
+    })
+    $("body").on("click", ".start", function () {
+        mui.openWindow({
+            url: './detail.html',
+            extras: {
+                page: 1
+            }
+        })
+    })
+</script>

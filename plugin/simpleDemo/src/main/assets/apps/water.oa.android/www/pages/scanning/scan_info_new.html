@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <!-- 引入样式 -->
+    <link href="../../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+    <link rel="stylesheet" href="../../css/scanning/scan_info.css">
+    <!-- 引入js -->
+    <script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/mui.min.js"></script>
+	<style type="text/css">
+		.mui-content .content .base_info .list {
+			height: auto;
+			overflow: hidden;
+		}
+		.right {
+			position: absolute;
+			right: 0.2rem;
+		}
+		.mui-content .content .base_info .list .lists .line .eye{
+			display: none;
+		}
+		.mui-toast-container {
+			top: 50% !important;
+		}  
+	</style>
+</head>
+
+<body>
+    <div class="mui-content">
+        <header class="header">
+            <i class="mui-action-back iconfont icon-fanhui1 fl" onclick="mui.back()"></i>
+            <span>资产信息查看</span>
+			<span class="right" style="font-size: 0.3rem;" onclick="jumpHistory()">报修记录</span>
+        </header>
+        <div class="content">
+            <div class="bg"> </div>
+            <!-- 基础信息             start -->
+            <div class="base_info info_box">
+                <div class="list">
+                    <div class="lists">
+                        <!-- <div class="line">
+                            <div class="left">设备序列号</div>
+                            <div class="right serial_number"></div>
+                        </div> -->
+                    </div>
+					<!-- 报修说明 -->
+					<div class="remarks remarks2">
+						<div class="remarks_title">
+							报修说明
+						</div>
+						<textarea class="description">必填</textarea>
+					</div>
+					<div class="repair" type="button">我要报修</div>
+                </div>
+            </div>
+            <!-- 基础信息             end -->
+        </div>
+    </div>
+</body>
+
+<script src="../../js/scanning/scan_info_new.js"></script>
+<script type="text/javascript">
+    var backButtonPress = 0;
+    mui.back = function(event) {
+        backButtonPress++;
+        if (backButtonPress > 1) {
+            // plus.runtime.quit();
+        } else {
+            // plus.nativeUI.toast('再按一次退出应用');
+            mui.openWindow({
+                url: '../../my.html', //通过URL传参
+                id: 'my.html', //通过URL传参
+            })
+        }
+        setTimeout(function() {
+            backButtonPress = 0;
+        }, 1000);
+        return false;
+    };
+</script>
+
+</html>

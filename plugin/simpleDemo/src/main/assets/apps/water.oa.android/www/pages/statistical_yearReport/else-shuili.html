@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水利总投入</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/waterSaving_statistics.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/waterSaving_statistics.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.river_lake_table td,.river_lake_table th{
+				white-space:normal;
+			}
+			.river_lake_head{
+				width: 600px;
+			}
+			.river_lake_content .river_lake_table{
+				width: 1400px;
+			}
+			.water_save{
+				height: 14rem;
+			}
+			.water_saves{
+				height: 7rem;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>水利总投入</span>
+			</header>
+			<div class="main">
+				<!-- 数据来源start -->
+				<div class="main_source">
+					<!-- 数据来源：2019年度水利年鉴、2019年度水资源公报 -->
+				</div>
+				<!-- 数据来源end -->
+				<!-- 年份收缩start -->
+				<div class="year_search">
+					<div class="submit_item" id="muiPicker"></div>
+				</div>
+				<!-- 年份收缩end -->
+				<!-- 节水灌溉面积start -->
+				<div class="river_lake">
+					<div class="river_lake_title">
+						<div class="river_lake_title_l">
+							<div class="line"></div>
+							<div class="text" id="text1"></div>
+						</div>
+						<div class="river_lake_title_r">
+						</div>
+					</div>
+					<div class="river_lake2">
+					<div class="river_lake_head">
+						<table id="tabhead" class="river_lake_table" border="0" cellspacing="0" cellpadding="0" style="line-height: 0.4rem;">
+							
+						</table>
+					</div>	
+					<div class="river_lake_content">
+						<table id="tabcontent" class="river_lake_table" border="0" cellspacing="0" cellpadding="0" style="line-height: 0.4rem;">
+							
+							
+						</table>
+					</div>
+					</div>
+				</div>
+				<!-- 节水灌溉面积end -->
+				<!-- 全省节水灌溉面积start -->
+				<div class="water_save">
+					<div class="river_lake_title">
+						<div class="river_lake_title_l">
+							<div class="line"></div>
+							<div class="text" id="text2"></div>
+						</div>
+					</div>
+					<div id="pip_container1" class="piechart"></div>
+				</div>
+				<!-- 全省节水灌溉面积end -->
+				<!-- 节水灌溉面积对比start -->
+				<div class="water_save water_saves">
+					<div class="river_lake_title">
+						<div class="river_lake_title_l">
+							<div class="line"></div>
+							<div class="text" id="text3"></div>
+						</div>
+						<!-- <ul class="tab_li">
+							<li class="tab_li_active">按流域</li>
+							<li>|</li>
+							<li>按地市</li>
+						</ul> -->
+					</div>
+					<div id="column_container1" class="piechart"></div>
+				</div>
+				<!-- 节水灌溉面积对比end -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts-3d.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/waterSaving_statistics.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/statistical_yearReport/else-shuili.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.querySelector("#muiPicker").addEventListener("tap", function() {
+			picker.show(function(SelectedItem) {
+				$("#muiPicker").text(SelectedItem[0].text);
+				data_info.year = SelectedItem[0].value;
+				list(data_info);
+				 // console.log(JSON.stringify(SelectedItem));
+			})
+		});
+	</script>
+</html>

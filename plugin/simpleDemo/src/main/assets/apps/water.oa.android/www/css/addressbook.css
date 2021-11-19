@@ -1,0 +1,582 @@
+/*通知*/
+
+.noticce {
+	width: 100%;
+	padding: 3rem 0.28rem 0.5rem 0.28rem;
+	margin: 0 auto;
+}
+
+.noticce-content {
+	width: 100%;
+	border-bottom: 1px solid #e5e5e5;
+	border-radius: 0.05rem;
+	background: #fff;
+	margin-bottom: 0.25rem;
+}
+
+.noticce-content .tupianlist {
+	width: 100%;
+	padding-left: 0.2rem;
+	overflow: hidden;
+	height: auto;
+}
+
+.noticce-content .tupianlist span {
+	float: left;
+	margin: 0.2rem 0.15rem;
+}
+
+.noticce-content .tupianlist img {
+	width: 1rem;
+	height: 1rem;
+	border: 1px solid #ddd;
+}
+
+.noticce-content .tupianlist i {
+	position: relative;
+	left: -0.15rem;
+	color: #000;
+	top: -0.9rem;
+}
+
+.noticce-content .fujialist {
+	width: 100%;
+	/*padding: 0.1rem 0.4rem;*/
+	overflow: hidden;
+	height: auto;
+}
+
+.noticce-content .fujialist span {
+	width: 100%;
+	height: 0.5rem;
+	line-height: 0.5rem;
+	color: #000;
+	font-size: 0.26rem;
+	display: block;
+}
+
+.noticce-content .fujialist span i {
+	position: relative;
+	/*top: 0.1rem;*/
+}
+
+.noticce-content .fujialist span a {
+	width: 64%;
+	float: left;
+	color: #000;
+	display: block;
+	overflow: hidden;
+	/*自动隐藏文字*/
+	text-overflow: ellipsis;
+	/*文字隐藏后添加省略号*/
+	white-space: nowrap;
+	/*强制不换行*/
+	font-size: 0.26rem;
+}
+
+.noticce-content .fujialist span .icon-wendang1 {
+	font-size: 0.4rem;
+	color: #397cf3;
+	margin-right: 0.2rem;
+	float: left;
+}
+
+.noticce-content p {
+	width: 100%;
+	height: 1rem;
+	line-height: 1rem;
+	margin: 0;
+	padding-left: 0.2rem;
+	padding-right: 0.35rem;
+}
+
+.noticce-content .ptb {
+	border-top: 1px solid #e5e5e5;
+}
+
+.noticce-content p .left {
+	width: 2rem;
+	color: #000;
+	/*line-height: 1rem;*/
+	margin: 0;
+	font-size: 0.3rem;
+}
+
+.noticce-content p .right input {
+	width: 4rem;
+	font-size: 0.28rem;
+	color: #666666;
+	text-align: right;
+	border: none;
+	padding: 0 0.5rem 0 0;
+	margin: 0;
+}
+
+.noticce-content p .right i {
+	position: absolute;
+	z-index: 9;
+	right: 0.7rem;
+	line-height: unset;
+}
+
+.noticce-content textarea {
+	color: #666666;
+	font-size: 0.26rem;
+	padding: 0 0.2rem;
+	border: none;
+}
+
+.noticce-content .icon-lianjie {
+	font-size: 0.4rem;
+	right: 0.65rem !important;
+}
+
+.noticce-content .fanwei {
+	width: 100%;
+	/*height: 1.5rem;*/
+	padding: 0.1rem 0.2rem;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+
+/*搜素框*/
+
+.chioceNotice-susu i {
+	left: 85%;
+}
+
+
+/*人事处*/
+
+.mt-zhx {
+	color: black;
+	font-size: 0.21875rem;
+	margin-top: 0.125rem;
+}
+
+.jobb {
+	font-size: 0.28125rem;
+	color: #CCCCCC;
+}
+
+.zld {
+	font-size: 0.34375rem;
+}
+
+.wt-5 {
+	width: 5.5625rem;
+	margin-top: -1.21rem;
+	margin-left: 1.5rem;
+	float: left;
+}
+
+.fan {
+	color: black;
+	font-size: 0.21875rem;
+	height: 0.26562rem;
+	margin-top: 0.03125rem;
+}
+
+.marjro {
+	float: right;
+	margin-top: 0.15625rem;
+}
+
+.both {
+	clear: both;
+}
+
+.dommia {
+	border-top: 1px solid #e5e5e5;
+}
+
+.tu-two {
+	height: 0.8rem;
+	margin-top: 0.1875rem;
+}
+
+.rg {
+	float: right;
+}
+
+.btt-01 {
+	margin-bottom: 1rem;
+	background: #FFFFFF
+}
+
+
+/*通讯录*/
+
+.bt-1 {
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.mt-0312 {
+	margin-top: 0.3125rem;
+}
+
+.not {
+	padding: 0.5rem 0.28rem 0.2rem 0.28rem;
+}
+
+.bg-tel {
+	color: #6492FF;
+}
+
+.bg-0 {
+	color: #000000;
+}
+
+.ht-tel {
+	height: 0.23437rem;
+}
+
+.mailbox {
+	height: 0.5rem;
+}
+
+.shell {
+	margin-left: 3.90625rem;
+}
+
+.ht-shell {
+	height: 0.625rem;
+}
+
+.bussiness {
+	margin-left: 4.6575rem;
+}
+
+.chirchat {
+	width: 6.25rem;
+	height: 0.78125rem;
+	background-color: #FFFFFF;
+	border-radius: 0.3125rem;
+	border-color: #6492FF;
+	cursor: pointer;
+}
+
+.ministry_personnel {
+	margin-top: 1.18125rem;
+}
+
+.ministry_personnel .dutty {
+	color: #CDDAFB;
+}
+
+.ministry_personnel .nsp {
+	color: white;
+	font-weight: 600;
+	font-size: 0.35rem;
+}
+
+.ministry_personnel .rw {
+	width: 1.5625rem;
+	margin-top: 0.15625rem;
+}
+
+.head_portrait {
+	height: 3.53828rem;
+	background: url('images/bg-lai.png') no-repeat center;
+	background-size: 8.5rem 3.53828rem;
+	text-align: center;
+}
+
+.text-f {
+	background: #FFFFFF;
+}
+
+.address-list {
+	border-bottom: 1px solid #CCCCCC;
+	background: #FFFFFF;
+	margin-bottom: 0.23437rem;
+}
+
+.text-align {
+	text-align: center;
+}
+
+
+/*日历*/
+
+.year {
+	font-size: 0.25rem;
+	height: 0.625rem;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.hg-60 {
+	height: 1.25rem;
+}
+
+.bg-c1 {
+	color: #6BB3FB;
+}
+
+.bt-c2 {
+	color: #A6A6A6;
+}
+
+.bt-c3 {
+	color: #000000;
+}
+
+.calendar {
+	width: 100%;
+	background: #FFFFFF;
+	text-align: center;
+	margin-top: 0.1875rem;
+}
+
+.year .today {
+	display: block;
+	font-size: 0.21875rem;
+	position: absolute;
+	top: 0.78125rem;
+	bottom: 0;
+	margin-left: 0.3125rem;
+	color: #6290FA;
+}
+
+.year .location {
+	position: relative;
+	border: 1px solid #8AABFA;
+	background: #EFF3FE;
+	color: #6290FA;
+}
+
+.jia {
+	width: 1.09375rem;
+}
+
+.fl-right {
+	float: right;
+}
+
+.text-jia {
+	margin-top: 0.78125rem;
+	width: 95%;
+}
+
+.date {
+	color: #000000;
+	font-size: 0.34375rem;
+}
+
+.xia {
+	width: 0.28125rem;
+	height: 0.1875rem;
+}
+
+.mt-023 {
+	margin-top: 2.3rem;
+}
+
+
+/*隐藏区*/
+
+.wt-92 {
+	width: 98%;
+	margin: 0 auto;
+	padding: 0.09375rem;
+}
+
+.wt-92 .bgx-blue {
+	color: #739AFA
+}
+
+.time {
+	margin-left: 35%;
+}
+
+.texxt-hui {
+	color: #A3A3A3;
+}
+
+.bg-red {
+	color: red;
+}
+
+.sup {
+	width: 0.07812rem;
+}
+
+.text_align {
+	text-align: center;
+}
+
+.room {
+	margin-left: 0.21875rem;
+	margin-top: 0.15625rem;
+	height: 0.46875rem;
+}
+
+.mt-046 {
+	border-bottom: 1px solid #CCCCCC;
+	margin-top: 0.04687rem;
+}
+
+.mt-156 {
+	margin-top: 0.15625rem;
+}
+
+.da-office {
+	border-top: 1px solid #CCCCCC;
+	margin-top: 0.15625rem;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.yd {
+	width: 0.15625rem;
+}
+
+.cha-off {
+	margin-top: 0.15625rem;
+	font-size: 0.34375rem;
+	margin-left: 0.09375rem;
+}
+
+.count {
+	height: 7.8125rem;
+	background: #FFFFFF;
+}
+
+.sccdeng {
+	position: fixed;
+	z-index: 9;
+	top: 1.3rem;
+}
+
+.mi-con {
+	margin-bottom: 1rem;
+}
+
+
+/*one*/
+
+.together {
+	border-top: 1px solid #e5e5e5;
+}
+
+.text-align {
+	text-align: center;
+}
+
+.unwind {
+	color: #000000;
+	font-size: 0.3rem;
+}
+
+.tou {
+	height: 0.23437rem;
+	width: 0.25rem;
+}
+
+.often {
+	background: #f8f8f8;
+	height: 7.8125rem;
+	display: none;
+}
+
+.often .attn {
+	height: 0.70312rem;
+	line-height: 0.70312rem;
+}
+
+.often .attn .font-attn {
+	font-size: 0.28125rem;
+	color: #A0A0A0;
+	margin-left: 0.46875rem;
+}
+
+.photo {
+	background: #FFFFFF;
+	border: 1px solid #FFFFFF;
+	height: 1.40625rem;
+}
+
+.photo .firgue {
+	/*height:1.09375rem;*/
+	height: 0.9375rem;
+}
+
+.mt-125 {
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 0.125rem;
+}
+
+.bg-f {
+	background: #FFFFFF;
+}
+
+.wt-075 {
+	width: 75%;
+	margin-left: 1.25rem;
+	margin-top: -0.70937rem;
+}
+
+.wpy {
+	color: #000000;
+	font-size: 0.35937rem;
+}
+
+
+/*日程one*/
+
+.jia {
+	width: 1.09375rem;
+}
+
+.fl-right {
+	float: right;
+}
+
+.text-jia {
+	margin-top: 0.3125rem;
+	width: 95%;
+}
+
+.note-pad {
+	position: fixed;
+	z-index: 9;
+	top: 1.3rem;
+}
+
+.staky-not {
+	margin-bottom: 1rem;
+}
+
+/*.mi-con .mt-023 .calendar .year .backdrop_text {
+	background: #FFF0F0 url(../images/hui.png) no-repeat;
+	background-size: 0.3125rem;
+}
+
+.mi-con .mt-023 .calendar .year .bg-three {
+	background: #F5F5F9 url(../images/bghui.png) no-repeat;
+	background-size: 0.3125rem;
+}*/
+
+.staky-not .mt-023 .calendar .year .meet_red {
+	background: #FFF0F0 url(../images/hui.png) no-repeat;
+	background-size: 0.3125rem;
+}
+
+.staky-not .mt-023 .calendar .year .meet_gary {
+	background: #F5F5F9 url(../images/bghui.png) no-repeat;
+	background-size: 0.3125rem;
+}
+.staky-not .mt-023 .calendar .year .memo_red {
+	background: #FFF0F0 url(../images/bq_bian.png) no-repeat;
+	background-size: 0.3125rem;
+}
+
+.staky-not .mt-023 .calendar .year .memo_gary {
+	background: #F5F5F9 url(../images/bg_bq_bian.png) no-repeat;
+	background-size: 0.3125rem;
+}
+
+.pd-10 {
+	padding: 0.15625rem;
+}

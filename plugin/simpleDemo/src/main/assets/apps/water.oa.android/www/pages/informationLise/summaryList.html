@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>单位信息化</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/informationLise/list.css" />
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.lists {
+				color: #000000;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>信息化汇总</span>
+			</header>
+			<!-- 条件start -->
+			<div class="content_box">
+				<input class="sort_input" type="text" id="keyName" placeholder="请输入关键字" />
+				<img class="img_search" src="../../images/waterIntake/icon_search_03.png">
+			</div>
+			<!-- 条件end -->
+			<!-- 数据总计 -->
+			<div class="all">
+				共<span class="all_num">0</span>张统计表
+			</div>
+			<!-- 数据总计 -->
+			<!-- 列表start -->
+			<div class="list">
+				<ul class="lists">
+					<!-- <li class="lists_li" onclick="jump_new('/pages/informationLise/summaryList_detail.html')">
+						山西省水资源管理中心
+					</li> -->
+				</ul>
+			</div>
+			<!-- 列表end -->
+
+		</div>
+	</body>
+	<script src="../../js/informationLise/summaryList.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 筛选js -->
+	<script src="../../js/map/screen.js" type="text/javascript" charset="utf-8"></script>
+	<!-- 筛选js end -->
+</html>

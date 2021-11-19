@@ -1,0 +1,13 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.08506272900007,35.69184160300006]},"properties":{"OBJECTID":1,"name":"古堆泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.31868671500007,36.08728770700003]},"properties":{"OBJECTID":2,"name":"龙子祠"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[110.84822373400004,37.40008304000003]},"properties":{"OBJECTID":3,"name":"柳林泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.525029528,39.39944155500007]},"properties":{"OBJECTID":4,"name":"神头泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.31511798400004,38.52790620400003]},"properties":{"OBJECTID":5,"name":"坪头泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.4099813250001,38.037327091000066]},"properties":{"OBJECTID":6,"name":"兰村泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[113.78726103000008,37.99919909400006]},"properties":{"OBJECTID":7,"name":"娘子关泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.34422434400005,37.68700274500003]},"properties":{"OBJECTID":8,"name":"晋祠泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.92337073800007,37.01294485600005]},"properties":{"OBJECTID":9,"name":"洪山泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.78569984500007,36.286560587000054]},"properties":{"OBJECTID":10,"name":"霍泉"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[111.69450745500006,36.55308818000003]},"properties":{"OBJECTID":11,"name":"郭庄泉"}}
+]}

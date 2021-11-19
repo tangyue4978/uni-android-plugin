@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>水表数据</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/water_query.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.marker{
+				width: 15px;
+				height: 15px;
+				border: 1px solid #088;
+				border-radius: 50%;
+				background-color: #00FFFF;
+				opacity: 0.5;
+				display: none;
+			}
+			.marker:after {				content: " ";				background-color: #00FFFF;				position: absolute;				left: 50%;				top: 50%;				width: 15px;				height: 15px;				border-radius: 50%;				margin-left: -50%;				margin-top: -50%;				-webkit-animation-name: 'ripple';				-webkit-animation-duration: 1s;				-webkit-animation-timing-function: linear;				-webkit-animation-delay: 0s;				-webkit-animation-iteration-count: infinite;				-webkit-animation-direction: normal;			}			@keyframes ripple {				0% {					opacity: 1;					width: 15px;					height: 15px;				}				50% {					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -15px;
+					margin-top: -15px;				}				100% {					opacity: 0.05;					width: 60px;					height: 60px;					margin-left: -30px;					margin-top: -30px;				}			}
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {display: none;}
+			.city_search{
+				padding-right: 0.2rem;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>水表数据</span>
+			</header>
+			<div class="main">
+				<!-- 地市搜素start -->
+				<div class="city_search">
+					<select class = "submit_item select_shi" id="city">
+						<option value="">山西省</option>
+					</select>
+					<select class = "submit_item" id="statics_input1">
+						<option value=""></option>
+					</select>
+					<select class = "submit_item" id="statics_input2">
+						<option value=""></option>
+					</select>
+				</div>
+				<!-- 地市搜素end -->
+				<!-- 已接水表start -->
+				<div class="waterUse_box reservoir_type">
+					<div class="river_lake_box river_patrol_box">
+						<div class="waterUse">
+							<ul class="waterUse_title" id="use_value">
+								<li class="color1">0</li>
+								<li class="color2">0</li>
+								<li class="color3">0.0%</li>
+							</ul>
+							<ul class="waterUse_name" id="use_name">
+								<li class="color1">已接水表</li>
+								<li class="color2">应接水表</li>
+								<li class="color3">接入占比</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 已接水表end -->
+				<!-- 用水趋势分析start -->
+				<div class="trend">
+					<nav id="nav">
+						<ul>
+							 <li class="active">月份</li>
+							 <!-- <li>年</li> -->
+						</ul>
+					</nav>
+					<div id="container">
+						<div class="tab">
+							<div id="container1"></div>
+						</div>
+						<!-- <div class="tab">
+							<div id="container1"></div>
+						</div> -->
+					</div>
+				</div>
+				<!-- 用水趋势分析end -->
+				<!-- 接入率start -->
+				<div class="access access_list">
+					
+					
+				</div>
+				<!-- 接入率end -->
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/city_change.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/map/getCity.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/water_query.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		// $("#nav ul li").on("click",liActive)
+		// function liActive() {
+		// 	 $(this).addClass("active");
+		// 	 $(this).siblings("li").removeClass("active");
+		// 	 var index = $(this).index();
+		// 	 if(index == 1){
+		// 		var obj={
+		// 			id:'container1',
+		// 			categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+		// 			series: [{
+		// 				name: '用水量',
+		// 				data: [10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000],
+		// 			}]
+		// 		}
+		// 		line(obj); 
+		// 	 }else{
+		// 		var obj2={
+		// 			id:'container1',
+		// 			categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+		// 			series: [{
+		// 				name: '用水量',
+		// 				data: [10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000],
+		// 			}]
+		// 		}
+		// 		line(obj2); 
+		// 	 } 
+			 
+		// };
+		// var obj={
+		// 	id:'container1',
+		// 	categories: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+		// 	series: [{
+		// 		name: '用水量',
+		// 		data: [10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000],
+		// 	}]
+		// }
+		// line(obj);
+	</script>
+</html>

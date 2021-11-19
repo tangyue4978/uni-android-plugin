@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_9m6zubjaugm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.integral ul li .span1 {
+				width: 5rem;
+				height: 0.1rem;
+				background: transparent;
+				border-radius: 0.1rem;
+				display: block;
+				margin-left: 0.55rem;
+				margin-top: 0.1rem;
+			}
+			.integral ul li .span1 .span3{
+				width: 80%;
+				height: 100%;
+				background: #ff9949;
+				border-radius: 0.1rem;
+				display: block;
+				margin-left: 0rem;
+				position: relative;
+			}
+			.integral ul li .span1 .span3 .span2{
+				/*position: absolute;*/
+				font-size: 0.3rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a><span class="biaoti_span">聊天</span></p>
+				<div class="integral-nav">22</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+		</script>
+		<script type="text/javascript">
+			function GetRequest(value) {
+				//url例子：www.bicycle.com?id="123456"&Name="bicycle"；  
+				var url = decodeURI(location.search); //?id="123456"&Name="bicycle";
+				var object = {};
+				if(url.indexOf("?") != -1) //url中存在问号，也就说有参数。  
+				{
+					var str = url.substr(1); //得到?后面的字符串
+					var strs = str.split("&"); //将得到的参数分隔成数组[id="123456",Name="bicycle"];
+					for(var i = 0; i < strs.length; i++) {
+						object[strs[i].split("=")[0]] = strs[i].split("=")[1]
+					}
+				}
+				return object[value];
+			}
+			
+			
+//			var self = plus.webview.currentWebview();
+//			var _url = self.url;
+			
+			
+			
+		</script>
+		
+		
+		<script type="text/javascript" charset="utf-8">
+			var ws = null,
+				embed = null;
+			var bank_url=null;
+				document.addEventListener("plusready", function(){
+					ws = plus.webview.currentWebview();
+					var root = localStorage.getItem("str_url");
+					var token = localStorage.getItem("token");
+					bank_url=root+'im/mobile/index?token='+token+'&to_id='+ws.self_id;
+					console.log('bank_url='+bank_url);
+					
+//					var _title=bank_url.indexOf("=");
+//					$(".biaoti_span").text(bank_url.slice(_title+2,bank_url.length -1)); 
+					createEmbed()
+				}, false);
+			// 创建子Webview
+			function createEmbed() {
+				var topoffset = '44px';
+				if(plus.navigator.isImmersedStatusbar()) { // 兼容immersed状态栏模式
+					topoffset = (Math.round(plus.navigator.getStatusbarHeight()) + 44) + 'px';
+				}
+				plus.nativeUI.showWaiting('', {
+					style: 'black',
+					modal: false,
+					background: 'rgba(0,0,0,0)'
+				});
+				var token=plus.storage.getItem("token");
+				embed = plus.webview.create(bank_url, 'embed', {
+//				embed = plus.webview.create('http://www.chengshi.com/app_dev.php/mobile/coupon/index', 'embed', {
+					top: topoffset,
+					bottom: '0px',
+					position: 'dock',
+					dock: 'bottom',
+					bounce: 'vertical'
+				});
+				
+				ws.append(embed);
+				 // 获取创建者的webview
+				embed.addEventListener('loaded', function() {
+//					if(embed.getTitle()=="notlogin"){
+//						clicked("/page/login/login.html")
+//					}else{
+//						$(".mui-title").text(embed.getTitle());
+//						
+//					}
+					plus.nativeUI.closeWaiting();
+					plus.storage.removeItem("bank_url");
+				}, false);
+				embed.addEventListener('loading', function() {
+					plus.nativeUI.showWaiting('', {
+						style: 'black',
+						modal: false,
+						background: 'rgba(0,0,0,0)'
+					});
+				}, false);
+			}
+		</script>
+		<!--<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_2f6bthhrl5d.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body style="    background: #f8f8f8;">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></a></i>设置个人头像</p>
+
+				<div class="portrait-content">
+					<div class="divimg">
+						<img id="imgId" src="" />
+					</div>
+					<!--<input style="opacity: 0;" type="file" accept="image/*" id="head_img_change"/>-->
+					<button class="button1" id="xiangce">从相册选一张</button>
+					<button class="button2" id="zhaopian">拍一张照片</button>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<!--<script src="js/main.js"></script>-->
+		<script type="text/javascript">
+			(function() {
+				//	获取头像
+
+				var token = localStorage.getItem("token");
+				var root = localStorage.getItem("str_url");
+				if(root == "" || root == undefined || root == null) {
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+					})
+				}
+				var url = root+"api/user/upload";
+				document.getElementById('imgId').src = root + localStorage.getItem("img");
+
+				var file;
+				var w = null;
+				// H5 plus事件处理
+				function plusReady() {
+
+					//w=plus.nativeUI.showWaiting();
+					//H5 准备好的时候 绑定拍照事件
+
+					//拍照单机事件
+					$("#zhaopian").bind("click", function() {
+						//拍照
+						plus.camera.getCamera().captureImage(function(p) {
+							plus.io.resolveLocalFileSystemURL(p, function(entry) {
+								//console.log(entry.toLocalURL());
+								$("#imgId").attr("src", entry.toLocalURL());
+								un()
+							}, function(e) {
+								outLine("读取拍照文件错误：" + e.message);
+							});
+
+						});
+					});
+
+					//从相册选择
+					$("#xiangce").bind("click", function() {
+						plus.gallery.pick(function(p) {
+							//console.log(p);
+							$("#imgId").attr("src", p);
+							
+							un(p)
+						});
+					});
+
+					//上传文件
+					function un(p) {
+						var wt = plus.nativeUI.showWaiting();
+						//根据路径读取到文件
+						console.log("当前图片路径="+$("#imgId").attr("src"))
+						plus.io.resolveLocalFileSystemURL($("#imgId").attr("src"), function(entry) {
+							entry.file(function(file) {
+								var fileReader = new plus.io.FileReader();
+								fileReader.readAsDataURL(file);
+
+								fileReader.onloadend = function(e) {
+									var f = $("#imgId").attr("src");
+									var filename = f.replace(f.substring(0, f.lastIndexOf('/') + 1), '');
+									var task = plus.uploader.createUpload(url, {},
+										function(t, status) {
+											// 上传完成
+											var file_ = JSON.parse(t.responseText);
+											console.log("返回数据="+JSON.stringify(file_));
+											if(file_.code == 1 && status == 200) {
+												localStorage.setItem("img",file_.data.avatar);
+												document.getElementById('imgId').src = root + localStorage.getItem("img");
+												mui.toast('修改成功');
+											} else {
+												mui.toast(file_.msg +" "+ file_.code);
+											}
+											wt = plus.nativeUI.closeWaiting();
+										}
+									);
+									console.log("上传路径="+f);
+									task.addFile(f, {
+										key: "avatar"
+									});
+									task.addData("token", token);
+									task.addData("avatar", f);
+									task.start();
+								}
+							});
+						});
+
+					};
+				}
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener("plusready", plusReady, false);
+				}
+
+				mui.init({
+					beforeback: function() {　　　　 //获得父页面的webview
+//						var list = plus.webview.getWebviewById("portrait.html");　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+						var list =  plus.webview.currentWebview().opener();
+						mui.fire(list, 'refresh');
+						//返回true,继续页面关闭逻辑
+						return true;
+					}
+				});
+			})();
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

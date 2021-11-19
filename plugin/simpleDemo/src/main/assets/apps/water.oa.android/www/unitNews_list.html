@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.bumf .daiban{
+				padding-left: 0.5rem;
+				background-color: #FFFFFF;
+			}
+			.bumf .daiban li{
+				margin: 0rem;
+				border-bottom: 1px solid #E0E0E0;
+				padding-left: 0rem;
+			}
+			.bumf .daiban li .left{
+				width: 100%;
+			}
+			.bumf .daiban li .left span.fr{
+				font-size: 0.45rem;
+			}
+			.bumf .daiban li .left span.type{
+				padding: 0.02rem 0.15rem;
+				border:1px solid #16CCB6;
+				border-radius: 0.3rem;
+				color: #16CCB6;
+				margin-right: 0.2rem;
+			}
+			.bumf .daiban li .left h2 .h2_bt{
+				display: inline-block;
+				width: 80%;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<i class="mui-action-back iconfont icon-fanhui1 left"></i>通知公告
+				</p>
+				<div class="bumf-nav" style="margin-top: 1.3rem;">
+				
+					<div class="bumf" style="margin: 0;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="daiban">
+								<!--<li onclick="xiangqing()">
+									<div class="left">
+										<h2><span class="h2_bt">有关项目进展的会议有关项目进展的会议有关项目进展的会议</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>
+										<p><span class="type">厅函</span>会议时间：09/15   08：36-10:50</p>
+										<p>王建国　办公室科员</p>
+									</div>
+								</li>-->
+								<!--<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn2">特急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn3">加急</button></div></li>
+								<li><div class="left"><h2>有关项目进展的会议</h2><p>会议时间：09/15   08：36-10:50</p></div><div class="right"><button class="btn4">特提</button></div></li>-->
+							</ul>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null){
+					mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var page=1;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+//				url = self.url
+				list(self.type)
+				
+				
+			});
+			
+
+			function list(type) {
+				console.log("单位动态："+type);
+				var type=type;
+//				1单位动态,2公示,3公告,4通知
+				var text_type="";
+				switch (type){
+					case "1":
+						text_type="单位动态";
+						break;
+					case "2":
+						text_type="公示";
+						break;
+					case "3":
+						text_type="公告";
+						break;
+					case "4":
+						text_type="通知";
+						break;
+					default:
+						text_type=" ";
+						break;
+				}
+				console.log(text_type)
+				var _url = root + 'api/message/msglist';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"type":type,
+						"page":page
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log("----------"+JSON.stringify(data));
+						if(data.code == 1) {
+							data.data.forEach(function(v) {
+								var red_str='<span style="background-color: red;border-radius: 50%;display: block;width: 0.2rem;height: 0.2rem;float: right;margin-top: 0.1rem;"></span>';
+								if(v.is_read==1){
+									red_str="";
+								}
+								$("#item1 .daiban").append(
+									'<li onclick="xiangqing('+v.id+')">'+
+										'<div class="left">'+
+											'<h2><span class="h2_bt">'+v.title+'</span><span class="fr mui-icon mui-icon-arrowright"></span>'+red_str+'</h2>'+
+											'<p><span class="type">'+text_type+'</span>'+v.create_at+'</p>'+
+											'<p>'+v.content+'</p>'+
+										'</div>'+
+									'</li>'
+								)
+							})
+
+						}
+						$(".mui-loading").css("display", "none")
+//						console.log(JSON.stringify(data))
+
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常")
+					}
+				})
+
+			}
+
+			
+
+			function xiangqing(id) {
+				console.log("list_id:"+id);
+				mui.openWindow({
+					url: 'unitNews_details.html', //通过URL传参
+					id: 'unitNews_details.html', //通过URL传参
+					extras: {
+						type_id: id
+					}
+				})
+				weidu(id);
+			};
+			
+			function weidu(id){
+				var msg_id=id;
+				console.log("msg=="+msg_id);
+				mui.ajax(root+"api/message/publicuserread", {
+					data: {
+						"token": token,
+						"public_id":msg_id
+					},
+					dataType: 'json',
+					type: 'post',
+					success: function(data) {
+						console.log("msg_id----------"+JSON.stringify(data));
+//						location.reload();
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+//			function fwxq(i, t) {
+//				console.log(i)
+//				if(i == 0) {
+//					mui.toast("暂无" + t)
+//				} else {
+//
+//				}
+//			}
+//
+//			function swxq(i, t) {
+//				console.log(i)
+//				console.log(t)
+//				if(i == 0) {
+//					mui.toast("暂无" + t)
+//				}
+//			}
+
+//			window.addEventListener('refresh', function(e) { //执行刷新
+//				location.reload();
+//			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

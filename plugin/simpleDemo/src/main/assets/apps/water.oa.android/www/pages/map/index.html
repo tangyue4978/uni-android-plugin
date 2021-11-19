@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<title>水利地图</title>
+	<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/map/index.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/map/search.css" />
+	<link rel="stylesheet" type="text/css" href="../../css/map/popup.css" />
+	<!-- 引入右边导航栏样式 -->
+	<link rel="stylesheet" href="../../css/rightBar/right_bar.css">
+	<!-- 底图切换样式 -->
+	<link rel="stylesheet" type="text/css" href="../../css/map/change_base_map/change_base_map.css" />
+
+	<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+	<style type="text/css">
+		.right {
+			position: absolute;
+			right: 0.2rem;
+		}
+
+		.so_li_box {
+			/* background-color: #0000FF; */
+			position: relative;
+		}
+
+		.location {
+			width: 15px;
+			height: 15px;
+			border: 1px solid #088;
+			border-radius: 50%;
+			background-color: #00FFFF;
+			opacity: 0.5;
+			display: none;
+		}
+
+		.location:after {
+			content: " ";
+			background-color: #00FFFF;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			margin-left: -50%;
+			margin-top: -50%;
+			-webkit-animation-name: 'ripple';
+			-webkit-animation-duration: 1s;
+			-webkit-animation-timing-function: linear;
+			-webkit-animation-delay: 0s;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: normal;
+		}
+
+		@keyframes ripple {
+			0% {
+				opacity: 1;
+				width: 15px;
+				height: 15px;
+			}
+
+			50% {
+				opacity: 0.7;
+				width: 30px;
+				height: 30px;
+				margin-left: -15px;
+				margin-top: -15px;
+			}
+
+			100% {
+				opacity: 0.05;
+				width: 60px;
+				height: 60px;
+				margin-left: -30px;
+				margin-top: -30px;
+			}
+		}
+
+		/* 图例图片样式 */
+		.legend_box .legend_h6 {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+		}
+
+		.legend_box .legend_h6 .turn_img {
+			width: 0.18rem;
+			height: 0.312rem;
+			position: absolute;
+			left: 0;
+		}
+		.list_obj .list_ul .list_li#group_sk_big .icon_img{
+			width: 0.3rem;
+			height: 0.33rem;
+		}
+	</style>
+	<script>
+		//计算根节点HTML的字体大小
+		function resizeRoot(width) {
+			var deviceWidth = document.documentElement.clientWidth,
+				num = width,
+				num1 = num / 100;
+			if (deviceWidth > num) {
+				deviceWidth = num;
+			}
+			document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+		}
+		//根节点HTML的字体大小初始化
+		resizeRoot(750);
+		window.onresize = function () {
+			resizeRoot(750);
+		};
+	</script>
+</head>
+
+<body id="body">
+	<div class="mui-content">
+		<header class="header pp">
+			<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+			<span>水利地图</span>
+			<span class="right" style="font-size: 0.3rem;" onclick="jump_new('../../feedback.html')">意见反馈</span>
+		</header>
+		<div class="section">
+			<div class="mapBox">
+				<div id="map"></div>
+				<!-- 当前选择提示框            开始-->
+				<!-- <div class="tips_wrap">
+				</div> -->
+				<!-- 当前选择提示框            结束-->
+				<div class="top_nav">
+					<ul class="nav_ul_box">
+						<li class="nav_li_item isShow active_tow" data-type="managementObjects">管理对象</li>
+						<!-- <li class="nav_li_item isShow" data-type="bigwaternetwork">大水网</li> -->
+						<!-- <li class="nav_li_item isShow" data-type="fanghongimportant">防洪重点</li> -->
+						<li class="nav_li_item isShow" data-type="fanghongimportant">专题地图</li>
+						<li class="nav_li_item" onclick="jump_new('/pages/map/list.html')">数据列表</li>
+					</ul>
+				</div>
+				<div class="list_box" id="managementObjects">
+					<div class="list_obj heightauto">
+						<ul class="list_ul">
+							<!-- <li class="list_li">水库</li> -->
+						</ul>
+					</div>
+				</div>
+				<div class="list_box" id="bigwaternetwork">
+					<div class="list_obj heightauto">
+						<ul class="list_ul"></ul>
+					</div>
+				</div>
+				<div class="list_box" id="fanghongimportant">
+					<div class="list_obj heightauto">
+						<ul class="list_ul"></ul>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="rightTabs rightPosi">
+				<ul>
+					<li class="so_li_box">
+						<a onclick="soFun(this)"><img src="../../images/ruralWater/right_tabs_search.png"></a>
+					</li>
+					<li><a href=""><img src="../../images/ruralWater/right_tabs01.png"></a></li>
+					<li>
+						<a onclick="label_fun(address_obj.coords.longitude,address_obj.coords.latitude)">
+							<img src="../../images/ruralWater/right_tabs_dw.png">
+						</a>
+					</li>
+				</ul>
+			</div> -->
+
+			<!-- 右侧导航栏信息                  开始 -->
+			<div class="right_bar">
+				<div class="right_bar_top">
+					<img class="img" src="../../images/right_bar/arrow_t.png" alt="">
+				</div>
+				<!-- 中间滚动区域       开始-->
+				<div class="right_bar_center">
+					<ul>
+						<li>
+							<a href="">
+								<img class="icon1 img" src="../../images/right_bar/return.png">
+								<img class="icon2" src="../../images/right_bar/return_act.png">
+								<span class="bar_text">返回全图</span>
+							</a>
+						</li>
+						<li>
+							<a onclick="soFun(this)">
+								<img class="icon1 img" src="../../images/yc/3-1districtquery.png">
+								<img class="icon2" src="../../images/yc/3-2districtquery.png">
+								<span class="bar_text">搜索</span>
+							</a>
+						</li>
+						<li class="list_li" data-li="tips" data-id="1" data-qname="icon_13_dx1,icon_13_dx2">
+							<img class="icon_img icon1" src="../../images/yc/reservoir/dxsk.png">
+							<img class="icon_img icon2" src="../../images/yc/reservoir/dxsk_a.png">
+							<span class="counts"></span>
+							<span class="bar_text">大型水库</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_13_zx1,icon_13_zx2">
+							<img class="icon_img icon1" src="../../images/yc/2-1Mediumreservoir.png">
+							<img class="icon_img icon2" src="../../images/yc/2-2Mediumreservoir.png">
+							<span class="counts"></span>
+							<span class="bar_text">中型水库</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_04">
+							<img class="icon_img icon1" src="../../images/yc/1-1monitoringstation.png">
+							<img class="icon_img icon2" src="../../images/yc/1-2monitoringstation.png">
+							<span class="counts"></span>
+							<span class="bar_text">地下水测站</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="7" data-qname="icon_05">
+							<img class="icon_img icon1" src="../../images/yc/hdcz.png">
+							<img class="icon_img icon2" src="../../images/yc/hdcz_act.png">
+							<span class="counts"></span>
+							<span class="bar_text">水文站</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="6" data-qname="hdcz_shuiweizhan">
+							<img class="icon_img icon1" src="../../images/yc/icon_hdswz03.png">
+							<img class="icon_img icon2" src="../../images/yc/icon_hdswz01.png">
+							<span class="counts"></span>
+							<span class="bar_text">水位站</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_12">
+							<img class="icon_img icon1" src="../../images/yc/icon_sldt/icon_6_1_szzd.png">
+							<img class="icon_img icon2" src="../../images/yc/icon_sldt/icon_6_2_szzd.png">
+							<span class="counts"></span>
+							<span class="bar_text">水质站点</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_22">
+							<img class="icon_img icon1" src="../../images/yc/add/yudiba-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/yudiba-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">淤地坝</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_16">
+							<img class="icon_img icon1" src="../../images/yc/add/qdwr-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/qdwr-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">千吨万人</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_15">
+							<img class="icon_img icon1" src="../../images/yc/add/qrys-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/qrys-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">千人以上</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_17">
+							<img class="icon_img icon1" src="../../images/yc/add/sdz-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/sdz-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">水电站</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_23">
+							<img class="icon_img icon1" src="../../images/yc/add/bz-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/bz-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">泵站</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_24">
+							<img class="icon_img icon1" src="../../images/yc/add/sz-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/sz-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">水闸</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_25">
+							<img class="icon_img icon1" src="../../images/yc/add/hhqsk-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/hhqsk-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">河湖取水口</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_21">
+							<img class="icon_img icon1" src="../../images/yc/add/rhpwk-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/rhpwk-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">入河排污口</span>
+						</li>
+						<li class="list_li" data-li="tips" data-id="2" data-qname="icon_18">
+							<img class="icon_img icon1" src="../../images/yc/add/dbsyd-1.png">
+							<img class="icon_img icon2" src="../../images/yc/add/dbsyd-2.png">
+							<span class="counts"></span>
+							<span class="bar_text">地表水源地</span>
+						</li>
+						<li class="" id="change_map_mark">
+							<a>
+								<img class="icon1" src="../../images/right_bar/change.png">
+								<img class="icon2" src="../../images/right_bar/change_act.png">
+								<span class="bar_text">切换底图</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- 中间滚动区域       结束-->
+				<div class="right_bar_btm">
+					<img class="img" src="../../images/right_bar/arrow_b.png" alt="">
+				</div>
+			</div>
+			<!-- 右侧导航栏信息                  结束 -->
+
+			<!-- 右下定位信息     开始-->
+			<div class="right_posi">
+				<div class="img_box_list">
+					<div class="img_box_item" onclick="zoomInFun()">
+						<img class="img" src="../../images/right_bar/add.png">
+					</div>
+					<div class="img_box_item" onclick="zoomOutFun()">
+						<img class="img" src="../../images/right_bar/reduce.png">
+					</div>
+				</div>
+				<div class="img_box_list">
+					<div class="img_box_item"
+						onclick="label_fun(address_obj.coords.longitude,address_obj.coords.latitude)">
+						<img class="img" src="../../images/right_bar/position.png">
+					</div>
+				</div>
+			</div>
+			<!-- 右下定位信息     结束-->
+
+			<!-- 图例 -->
+			<section class="legend_section">
+				<!-- <div class="legend_box active">
+						<h6 class="legend_h6">图例标题</h6>
+						<ul class="legend_ul">
+							<li class="legend_li">
+								<img class="legend_img" src="../../images/big_water_network/icon-24.png" alt="">
+								<span class="legend_span">千人以上供水工程</span>
+							</li>
+							<li class="legend_li">
+								<img class="legend_img" src="../../images/big_water_network/icon-24.png" alt="">
+								<span class="legend_span">千人以上供水工程工程</span>
+							</li>
+							<li class="legend_li">
+								<img class="legend_img" src="../../images/big_water_network/icon-24.png" alt="">
+								<span class="legend_span">千人以上供水工程</span>
+							</li>
+							<li class="legend_li">
+								<img class="legend_img" src="../../images/big_water_network/icon-24.png" alt="">
+								<span class="legend_span">千人以上供水工程</span>
+							</li>
+						</ul>
+					</div> -->
+			</section>
+			<!-- 图例 -->
+			<!-- 模糊搜索框 -->
+			<div class="search_frame" data-url="api/v3/es_search/tipshighlight">
+				<div class="search_header_box">
+					<div class="search_arrow">
+						<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png">
+					</div>
+					<div class="li_div">
+						<input id="li_input" type="text" class="li_input" placeholder="请输入关键字" >
+						<img class="li_img" src="../../images/ruralWater/search_btn.png" onclick="searchFun()">
+					</div>
+					<!-- 搜索类型 -->
+					<div class="map_type_box">
+						<div class="item_type">所属流域</div>
+						<div class="item_type">行政区划</div>
+						<div class="item_type">所属类型</div>
+						<div class="position">
+							<div class="position_item">
+								<div class="transverse">
+									<ul class="position_ul" id="liuyu">
+										<!-- <li class="active">黄河流域</li>
+											<li>海河流域</li> -->
+									</ul>
+								</div>
+							</div>
+							<div class="position_item">
+								<div class="transverse">
+									<ul class="position_ul" id="xzqh_shi">
+
+									</ul>
+								</div>
+								<div class="transverse">
+									<ul class="position_ul" id="xzqh_xian">
+
+									</ul>
+								</div>
+							</div>
+							<div class="position_item">
+								<div class="transverse">
+									<ul class="position_ul" id="sstype">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="search_frame_olBox"> -->
+				<!-- <ol class="search_frame_ol"> -->
+				<!-- <li>
+								<img src="../../js/layer/images/face/9.gif" >
+								<span>水库</span>
+							</li> -->
+				<!-- </ol> -->
+				<!-- </div> -->
+				<div class="search_frame_inner">
+					<ul class="search_frame_list">
+						<!-- <li data_lng="2" data_lat="4" data_icon="6" data_name="8" data_type_id="10" data_id="11">
+								<span><img src="../../js/layer/images/face/9.gif" >水库名称</span>
+								<span>水库名称</span>
+								<span>水库名称</span>
+								<span>水库名称</span>
+							</li> -->
+					</ul>
+				</div>
+				<div class="search_frame_inner_zwf">
+				</div>
+			</div>
+			<!-- 模糊搜索框 -->
+		</div>
+		<!-- 当前手机位置 -->
+		<div id="location" class="location"></div>
+	</div>
+</body>
+<!-- <script src="../../js/map/header.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="../../js/baseMap/baseMap.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/map/map_data.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/baseMap/popup.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/map/map_fun.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/map/map.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/map/map_list_serch.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/get_location/index.js"></script>
+<!-- 右侧选中效果js -->
+<script src="../../js/right_bar/index.js"></script>
+<!-- 地图切换js -->
+<script src="../../js/baseMap/change_base_map.js" type="text/javascript" charset="utf-8"></script>
+</html>

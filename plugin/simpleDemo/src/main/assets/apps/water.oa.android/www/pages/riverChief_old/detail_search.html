@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>河湖长制详细搜索</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/query.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/riverChief/detail_search.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<style>
+		.section {height: calc(100% - 1.3rem);top: 1.3rem;}
+	</style>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>详细搜索</span>
+			</header>
+			<div class="section">
+				<div class="tabsItem" style="display: block;">
+					<form>
+						<div class="waterbox">
+							<div class="waterName">
+								<div>水库名称</div>
+								<input class="name_input" placeholder="关键字..."/>
+							</div>
+							<div class="waterName watername1">
+								<div>地市筛选</div>
+								<div class="form-group1">
+									<div class="form-group">
+										<div class = "field" >
+											<select class = "input submit_item" id="city" name="city_code"  > 
+												<option value="">全部</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class = "field" >
+											<select class = "input submit_item" id="county" name="county_code" > 
+												<option value="">全部</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="waterName">
+								<div>水库规模</div>
+								<!-- <input class="name_input" placeholder="全部"/> -->
+								<select class="name_select" >
+									<option value="">全部</option>
+								</select>
+							</div>
+							<div class="waterName">
+								<div>所在河流</div>
+								<select class="name_select" >
+									<option value="">全部河流</option>
+								</select>
+							</div>
+							<div class="waterName">
+								<div>管理单位</div>
+								<input class="name_input" placeholder="关键字..."/>
+							</div>
+						</div>
+						<div class="form-button">
+							<button type="button" onclick="jump_new('four_mess.html')">查询</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/riverChief/detail_search.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

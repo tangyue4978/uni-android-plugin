@@ -1,0 +1,4 @@
+{"type":"FeatureCollection", "features": [
+{"type":"Feature","geometry":{"type":"Point","coordinates":[110.83034221500009,37.47365222800005]},"properties":{"OBJECTID":260,"name":"柳林电厂水源"}},
+{"type":"Feature","geometry":{"type":"Point","coordinates":[112.42463692500007,35.405237197000076]},"properties":{"OBJECTID":261,"name":"阳城电厂水源"}}
+]}

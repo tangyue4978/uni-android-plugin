@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.bumf .daiban{
+				padding-left: 0.5rem;
+				background-color: #FFFFFF;
+			}
+			.bumf .daiban li{
+				margin: 0rem;
+				border-bottom: 1px solid #E0E0E0;
+				padding-left: 0rem;
+			}
+			.bumf .daiban li .left{
+				width: 100%;
+			}
+			.bumf .daiban li .left span.fr{
+				font-size: 0.45rem;
+			}
+			.bumf .daiban li .left span.type{
+				padding: 0.02rem 0.15rem;
+				border:1px solid #16CCB6;
+				border-radius: 0.3rem;
+				color: #16CCB6;
+				margin-right: 0.2rem;
+				font-size: 0.23rem;
+			}
+			.bumf .daiban li .left h2 {
+				margin-bottom: 0rem;
+			}
+			.bumf .daiban li .left h2 .h2_bt{
+				display: inline-block;
+				width: 80%;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			}
+			.bumf .daiban li .left span.type{margin-right: 0.1rem;}
+			.bumf .daiban li.zwsw{
+				font-size: 0.33rem;
+				color: #999999;
+				text-align: center;
+				display: none;
+			}
+			#item1 .daiban li .status{
+				display: -webkit-flex; /*在webkit内核的浏览器上使用要加前缀*/
+    			display: flex || inline-flex;
+    			margin-bottom: 0.1rem;
+    			font-size: 0.27rem;
+			}
+			#item1 .daiban li .status span{
+				flex-grow: 1;
+				overflow: hidden;
+			}
+			#item1 .daiban li .status span em{
+				font-style: normal;
+			}
+			#item1 .daiban li .status em{
+				font-style: normal;
+				color: #397cf3;
+			}
+			#item1 .daiban li .status span .color_333{color: #333;}
+			#item1 .daiban li .status span .color_666{color: #666;}
+			#item1 .daiban li .status span .color_999{color: #999;}
+			#item1 .daiban li .status span .color_blue{color: #397cf3;}
+			#item1 .daiban li .status span .color_green{color: #16CCB6;}
+			#item1 .daiban li .status span .color_red{color: #fd002d;}
+			#item1 .daiban li .status span .color_yellow{color: #ffa500;}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></i></a>收文签收
+				</p>
+				<div class="bumf-nav" style="margin-top: 1.3rem;">
+				
+					<div class="bumf" style="margin: 0;">
+						<div id="item1" class="mui-control-content mui-active">
+							<ul class="daiban">
+								
+								<li class="zwsw">暂无收文签收</li>
+							</ul>
+							<div class="mui-loading" style="padding-top: 3rem;">
+								<div class="mui-spinner">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null){
+					mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var status
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				$(".mui-loading").css("display", "none")
+			});
+			
+			var page = 1;
+			var receipt_this=null;
+			list();
+			function list() {
+				var _url = root + 'api/documentreceipt/';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"page":page
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) { 
+						if(data.code == 1) {
+							if(page == 1 && data.data.length > 0){
+								page++;
+								data.data.forEach(function(item,index) {
+									$("#item1 .daiban").append(
+										'<li onclick="xiangqing('+item.itemId+","+item.parent+')">'+
+											'<div class="left">'+
+												'<h2><span class="h2_bt">'+item.title+'</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>'+
+												'<p class="status">'+
+													'<span>签收: <em class="'+item.status_color+'">'+item.status+'</em></span>'+
+													'<span>批阅: <em class="'+item.approve_color+'">'+item.isApproveFinish+'</em></span>'+
+												'</p>'+
+												'<p class="status">收文申请人:<em class="color_blue">'+item.transactor+'</em></p>'+
+												'<p><span class="type">'+item.type+'</span>'+item.createAt+'</p>'+
+											'</div>'+
+										'</li>'
+									)
+								})
+							}else if(page > 1 && data.data.length > 0){
+								page++;
+								data.data.forEach(function(item,index) {
+									$("#item1 .daiban").append(
+										'<li onclick="xiangqing('+item.itemId+","+item.parent+')">'+
+											'<div class="left">'+
+												'<h2><span class="h2_bt">'+item.title+'</span><span class="fr mui-icon mui-icon-arrowright"></span></h2>'+
+												'<p class="status">'+
+													'<span>签收: <em class="'+item.status_color+'">'+item.status+'</em></span>'+
+													'<span>批阅: <em class="'+item.approve_color+'">'+item.isApproveFinish+'</em></span>'+
+												'</p>'+
+												'<p class="status">收文申请人:<em class="color_blue">'+item.transactor+'</em></p>'+
+												'<p><span class="type">'+item.type+'</span>'+item.createAt+'</p>'+
+											'</div>'+
+										'</li>'
+									)
+								})
+								receipt_this.endPullupToRefresh(false);
+							}else{
+								if (page == 1) {
+									$(".bumf .daiban li.zwsw").show();
+								}else{
+									receipt_this.endPullupToRefresh(true);
+								}
+							}
+								
+							$(".mui-loading").css("display", "none")
+						}else{
+							mui.toast(data.msg);
+							$(".mui-loading").css("display", "none")
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						
+					}
+				})
+
+			}
+
+			mui.init({
+				pullRefresh : {
+				    container:".mui-content",//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+				    up : {
+				    	height:50,//
+				    	auto:false,//可选,默认false.自动上拉加载一次
+				    	contentrefresh : "正在加载...",
+				    	contentnomore:'没有更多数据了',
+				    	callback :function(){
+				    		receipt_this=this;
+				    		list();
+				    	}
+				    }
+				}
+			});
+
+			function xiangqing(item_id,parent) {
+				console.log("item_id="+item_id);
+				console.log("parent="+parent);
+				mui.openWindow({
+					url: 'receipt_sign_details.html', //通过URL传参
+					id: 'receipt_sign_details.html', //通过URL传参
+					extras: {
+						item_id: item_id,
+						item_parent: parent
+					}
+				})
+			};
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

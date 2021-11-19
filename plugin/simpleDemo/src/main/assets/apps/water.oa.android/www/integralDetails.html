@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_9m6zubjaugm.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>积分详情</p>
+				<div class="integralDetails">
+					<ul class="ul">
+						<!--<li>签到<span>+1</span></li>-->
+						<!--<li>阅读<span>+1</span></li>-->
+						<!--<li>阿达<span>+1</span></li>-->
+						<!--<li>签到<span>+1</span></li>-->
+						<!--<li>爱设大师多<span>+1</span></li>-->
+					</ul>
+					<!--<ul class="ul ul1">
+						<li>签到<span>+1</span></li>
+						<li>阅读<span>+1</span></li>
+						<li>阿达<span>+1</span></li>
+						<li>签到<span>+1</span></li>
+						<li>爱设大师多<span>+1</span></li>
+					</ul>--> 
+				</div>
+
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.i)
+				list(self.i, self.n);
+			});
+
+			function list(i, n) {
+
+				if(n == 1) {
+					var _url = root + 'api/credit/list'
+					mui.ajax(_url, {
+					data: {
+						"token": token,
+						"personId": i,
+						"page": 1,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							data.data.forEach(function(v) {
+								$(".ul").append('<li>'+v.type+'<span>+'+v.value+'</span></li>')
+							})
+						} else {
+							mui.toast('无数据')
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+				} else {
+					var _url = root + 'api/credit/filelist'
+					mui.ajax(_url, {
+					data: {
+						"token": token,
+						"fileId": i,
+						"page": 1,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(JSON.stringify(data))
+						if(data.code == 1) {
+							data.data.forEach(function(v) {
+								$(".ul").append('<li>'+v.username+'<span>'+v.create_at+'</span></li>')
+							})
+						} else {
+							mui.toast('无数据')
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+				}
+
+				
+			}
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

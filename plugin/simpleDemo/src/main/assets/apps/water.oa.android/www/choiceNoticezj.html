@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_f1vvh8au9b.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body style="    background: #f8f8f8">
+		<div class="mui-content" style="margin-bottom: 1rem;">
+			<div class="news">
+				<p class="pp">
+					<a><i class="iconfont icon-fanhui1 left mui-action-back"></a></i>选择通知接收人</p>
+				<div class="chioceNotice-sousuo">
+					<i class="iconfont icon-sousuo"></i><input type="text" name="" id="" value="" placeholder="搜索" />
+					<p id="bnmame"></p>
+				</div>
+				<div class="chioceNotice " id="chioceNoticeShow">
+					<ul class="mui-checkbox">
+						<li class="fuji"><input name="checkbox1" id="quanxuan" value="Item 1" type="checkbox"><span class="left">全选</span></li>
+					</ul>
+					<ul class="mui-checkbox" id="chang">
+						<!--<li class="ziji"><input name="checkbox2" value="Item 1" type="checkbox" checked><span class="left"><img src="images/qwe.png" alt="" />爱是价</span></li>-->
+						<!--<li class="ziji"><input name="checkbox2" value="Item 2" type="checkbox" checked><span class="left"><img src="images/qwe.png" alt="" />办公室</span></li>-->
+					</ul>
+					<div class="tijiao">
+						<span class="left" id="rs">已选：20人</span>
+						<button id="btn" >确定</button>
+					</div>
+				</div>
+				<p class="wr" style="text-align: center;">该部门暂无联系人</p>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var userid = [],quanbu=[];
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				console.log(self.i)
+				console.log(self.name)
+				$("#bnmame").html(self.name + "部门")
+				list(self.i)
+			});
+
+			function list(id) {
+				var _url = root + 'api/contacts/list';
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"department_id": id,
+					},
+					datatype: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						if(data.code == 1) {
+							console.log(JSON.stringify(data.data));
+							
+							if(data.data == "") {
+								console.log("1")
+								$("#chioceNoticeShow").css("display", "none");
+								$(".wr").css("display", "block");
+							} else {
+								
+								data.data.forEach(function(v) {
+									$("#chang").append('<li class="ziji"><input name="checkbox2" onclick="xianze(' + v.id + ')" value="' + v.id + '" type="checkbox"><span class="left"><img src="' + v.avatar + '" alt="" />' + v.truename + '</span></li>')
+									userid.push(v.id);
+									quanbu = userid;
+									console.log(userid)
+								})
+
+								$("input[name='checkbox1']").each(function() {　　　　
+									this.checked = true;
+								})
+
+								$("input[name='checkbox2']").each(function() {　　　　
+									this.checked = true;
+								})
+								$("#rs").html("已选：" + $("input[name='checkbox2']").length + "人");
+
+							}
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {}
+				})
+			}
+
+			$("#quanxuan").click(function() {
+				console.log(this.checked)
+				if(this.checked) {　　
+					$("input[name='checkbox2']").each(function(v) {　　　　
+						this.checked = true;
+						userid = quanbu;
+						
+					})
+					$("#rs").html("已选：" + $("input[name='checkbox2']").length + "人");
+					
+				} else {　　　
+					$("input[name='checkbox2']").each(function() {　　　
+						this.checked = false;　
+						userid = []
+					})　　　　
+					$("#rs").html("已选：0人")
+				}
+			})
+
+			function xianze(id) {
+				console.log(id)
+				$("input[name='checkbox2']").each(function(index, v) {　　　
+					if(v.value == id) {
+						console.log(v.checked)
+						if(v.checked == true) {
+							$("input[name='checkbox2']").eq(index).attr('checked', 'false');
+							userid.push(id);
+										console.log(userid)
+										$("#rs").html("已选：" + userid.length + "人");
+//							userid.forEach(function(v1, r) {
+//								if(v1 != id) {
+//									userid.push(id);
+//								}
+//							})
+							
+//							console.log(userid)
+//							$("#rs").html("已选：" + userid.length + "人");
+//							if(userid.length == $("input[name='checkbox2']").length) {
+//								$("input[name='checkbox1']").each(function() {　　　　
+//									this.checked = true;
+//								})
+//								$("#rs").html("已选：" + $("input[name='checkbox2']").length + "人");
+//							}
+
+						} else {
+							$("input[name='checkbox2']").eq(index).attr('checked', 'true');
+							userid.forEach(function(v, index) {
+								if(v == id) {
+									userid.splice(index, 1);
+									console.log(userid)
+								}
+							})
+//							if(userid.length != $("input[name='checkbox2']").length) {
+//
+//								$("input[name='checkbox1']").each(function() {　　　　
+//									this.checked = false;
+//								})
+//							}
+							$("#rs").html("已选：" + userid.length + "人");
+							console.log(userid)
+						}
+					}
+
+				})
+
+			}
+			
+			$("#btn").click(function(){
+				//获得列表界面的webview
+					var view = plus.webview.getWebviewById("choiceNotice.html");　
+//					console.log(JSON.stringify(list))
+					mui.fire(view, 'refresh',{
+						ii : userid
+					});
+					//返回true,继续页面关闭逻辑
+					  mui.back()  
+			})
+					
+			
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

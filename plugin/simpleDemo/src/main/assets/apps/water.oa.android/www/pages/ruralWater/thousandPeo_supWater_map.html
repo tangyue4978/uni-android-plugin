@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/openlayers/v6.4.3-dist/ol.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			.marker{
+				width: 15px;
+				height: 15px;
+				border: 1px solid #088;
+				border-radius: 50%;
+				background-color: #00FFFF;
+				opacity: 0.5;
+				display: none;
+			}
+			.marker:after {				content: " ";				background-color: #00FFFF;				position: absolute;				left: 50%;				top: 50%;				width: 15px;				height: 15px;				border-radius: 50%;				margin-left: -50%;				margin-top: -50%;				-webkit-animation-name: 'ripple';				-webkit-animation-duration: 1s;				-webkit-animation-timing-function: linear;				-webkit-animation-delay: 0s;				-webkit-animation-iteration-count: infinite;				-webkit-animation-direction: normal;			}			@keyframes ripple {				0% {					opacity: 1;					width: 15px;					height: 15px;				}				50% {					opacity: 0.7;
+					width: 30px;
+					height: 30px;
+					margin-left: -15px;
+					margin-top: -15px;				}				100% {					opacity: 0.05;					width: 60px;					height: 60px;					margin-left: -30px;					margin-top: -30px;				}			}
+			/* 自带放大缩小隐藏 */
+			.ol-zoom {display: none;}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>千人以上集中供水工程</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a href=""><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			<div class="section">
+				<div class="mapBox">
+					<div id="map"></div>
+					<div class="searchPanel">
+						<div class="searchBox">
+							<div class="searchparts">
+								<input class="searchInput" type="text" size="20" placeholder="关键字搜索..." />
+								<button id="searchBtn" type="button"></button>
+							</div>
+							<div class="searchparts_cancel">取消</div>
+						</div>
+						<div class="searchResult">
+							<ul id="searchUl">
+								<!-- <li>
+									<a href="">
+										<img src="../../images/ruralWater/gps.png" alt="">
+										<span>晋中市</span><span>榆次区</span><span class="text-orange">郭家堡</span>
+									</a>
+								</li> -->
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="rightTabs rightPosi">
+					<ul>
+						<!-- <li><a href=""><img src="../../images/ruralWater/right_tabs01.png" ></a></li> -->
+						<li><a onclick="jump_new('thousandPeo_supWater.html')"><img src="../../images/ruralWater/sdz_icon_list03.png" ></a></li>
+						<li><a href=""><img src="../../images/ruralWater/right_tabs01.png" ></a></li>
+						<li><a onclick="backFun()"><img src="../../images/ruralWater/right_tabs_back.png" ></a></li>
+						<!-- <li><a onclick="jump_new('waterSupply_project.html')"><img src="../../images/ruralWater/right_tabs03.png" ></a></li> -->
+						<!-- <li><a onclick="jump_new('waterSupply_village.html')"><img src="../../images/ruralWater/right_tabs04.png" ></a></li> -->
+						<!-- <li><a onclick="jump_new('big_irrigated_results.html')"><img src="../../images/ruralWater/right_tabs07.png" ></a></li> -->
+						<!-- <li><a onclick="jump_new('query_irrigatedArea.html')"><img src="../../images/ruralWater/right_tabs05.png" ></a></li> -->
+						<!-- <li><a onclick="jump_new('query_hydropower.html')"><img src="../../images/ruralWater/right_tabs06.png" ></a></li> -->
+						<!-- <li><a onclick="label_fun(address_obj.coords.longitude,address_obj.coords.latitude)"><img src="../../images/ruralWater/right_tabs_dw.png" ></a></li> -->
+						<!-- <li><a onclick="label_fun(address_obj.coords.longitude,address_obj.coords.latitude)"><img src="../../images/ruralWater/right_tabs_dw.png" ></a></li> -->
+					</ul>
+				</div>
+				<!-- <div class="rightTabs leftPosi">
+					<ul>
+						<li><a href=""><img src="../../images/ruralWater/right_tabs01.png" ></a></li>
+						<li><a onclick="backFun()"><img src="../../images/ruralWater/right_tabs_back.png" ></a></li>
+						
+					</ul>
+				</div> -->
+				<div class="gpsInfo">
+					<img class="icon_arrow" src="../../images/ruralWater/bottomInfo_up.png" >
+					<div class="gpsInfo_con">
+						<p class="title">导航信息：<span id="info_dhxx"></span></p>
+						<ul id="info_dhxx_li">
+							<!-- <li>地市：11个</li>
+							<li>县区：85个</li>
+							<li>自然村：47658个</li>
+							<li>供水工程形式：4种</li>
+							<li>饮水安全占比：84%</li>
+							<li><a onclick="jump_new('list_city.html')">显示详细信息</a></li> -->
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 当前手机位置 -->
+		<div id="marker" class="marker"></div>
+	</body>
+	
+	<script src="../../js/ruralWater/GPS.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/map_index.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

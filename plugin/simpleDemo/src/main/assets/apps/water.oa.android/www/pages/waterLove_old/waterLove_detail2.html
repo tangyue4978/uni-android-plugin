@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>详细情况</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/reservoirLevel/history.css" />
+		<!-- 筛选css -->
+		<link rel="stylesheet" type="text/css" href="../../css/waterLove/screen.css" />
+		<!-- 筛选css end -->
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			/* 基本信息 */
+			.baseDetails {
+				width: 100%;
+				height: 2.7rem;
+				background-color: #3672EE;
+				position: fixed;
+				top: 1.3rem;
+				color: #ffffff;
+				font-size: 0.34rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-evenly;
+				padding: 0.4rem 0.3rem;
+			}
+
+			.texts {
+				font-size: 0.24rem;
+				color: #9dbbf8;
+			}
+
+			.text1 {
+				margin-bottom: 0.2rem;
+			}
+
+			/* 主体 */
+			.base_info_table {
+				margin-bottom: 0.4rem;
+			}
+
+			/* 历史监测 */
+			.base_info_titles {
+				width: 92%;
+				height: 1rem;
+				background-color: #ffffff;
+				position: fixed;
+				top: 4rem;
+			}
+
+			/* 日期筛选 */
+			.date_select {
+				top: 4.1rem;
+			}
+
+			.base_info {
+				margin-top: 0;
+			}
+
+			/* 监测图表 */
+			.daily_change {
+				width: 91%;
+				height: 4rem;
+				position: fixed;
+				top: 5rem;
+			}
+
+			.charts {
+				width: 100%;
+				height: 100%;
+			}
+
+			/* 数据标题 */
+			.thead {
+				width: 91%;
+				position: fixed;
+				top: 9rem;
+			}
+
+			/* 历史数据 */
+			.base_info_table_data {
+				margin-top: 9.5rem;
+			}
+
+			.img_search {
+				top: 0.4rem;
+			}
+		</style>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>历史数据</span>
+			</header>
+			<!-- 头部start -->
+			<!-- <div class="head">
+				<div class="head_text head_texts">
+
+				</div>
+				<div class="head_line"></div>
+				<div class="head_text head_desc">
+					
+				</div>
+			</div> -->
+			<!-- 头部end -->
+			<div class="main">
+				<!-- 基本信息start -->
+				<div class="baseDetails">
+					<div class="text">
+						<div class="texts">
+							测站名称
+						</div>
+						<div class="text1"></div>
+					</div>
+					<div class="text">
+						<div class="texts">
+							所属地
+						</div>
+						<div class="text2"></div>
+					</div>
+				</div>
+				<!-- 基本信息end -->
+				<!-- 河流基本信息start -->
+				<div class="base_info" id="lsjc">
+					<div class="base_info_box">
+						<div class="base_info_title base_info_titles">
+							<div class="base_info_title_line"></div>
+							<span class="base_info_title_text">
+								历史监测
+							</span>
+						</div>
+						<!-- 日期 -->
+						<div class="date_select">
+							<!-- <input type="text" class="sort_input" id="statics_input1" readonly="" placeholder=""/> -->
+							<select name="city" class="sort_input" id="statics_input1">
+								<option value=""></option>
+							</select>
+							<span class="span_search">
+								<img class="img_search" src="../../images/riverChief/arrow_down.png">
+							</span>
+						</div>
+						<!-- 图表 -->
+						<div class="daily_change">
+							<div id="container" class="charts"></div>
+						</div>
+						<table class="base_info_table thead" border="1" cellspacing="0" cellpadding="0">
+							<tr>
+								<th class="texr">上报时间</th>
+								<th class="texr description"></th>
+							</tr>
+						</table>
+						<table class="base_info_table base_info_table_data" border="1" cellspacing="0" cellpadding="0">
+							<!-- <tr class="thead">
+								<td class="texr">上报时间</td>
+								<td class="texr">水位</td>
+							</tr> -->
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/waterLove_old/waterLove_detail2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

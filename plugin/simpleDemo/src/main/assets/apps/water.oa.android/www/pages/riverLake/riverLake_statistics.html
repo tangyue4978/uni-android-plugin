@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>七河五湖统计图表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/waterQuality/data_statistics1.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<style type="text/css">
+			.river_patrol{
+				height: auto;
+				padding-bottom: 0.2rem;
+			}
+		</style>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+	</head>
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>统计图表</span>
+			</header>
+			<div class="main">
+				<!-- 标签start -->
+				<div class="tab">
+					<ul class="tab_box">
+						<li onclick="qihe()" class="tab_active isShow" id='qihe'>七河</li>
+						<li onclick="wuhu()" id='wuhu'>五湖</li>
+					</ul>
+				</div>
+				<!-- 标签end -->
+				<!-- 地市搜素start -->
+				<!-- <div class="city_search">
+					<select class = "submit_item" id="city" name="city_code"  >
+						<option value="">山西省</option>
+					</select>
+				</div> -->
+				<!-- 地市搜素end -->
+				
+				
+				<div class='qiheStatistics isShow'>
+				<!-- 七河共计流经start -->
+				<div class="river_patrol">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">七河共计流经</div>
+							</div>
+						</div>
+						<div class="riverLake_list">
+							<ul class="riverLake_list_title" id="riverLake_list_value">
+								<li class="colorB city" id="qihe_city"></li>
+								<li class="colorO country" id="qihe_country"></li>
+							</ul>
+							<ul class="riverLake_list_name" id="riverLake_list_name">
+								<li class="colorBs">市</li>
+								<li class="colorOs">县(市、区)</li>
+							</ul>
+						</div>
+						<div class="sevenRiver_list">
+							<ul class="flowThroughContent" id="qihe_flowThroughContent">
+								<!-- <li class="sevenRiver_li">
+									<div class="sevenRiver_left">
+										<span class="name">太原市</span>
+										<span class="number">10</span>
+										<span>：</span>
+									</div>
+									<div class="cityName">娄烦市、古交市、阳曲县、尖草坪区、杏花岭区、迎泽区、万柏林区、小店区、晋源区、清徐县</div>
+								</li>
+								<li class="sevenRiver_li">
+									<div class="sevenRiver_left">
+										<span class="name">太原市</span>
+										<span class="number">10</span>
+										<span>：</span>
+									</div>
+									<div class="cityName">娄烦市、古交市、阳曲县、尖草坪区、杏花岭区、迎泽区、万柏林区、小店区、晋源区、清徐县</div>
+								</li> -->
+								<div class="gpsInfo">
+									<img class="icon_arrow icon_arrows arrow01" id="qihe_arrow01" src="../../images/ruralWater/bottomInfo_up.png">
+									<ul class="gpsInfo_con flowThroughContentinner" id="qihe_flowThroughContentinner">
+									</ul>
+								</div>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 七河共计流经end -->
+				<!-- 山西沿黄市县名单start -->
+				<div class="river_patrol along">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">山西沿黄市县名单</div>
+							</div>
+						</div>
+						<div class="riverLake_list">
+							<ul class="riverLake_list_title" id="riverLake_list_value">
+								<li class="colorB citys"></li>
+								<li class="colorO countrys"></li>
+							</ul>
+							<ul class="riverLake_list_name" id="riverLake_list_name">
+								<li class="colorBs">市</li>
+								<li class="colorOs">县(市、区)</li>
+							</ul>
+						</div>
+						<span class="sevenRiver_list along_order">按流经顺序：</span>
+						<div class="sevenRiver_list">
+							<ul class="nameListContent">
+								<div class="gpsInfo">
+									<img class="icon_arrow icon_arrows arrow02" src="../../images/ruralWater/bottomInfo_up.png">
+									<ul class="gpsInfo_con nameListContentinner">
+									</ul>
+								</div>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 山西沿黄市县名单end -->
+				<!-- 七河长度统计start -->
+				<div class="river_patrol along">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">七河长度统计</div>
+							</div>
+						</div>
+						<div class="length_statistics">
+							<div class="length_num" id="totalLength"></div>
+							<div class="length_name">七河总长度（km）</div>
+						</div>
+						<div id="columnContainer"></div>
+					</div>
+				</div>
+				<!-- 七河长度统计end -->
+				<!-- 流域面积统计start -->
+				<div class="river_patrol along">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">流域面积统计</div>
+							</div>
+						</div>
+						<div class="length_statistics">
+							<div class="length_num" id="totalArea"></div>
+							<div class="length_name">七河总流域面积（km²）</div>
+						</div>
+						<div id="pieContainer"></div>
+					</div>
+				</div>
+				<!-- 流域面积统计end -->
+				<!-- 平均年径流量统计start -->
+				<div class="river_patrol along">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">平均年径流量统计</div>
+							</div>
+						</div>
+						<div class="average">
+							<table border="0" cellspacing="0" cellpadding="0" class="annualRunoff">
+							</table>
+						</div>
+						
+					</div>
+				</div>
+				<!-- 平均年径流量统计end -->
+				</div>
+				
+				
+				
+				<div class='wuhuStatistics ishide'>
+				<!-- 五湖涉及市县(市、区)start -->
+				<div class="river_patrol">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">五湖涉及市县(市、区)</div>
+							</div>
+						</div>
+						<div class="riverLake_list">
+							<ul class="riverLake_list_title" id="riverLake_list_value">
+								<li class="colorB city" id="wuhu_city"></li>
+								<li class="colorO country" id="wuhu_country"></li>
+							</ul>
+							<ul class="riverLake_list_name" id="riverLake_list_name">
+								<li class="colorBs">市</li>
+								<li class="colorOs">县(市、区)</li>
+							</ul>
+						</div>
+						<div class="riverLake_list">
+							<ul class="riverLake_list_title" id="riverLake_list_value">
+								<li class="colorRed area"></li>
+								<li class="colorGreen people"><span class="peoples">约</span><span class="population"></span></li>
+							</ul>
+							<ul class="riverLake_list_name" id="riverLake_list_name">
+								<li class="colorReds">水域总面积(km³)</li>
+								<li class="colorGreens">社会经济涉及人口(万人)</li>
+							</ul>
+						</div>
+						<div class="sevenRiver_list">
+							<ul class="flowThroughContent" id="wuhu_flowThroughContent">
+								<!-- <li class="sevenRiver_li">
+									<div class="sevenRiver_left">
+										<span class="name">太原市</span>
+										<span class="number">10</span>
+										<span>：</span>
+									</div>
+									<div class="cityName">娄烦市、古交市、阳曲县、尖草坪区、杏花岭区、迎泽区、万柏林区、小店区、晋源区、清徐县</div>
+								</li>
+								<li class="sevenRiver_li">
+									<div class="sevenRiver_left">
+										<span class="name">太原市</span>
+										<span class="number">10</span>
+										<span>：</span>
+									</div>
+									<div class="cityName">娄烦市、古交市、阳曲县、尖草坪区、杏花岭区、迎泽区、万柏林区、小店区、晋源区、清徐县</div>
+								</li> -->
+								<div class="gpsInfo">
+									<img class="icon_arrow icon_arrows arrow01" id="wuhu_arrow01" src="../../images/ruralWater/bottomInfo_up.png">
+									<ul class="gpsInfo_con flowThroughContentinner" id="wuhu_flowThroughContentinner">
+										<!-- <li class="sevenRiver_li">
+											<div class="sevenRiver_left">
+												<span class="name">太原市</span>
+												<span class="number">10</span>
+												<span>：</span>
+											</div>
+											<div class="cityName">娄烦市、古交市、阳曲县、尖草坪区、杏花岭区、迎泽区、万柏林区、小店区、晋源区、清徐县</div>
+										</li>
+										<li class="sevenRiver_li">
+											<div class="sevenRiver_left">
+												<span class="name">太原市</span>
+												<span class="number">10</span>
+												<span>：</span>
+											</div>
+											<div class="cityName">娄烦市、古交市、阳曲县、尖草坪区、杏花岭区、迎泽区、万柏林区、小店区、晋源区、清徐县</div>
+										</li> -->
+									</ul>
+								</div>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 五湖涉及市县(市、区)end -->
+				<!-- 湖泊类型start -->
+				<div class="river_patrol along">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">湖泊类型</div>
+							</div>
+						</div>
+						<div id="pieContainer2"></div>
+					</div>
+				</div>
+				<!-- 湖泊类型end -->
+				<!-- 规划范围面积统计start -->
+				<div class="river_patrol along">
+					<div class="river_lake_box river_patrol_box">
+						<div class="river_lake_title">
+							<div class="river_lake_title_l">
+								<div class="line"></div>
+								<div class="text">规划范围面积统计</div>
+							</div>
+						</div>
+						<div class="riverLake_list" style="height: 1.5rem;">
+							<ul class="riverLake_list_title" id="riverLake_list_value">
+								<li class="colorB area1"></li>
+								<li class="colorB area2"></li>
+							</ul>
+							<ul class="riverLake_list_name riverLake_list_names" id="riverLake_list_name">
+								<li class="colorBs">规划范围总面积<br/>（km²）</li>
+								<li class="colorBs">重点规划范围总面积<br/>（km²）</li>
+							</ul>
+						</div>
+						<div id="columnContainer2"></div>
+					</div>
+				</div>
+				<!-- 规划范围面积统计end -->
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	</body>
+	<script src="../../js/Highcharts-8.1.2/code/highcharts.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/riverLake/riverLake_statistics.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

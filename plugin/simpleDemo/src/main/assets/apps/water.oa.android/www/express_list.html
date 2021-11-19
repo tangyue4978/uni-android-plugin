@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>雨情快报</title>
+		<link rel="stylesheet" type="text/css" href="./css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="./css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="./css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="./css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="./css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="./css/ruralWater/base.css" />
+		<!-- 筛选css -->
+		<link rel="stylesheet" type="text/css" href="./css/waterLove/screen.css" />
+		<!-- 筛选css end -->
+		<script src="./js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/mui.min.js"></script>
+		<script type="text/javascript" src="./js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+		<style type="text/css">
+			html {
+				height: 100%;
+			}
+			.list_box{
+				padding-top: 1.3rem;
+			}
+			.list_box .list_ul{
+				padding: 0.2rem;
+				background-color: #FFFFFF;
+			}
+			.list_box .list_ul .list_li{
+				line-height: 1rem;
+				border-bottom: 1px solid #DDDDDD;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0 0.1rem;
+			}
+			.list_box .list_ul .list_li .title_time{
+				font-size: 0.3rem;
+				font-weight: 400;
+				color: #222222;
+			}
+			.list_box .list_ul .list_li .creat_time{
+				font-size: 0.25rem;
+				color: #AAAAAA;
+			}
+			.div_data{
+				padding: 1rem 0;
+				text-align: center;
+				font-size: 0.3rem;
+				font-weight: 400;
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>雨情快报列表</span>
+			</header>
+
+			<!-- 列表start -->
+			<div class="list_box">
+				<ul class="list_ul">
+					<!-- <li class="list_li">
+						<div class="title_time">2021年 第101期</div>
+						<div class="creat_time">2021年09月08日07时</div>
+					</li>
+					<li class="list_li">
+						<div class="title_time">2021年 第101期</div>
+						<div class="creat_time">2021年09月08日07时</div>
+					</li> -->
+				</ul>
+			</div>
+			<!-- 列表end -->
+
+		</div>
+		<script src="./js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 筛选js -->
+		<script src="./js/refresh.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 筛选js end -->
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+				if(root == "" || root == undefined || root == null) {
+					mui.openWindow({
+						url: 'login.html?cid=1', //通过URL传参
+						id: 'login.html?cid=1', //通过URL传参
+					})
+				}
+			var token = localStorage.getItem("token");
+			var page = 1;
+			var data_info = {
+				"token":token,
+				"page":page
+			}
+			
+			var list_this = '';
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				listFun(data_info)
+			});
+			
+			function listFun(){
+				var _url = root + 'api/v4/rain_flood_control/list';
+				console.log(_url);
+				
+				console.log(JSON.stringify(data_info));
+				
+				mui.ajax(_url, {
+					data: data_info,
+					datatype: "json", //服务器返回json格式数据
+					type: "post", //HTTP请求类型
+					success: function (res) {
+						var html_info = res.data.info;
+						
+						if(html_info.length >0){
+							if (page > 1) {
+								list_this.endPullupToRefresh(false);
+							}
+							if (page == 1) {
+								$(".list_box .list_ul").html("");
+							}
+							html_info.forEach(function(item,index){
+								var li_html = 	`<li class="list_li" onclick="xiangqing(${item.id})">
+													<div class="title_time">${item.title}</div>
+													<div class="creat_time">${item.createAt}</div>
+												</li>`
+								$(".list_box .list_ul").append(li_html)
+							})
+						}else{
+							if (page > 1) {
+								list_this.endPullupToRefresh(true);
+							} else {
+								html_info.forEach(function(item,index){
+									var li_html = 	`<li class="list_li" style="border:none;box-shadow: 0 0 14px -10px #000000;">
+														<div class="div_data">暂无数据</div>
+													</li>`
+									$(".list_box .list_ul").html(li_html)
+								})
+							}
+						}
+						
+						
+						
+					},
+					error: function (error){
+						console.log("接口错误")
+					}
+				})
+			}
+			
+			
+			function xiangqing(item_id) {
+				console.log("详情=" + item_id);
+				mui.openWindow({
+					url: 'express_news.html', //通过URL传参
+					id: 'express_news', //通过URL传参
+					extras: {
+						item_id: item_id
+					}
+				})
+			}
+
+			// 上拉加载
+			mui.init({
+				pullRefresh: {
+					container: ".mui-content", //下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+					up: {
+						height: "50px", //可选.默认50.触发上拉加载拖动距离
+						auto: false, //可选,默认false.自动上拉加载一次
+						contentdown: "上拉显示更多",
+						contentrefresh: "正在加载...", //可选，正在加载状态时，上拉加载控件上显示的标题内容
+						contentnomore: '没有更多数据了', //可选，请求完毕若没有更多数据时显示的提醒内容；
+						callback: up_fun //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+					}
+				}
+			});
+
+			function up_fun() {
+				page++;
+				console.log("上拉加载成功");
+				var self = plus.webview.currentWebview();
+				data_info.page = page;
+				listFun(data_info);
+				list_this = this;
+			}
+
+			// 上拉加载 end
+		</script>
+	</body>
+</html>

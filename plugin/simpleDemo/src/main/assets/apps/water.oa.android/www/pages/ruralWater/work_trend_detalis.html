@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>农村水利</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../js/openlayers/v6.4.3-dist/ol.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/list.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/work_trend.css"/>
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width){
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if(deviceWidth > num){
+					deviceWidth = num;	
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function(){
+				resizeRoot(750);
+			};
+		</script>
+		<style>
+			.section {margin-top:1.3rem;}
+			.title{
+				padding: 0.4rem 0rem 0.2rem;
+				font-size: 0.37rem;
+				color: #333333;
+				line-height: 0.4rem;
+			}
+			.datebox{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 0.2rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>工作动态详情</span>
+				<!-- <i class="mui-action-menu iconfont icon-menu fr"></i>
+				<div class="menuList">
+					<ul>
+						<li class="menu_village active"><a onclick="jump_new('index.html')"><i></i><p>自然村信息</p></a></li>
+						<li class="menu_drinking"><a onclick="jump_new('summary.html')"><i></i><p>农村饮水汇总</p></a></li>
+						<li class="menu_irrigation"><a onclick="jump_new('summary_irrigationInfo.html')"><i></i><p>灌溉信息汇总</p></a></li>
+					</ul>
+				</div> -->
+			</header>
+			
+			<!-- <div class="tab">
+				<div class="data_info">
+					<div class="title"></div>
+					<div class="datebox">
+						<span class="datatype"></span>
+						<span class="datatime"></span>
+					</div>
+				</div>
+			</div> -->
+			<div class="section">
+				<div class="list_box">
+					<div class="title"></div>
+					<div class="datebox">
+						<span class="datatype"></span>
+						<span class="datatime"></span>
+					</div>
+					<div class="dl">
+						<div class="list_img"></div>
+						<div class="dl_text">
+							<div class="dt"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		
+		//二级村列表
+		var root = localStorage.getItem("str_url");
+		if(root == "" || root == undefined || root == null){
+				mui.openWindow({
+				url: 'login.html?cid=1', //通过URL传参
+				id: 'login.html?cid=1', //通过URL传参
+			})
+		}
+		var token = localStorage.getItem("token");
+		var page = 1;
+		var list_this = '';
+		var data_info = {};
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			plus.nativeUI.showWaiting("加载中...");
+			data_info.token=token;
+			data_info.id=self.item_id;
+			list(data_info);
+		});
+		
+		function list(data_info) {
+			console.log(JSON.stringify(data_info));
+			
+			var _url = root + 'api/rural_dynamic/show';
+			console.log(_url);
+			mui.ajax(_url, {
+				data:data_info,
+				datatype: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				success: function(data) {
+					plus.nativeUI.closeWaiting();
+					console.log("----------"+JSON.stringify(data));
+					
+					if(data.code == 1) {
+						$(".title").html(data.data.dynamic[0].title);
+						$(".datatype").html(data.data.dynamic[0].type);
+						$(".datatime").html(data.data.dynamic[0].createAt);
+						$(".section .dt").html(data.data.dynamic[0].content);
+						$(".mui-loading").css("display", "none")
+						var img_url = root+data.data.rotations[0].url;
+						if(img_url !='' && img_url != undefined){
+							$(".list_img").html("<img src='"+img_url+"' style='width:100%;'>")
+						}
+					}else{
+						$(".mui-loading").css("display", "none")
+						plus.nativeUI.toast(data.msg);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					plus.nativeUI.closeWaiting();
+				}
+			})
+		}
+		
+	</script>
+	<script src="../../js/refresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+</html>

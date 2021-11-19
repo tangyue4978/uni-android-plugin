@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<title>河湖长制</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.poppicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.dtpicker.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/ifont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/ruralWater/base.css" />
+		<!-- 本页面样式 -->
+		<link rel="stylesheet" href="../../css/riverChief/river_chief_name.css">
+
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/mui.picker.min.js"></script>
+		<script>
+			//计算根节点HTML的字体大小
+			function resizeRoot(width) {
+				var deviceWidth = document.documentElement.clientWidth,
+					num = width,
+					num1 = num / 100;
+				if (deviceWidth > num) {
+					deviceWidth = num;
+				}
+				document.documentElement.style.fontSize = deviceWidth / num1 + "px";
+			}
+			//根节点HTML的字体大小初始化
+			resizeRoot(750);
+			window.onresize = function() {
+				resizeRoot(750);
+			};
+		</script>
+		<style>
+		html{
+			height: 100%;
+		}
+		.main .list{
+			overflow: auto;
+			height: calc(100% - 2.8rem);
+			margin: 0.2rem 0;
+		}
+		.main .select_wrap .select_item .item_input{
+			font-size: 0.25rem;
+			color: #666666;
+		}
+		.item2box,.item3box{display: none;}
+		.item2box.active,.item3box.active{display: block;}
+		
+		.main .list .line .btm .line .btm .line .top {
+		    margin-left: 0.5rem;
+			display: block;
+			height: auto;
+			padding: 0.2rem 0rem;
+			padding-right: 0.2rem;
+		}
+		.main .list .line .btm .line .btm .line .top .title_name{
+			color: #000000;
+		}
+		.main .list .line .btm .line .btm .line .top .item_span{
+			margin-top: 0.1rem;
+			font-size: 0.25rem;
+		}
+		.main .list .line .load_more_box{
+			border-bottom: 1px solid #dbdad9;
+			margin-left: 0.4rem;
+			padding: 0.2rem 0;
+		}
+		.main .list .line .load_more_box .load_more{
+			border: 1px solid #6492ff;
+			color: #6492ff;
+			text-align: center;
+			padding: 0.1rem;
+			margin-right: 0.4rem;
+			font-size: 0.25rem;
+		}
+		</style>
+	</head>
+
+	<body class="content">
+		<div class="mui-content">
+			<header class="header pp">
+				<i class="mui-action-back iconfont icon-fanhui1 fl"></i>
+				<span>河湖长名录</span>
+			</header>
+			<main class="main">
+				<nav class="nav">
+					<div class="nav_item active">按行政区划</div>
+					<div class="nav_item " onclick="jump_new('river_chief_name.html')">按河长级别</div>
+				</nav>
+				<div class="select_wrap">
+					<div class="select_item">
+						<!-- <select class="item_input" id="city">
+							<option value="">全部地市</option>
+						</select> -->
+						<input type="text" name="" class="item_input" id="city" data-code="" style="border: none;padding: 0;margin: 0;height: 100%;" value="" readonly="readonly" placeholder="全部地市"/>
+						<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+					</div>
+					<!-- <div class="select_item" >
+						<select class="item_input" id="userName">
+							<option value="">河长姓名</option>
+						</select>
+						<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+					</div> -->
+					<div class="select_item">
+						<input class="item_input input" id="userName" type="text" placeholder="河长姓名">
+						<img class="img" src="../../images/riverChief/new/search_gray.png" alt="" id="search_userName">
+					</div>
+					<div class="select_item">
+						<input class="item_input input" id="riverName" type="text" placeholder="管辖河湖">
+						<img class="img" src="../../images/riverChief/new/search_gray.png" alt="" id="search_riverName">
+					</div>
+				</div>
+				<div class="list">
+					<!-- <div class="line">
+						<div class="top">
+							<span class="blue"></span>
+							<span class="title">省级</span>
+							<span class="text">共5人</span>
+							<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+						</div>
+					</div> -->
+					<!-- <div class="line">
+						<div class="top">
+							<span class="blue"></span>
+							<span class="title">市级</span>
+							<span class="text">共13人</span>
+							<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+						</div>
+						<div class="btm">
+							<div class="line">
+								<div class="top">
+									<span class="title">市级总河长</span>
+									<span class="text">共2人</span>
+									<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+								</div>
+								<div class="btm">
+									<div class="line">
+										<div class="top">
+											<div class="title_name">罗清宇</div>
+											<div class="item_span">行政职务：省委常委、太原市委书局</div>
+											<div class="item_span">管辖河湖：萧河(含太榆水渠)</div>
+										</div>
+									</div>
+									<div class="line">
+										<div class="top">
+											<div class="title_name">罗清宇</div>
+											<div class="item_span">行政职务：省委常委、太原市委书局</div>
+											<div class="item_span">管辖河湖：萧河(含太榆水渠)</div>
+										</div>
+									</div>
+									<div class="line">
+										<div class="top">
+											<div class="title_name">罗清宇</div>
+											<div class="item_span">行政职务：省委常委、太原市委书局</div>
+											<div class="item_span">管辖河湖：萧河(含太榆水渠)</div>
+										</div>
+									</div>
+									<div class="load_more_box">
+										<div class="load_more">加载更多</div>
+									</div>
+								</div>
+							</div>
+							<div class="line">
+								<div class="top">
+									<span class="title">市级副总河长</span>
+									<span class="text">共4人</span>
+									<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+								</div>
+								<div class="btm"></div>
+							</div>
+							<div class="line">
+								<div class="top">
+									<span class="title">市级河长</span>
+									<span class="text">共7人</span>
+									<img class="img" src="../../images/riverChief/new/arrow.png" alt="">
+								</div>
+								<div class="btm"></div>
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</main>
+		</div>
+
+	</body>
+
+	<script src="../../js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/riverChief/river_chief_administrative.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="../../js/reservoirLevel/area.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		mui.plusReady(function() {
+			var river=plus.webview.getWebviewById("river_chief_name.html");
+			if(river){
+			   console.log(river.getURL());
+			   river.hide();
+			   river.close();
+			}
+		})
+	</script>
+</html>

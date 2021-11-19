@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>提交成功</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_0tuisk7ggil.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/hint.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp">
+					<a><i class="mui-action-back iconfont icon-fanhui1 left"></i></a>提交成功</p>
+				<div class="" style="margin-top: 1.4rem;">
+					<div class="">
+						<div id="item2" class="mui-control-content feedback_box mui-active">
+							<div class="text_box">
+								<img src="images/success.png" class="success">
+								<!-- <textarea id="opinion" name="" rows="" cols="" placeholder="您在使用过程中有任何问题，都可以在线留言，您的意见和建议，就是我们努力的方向。"></textarea> -->
+								<div class="text_text">
+									已收到您反馈的建议和问题，我们会加快<br />完善处理，谢谢！
+								</div>
+							</div>
+							<button class="text_tj" onclick="close_page(2)">返回</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			console.log(mui.back)
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			function feedback() {
+				var opinion=$("#opinion").val();
+				if (opinion==""||opinion==undefined||opinion==null) {
+					mui.toast("请输入您的意见");  
+					return false;
+				}
+				var _url = root + 'api/help/save'
+				mui.ajax(_url, {
+					data: {
+						"token": token,
+						"content":opinion
+					},
+					dataType: 'json',
+					type: 'post',
+					success: function(data) {
+						// mui.toast(data.msg);
+						// mui.back();
+						jump_new('hint.html')
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast("网络异常，反馈失败");
+					}
+				})
+			}
+			function close_page(num){
+			    var n = num || 1;
+			    var arr = [];
+			    //获取当前页面
+			    var page = plus.webview.currentWebview();
+			    while(n > 1){
+			     var pagestr;
+			     //如果需要返回2个页面以上，就将父页面存到数组中
+			     if(arr.length){
+			      pagestr = arr[length-1].opener();
+			     }else{
+			      pagestr = page.opener();
+			     }
+			     arr.push(pagestr);
+			     n--;
+			    }
+			    //关闭当前页
+			    page.close();
+			    //关闭数组存的所有父页面
+			    for (var i = 0; i < arr.length;i++) {
+			     arr[i].close();
+			    }
+			   }
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ruralWater/jump_page.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

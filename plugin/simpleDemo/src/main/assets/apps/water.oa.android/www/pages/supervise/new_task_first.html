@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+		<title>新建任务来源</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/supervise.css" rel="stylesheet" />		
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="header">
+				<a href="javascript:history.go(-1)" class="mui-icon mui-icon-back"></a>
+				新建任务来源
+			</div>
+			<div class="section">
+				<form action="" class="taskFirst">
+					<ul class="taskFirst_basic">
+						<li>
+							<span>任务来源名称<font class="text-red">*</font></span>
+							<input type="text" class="tf_taskSource" placeholder="请输入任务来源名称" />
+						</li>
+						<li>
+							<span>任务来源简称<font class="text-red">*</font></span>
+							<input type="text" class="tf_taskSource_short" placeholder="请输入任务来源简称" />
+						</li>
+					</ul>
+					<div class="taskFirst_chushi">
+						<p>关联处室</p>
+						<ul>
+							<li><a href="" class="add_chushi"><img src="../../images/icon_add_gray.png" alt="" />添加</a></li>
+							<li><span>水资源处</span></li>
+						</ul>
+						 	
+					</div>
+					<div class="taskFirst_explain">
+						<p>说明</p>
+						<textarea name="" placeholder="请输入说明内容"></textarea>
+					</div>
+					<button type="submit" class="submitBtn">添加并进入下一步</button>
+				</form>
+			</div>
+		</div>			
+	</body>
+	<script>
+		$(function(){
+			$(".submitBtn").click(function(){
+				var $taskSource = $(".tf_taskSource").val();
+				var $taskSource_short = $(".tf_taskSource_short").val();
+				if ($.trim($taskSource).length < 1) {
+                	mui.toast("请输入任务来源名称",{ duration:'long', type:'div' });
+                	return false;
+	            } else if ($.trim($taskSource_short).length < 1) {
+	                mui.toast("请输入任务来源简称",{ duration:'long', type:'div' });
+	                return false;
+	            } else{
+	            	
+	            }
+				
+			})
+		})
+	</script>
+</html>

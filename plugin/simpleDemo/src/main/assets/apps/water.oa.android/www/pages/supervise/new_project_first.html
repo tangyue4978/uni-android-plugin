@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+		<title>新建交办事项</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/supervise.css" rel="stylesheet" />		
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="header">
+				<a href="javascript:history.go(-1)" class="mui-icon mui-icon-back"></a>
+				新建交办事项
+			</div>
+			<div class="section">
+				<form action="" class="projectFirst">
+					<ul class="projectFirst_basic">
+						<li class="arrow">
+							<span>任务来源&nbsp;<font class="text-red">*</font></span>
+							<select name="" id="" class="pf_taskSource">
+								<option value ="a">2016年农村饮水安全脱贫...</option>
+								<option value ="b">2017</option>
+								<option value ="c">2018</option>
+							</select>
+						</li>
+						<li class="arrow">
+							<span>交办领导</span>
+							<select name="" id="" class="pf_leader">
+								<option value ="">请选择...</option>
+								<option value ="a">张三</option>
+								<option value ="b">李四</option>
+							</select>
+						</li>
+						<li>
+							<span>交办事项&nbsp;<font class="text-red">*</font></span>
+							<input type="text" class="pf_matter" placeholder="请输入交办事项标题" />
+						</li>
+					</ul>
+					<div class="projectFirst_con">
+						<p>事项内容</p>
+						<textarea name="" class="pf_content" placeholder="请输入交办事项详细内容"></textarea>
+					</div>
+					<button type="submit" class="submitBtn">保存并进入下一步</button>
+				</form>
+			</div>
+		</div>			
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			//立项  第一步			
+			$(".submitBtn").click(function(){
+				var $taskSource = $(".pf_taskSource").val();
+				var $leader = $(".pf_leader").val();			
+				var $matter = $(".pf_matter").val();
+				var $content =$(".pf_content").val();
+				if ($taskSource.length < 1) {
+                	mui.toast("请选择任务来源",{ duration:'long', type:'div' });
+                	return false;
+	            } else if ($leader.length < 1) {
+	                mui.toast("请选择交办领导",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($.trim($matter).length < 1) {
+	                mui.toast("请输入交办事项标题",{ duration:'long', type:'div' });
+	                return false;
+	            } else if ($.trim($content).length < 1) {
+	                mui.toast("请输入交办事项详细内容",{ duration:'long', type:'div' });
+	                return false;
+	            } else{
+	            	
+	            }
+			})
+		})
+	</script>
+</html>

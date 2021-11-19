@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+		<title>退回反馈信息</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/supervise.css" rel="stylesheet" />		
+		<script src="../../js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="mui-content" style="margin-bottom: 0rem;">
+			<div class="header">
+				<a href="javascript:history.go(-1)" class="mui-icon mui-icon-back"></a>
+				退回反馈信息
+			</div>
+			<div class="section">
+				<div class="feedback_con">
+					<p class="feedback_con_tit">反馈内容</p>
+					反馈内容在此显示，关于全面开展2016年农村饮水安全脱贫攻坚考核评价工作。反馈内容在此显示，关于全面开展农村饮水安全脱贫攻坚考核工作。
+				</div>
+				<form action="" class="return_con">
+					<p class="return_con_tit">退回意见</p>
+					<textarea name="" class="opinion" placeholder="请输入退回意见..."></textarea>
+					<button type="submit" class="submitBtn">退回</button>
+				</form>
+			</div>
+		</div>			
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			$(".submitBtn").click(function(){
+				var $opinion = $(".opinion").val();
+				if ($.trim($opinion).length < 1) {
+                	mui.toast("请输入退回意见",{ duration:'long', type:'div' });
+                	return false;
+	            } else{
+	            	
+	            }
+			})
+		})
+	</script>
+</html>

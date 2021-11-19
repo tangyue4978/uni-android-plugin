@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--这个是图标库-->
+		<link rel="stylesheet" type="text/css" href="https://at.alicdn.com/t/font_808468_agtywncb2zc.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/rem.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-1.11.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body style="    background: #f8f8f8;">
+		<div class="mui-content">
+			<div class="news">
+				<p class="pp"><i class="mui-action-back iconfont icon-fanhui1 left"></i>请假审批</p>
+
+				<div class="handledetails-content">
+					<div class="handledetails-h">
+						<div class="left leftimg">
+							<img src="" alt="" />
+						</div>
+						<div class="left leftp">
+							<h1>马云</h1>
+							<p>审批通过</p>
+
+						</div>
+						<img class="tongguo" src="images/tongguo.png" alt="" />
+					</div>
+					<div class="handledetails-c">
+						<!--<p><span>审批编号</span>201808241747000583769</p>
+						<p><span>所在部门</span>技术研发部</p>
+						<p><span>请假类型</span>事假</p>
+						<p><span>开始时间</span>2018-07-20 15:00</p>
+						<p><span>结束时间</span>2018-07-20 18:00</p>
+						<p><span>时长(小时)</span>3<a>明细</a></p>
+						<p><span>请假事由</span>个人有事</p>
+						<h3>查看历史记录<i class="iconfont right icon-youjiantou1"></i></h3>-->
+					</div>
+					<div class="handledetails-f">
+						<ul>
+							<li id="li1"><img src="images/qwe.png" />
+								<p>我<span class="span2">07月20日 14:25</span><span class="span1">发起申请</span></p>
+							</li>
+							<!--<li><img src="images/qwe.png" />
+								<p>萨克索<span class="span2">07月20日 14:25</span><span class="span1 spantongyi">已同意</span></p>
+							</li>
+							<li><img src="images/qwe.png" />
+								<p>解放军<span class="span2">07月20日 14:25</span><span class="span1 spantongyi">已同意</span></p>
+							</li>
+							<li><img src="images/qwe.png" />
+								<p>那云<span class="span2">07月20日 14:25</span><span class="span1 spantongyi">已同意</span></p>
+							</li>-->
+						</ul>
+					</div>
+					<div class="handledetails-button">
+						<button onclick="shenpi()">审批</button>
+						<!--<button>撤销</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			var root = localStorage.getItem("str_url");
+			if(root == "" || root == undefined || root == null) {
+				mui.openWindow({
+					url: 'login.html?cid=1', //通过URL传参
+					id: 'login.html?cid=1', //通过URL传参
+				})
+			}
+			var token = localStorage.getItem("token");
+			var flow_id, item_id, type;
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+
+				flow_id = self.flow_id;
+				item_id = self.item_id;
+				type = self.type;
+				console.log(flow_id)
+				console.log(item_id)
+				list(flow_id, item_id)
+			});
+			if(type == 2){
+				$(".handledetails-button").css("display","none")
+			}
+
+			function list(i) {
+				var _url = root + 'api/approval/approvedshow'
+				mui.ajax(_url, {
+					data: {
+						token: token,
+						flow_id: flow_id,
+						item_id: item_id,
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					success: function(data) {
+						console.log(data)
+						if(data.code == 1) {
+							if(data.data.item.length != 0) {
+								if(data.data.item.head_portrait == ''){
+									$(".leftimg img").attr('src', "images/user-photo.jpg")
+								}
+								
+								$("#li1").html('<img src="images/user-photo.jpg" /><p>我<span class="span2">'+data.data.item.apply_at.slice(5)+'</span><span class="span1">发起申请</span>')
+								
+								$(".leftp h1").html(data.data.item.username);
+								if(data.data.item.status == 0) {
+									$(".leftp p").html("待审批");
+									$(".tongguo").css("display", "none")
+								} else {
+									$(".leftp p").html("已审批");
+								}
+								data.data.item.content.forEach(function(v) {
+									$(".handledetails-c").append('<p><span>' + v.name + '</span>' + v.value + '</p>')
+								})
+								data.data.approvalInfors.forEach(function(v) {
+									$(".handledetails-f ul").append('<li><img src="images/user-photo.jpg" /> <p>'+v.approver+'<span class="span2">'+v.approve_at.slice(5)+'</span><span class="span1 spantongyi">'+v.opinion+'</span></p> </li>')
+								})
+							}
+
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						//		console.log(type);
+					}
+				})
+			}
+
+			function shenpi() {
+				mui.openWindow({
+					url: 'handleDetailsHandle.html', //通过URL传参
+					id: 'handleDetailsHandle.html', //通过URL传参
+					extras: {
+						flow_id: flow_id,
+						item_id: item_id,
+					}, 
+				})
+			}
+				window.addEventListener('refresh', function(e) {
+				//执行刷新
+				location.reload();
+
+			});
+		</script>
+		<script src="js/refresh.js" type="text/javascript" charset="utf-8"></script><script src="js/isIphoneX.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>
